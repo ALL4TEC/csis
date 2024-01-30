@@ -1,0 +1,36 @@
+<div class='mt-2'>
+  <div class="w-100 d-flex justify-content-start align-items-center slider slide-in">
+    <div data-bs-toggle='tooltip' title='<%= @scan.scan_type %>' class='ms-1 me-1'>
+      <%= image_tag("logos/#{scan_logo(scan)}", class: "material-icons align-middle md-24 me-2", height: '24px') %>
+    </div>
+  </div>
+  <div class='w-100 d-flex flex-column justify-content-start align-items-center'>
+    <%= yield %>
+  </div>
+  <div class='mt-2 w-100 d-flex flex-wrap fade-in-down'>
+  <%- grouped_occ = scan.occurrences.group_by { |occ| occ.vulnerability.severity } %>
+  <%- Vulnerability.severities.reverse_each do |key, value| %>
+    <%- occurrences = grouped_occ[key.to_s] || [] %>
+    <div class='col mw-100 p-1 d-flex flex-column'>
+      <%- occurrences_count = occurrences.count %>
+      <%- show = occurrences_count.positive? ? 'show' : '' %>
+      <div class='p-1 card-header rounded-0 bg-<%= key %> border-top d-flex justify-content-between align-items-center'>
+        <button class="btn btn-<%= key %> btn-sm p-0" type="button" data-bs-toggle="collapse" data-bs-target='<%= "##{key}_occurrences" %>' aria-expanded="true" aria-controls='<%= "#{key}_occurrences" %>'>
+          <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+          <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+        </button>
+        <span class='badge badge-<%= key %>'><%= Vulnerability.human_attribute_name("severity.#{key}") %></span>
+        <span class='badge badge-<%= key %>'><%= occurrences_count %></span>
+      </div>
+      <div class='mt-1 collapse <%= show %>' id='<%= "#{key}_occurrences" %>'>
+      <%- occurrences.each do |occurrence| %>
+        <%= render 'occurrences/occurrence', occ: occurrence %>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+<%= javascript_packs_with_chunks_tag  'whois', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'occurrence_modal', nonce: true, 'data-turbo-track': 'reload' %>

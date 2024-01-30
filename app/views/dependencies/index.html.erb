@@ -1,0 +1,19 @@
+<% content_for :table do %>
+  <h4><%= t('dependencies.pages.index') %></h4>
+  <br>
+  <%= form_tag updates_action_dependencies_path, method: :post do %>
+    <%= render 'actions/list', actions: @actions %>
+    <div class="form-group" role="group">
+      <div class="row">
+        <div class="col">
+          <% if staff_signed_in? %>
+            <button class="btn btn-outline-primary btn-block" type="submit">
+              <%= t('dependencies.actions.delete') %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

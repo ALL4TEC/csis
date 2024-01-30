@@ -1,0 +1,56 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>WA Scans</caption>
+  <thead>
+    <tr>
+      <th id='wa-scans-status'><%= t('labels.status') %></th>
+      <th id='wa-scans-title'><%= t('reports.labels.scan_name') %></th>
+      <th id='wa-scans-date'><%= t('reports.labels.scan_date') %></th>
+      <th id='wa-scans-targets'><%= t('reports.labels.scan_url') %></th>
+      <th id='wa-scans-screenshot'><%= t('reports.labels.scan_screenshot') %></th>
+      <% if current_user.super_admin? %>
+        <th id='wa-scans-qualys_client' data-export="<%= t('dashboard.labels.has_qualys_client') %>"><i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.has_qualys_client') %>"><%= Icons::MAT[:download] %></i></th>
+      <% end %>
+      <th id='wa-scans-reports' data-export="<%= t('dashboard.labels.linked_to_report') %>">
+        <i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.linked_to_report') %>"><%= Icons::MAT[:reports] %></i>
+      </th>
+      <th id='wa-scans-notexportable' notexportable>
+        <ul class="d-flex justify-content-end float-end pasties w-100">
+          <li>
+            <a role='button' class="badge halo-primary rounded-pill p-1 d-flex align-items-center btn-export" data-name="<%= name %>-content"
+                title="<%= t('labels.export_data') %>" data-bs-toggle='tooltip'>
+              <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:export] %></i>
+            </a>
+          </li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <% wa_scans.each do |scan| %>
+    <tr>
+      <td headers='wa-scans-status' data-export="<%= scan.status %>"><%= render 'partials/scan_status', status: scan.status %></td>
+      <td headers='wa-scans-title'><%= link_to scan.name, scan, class: 'btn' %></td>
+      <td headers='wa-scans-date'><%= I18n.l scan.launched_at, format: :short_dmy %></td>
+      <td headers='wa-scans-targets' data-export='<%= "#{scan.web_app_name}|#{scan.url}" %>'>
+        <%= render 'partials/whois_btn', state: 'success', infos: scan.url, target: domain_name(scan.url) %>
+      </td>
+      <td headers='wa-scans-screenshot' data-export="<%= scan.landing_page.attached? %>">
+        <% if scan.landing_page.attached? %>
+          <%= image_tag(scan.landing_page.variant(:thumb).processed) %>
+        <% else %>
+          <i aria-hidden='true' class="material-icons i_scale" alt="no thumbnail"><%= Icons::MAT[:cloud_off] %></i>
+        <% end %>
+      </td>
+    <% if current_user.super_admin? %>
+      <td headers='wa-scans-qualys_client'>
+        <%= render 'dashboard/qualys_client', scan: scan, kind: 'wa' %>
+      </td>
+    <% end %>
+      <td headers='wa-scans-reports' data-export="<%= scan.reports.present? %>">
+        <%= render 'dashboard/scan_reports', scan: scan %>
+      </td>
+      <td headers='wa-scans-notexportable' notexportable></td>
+    </tr>
+  <% end %>
+  </tbody>
+<% end %>

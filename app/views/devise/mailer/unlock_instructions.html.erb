@@ -1,0 +1,8 @@
+<p><%= t('devise.mailer.unlock_instructions.greeting', recipient: User.find_by(email: @resource.email)) %></p>
+
+<p><%= t('devise.mailer.unlock_instructions.message') %></p>
+
+<p><%= t('devise.mailer.unlock_instructions.instruction') %></p>
+
+<p><%= link_to t('devise.mailer.unlock_instructions.action'), unlock_url(@resource, unlock_token: @token) %></p>
+<p><%= I18n.t('mailer.content.polite') %></p>

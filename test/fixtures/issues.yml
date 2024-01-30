@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+issue_m42:
+  ticketable_id: 'd660895c-399e-43db-a7c2-7d395f35036f'
+  ticketable_type: Account
+  action: action_one
+  status: 1
+
+issue_snc:
+  ticketable_id: '6ac7e80e-fc2a-520a-9307-727efb365ed7'
+  ticketable_type: Account
+  action: action_one
+  status: 1
+
+issue_jc:
+  ticketable_id: 'd59389b0-f973-11ed-a9a5-24418c13e8f4'
+  ticketable_type: Account
+  action: action_one
+  status: 1

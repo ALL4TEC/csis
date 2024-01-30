@@ -1,0 +1,69 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+vm_scan_one:
+  reference: 'Ref1'
+  scan_type: 'Type'
+  status: 'State'
+  name: 'Scan 1'
+  launched_by: 'User'
+  duration: '00:11:11'
+  launched_at: '2150-04-23T00:00:00Z'
+  account: qc_one
+  qualys_vm_client: qvc_one
+
+vm_scan_two:
+  reference: 'Ref2'
+  scan_type: 'Type'
+  status: 'State'
+  name: 'Scan 2'
+  launched_by: 'User'
+  duration: '00:22:22'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_vm_client: qvc_one
+
+vm_scan_three:
+  reference: 'scan/123456789.45789'
+  scan_type: 'Scheduled'
+  status: 'Finished'
+  name: 'Scan 3'
+  launched_by: 'User'
+  duration: '00:22:22'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_vm_client: qvc_one
+
+vm_scan_auto:
+  reference: 'Ref3'
+  scan_type: 'Type'
+  status: 'State'
+  name: 'Scan name'
+  launched_by: 'User'
+  duration: '00:22:22'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_vm_client: qvc_one
+
+vm_scan_four:
+  reference: '123456789'
+  scan_type: 'Cyberwatch'
+  status: 'Finished'
+  name: 'Cyberwatch : 3'
+  launched_by: 'User'
+  duration: '00:22:22'
+  launched_at: '2050-04-22T00:00:00Z'
+  account: cbw_one
+
+vm_scan_five:
+  reference: '789456123'
+  scan_type: 'Cyberwatch'
+  status: 'Finished'
+  name: 'Cyberwatch : 4'
+  launched_by: 'User'
+  duration: '00:22:22'
+  launched_at: '2008-04-22T00:00:00Z'
+  account: cbw_one

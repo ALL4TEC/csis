@@ -1,0 +1,43 @@
+--- !ruby/object:Sellsy::Contact
+  last_name: JP
+  first_name: Koff
+  phone_fixed: 
+  phone_mobile: !ruby/object:Phonelib::Phone
+    original: "+33777777777"
+    extension: ''
+    sanitized: '33777777777'
+    original_s: "+33777777777"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '777777777'
+        :format: &2
+          :pattern: "(\\d)(\\d{2})(\\d{2})(\\d{2})(\\d{2})"
+          :national_prefix_formatting_rule: "$NP$FG"
+          :leading_digits: "[1-79]"
+          :format: "$1 $2 $3 $4 $5"
+        :valid:
+        - :mobile
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '777777777'
+  email: JP@Koff.fr
+  gender: man
+  role: Président
+  birthdate: ''
+  third_id: 23456789
+  id: 23456789
+  people_id: 23456789
+  full_name: Mr JP KOFF
+  corporation_id: '23456'
+  picture: ''
+  client_ids: [12345678]

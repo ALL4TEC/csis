@@ -1,0 +1,22 @@
+<div class='d-flex align-items-center'>
+  <%- type ||= user.current_group_name %>
+  <%- policy = policy_from_user_type(type, user, local_assigns) %>
+  <%- is_admin = policy&.admin? %>
+  <%- padding_left = is_admin ? '' : 'ps-0' %>
+  <%- margin_left = padding_left.present? ? '' : 'ms-1' %>
+  <div class='badge halo-light rounded-pill <%= padding_left %> pt-0 pb-0 pe-0 d-flex align-items-center'>
+    <%= render 'users/states', user: user, icon: Icons::MAT[type.pluralize.to_sym] if is_admin %>
+    <%= render 'users/indicators', user: user if indicators && is_admin %>
+    <% if link %>
+    <%- url = policy&.show? ? send("#{type}_url", user) : '' %>
+    <a href='<%= url %>' class='<%= margin_left %> p-2 badge badge-grey-l rounded-pill d-inline-flex align-items-center'>
+      <span class='username'><%= user.full_name %></span>
+    </a>
+    <% else %>
+      <div class='p-2 badge badge-grey-l rounded-pill d-inline-flex align-items-center'>
+        <span class='username'><%= user.full_name %></span>
+      </div>
+    <% end %>
+  </div>
+  <%= render('users/gpg', user: user, clazz: 'ms-1') if gpg %>
+</div>

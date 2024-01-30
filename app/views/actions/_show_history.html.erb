@@ -1,0 +1,56 @@
+<% content_for :header, flush: true do %>
+  <h5 class="card-title"><%= t('actions.labels.history') %></h5>
+<% end %>
+<% content_for :body, flush: true do %>
+  <div class="table-responsive" data-controller="filter">
+    <table class="table table-actions table-hover">
+      <caption>Action aggregates</caption>
+      <thead>
+        <tr>
+          <th id='show-aggregate-title' class="th-agg-title">
+            <%= t('simple_form.labels.labels.title') %>
+          </th>
+          <th id='show-aggregate-status' class="th-agg-status">
+            <%= t('simple_form.labels.labels.status') %>
+          </th>
+          <th id='show-aggregate-report' class="th-agg-report">
+            <%= t('simple_form.labels.labels.report') %>
+          </th>
+          <th id='show-aggregate-created-at' class="th-act-created-at">
+            <%= t('simple_form.labels.labels.created_at') %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @action.aggregates.each do |a| %>
+          <tr>
+            <td headers='show-aggregate-title'>
+              <div class="p-2 bg-<%= a.kind %>">
+              <%= link_to_if(staff_signed_in?, a.title, a) do %>
+                <%= a.title %>
+              <% end %>
+              </div>
+            </td>
+            <td headers='show-aggregate-status' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name("severity.#{a.severity}") %>">
+              <div class="p-2 status bg-<%= a.severity %> align-middle">
+              <i aria-hidden='true' class='material-icons align-middle'><%= kind_icon(a.status) %></i>
+              <%= Aggregate.human_attribute_name("status.#{a.status}") %>
+            </td>
+            <% report = a.report %>
+            <td headers='show-aggregate-report' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t('statistics.current_level.' + report.level) %>'>
+              <div class='d-flex'>
+                <%= link_to_if(staff_signed_in?, report.title, report, class: 'link-block') do %>
+                  <%= report.title %>
+                <% end %>
+              </div>
+            </td>
+            <td headers='show-aggregate-created-at'>
+              <%= l a.created_at, format: :classic %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<%= render partial: 'layouts/card_collapsible', locals: { id: 'history', bg_color: 'secondary' } %>

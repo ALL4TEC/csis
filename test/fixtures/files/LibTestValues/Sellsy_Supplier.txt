@@ -1,0 +1,115 @@
+--- !ruby/object:Sellsy::Supplier
+  id: 11111111
+  third_id: 
+  owner_id: 11111
+  corporation_id: 11111
+  relationType: supplier
+  name: VIP BZH
+  full_name: VIP BZH
+  email: bzh@vip.brz
+  website_url: 
+  phone_fixed: !ruby/object:Phonelib::Phone
+    original: "+33111111111"
+    extension: ''
+    sanitized: '33111111111'
+    original_s: "+33111111111"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '111111111'
+        :format:
+        :valid:
+        - :fixed_line
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '111111111'
+  fax: !ruby/object:Phonelib::Phone
+    original: "+33111111111"
+    extension: ''
+    sanitized: '33111111111'
+    original_s: "+33111111111"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '111111111'
+        :format: 
+        :valid:
+        - :fixed_line
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '111111111'
+  phone_mobile: !ruby/object:Phonelib::Phone
+    original: ''
+    extension: ''
+    sanitized: ''
+    data: {}
+  apenaf: ''
+  rcs: ''
+  siret: ''
+  siren: ''
+  vat_number: ''
+  address:
+    id: 22222222
+    name: Bureau
+    first_line: VIP
+    second_line: Coin VIP
+    third_line:
+    fourth_line:
+    zipcode: '22222'
+    city: Vannes
+    state: ''
+    latitude:
+    longitude:
+    country_code: FR
+  delivery_address:
+    id: 22222222
+    name: Bureau
+    first_line: VIP
+    second_line: Coin VIP
+    third_line: 
+    fourth_line: 
+    zipcode: '22222'
+    city: Vannes
+    state: ''
+    latitude: 
+    longitude: 
+    country_code: FR
+  avatar:
+    type:
+  avatar_url: https://vip.png
+  type: corporation
+  capital: 'paris?'
+  joined_at: 2017-07-27 16:13:58.000000000 +02:00
+  aux_code: ''
+  accounting_code: ''
+  sticky_note: ''
+  ident: ''
+  rate_category: '0'
+  picture: https://vip.png
+  corporation_type: ''
+  main_contact_id: 
+  main_contact:
+  active: true
+  massmailing_unsubscribed: false
+  massmailing_unsubscribed_sms: false
+  phoning_unsubscribed: false
+  massmailing_unsubscribed_mail: false
+  massmailing_unsubscribed_custom: false

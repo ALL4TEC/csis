@@ -1,0 +1,11 @@
+<%- clazz = 'badge halo-light rounded-pill text-dark p-2 pt-0 pb-0 d-inline-flex align-items-center' %>
+<% if link %>
+  <%= link_to(group, class: clazz) do %>
+    <%= render 'partials/discarded', discardable: group, icon: Icons::MAT[group.class.name.pluralize.downcase.to_sym] if policy(group).admin? %>
+    <span class='ms-1 groupname'><%= group.name %></span>
+  <% end %>
+<% else %>
+  <div class="<%= clazz %>">
+    <span class='ms-1 groupname'><%= group.name %></span>
+  </div>
+<% end %>

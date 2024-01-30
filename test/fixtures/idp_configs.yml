@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+idp_one:
+  name: "First IDP"
+  idp_metadata_url: "http://somewhere.com"
+  active: true
+idp_two:
+  name: "Second IDP"
+  idp_metadata_url: "url2"
+  idp_entity_id: "id2"
+  active: false

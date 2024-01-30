@@ -1,0 +1,38 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.asset.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :description_eq, @q_base.filter_map(&:description).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.asset.description'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :os_eq, @q_base.filter_map(&:os).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.asset.os'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opt = Asset.confidentialities_select %>
+    <%= render 'partials/multiple_select', target: 'confidentiality', title: t('activerecord.attributes.asset.confidentiality'), id: "assets_filters_confidentiality" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'
+        data-content='<span class="d-flex align-items-center text-<%#= kind_color(key) %>"><i aria-hidden="true" class="material-icons align-middle me-1"><%#= kind_icon(key) %></i><%= Asset.human_attribute_name("confidentiality.#{key}") %></span>'></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = Asset.integrities_select %>
+    <%= render 'partials/multiple_select', target: 'integrity', title: t('activerecord.attributes.asset.integrity'), id: "assets_filters_integrity" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'
+        data-content='<span class="d-flex align-items-center text-<%#= kind_color(key) %>"><i aria-hidden="true" class="material-icons align-middle me-1"><%#= kind_icon(key) %></i><%= Asset.human_attribute_name("integrity.#{key}") %></span>'></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = Asset.availabilities_select %>
+    <%= render 'partials/multiple_select', target: 'availability', title: t('activerecord.attributes.asset.availability'), id: "assets_filters_availability" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'
+        data-content='<span class="d-flex align-items-center text-<%#= kind_color(key) %>"><i aria-hidden="true" class="material-icons align-middle me-1"><%#= kind_icon(key) %></i><%= Asset.human_attribute_name("availability.#{key}") %></span>'></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

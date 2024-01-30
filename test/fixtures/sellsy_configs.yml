@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+one:
+  name: First
+  # Not very clean but best solution found yet
+  encrypted_consumer_token: "<%= @secret = SellsyConfig.new(consumer_token: '123454787'); @secret.encrypted_consumer_token %>"
+  encrypted_consumer_token_iv: "<%= @secret.encrypted_consumer_token_iv %>"
+  encrypted_user_token: "<%= @secret = SellsyConfig.new(user_token: '48765461351'); @secret.encrypted_user_token %>"
+  encrypted_user_token_iv: "<%= @secret.encrypted_user_token_iv %>"
+  encrypted_consumer_secret: "<%= @secret = SellsyConfig.new(consumer_secret: '123454787'); @secret.encrypted_consumer_secret %>"
+  encrypted_consumer_secret_iv: "<%= @secret.encrypted_consumer_secret_iv %>"
+  encrypted_user_secret: "<%= @secret = SellsyConfig.new(user_secret: '48765461351'); @secret.encrypted_user_secret %>"
+  encrypted_user_secret_iv: "<%= @secret.encrypted_user_secret_iv %>"
+
+two:
+  name: Second
+  encrypted_consumer_token: "<%= @secret = SellsyConfig.new(consumer_token: '1234547879'); @secret.encrypted_consumer_token %>"
+  encrypted_consumer_token_iv: "<%= @secret.encrypted_consumer_token_iv %>"
+  encrypted_user_token: "<%= @secret = SellsyConfig.new(user_token: '487654613514'); @secret.encrypted_user_token %>"
+  encrypted_user_token_iv: "<%= @secret.encrypted_user_token_iv %>"
+  encrypted_consumer_secret: "<%= @secret = SellsyConfig.new(consumer_secret: '1234547872'); @secret.encrypted_consumer_secret %>"
+  encrypted_consumer_secret_iv: "<%= @secret.encrypted_consumer_secret_iv %>"
+  encrypted_user_secret: "<%= @secret = SellsyConfig.new(user_secret: '487654613517'); @secret.encrypted_user_secret %>"
+  encrypted_user_secret_iv: "<%= @secret.encrypted_user_secret_iv %>"

@@ -1,0 +1,16 @@
+<div id='managing_contents' data-contents="<%= @contents.map { |c| res = c.as_json(except: [:aggregate_id, :rank])
+      if c.image.attached?
+        res.merge({ image: rails_blob_path(c.image), preview: 'preview-zone show'})
+      else
+        res.merge({ image: nil, preview: 'preview-zone hide'})
+      end
+      }.to_json %>"
+      data-icons-delete="<%= Icons::MAT[:delete] %>"
+      data-icons-add="<%= Icons::MAT[:add] %>"
+      data-icons-undo="<%= Icons::MAT[:undo] %>"
+      data-i18n-contents="<%= I18n.t('aggregates.labels.contents') %>"
+      data-i18n-labels-dropzone="<%= I18n.t('contents.labels.dropzone') %>"
+      data-i18n-labels-preview="<%= I18n.t('contents.labels.preview') %>"
+      data-i18n-labels-text="<%= I18n.t('contents.labels.text') %>"
+      data-i18n-labels-image="<%= I18n.t('contents.labels.image') %>"
+      data-i18n-labels-removed="<%= I18n.t('contents.labels.removed') %>"></div>

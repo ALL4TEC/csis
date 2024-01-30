@@ -1,0 +1,101 @@
+<%- list = targets.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Targets</caption>
+    <thead>
+      <tr>
+        <% if list %>
+        <th id='targets-name'>
+          <%= sort_link_unless(@q.nil?, @q, :name) do %>
+            <%= t('activerecord.attributes.targets.name') %>
+          <% end %>
+        </th>
+        <% else %>
+        <th id='targets-reference-id'><%= t('targets.labels.reference_id') %></th>
+        <% end %>
+        <th id='targets-ip'><%= t('targets.labels.ip') %></th>
+        <th id='targets-url'><%= t('targets.labels.url') %></th>
+        <th id='targets-assets'><%= t('models.assets') %></th>
+        <th id='targets-created-at'>
+          <%= sort_link_unless(@q.nil?, @q, :created_at) do %>
+            <%= t('dashboard.labels.created_at') %>
+          <% end %>
+        </th>
+        <th id='targets-updated-at'>
+          <%= sort_link_unless(@q.nil?, @q, :updated_at) do %>
+            <%= t('dashboard.labels.updated_at') %>
+          <% end %>
+        </th>
+        <% unless list %>
+        <th id='targets-vm-scans'><%= t('targets.labels.last_scans') %> VM</th>
+        <th id='targets-wa-scans'><%= t('targets.labels.last_scans') %> WA</th>
+        <% end %>
+        <th id='targets-btn'>
+        <% if list %>
+          <%= render 'partials/c_btn', policy: policy(Target) %>
+        <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <%- scoped_assets = policy_scope(Asset) %>
+    <%- scoped_projects = policy_scope(Project) %>
+    <% targets.each do |target| %>
+      <% kind = target.kind == 'WaTarget' ? 'applicative' : 'system' %>
+      <tr class="line-hover-<%= kind %>">
+        <% if list %>
+        <td>
+          <% if trashed %>
+            <%= target.name %>
+          <% else %>
+            <%= link_to(target.name, target, class: 'link-block no-deco') %>
+          <% end %>
+        </td>
+        <% else %>
+        <td headers='targets-reference-id'><%= target.reference_id %></td>
+        <% end %>
+        <td headers='targets-ip'><%= target.ip %></td>
+        <td headers='targets-url'><%= target.url %></td>
+        <td headers='targets-assets'>
+          <% unless target.assets.nil? %>
+          <ul>
+            <% target.assets.each do |asset| %>
+              <li>
+                <%= render 'groups/group_badge', group: asset, link: asset.in?(scoped_assets) %>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='targets-created-at'>
+          <%= I18n.l target.created_at, format: :short_dmy %>
+        </td>
+        <td headers='targets-updated-at'>
+          <%= I18n.l target.updated_at, format: :short_dmy %>
+        </td>
+        <% unless list %>
+        <td headers='targets-vm-scans'>
+          <ul>
+          <% @target.vm_scans.order(:created_at).limit(5).each do |scan| %>
+            <li><%= link_to scan, scan, class: 'btn btn-system' %></li>
+          <% end %>
+          </ul>
+        </td>
+        <td headers='targets-wa-scans'>
+          <ul>
+          <% @target.wa_scans.order(:created_at).limit(5).each do |scan| %>
+            <li><%= link_to scan, scan, class: 'btn btn-applicative' %></li>
+          <% end %>
+          </ul>
+        </td>
+        <% end %>
+        <td headers='targets-btn'>
+        <% if list %>
+          <%= render 'partials/actions_btns', policy: policy(target), resource: target, discardable: true, klazz: 'target' %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

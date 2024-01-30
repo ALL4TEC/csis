@@ -1,0 +1,3 @@
+<%= button_tag(name: :view, value: ary[0], class: "btn btn-#{params[:view] == ary[0].to_s ? 'primary' : 'secondary'}", disabled: ary[2]) do %>
+  <%= t("statistics.labels.#{ary[1]}") %>
+<% end %>

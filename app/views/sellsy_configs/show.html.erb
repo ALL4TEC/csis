@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <caption>Sellsy Configuration</caption>
+      <thead>
+        <tr>
+          <th id='sellsy-config-consumer_token'>CONSUMER_TOKEN</th>
+          <th id='sellsy-config-user_token'>USER_TOKEN</th>
+          <th id='sellsy-config-consumer_secret'>CONSUMER_SECRET</th>
+          <th id='sellsy-config-user_secret'>USER_SECRET</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td headers='sellsy-config-consumer_token'>***</td>
+          <td headers='sellsy-config-user_token'>***</td>
+          <td headers='sellsy-config-consumer_secret'>***</td>
+          <td headers='sellsy-config-user_secret'>***</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'sellsy_imports', header: t('settings.labels.import_all'), count: nil } do %>
+  <div class="d-flex flex-row justify-content-around flex-wrap">
+    <div class="d-flex flex-column align-items-center flex-wrap w-50">
+    <%= form_tag({ action: :import, sellsy_config_id: @sellsy_config.id }, method: :post) do %>
+      <%= submit_tag(t('settings.buttons.sellsy_import'), class: 'btn btn-outline-primary') %>
+    <% end %>
+    </div>
+  </div>
+<% end %>

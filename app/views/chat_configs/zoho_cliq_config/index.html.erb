@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'chat_configs/zoho_cliq_config/list', zoho_cliq_configs: @chat_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

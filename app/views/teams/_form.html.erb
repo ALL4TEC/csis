@@ -1,0 +1,19 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(team) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :staffs, collection: policy_scope(:staff).decorate, as: :check_boxes,
+                                   label_method: :full_name_and_email, value_method: :id,
+                                   disabled: ->(staff) { current_user?(staff) && !current_user.super_admin? } %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_form_footer f %>
+<% end %>

@@ -1,0 +1,9 @@
+<div class='d-flex flex-column align-items-center justify-content-center notification_configuration-col' data-bs-toggle='tooltip' title='<%= t('user_profile.notifications.in_app') %>'>
+  <i class='material-icons align-middle' aria-hidden='true'><%= Icons::MAT[:notif_new] %></i>
+  <%- notify_on_all_checked = Set.new(current_user.notify_on.filter(&:present?)) == Set.new(Notification.subjects.keys) %>
+  <input type='checkbox' name='user[notify_on][]' value='' checked class='d-none'>
+  <div class='form-check form-switch ms-1'>
+    <input type="checkbox" data-action="checker#checkAll" data-source="check-all-notify" id="check-all-notify" class='form-check-input' <%= notify_on_all_checked ? 'checked' : '' %>>
+    <label class="form-check-label" for='check-all-notify'></label>
+  </div>
+</div>

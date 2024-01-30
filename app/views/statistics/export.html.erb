@@ -1,0 +1,9 @@
+<%= form_tag statistics_export_path(format: :csv), method: :post do %>
+  <div id='statistic_exports' data-objects="<%= @objects %>"
+    data-i18n-object="<%= I18n.t('statistics.exports.labels.object') %>"
+    data-i18n-columns="<%= I18n.t('statistics.exports.labels.columns') %>"
+    data-i18n-export="<%= I18n.t('statistics.exports.labels.export') %>"
+    data-icons-export="<%= Icons::MAT[:export] %>"></div>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'statistic_exports', nonce: true, 'data-turbo-track': 'reload' %>

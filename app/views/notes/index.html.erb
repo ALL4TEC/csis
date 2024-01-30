@@ -1,0 +1,11 @@
+<% content_for :table do %>
+  <%= pagination = paginate @notes %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: 'notes', header: t('notes.labels.actives'), count: @notes.kept.count } do %>
+      <%= render 'notes/list', notes: @notes, trashed: false %>
+    <% end %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: 'discarded_notes', bg_color: 'danger', icon: :delete, header: t('notes.labels.deleted'), count: @notes.discarded.count } do %>
+      <%= render 'notes/list', notes: @notes, trashed: true %>
+    <% end %>
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

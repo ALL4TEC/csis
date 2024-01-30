@@ -1,0 +1,131 @@
+<% content_for :table do %>
+  <%= pagination = paginate @versions %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <caption>Audit logs</caption>
+      <thead>
+        <tr>
+          <th id='audit-logs-user'>
+            <%= t('audit_logs.labels.user') %>
+          </th>
+          <th id='audit-logs-model'>
+            <%= t('audit_logs.labels.model') %>
+          </th>
+          <th id='audit-logs-action'>
+            <%= t('audit_logs.labels.action') %>
+          </th>
+          <th id='audit-logs-change'>
+            <%= t('audit_logs.labels.changement') %>
+          </th>
+          <th id='audit-logs-date'>
+            <%= t('audit_logs.labels.date') %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @versions.each do |version| %>
+          <% begin %>
+            <% author = User.find_by(id: version.whodunnit) %>
+            <% if version.whodunnit.nil? %>
+              <% author = 'Auto' %>
+            <% else %>
+              <% if author.blank? %>
+                <% author = version.whodunnit %>
+              <% else %>
+                <% author = author.full_name %>
+              <% end %>
+            <% end %>
+            <tr>
+              <td headers='audit-logs-user'>
+                <%= author %>
+              </td>
+              <td headers='audit-logs-model'>
+                <%= I18n.t("simple_form.labels.action.#{version.item_type.downcase}", default: "[#{version.item_type.downcase}]") %>
+              </td>
+              <td headers='audit-logs-action'>
+                <i class='material-icons align-middle' data-toggle='tooltip' title='<%= I18n.t("simple_form.labels.action.#{version.event}", default: "[#{version.event}]") %>'>
+                  <%= event_icon(version.event) %>
+                </i>
+              </td>
+              <td headers='audit-logs-change' class='audit_change'>
+                <ul>
+                    <% case version.event %>
+                    <% when 'create' %>
+                      <% version.changeset.each do |change| %>
+                        <% unless change[0].ends_with?("_at") %>
+                          <% if change[0].ends_with?("_id") && !(change[0] === 'internal_id') %>
+                          <% case change[0] %>
+                            <% when 'receiver_id' %>
+                              <% klass = 'Contact' %>
+                            <% when 'author_id' %>
+                              <% klass = 'Staff' %>
+                            <% when 'predecessor_id', 'successor_id' %>
+                              <% klass = 'Action' %>
+                            <% else %>
+                              <% klass = change[0].chomp('_id').capitalize %>
+                            <% end %>
+
+                            <% if klass.include? 'Qualys' %>
+
+                            <% elsif klass.singularize.classify.constantize.column_names.include? 'discarded_at' %>
+                              <% obj = change[1][1].nil? ? nil : klass.singularize.classify.constantize.with_discarded.find(change[1][1]) %>
+                            <% else %>
+                              <% obj = change[1][1].nil? ? nil : klass.singularize.classify.constantize.find(change[1][1]) %>
+                            <% end %>
+                            <>
+                            <li><%= I18n.t("simple_form.labels.labels.#{klass.downcase}", default: "[#{klass.downcase}]") %> : <%= obj %></li>
+                          <% else %>
+                            <li><%= I18n.t("simple_form.labels.labels.#{change[0]}", default: "[#{change[0]}]") %> : <%= change[1][1] %></li>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% when 'update' %>
+                      <% version.changeset.each do |change| %>
+                        <% unless change[0].ends_with?("_at") %>
+                          <% if change[0].ends_with?("_id") %>
+                            <% case change[0] %>
+                            <% when 'receiver_id', 'internal_id' %>
+                              <% klass = 'Contact' %>
+                            <% when 'author_id' %>
+                              <% klass = 'Staff' %>
+                            <% when 'predecessor_id', 'successor_id' %>
+                              <% klass = 'Action' %>
+                            <% else %>
+                              <% klass = change[0].chomp('_id').capitalize %>
+                            <% end %>
+                            <% if klass.singularize.classify.constantize.column_names.include? 'discarded_at' %>
+                              <% prev_obj = change[1][0].nil? ? nil : klass.singularize.classify.constantize.with_discarded.find(change[1][0]) %>
+                              <% obj = change[1][1].nil? ? nil : klass.singularize.classify.constantize.with_discarded.find(change[1][1]) %>
+                            <% else %>
+                              <% prev_obj = change[1][0].nil? ? nil : klass.singularize.classify.constantize.find(change[1][0]) %>
+                              <% obj = change[1][1].nil? ? nil : klass.singularize.classify.constantize.find(change[1][1]) %>
+                            <% end %>
+                            <li><%= I18n.t("simple_form.labels.labels.#{klass.downcase}", default: "[#{klass.downcase}]") %> : <%= prev_obj %> <strong>to</strong> <%= obj %></li>
+                          <% else %>
+                            <li><%= I18n.t("simple_form.labels.labels.#{change[0].downcase}", default: "[#{change[0].downcase}]") %> : <%= change[1][0] %> <strong>to</strong> <%= change[1][1] %></li>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% when 'discard', 'undiscard' %>
+                      <% array_info = version.object_changes.split(',') %>
+                      <% klass = version.item_type %>
+                      <% id = version.item_id.present? ? version.item_id : (version.object.present? ? version.object[/id: (.*)\n/, 1] : array_info[1]) %>
+                      <li>id : <%= id %></li>
+                      <li>name : <%= id.nil? ? nil : klass.singularize.classify.constantize.with_discarded.find(id).to_s %> </li>
+                    <% end %>
+                </ul>
+              </td>
+              <td headers='audit-logs-date'>
+                <%= l version.created_at, format: :audit %>
+              </td>
+            </tr>
+          <% rescue %>
+            <%= logger.warn 'error: incorrect audit_log : ' + version.id.to_s %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

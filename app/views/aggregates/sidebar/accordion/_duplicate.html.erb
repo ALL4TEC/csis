@@ -1,0 +1,19 @@
+<div class='w-100 h-100 d-flex flex-column align-items-center justify-content-center p-2' id='aggregates_duplication'>
+  <div class='w-100 d-flex align-items-center justify-content-center'>
+    <% opts = policy_scope(Report) %>
+    <%= render 'partials/multiple_select', name: 'aggregates_duplication', title: t('aggregates.duplicate.select'), id: "duplicate-reports-select" do %>
+      <% opts.each do |report| %>
+      <option value='<%= report.id %>' class="bg-<%= level_color(report.level) %>" data-subtext="<%= report.project %>">
+        <%= report.title %>
+      </option>
+      <% end %>
+    <% end %>
+    <a role='button' class='ms-2 btn btn-sm btn-primary' id='duplicate-aggregates-btn' data-bs-toggle='tooltip' title="<%= t('aggregates.duplicate.action') %>">
+      <i aria-hidden='true' class='material-icons align-middle mb-0'><%= Icons::MAT[:duplicate] %></i>
+    </a>
+  </div>
+  <div id='duplicate-aggregates-response' class='d-none'>
+    <i aria-hidden='true' class='material-icons align-middle'></i>
+    <span></span>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<% if @graphs.present? %>
+  <div class='w-100 h-100 d-flex flex-wrap align-items-center justify-content-center'>
+    <% @graphs.each_with_index do |graph, i| %>
+      <div class='m-1 statistics-card'>
+        <div class='card-header line-<%= graph[:agg_kind].presence || 'secondary text-white' %>'>
+          <%= graph[:title] %>
+        </div>
+        <div class='card-body'>
+          <%- suffix = graph[:kind] == :pie ? '%' : '' %>
+          <%- donut = graph[:kind] == :pie ? true : false %>
+          <%= send("#{graph[:kind]}_chart", *[graph[:data], download: true, donut: donut, suffix: suffix, colors: graph[:colors], messages: { empty: t("charts.no_#{graph[:empty]}") }]) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

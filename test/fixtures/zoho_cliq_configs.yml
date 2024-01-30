@@ -1,0 +1,11 @@
+zoho_cliq_config_one:
+  name: 'zcc1'
+  url: 'url1'
+  type: 'ZohoCliqConfig'
+  creator: staffuser
+
+zoho_cliq_config_two:
+  name: 'zcc2'
+  url: 'url2'
+  type: 'ZohoCliqConfig'
+  creator: staffuser

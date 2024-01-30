@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+scan_configuration_one:
+  launcher: staffuser
+  scanner: 0
+  scan_name: 'zaproxy: http://something'
+  scan_type: 'zap-full-scan'
+  target: http://something
+  auto_import: false
+
+scan_configuration_two:
+  launcher: staffuser
+  scanner: 0
+  scan_type: 'zap-baseline-scan'
+  scan_name: 'Zap: something'
+  target: http://something
+  auto_import: false
+  auto_aggregate: true
+  auto_aggregate_mixing: true

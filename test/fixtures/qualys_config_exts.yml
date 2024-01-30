@@ -1,0 +1,11 @@
+qce_one:
+  qualys_config: qc_one
+  kind: consultants
+
+qce_two:
+  qualys_config: qc_two
+  kind: consultants
+
+qce_three:
+  qualys_config: qc_express
+  kind: express

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <caption>Qualys Client</caption>
+        <thead>
+          <tr>
+            <th id='qualys-client-qualys_id'><%= t('qualys_clients.labels.qualys_id') %></th>
+            <th id='qualys-client-name'><%= t('qualys_clients.labels.qualys_name') %></th>
+            <th id='qualys-client-qualys_config'><%= t('qualys_clients.labels.qualys_config') %></th>
+            <th id='qualys-client-teams'><%= t('qualys_clients.labels.teams') %></th>
+            <th id='qualys-client-scans'><%= t('qualys_clients.labels.last_scans') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td headers='qualys-client-qualys_id'><%= qualys_client.qualys_id %></td>
+            <td headers='qualys-client-name'><%= qualys_client.qualys_name %></td>
+            <td headers='qualys-client-qualys_config'>
+              <%= link_to(qualys_client.qualys_config, qualys_client.qualys_config, class: 'link-block') %>
+            </td>
+            <td headers='qualys-client-teams'>
+              <% qualys_client.teams.each do |team| %>
+                <%= link_to(team.name, team, class: 'link-block') %>
+              <% end %>
+            </td>
+            <td headers='qualys-client-scans'>
+              <details>
+              <summary><span class='badge badge-primary'><%= qualys_client.scans.count %></span></summary>
+              <ul>
+              <% qualys_client.scans.each do |scan| %>
+                <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn' %></li>
+              <% end %>
+              </ul>
+              </details>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

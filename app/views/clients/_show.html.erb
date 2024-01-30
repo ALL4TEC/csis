@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Client</caption>
+    <thead>
+      <tr>
+        <th id='client-relation_type'><%= t('clients.labels.relation_type') %></th>
+        <th id='client-ref_identifier'>
+          <% unless client.ref_identifier.blank? %>
+            <%= t('clients.labels.ref_identifier') %>
+          <% end %>
+        </th>
+        <th id='client-web_url'>
+          <% unless client.web_url.blank? %>
+            <%= t('clients.labels.web_url') %>
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td headers='client-relation_type'><%= t("clients.labels.internal_type.#{client.internal_type}") %></td>
+        <td headers='client-ref_identifier'><%= client.ref_identifier %></td>
+        <td headers='client-web_url'>
+          <%= link_to_unless(client.web_url.blank?, client.web_url, client.web_url, class: 'link-block', target: '_blank', rel: 'noopener noreferrer') %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

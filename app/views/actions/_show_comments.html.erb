@@ -1,0 +1,74 @@
+<% content_for :header, flush: true do %>
+  <h5 class="card-title"><%= t('models.comments') %></h5>
+<% end %>
+<% content_for :body, flush: true do %>
+  <% if @comments.exists? %>
+    <%= pagination = paginate @comments %>
+    <% @last_user_id = nil %>
+    <% @last_day = nil %>
+      <% @comments.each do |comment| %>
+        <% message_author = "alt" if comment.author_id == current_user.id %>
+        <% follow = "follow" if comment.author_id == @last_user_id %>
+        <% arrow = "alt" if comment.author_id == current_user.id %>
+        <% @current_day = l comment.created_at, format: :message_day %>
+        <% @last_user_id = comment.author_id %>
+        <% if @current_day != @last_day %>
+          <div class="msg">
+              <div class="title">
+                <%= @current_day  %>
+                <% @last_day = @current_day %>
+                <% follow = "" %>
+              </div>
+          </div>
+        <% end %>
+        <div class="msg">
+          <div class="bubble <%= message_author %><%= follow %>">
+            <div class="txt">
+              <% if (follow != "follow" && message_author != 'alt') %>
+                <% author = comment.author %>
+                <% author_name = author.present? ? author.decorate.full_name_and_email : t('comments.labels.user_not_found') %>
+                <span class="name <%= message_author %>" data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= author_name %>'>
+                    <% if author.present? %>
+                      <span>
+                        <% if author.avatar_url.blank? %>
+                          <i aria-hidden='true' class="material-icons align-middle text-white"><%= Icons::MAT[:verified] %></i>
+                        <% else %>
+                          <%= image_tag(author.avatar_url, alt: author.full_name, class: 'bg-dark rounded-circle staff') %>
+                        <% end %>
+
+                        <%= link_to_if(staff_signed_in?, author.full_name, author, class: 'link-block') do %>
+                          <%= author.full_name %>
+                        <% end %>
+                        <%- type ||= author.current_group_name %>
+                        <%- types = type.pluralize %>
+                        <%- state_clazz = author.discarded? ? 'text-danger' : state_color(author.state) %>
+                        <i aria-hidden='true' class="material-icons align-middle <%= state_clazz %>" data-bs-toggle="<%= author.discarded? ? '' : 'tooltip' %>" data-bs-placement="right" title='<%= t("models.#{type}") + " / " + ApplicationRecord.human_attribute_name(author.state.to_s) %>'><%= Icons::MAT[types.to_sym] %></i>
+                      </span>
+                    <% else %>
+                      <%= t('comments.labels.user_not_found') %>
+                    <% end %>
+                </span>
+              <% end %>
+              <span class="message <%= follow %>">
+                <%= sanitize comment.comment %>
+              </span>
+              <span class="timestamp"><%= l comment.created_at, format: :message_hour %></span>
+              </div>
+            <% if follow != "follow" %>
+              <div class="bubble-arrow <%= arrow %>"></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <%= pagination %>
+  <% end %>
+  <%= simple_form_for(@comment, url: comment_action_path(@action), method: :post) do |f| %>
+  <div class='m-2'>
+    <%= f.input :comment, label: t('comments.actions.add') %>
+  </div>
+  <div class="m-2">
+    <%= ui_form_footer f %>
+  </div>
+  <% end %>
+<% end %>
+<%= render partial: 'layouts/card_collapsible', locals: { id: 'comments', bg_color: 'secondary' } %>

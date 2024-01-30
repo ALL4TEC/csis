@@ -1,0 +1,34 @@
+<%= javascript_packs_with_chunks_tag  'clip', nonce: true, 'data-turbo-track': 'reload' %>
+
+<% content_for :sidebar_content_opened do %>
+  <%= render 'partials/help_bloc', id: 'helpConfig', title: t('jira_configs.instance_config.title'), visibility: 'show' do %>
+    <%= render 'jira_configs/jira_instance_config' %>
+  <% end %>
+<% end %>
+<% content_for :content do %>
+  <%= simple_form_for(jira_config, html: { class: 'w-100' }) do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :name %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :url %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :context %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :project_id %>
+        <% end %>
+      </div>
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.association :suppliers, collection: Client.all.order('name ASC'), as: :check_boxes %>
+        <% end %>
+      </div>
+    </div>
+    <%= ui_fixed_form_footer f %>
+  <% end %>
+<% end %>
+<%= render template: 'layouts/_sidebar', locals: { direction: :rtl, no_btn: true, hidden: true } %>

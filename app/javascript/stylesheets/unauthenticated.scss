@@ -1,0 +1,51 @@
+@import "bootstrap";
+
+body {
+  // background-repeat: no-repeat;
+  // background-position: center top;
+  // background-size: cover;
+  // background-color: black;
+  background-image: url("../images/bg/2665288.jpg");
+  background-size: cover;
+  overflow: hidden;
+}
+
+.logos-container {
+  height: 120px;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.logos {
+  width: 100%;
+  height: 100%;
+  animation: fadeIn 2s;
+}
+
+.w-33 {
+  width: 33%!important;
+}
+
+.container-narrow {
+  height: 100vh;
+}
+
+.grad-from-left {
+  background: linear-gradient(to right, transparent 0%, $csis_dark 100%);
+  z-index: -1;
+}
+
+.grad-from-right {
+  background: linear-gradient(to left, transparent 0%, $csis_dark 100%);
+  z-index: -1;
+}
+
+.card-login {
+  text-align: center;
+  border-radius: 40px;
+  background-color: transparent;
+}

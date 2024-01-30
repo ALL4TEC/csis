@@ -1,0 +1,31 @@
+<%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,<br><br>
+<%= I18n.t('mailer.content.new_actions') %> <br>
+<br>
+<table border="1">
+  <thead>
+    <tr class='bg-grey text-white'>
+      <th id='date'><%= I18n.t('mailer.content.columns.date') %></th>
+      <th id='name'><%= I18n.t('mailer.content.columns.name') %></th>
+      <th id='description'><%= I18n.t('mailer.content.columns.description') %></th>
+      <th id='state'><%= I18n.t('mailer.content.columns.state') %></th>
+      <th id='meta_state'><%= I18n.t('mailer.content.columns.meta_state') %></th>
+      <th id='author'><%= I18n.t('mailer.content.columns.author') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @actions.each do |action| %>
+    <tr>
+      <td headers='date'><%= action.created_at.strftime('%d/%m/%Y') %></td>
+      <td headers='name'><%= action.name %></td>
+      <td headers='description'><%= action.description %></td>
+      <td headers='state'><%= Action.human_attribute_name(action.state) %></td>
+      <td headers='meta_state'><%= action.meta_state %></td>
+      <td headers='author'><%= action.author.full_name %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<%= I18n.t('mailer.content.login') %>
+<a class='text-grey' href="<%= @url %>"><%= I18n.t('mailer.content.CSIS') %></a><br><br>
+<%= I18n.t('mailer.content.polite') %>

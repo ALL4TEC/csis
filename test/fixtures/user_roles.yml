@@ -1,0 +1,31 @@
+staff_role_one:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:staffuser, :uuid) %>
+  role: cyber_admin
+
+staff_role_two:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:staffuser2, :uuid) %>
+  role: cyber_admin
+
+staff_role_three:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:superadmin, :uuid) %>
+  role: super_admin
+
+staff_role_four:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:staffuser, :uuid) %>
+  role: contact_admin
+
+staff_role_five:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:cyberadmin, :uuid) %>
+  role: cyber_admin
+
+contact_role_one:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:c_one, :uuid) %>
+  role: contact_admin_contact
+
+contact_role_two:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:contactadmin, :uuid) %>
+  role: contact_admin_contact
+
+contact_role_three:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:contactmanager, :uuid) %>
+  role: contact_manager

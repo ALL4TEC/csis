@@ -1,0 +1,5 @@
+<%- color ||= 'secondary' %>
+<%- bg_color ||= 'light' %>
+<div class='card bg-<%= bg_color %> rounded-0 shadow-<%= color %>-5px p-2'>
+  <%= yield %>
+</div>

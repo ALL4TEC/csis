@@ -1,0 +1,20 @@
+<% if section_header.scopes.present? || section_header.filter_btn %>
+  <div class="d-flex flex-column justify-content-start sticky-top" id='left-menu'>
+    <% section_header.scopes.each do |scope| %>
+    <div class="left-menu__item">
+      <% active_clazz = current_page?(scope[:href]) ? 'active' : '' %>
+      <% disabled_clazz = scope[:badge].present? && scope[:badge].zero? ? 'text-secondary' : '' %>
+      <%= render 'layouts/tab_item', active_clazz: active_clazz, disabled_clazz: disabled_clazz, scope: scope, direction: :column %>
+    </div>
+    <% end %>
+    <%- if section_header.filter_btn %>
+      <div class='mt-auto'>
+        <div class='fixed-filter-btn'>
+          <div class='d-flex align-items-center justify-content-center'>
+            <%= render 'partials/filter_btn' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

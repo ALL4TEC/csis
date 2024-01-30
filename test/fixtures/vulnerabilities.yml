@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+vulnerability_one: 
+  qid: "316208"
+  title: "Cisco IOS XE Software Simple Network Management Protocol Double-Free Denial of Service Vulnerability(cisco-sa-20180328-snmp-dos)"
+  kb_type: "Qualys"
+  severity: 3
+  category: "Cisco"
+  cve_id: ["CVE-2018-0160"]
+  bugtraqs: ["CVE-2018-0160"]
+  modified: "04/04/2018 at 09:20:39 (GMT+0200)"
+  published: "04/04/2018 at 09:20:39 (GMT+0200)"
+  patchable: 1
+  pci_flag: 1
+  remote: 1
+  kind: :potential_vulnerability
+
+vulnerability_two:
+  qid: "316209"
+  title: "Cisco IOS Software Simple Network Management Protocol GET MIB Object ID Denial of Service Vulnerability(cisco-sa-20180328-snmp)"
+  kb_type: "Qualys"
+  severity: 2
+  category: "Cisco"
+  cve_id: ["CVE-2018-0161"]
+  bugtraqs: ["CVE-2018-0161"]
+  modified: "04/04/2018 at 09:20:39 (GMT+0200)"
+  published: "04/04/2018 at 09:20:39 (GMT+0200)"
+  patchable: 0
+  pci_flag: 0
+  remote: 1
+  kind: :potential_vulnerability
+
+vulnerability_three:
+  qid: "6"
+  cve_id: []
+  title: "DNS Host Name"
+  category: "Information gathering"
+  bugtraqs: []
+  modified: "2018-01-04 17:39:37"
+  published: "1999-01-01 08:00:00"
+  diagnosis: "The fully qualified domain name of this host, if it was obtained from a DNS server, is displayed in the RESULT section."
+  severity: 1
+  patchable: 0
+  pci_flag: 0
+  remote: 1
+  kind: :potential_vulnerability
+
+vulnerability_four:
+  qid: 'nessus-12421'
+  cve_id: []
+  title: 'Nessus vuln'
+  category: 'Category'
+  bugtraqs: []
+  modified: "2018-01-04 17:39:37"
+  published: "1999-01-01 08:00:00"
+  diagnosis: "The fully qualified domain name of this host, if it was obtained from a DNS server, is displayed in the RESULT section."
+  severity: 1
+  patchable: 0
+  pci_flag: 0
+  remote: 1
+  kind: :potential_vulnerability
+  vulnerability_import: vuln_import_two
+

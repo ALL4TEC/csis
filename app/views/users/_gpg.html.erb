@@ -1,0 +1,8 @@
+<!-- User has public_key -->
+<%- if user.public_key.present? %>
+<a role="button" class="<%= clazz %> badge badge-light rounded-pill pub_key-btn" data-user_id="<%= user.id %>" data-bs-toggle="modal" data-bs-target="#ajax-modal">
+  <span data-bs-toggle='tooltip' title="<%= t('labels.public_key') %>">
+  <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:key] %></i>
+  </span>
+</a>
+<% end %>

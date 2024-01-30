@@ -1,0 +1,19 @@
+development:
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379") { |url| "#{url}/1" } %>
+  channel_prefix: csis_development
+
+test:
+  adapter: redis
+  url: <%= ENV.fetch('TEST_REDIS_URL', "redis://localhost:6379") { |url| "#{url}/1" } %>
+  channel_prefix: csis_test
+
+staging:
+  adapter: redis
+  url: <%= "#{ENV['REDIS_URL']}/1" %>
+  channel_prefix: csis_staging
+
+production:
+  adapter: redis
+  url: <%= "#{ENV['REDIS_URL']}/1" %>
+  channel_prefix: csis_production

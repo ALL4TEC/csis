@@ -1,0 +1,36 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>Actions</caption>
+  <thead>
+    <tr>
+      <th id='actions-state'><%= t('activerecord.attributes.action.state') %></th>
+      <th id='actions-name'><%= t('activerecord.attributes.action.name') %></th>
+      <th id='actions-project'><%= t('activerecord.attributes.action.project') %></th>
+      <th id='actions-date'><%= t('activerecord.attributes.action.created_at') %></th>
+      <th id='actions-receiver'><%= t('activerecord.attributes.action.receiver') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @actions.each do |a| %>
+    <% sev = a.severity %>
+    <% project = a.project %>
+    <tr>
+      <td headers='actions-state' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Action.human_attribute_name("state.#{a.state}") %>'>
+        <i aria-hidden='true' class="material-icons left align-middle text-<%= action_state_color(a.state) %>"><%= action_state_icon(a.state) %></i>
+      </td>
+      <td headers='actions-name' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= translate_severity(sev) %>'
+          class='btn-<%= sev %>'>
+        <%= link_to(a.name, a, class: 'link-block no-deco') %>
+      </td>
+      <td headers='actions-project' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t('statistics.current_level.' + project.statistics.current_level) %>'>
+        <%= link_to_if(current_user.contact_client_owner?, project.name, project_path(project), class: 'link-block') do %>
+          <%= project.name %>
+        <% end %>
+      </td>
+      <td headers='actions-date'><%= l a.created_at, format: :short_dmy %></td>
+      <td headers='actions-receiver'>
+        <%= a.receiver.present? ? a.receiver.full_name : t('actions.labels.unknown') %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+<% end %>

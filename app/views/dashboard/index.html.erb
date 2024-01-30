@@ -1,0 +1,33 @@
+<%- bg_sidebar = 'bg-white' %>
+<%- bg_topbar = 'line-dark border-0' %>
+<%- bg_content = 'bg-white' %>
+<div id='dashboard' class='d-flex flex-column w-100 h-100'>
+  <div class='row d-flex justify-content-center <%= bg_topbar %> p-2'>
+    <div class="btn-toolbar justify-content-center me-0 p-0" role="toolbar" aria-label="Dashboard toolbar">
+      <% @dashboard_policy.board_blocs.each do |bloc| %>
+        <%= render "dashboard/#{bloc}" %>
+      <% end %>
+    </div>
+  </div>
+  <% content_for :sidebar_content_opened do %>
+    <%- user = staff_signed_in? ? 'staff' : 'contact' %>
+    <%= render "dashboard/#{user}_board" %>
+  <% end %>
+  <% content_for :content do %>
+    <div class='tiles-content <%= bg_content %> w-100 h-100 p-3'>
+      <div id='tile-content' class='d-flex align-items-center justify-content-center w-100 h-100 bg-white'>
+        <div id='tile-content-table' class='d-flex align-items-center justify-content-center w-100 h-100'>
+          --- / ---
+        </div>
+        <div id='tile-content-loading' class="d-none" role="status">
+          <%= render 'layouts/loader' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= render template: 'layouts/_sidebar', locals: { direction: :ltr, no_btn: true, clazz: "show dashboard #{bg_sidebar}" } %>
+
+  <%= javascript_packs_with_chunks_tag  'whois', nonce: true, 'data-turbo-track': 'reload' %>
+  <%= javascript_packs_with_chunks_tag  'export_table', nonce: true, 'data-turbo-track': 'reload' %>
+  <%= javascript_packs_with_chunks_tag  'dashboard', nonce: true, 'data-turbo-track': 'reload' %>
+</div>

@@ -1,0 +1,10 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :title_eq, @q_base.filter_map(&:title).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.note.title'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :author_full_name_eq,
+          options_from_collection_for_select(@q_base.filter_map(&:author).uniq,
+            :id, :full_name, @q.author_full_name_eq), { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.note.author'), data: { 'live-search': "true" } %>
+  </div>
+<% end %>

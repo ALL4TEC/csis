@@ -1,0 +1,19 @@
+<%- data = aggregate.occurrences.reject { |g| g[:occurrences].empty? } %>
+<% content_for :sub_header, '', flush: true %>
+<% content_for :sub_body, flush: true do %>
+  <%- data.sort_by { |g| g[:title] }.each do |group| %>
+    <details>
+      <summary class='text-<%= kind_color(group[:kind]) %>-hov-primary mt-1'>
+        <i aria-hidden='true' class='material-icons align-middle'><%= kind_icon(group[:kind]) %></i>
+        <%= group[:title] %>
+      </summary>
+      <%- group[:occurrences].sort_by { |x| [x.vulnerability.qid] }.each do |occurrence| %>
+        <div class='d-flex align-items-center'>
+          <input type='checkbox' name='aggregate[occurrences][]' value='<%= occurrence.id %>' data-aggregate='<%= aggregate.id %>' class='me-1'>
+          <%= render 'occurrences/occurrence', occ: occurrence %></li>
+        </div>
+      <% end %>
+    </details>
+  <% end %>
+<% end %>
+<%= render 'aggregates/aggregate_sub_bloc', id: 'vulns', title: t('aggregates.labels.vulnerabilities'), aggregate: aggregate, count: data.sum { |d| d[:occurrences].count } %>

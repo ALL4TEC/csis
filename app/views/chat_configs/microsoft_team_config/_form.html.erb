@@ -1,0 +1,23 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%- microsoft_teams_config ||= ChatConfig.new(type: 'MicrosoftTeamsConfig') %>
+<%- data = microsoft_teams_config.id.blank? ? { url: microsoft_teams_configs_path, method: :post } : { url: microsoft_teams_config_path(microsoft_teams_config), method: :put } %>
+<div id='microsoftTeamConfigForm'>
+<%= simple_form_for(microsoft_teams_config, url: data[:url], method: data[:method], as: :microsoft_teams_config) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :channel_name, as: :search, label: t('activerecord.attributes.microsoft_teams_config.name') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :url, as: :search, label: t('activerecord.attributes.microsoft_teams_config.webhook_url') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :users, collection:  policy_scope(User).decorate.map { |decorated_user| [decorated_user.object.id, decorated_user.full_name_and_email]},
+            input_html: { data: { 'live-search': "true", 'actions-box': 'true' } }, label_method: :second, value_method: :first, label: t('activerecord.attributes.microsoft_teams_config.accounts_users') %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+</div>
+

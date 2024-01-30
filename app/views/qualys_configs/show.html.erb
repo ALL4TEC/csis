@@ -1,0 +1,261 @@
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Qualys Configuration</caption>
+    <thead>
+      <tr>
+        <th id='qualys-config-kind'><%= t('qualys_configs.labels.kind') %></th>
+        <th id='qualys-config-url'><%= t('qualys_configs.labels.url') %></th>
+        <th id='qualys-config-teams'><%= t('qualys_configs.labels.teams') %></th>
+        <th id='qualys-config-vm_clients'><%= link_to t('models.qualys_vm_clients'), qualys_config_qualys_vm_clients_path(@qualys_config) %><span class='ms-1 badge badge-primary'>consultants</span></th>
+        <th id='qualys-config-wa_clients'><%= link_to t('models.qualys_wa_clients'), qualys_config_qualys_wa_clients_path(@qualys_config) %><span class='ms-1 badge badge-primary'>consultants</span></th>
+        <th id='qualys-config-vm_scans'><%= t('qualys_clients.labels.last_scans') %> VM</th>
+        <th id='qualys-config-wa_scans'><%= t('qualys_clients.labels.last_scans') %> WA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td headers='qualys-config-kind'>
+          <span class='badge halo-<%= active_color(!@qualys_config.discarded?) %>'><%= active_text(!@qualys_config.discarded?) %></span><br>
+          <span class='badge halo-<%= account_kind_color(@qualys_config.kind) %>'><em><%= @qualys_config.kind %></em></span>
+        </td>
+        <td headers='qualys-config-url'>
+          <code>https://</code><span><%= @qualys_config.url %></span>
+        </td>
+        <td headers='qualys-config-teams'>
+          <% @qualys_config.teams.each do |team| %>
+            <%= link_to(team.name, team, class: 'link-block') %>
+          <% end %>
+        </td>
+        <td headers='qualys-config-vm_clients'>
+          <% @qualys_config.qualys_vm_clients.each do |qualys_client| %>
+            <%= link_to(qualys_client.qualys_name, qualys_client, class: 'link-block') %>
+          <% end %>
+        </td>
+        <td headers='qualys-config-wa_clients'>
+          <% @qualys_config.qualys_wa_clients.each do |qualys_client| %>
+            <%= link_to(qualys_client.qualys_name, qualys_client, class: 'link-block') %>
+          <% end %>
+        </td>
+        <td headers='qualys-config-vm_scans'>
+          <ul>
+          <% @qualys_config.vm_scans.order(:created_at).limit(5).each do |scan| %>
+            <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-system' %></li>
+          <% end %>
+          </ul>
+        </td>
+        <td headers='qualys-config-wa_scans'>
+          <ul>
+          <% @qualys_config.wa_scans.order(:created_at).limit(5).each do |scan| %>
+            <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-applicative' %></li>
+          <% end %>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'qualys_imports_history', header: t('qualys_configs.labels.scans_imports_history'), count: @qualys_config.scans_imports.count } do %>
+  <div class='d-flex m-2'>
+    <%= render 'qualys_configs/card', title: 'VM', margin: false, color: 'system' do %>
+      <span data-bs-toggle='tooltip' title='<%= t('activerecord.attributes.qualys_config.vm_import_cron') %>'><%= @qualys_config.vm_import_cron&.value %></span>
+    <% end %>
+    <%= render 'qualys_configs/card', title: 'WA', margin: true, color: 'applicative' do %>
+      <span data-bs-toggle='tooltip' title='<%= t('activerecord.attributes.qualys_config.wa_import_cron') %>'><%= @qualys_config.wa_import_cron&.value %></span>
+    <% end %>
+  </div>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <table class="table table-hover">
+    <caption>Scans imports</caption>
+    <thead>
+      <tr>
+        <th id='scans-imports-created-at'>
+          <%= 'Creation' %>
+        </th>
+        <th id="scans-imports-importer">
+          <%= t('activerecord.attributes.scan_import.importer') %>
+        </th>
+        <th id="scans-imports-status">
+          <%= t('activerecord.attributes.scan_import.status') %>
+        </th>
+        <th id='scans-imports-scans'><%= t('activerecord.attributes.scan_import.scans') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @qualys_config.scans_imports.each do |scan_import| %>
+      <tr>
+        <td headers='scans-imports-created-at'><%= scan_import.created_at %></td>
+        <td headers='scans-imports-importer'><%= scan_import.importer || 'Scheduled' %></td>
+        <td headers='scans-imports-status'><%= scan_import.status %></td>
+        <td headers='scans-imports-scans'>
+          <details>
+            <summary><span class='badge badge-applicative'><%= scan_import.wa_scans.count %> WA(s)</span></summary>
+            <ul>
+              <%- scan_import.wa_scans.each do |scan| %>
+                <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-applicative' %></li>
+              <% end %>
+            </ul>
+          </details>
+          <details>
+            <summary><span class='badge badge-system'><%= scan_import.vm_scans.count %> VM(s)</span></summary>
+            <ul>
+              <%- scan_import.vm_scans.each do |scan| %>
+                <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-system' %></li>
+              <% end %>
+            </ul>
+          </details>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+<% end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'qualys_imports', header: t('settings.labels.import_all'), count: nil } do %>
+  <div class='d-flex flex-row justify-content-around m-2' id='qualys_imports_vm'>
+    <%= render 'qualys_configs/card', title: 'VM', margin: false, color: 'system' do %>
+      <%= simple_form_for(@qualys_config, url: qualys_config_import_scans_vm_url(@qualys_config.id), method: :post, html: {class: 'w-100'}) do |f| %>
+        <div class="d-flex flex-row justify-content-between w-100">
+          <% if @qualys_config.ext.consultants_kind? %>
+          <div class="form-group mt-0">
+            <%= f.association :qualys_vm_clients, collection: @qualys_config.qualys_vm_clients.map { |qvc| [qvc.qualys_name, qvc.qualys_id] } << [t('qualys_configs.labels.all_qualys_clients'), 'all'],
+                                                  wrapper_html: { data: { 'bs-toggle': 'tooltip'}, title: t('qualys_configs.labels.qualys_vm_clients_form') },
+                                                  as: :check_boxes %>
+          </div>
+          <% end %>
+          <div class="form-group mt-0">
+            <%= f.search_field :name, class: 'form-control', value: '', id: 'vm_scan_name' %>
+            <%= f.label :name, t('qualys_configs.labels.scan_ref'), for: 'vm_scan_name' %>
+          </div>
+          <div class="form-group mt-0">
+            <input type="text" autocomplete='off' class="form-control input-datepicker" data-container='#qualys_import_vm' name='qualys_config[created_at]' id='qualys_import_vm_created_at'>
+            <label class='form-label' for='qualys_import_vm_created_at'><%= t('labels.since') %>:</label>
+          </div>
+        </div>
+        <div class="p-2">
+          <%= f.submit t('settings.buttons.import_scans'), class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= render 'qualys_configs/card', title: 'WA', margin: true, color: 'applicative' do %>
+      <%= simple_form_for(@qualys_config, url: qualys_config_import_scans_wa_url(@qualys_config.id), method: :post, html: {class: 'w-100'}) do |f| %>
+        <div class='d-flex flex-row w-100 justify-content-between'>
+          <% if @qualys_config.ext.consultants_kind? %>
+          <div class="form-group mt-0">
+            <%= f.association :qualys_wa_clients, collection: @qualys_config.qualys_wa_clients.map { |qwc| [qwc.qualys_name, qwc.qualys_id] } << [t('qualys_configs.labels.all_qualys_clients'), 'all'],
+                                                  wrapper_html: { data: { 'bs-toggle': 'tooltip'}, title: t('qualys_configs.labels.qualys_wa_clients_form') },
+                                                  as: :check_boxes %>
+          </div>
+          <% end %>
+          <div class="form-group mt-0">
+            <%= f.search_field :name, class: 'form-control', value: '', id: 'wa_scan_name' %>
+            <%= f.label :name, t('filters.name_cont'), for: 'wa_scan_name' %>
+          </div>
+          <div class="form-group mt-0">
+            <input type="text" autocomplete='off' class="form-control input-datepicker" data-container='#qualys_import_wa' name='qualys_config[created_at]' id='qualys_import_wa_created_at'>
+            <label class='form-label' for='qualys_import_wa_created_at'><%= t('labels.since') %>:</label>
+          </div>
+        </div>
+        <div class="p-2">
+          <%= f.submit t('settings.buttons.import_scans'), class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'qualys_configs/card', title: t('models.vulnerabilities'), margin: false, color: 'low' do %>
+      <%= form_tag({ action: :vulnerabilities_import, qualys_config_id: @qualys_config.id }, method: :post) do %>
+        <% if Vulnerability.qualys_kb_type.count.positive? %>
+        <div class='p-2'>
+          <%= label_tag 'last_only', t('settings.labels.last_only') %>(<%= Vulnerability.qualys_kb_type.order(:created_at).last.created_at %>)
+          <%= check_box_tag 'last_only' %>
+        </div>
+        <% end %>
+        <div class='p-2 d-flex justify-content-center'>
+          <%= link_to t('qualys_configs.labels.vulnerabilities_imports_history'), "#{vulnerabilities_imports_path}?@q['account_id_in']=['#{@qualys_config.id}']", class:'btn btn-outline-secondary me-1' %>
+          <%= submit_tag(t('settings.buttons.vulnerabilities_import'), class: 'btn btn-outline-primary') %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'qualys_updates', header: t('settings.labels.update'), count: nil } do %>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'qualys_configs/card', title: 'VM', margin: false, color: 'system' do %>
+      <%= form_tag({ action: :vm_scans_update, qualys_config_id: @qualys_config.id }, method: :post, class: 'w-100 p-2') do %>
+        <div class="d-flex flex-row justify-content-between flex-wrap">
+          <% if @qualys_config.ext.consultants_kind? %>
+            <fieldset class="form-group check_boxes optional qualys_config_qualys_vm_clients form-group-valid">
+              <legend class="col-form-label pt-0">Qualys vm clients</legend>
+              <input type="hidden" name="qualys_config[qualys_vm_client_ids][]" value="">
+              <% @qualys_config.qualys_vm_clients.each do |qvc| %>
+                <div class="form-check">
+                  <%= check_box_tag 'qualys_vm_client_ids[]', qvc.qualys_id, false, class: 'form-check-input is-valid check_boxes optional' %>
+                  <%= label_tag qvc.qualys_name %>
+                </div>
+              <% end %>
+            </fieldset>
+          <% end %>
+          <div class='form-group mt-0'>
+            <% opt = options_for_select([[]].concat(@qualys_config.vm_scans.recently_launched.map { |s| [s.name, s.reference] })) %>
+            <%= select_tag :reference, opt, class: 'selectpicker', prompt: t('qualys_configs.labels.scan_ref') %>
+          </div>
+          <div class="form-group mt-0">
+            <input type="text" autocomplete='off' class="form-control input-datepicker" data-container='#qualys_update_vm' name='qualys_config[created_at]' id='qualys_update_vm_created_at'>
+            <label class='form-label' for='qualys_update_vm_created_at'><%= t('labels.since') %>:</label>
+          </div>
+        </div>
+        <div class="p-2">
+          <%= submit_tag t('settings.buttons.scan_update'), data: { confirm: t('settings.actions.update_confirm') }, class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= render 'qualys_configs/card', title: 'WA', margin: true, color: 'applicative' do %>
+      <%= form_tag({ action: :wa_scans_update, qualys_config_id: @qualys_config.id }, method: :post, class: 'w-100 p-2') do %>
+        <div class="d-flex flex-row justify-content-between flex-wrap">
+          <% if @qualys_config.ext.consultants_kind? %>
+            <fieldset class="form-group check_boxes optional qualys_config_qualys_wa_clients form-group-valid">
+              <legend class="col-form-label pt-0">Qualys wa clients</legend>
+              <input type="hidden" name="qualys_config[qualys_wa_client_ids][]" value="">
+              <% @qualys_config.qualys_wa_clients.each do |qwc| %>
+                <div class="form-check">
+                  <%= check_box_tag 'qualys_wa_client_ids[]', qwc.qualys_id, false, class: 'form-check-input is-valid check_boxes optional' %>
+                  <%= label_tag qwc.qualys_name %>
+                </div>
+              <% end %>
+            </fieldset>
+          <% end %>
+          <div class='form-group mt-0'>
+            <% opt = options_for_select([[]].concat(@qualys_config.wa_scans.recently_launched.map { |s| [s.name, s.internal_id] })) %>
+            <%= select_tag :reference, opt, class: 'selectpicker', prompt: t('qualys_configs.labels.scan_ref') %>
+          </div>
+          <div class="form-group mt-0">
+            <input type="text" autocomplete='off' class="form-control input-datepicker" data-container='#qualys_update_wa' name='qualys_config[created_at]' id='qualys_update_wa_created_at'>
+            <label class='form-label' for='qualys_update_wa_created_at'><%= t('labels.since') %>:</label>
+          </div>
+          <div class='d-flex flex-column'>
+            <div class='form-check'>
+              <%= check_box_tag 'thumb_only', 'thumb_only', false, class:'form-check-input is-valid check_boxes optional' %>
+              <%= label_tag 'thumb_only', t('settings.labels.thumb_only') %>
+            </div>
+            <div class='form-check'>
+              <%= check_box_tag 'force', 'force', false, class:'form-check-input is-valid check_boxes optional' %>
+              <%= label_tag 'force', 'force' %>
+            </div>
+          </div>
+        </div>
+        <div class="p-2">
+          <%= submit_tag t('settings.buttons.scan_update'), data: { confirm: t('settings.actions.update_confirm') }, class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'qualys_deletions', header: t('settings.labels.delete_one'), count: nil } do %>
+  <div class='d-flex flex-row justify-content-around m-2'>
+  <%- KindUtil.scan_accros.each_with_index do |kind_accro, index| %>
+    <%= render 'qualys_configs/delete_scan', kind_accro: kind_accro, margin: index.positive? %>
+  <% end %>
+  </div>
+<% end %>
+<%= javascript_packs_with_chunks_tag  'date_picker', nonce: true, 'data-turbo-track': 'reload' %>

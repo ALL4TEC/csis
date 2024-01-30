@@ -1,0 +1,16 @@
+<div class="row">
+  <%= render 'idp_configs/list', idp_configs: [@idp_config] %>
+  <% if policy(@idp_config).super_admin_and_not_discarded? %>
+    <div class="form-group" role="group">
+      <div class="d-flex flex-row justify-content-end">
+        <%- action = @idp_config.active ? :deactivate : :activate %>
+        <%= form_tag send("#{action}_idp_config_path", @idp_config), method: :put do %>
+          <button class="btn btn-primary" type="submit">
+            <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[action] %></i>
+            <%= t("idp_configs.actions.#{action}") %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

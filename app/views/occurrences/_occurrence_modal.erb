@@ -1,0 +1,25 @@
+<%- agg_kind = occ.class.to_s.delete_suffix('Occurrence').downcase %>
+<%- vm = 'vm' %>
+<%- wa = 'wa' %>
+<div class='modal-body text-secondary p-2'>
+  <%- if occ.respond_to?(:uri) %>
+    <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.uri'), content: occ.uri %>
+  <%- elsif occ.respond_to?(:target) %>
+    <%= render 'occurrences/occurrence_row', title: t('occurrences.ip'), content: occ.target.present? && occ.target.ip.present? ? occ.target.ip.to_s : 'N/A' %>
+  <% end %>
+  <%- if agg_kind == vm %>
+    <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.fqdn'), content: occ.fqdn %>
+    <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.netbios'), content: occ.netbios %>
+  <% end %>
+  <%- if agg_kind == wa %>
+    <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.param'), content: occ.param %>
+    <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.content'), content: occ.content %>
+    <%= render 'occurrences/occurrence_pre_bloc', title: t('occurrences.payload'), content: occ.payload %>
+    <%= render 'occurrences/occurrence_pre_bloc', title: t('occurrences.data'), content: occ.data %>
+  <% end %>
+  <%= render 'occurrences/occurrence_pre_bloc', title: t('occurrences.result'), content: occ.result %>
+  <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.diagnosis'), content: occ.vulnerability.diagnosis %>
+  <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.consequence'), content: occ.vulnerability.consequence %>
+  <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.solution'), content: occ.vulnerability.solution %>
+  <%= render 'occurrences/occurrence_sanitized_row', title: t('occurrences.additional_infos'), content: occ.vulnerability.additional_info %>
+</div>

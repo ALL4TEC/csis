@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'actions/list', actions: @actions, trashed: true %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

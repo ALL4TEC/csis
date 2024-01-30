@@ -1,0 +1,17 @@
+--- !ruby/object:Qualys::Scan
+  reference: scan/123456789.45789
+  type: Scheduled
+  title: VM - Test - 8.8.8.8 - 2019-04-06
+  user_login: stere-sp
+  LAUNCH_DATETIME: 2019-06-04 20:04:17.000000000 Z
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2019-06-04 20:04:17.000000000 Z
+    zone: &1 !ruby/object:ActiveSupport::TimeZone
+      name: Europe/Paris
+    time: 2019-06-04 22:04:17.000000000 Z
+  duration: '00:09:42'
+  processed: '1'
+  state: Finished
+  target: 8.8.8.8
+  option_title: 
+  option_flag: 

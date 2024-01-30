@@ -1,0 +1,23 @@
+<%- kind = aggregates.first.kind %>
+<div class="d-flex flex-row card rounded-0 bg-light justify-content-start sticky-aggregate-header">
+  <div class="p-1 d-flex align-items-center">
+    <div class='btn-group'>
+      <button class="btn btn-primary btn-sm p-0 text-<%= kind %>" type="button" data-bs-toggle="collapse" data-bs-target="#<%= parent %>" aria-expanded="false" aria-controls="<%= parent %>">
+        <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+        <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+      </button>
+      <button class='btn btn-sm btn-primary bg-<%= css_data[:color] %> p-0 text-<%= kind %>' type='button' data-bs-toggle='tooltip' title="<%= t('labels.reorder') %>" id='<%= parent %>-reorder-btn'>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        <i aria-hidden='true' class='material-icons align-middle <%= css_data[:animation] %>'><%= Icons::MAT[:reorder] %></i>
+      </button>
+      </button>
+    </div>
+    <h4 class='ms-1 mb-0 '><%= t("aggregates.labels.#{kind}_aggregates") %></h4>
+  </div>
+  <div class="p-1 ms-auto">
+    <%= render 'aggregates/aggregate_filters', aggregates: aggregates, parent: parent %>
+  </div>
+</div>
+<div class="collapse" id="<%= parent %>">
+  <%= render partial: 'aggregates/aggregate', collection: aggregates, locals: {kind: kind} %>
+</div>

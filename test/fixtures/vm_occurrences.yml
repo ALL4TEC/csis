@@ -1,0 +1,30 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+vm_occurrence_one:
+  scan: vm_scan_one
+  vulnerability: vulnerability_one
+  ip: '8.8.8.8'
+
+vm_occurrence_two:
+  scan: vm_scan_two
+  vulnerability: vulnerability_two
+  ip: '127.0.0.1'
+
+vm_occurrence_three:
+  scan: vm_scan_one
+  vulnerability: vulnerability_one
+  ip: '8.8.8.8'
+
+vm_occurrence_four:
+  scan: vm_scan_three
+  vulnerability: vulnerability_three
+  ip: '8.8.8.8'
+
+vm_occurrence_auto:
+  scan: vm_scan_auto
+  vulnerability: vulnerability_one
+  ip: '127.0.0.1'

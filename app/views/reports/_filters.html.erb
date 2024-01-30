@@ -1,0 +1,37 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = ['ScanReport', 'PentestReport', 'ActionPlanReport'] %>
+    <%= render 'partials/multiple_select', target: 'type', title: t('reports.labels.follow_type'), id: "reports_filters_type" do %>
+      <% opt.each do |report_type| %>
+      <option value='<%= report_type %>' data-content='<i aria-hidden="true" class="material-icons align-middle me-1"><%= Icons::MAT[report_type.delete_prefix('Report').downcase.to_sym] %></i><%= t("models.#{report_type.underscore}") %>'></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.select :title_eq, @q_base.filter_map(&:title).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.report.title'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opt = Report.levels %>
+    <%= render 'partials/multiple_select', target: 'level', title: t('activerecord.attributes.report.level'), id: "reports_filters_level" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' class='bg-<%= level_color(label) %>'><%= t('statistics.current_level.' + label) %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = Language.all %>
+    <%= render 'partials/multiple_select', target: 'language_id', title: t('labels.language'), id: "reports_filters_language" do %>
+      <% opt.each do |language| %>
+      <option value='<%= language.id %>' data-content='<%= image_tag("flags/4x3/#{language.iso}.svg", class: "flag") %>'></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'project_id', title: t('activerecord.attributes.report.project'), id: "reports_filters_project", opts: @q_base.filter_map(&:project).uniq %>
+  </div>
+  <%= f.input :scoring_vm_lteq, class: 'form-control', label: "#{t('activerecord.attributes.report.scoring_vm')} <=", as: :numeric, required: false, input_html: { min: '0', max: '10000', step: 'any' } %>
+  <%= f.input :scoring_wa_lteq, class: 'form-control', label: "#{t('activerecord.attributes.report.scoring_wa')} <=", as: :numeric, required: false, input_html: { min: '0', max: '10000', step: 'any' } %>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'staff_id', title: t('activerecord.attributes.report.edited_by'), id: "reports_filters_staff", opts: @q_base.filter_map(&:staff).uniq %>
+  </div>
+<% end %>

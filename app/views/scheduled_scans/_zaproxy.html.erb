@@ -1,0 +1,36 @@
+<%= simple_form_for(@scheduled_scan, method: :post, url: zaproxy_project_scheduled_scans_path(@project)) do |f| %>
+  <div class="card-filters d-flex flex-row flex-wrap align-items-center w-100">
+    <%= f.simple_fields_for :scan_configuration, ScanConfiguration.new do |scan_conf_form| %>
+      <%= scan_conf_form.input :scan_type, collection: ScanConfiguration::SCANNERS_DATA[:zaproxy][:scan_types].to_a, required: true, input_html: { class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.scheduled_scan.scan_type') } %>
+      <%= scan_conf_form.input :target, placeholder: 'protocol://url or ip', class: 'form-control', required: true %>
+      <%= scan_conf_form.input :scan_name, placeholder: 'ZAP: <Target>', input_html: { data: { 'bs-toggle': 'tooltip' }, title: t('activerecord.attributes.scheduled_scan.scan_name_help') } %>
+      <div class="form-group">
+        <% opt = ScanConfiguration::SCANNERS_DATA[:zaproxy][:options] %>
+        <%= render 'partials/multiple_select', name: "scheduled_scan[scan_configuration_attributes][parameters][]", target: 'parameters', title: t('activerecord.attributes.scheduled_scan.parameters'), id: "scheduled_scan_zaproxy_parameters" do %>
+          <% opt.each do |value, label| %>
+          <option value='<%= value %>'>
+            <%= label %>
+          </option>
+          <% end %>
+        <% end %>
+      </div>
+      <div class='d-flex flex-column auto_switches'>
+        <%= scan_conf_form.input :auto_import, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scheduled_scan.auto_import'), wrapper_html: { data: { 'bs-toggle': 'collapse', 'bs-target': '.auto_aggregate_multi' }, aria: { controls: 'auto_aggregate_multi', expanded: true } } %>
+        <%= scan_conf_form.input :auto_aggregate, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scheduled_scan.auto_aggregate'), wrapper_html: { class: 'ms-3 auto_aggregate_multi collapse collapse_no_save show', data: { 'bs-toggle': 'collapse', 'bs-target': '#auto_aggregate_mixing' }, aria: { controls: '#auto_aggregate_mixing', expanded: true } } %>
+        <%= scan_conf_form.input :auto_aggregate_mixing, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scheduled_scan.auto_aggregate_mixing'), wrapper_html: { id: 'auto_aggregate_mixing', class: 'ms-4 auto_aggregate_multi collapse collapse_no_save show' } %>
+      </div>
+      <div class='d-flex flex-row align-items-center'>
+        <%= f.input :scheduled_scan_cron, placeholder: 'mm hh jj MMM JJJ' %>
+        <a type='button' data-bs-toggle='collapse' data-bs-target='#sidebar'>
+          <i class='material-icons align-middle' aria-hidden='true'><%= Icons::MAT[:info] %></i>
+        </a>
+      </div>
+      <%= f.input :report_action, collection: ScheduledScan.report_actions, as: :radio_buttons, label_method: ->(report_action) { ScheduledScan.human_attribute_name("report_action.#{report_action.first}") }, value_method: :first %>
+    <% end %>
+    <div class='m-2'>
+      <%= button_content f do |b| %>
+        <i class='material-icons align-middle me-1' aria-hidden="true"><%= Icons::MAT[:schedule] %></i><%= t('labels.schedule') %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

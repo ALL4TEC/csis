@@ -1,0 +1,7 @@
+<% content_for :table do %>
+  <%= render 'vulnerabilities/list' %>
+<% end %>
+<% content_for :filters do %>
+  <%= render 'vulnerabilities/filters' %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

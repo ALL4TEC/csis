@@ -1,0 +1,12 @@
+.icon-2x {
+  font-size: 48px!important;
+  width: 48px!important;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.icon-hover:hover {
+  opacity: 0.75;
+  @extend .rounded-circle;
+  @extend .shadow;
+}

@@ -1,0 +1,21 @@
+<!-- User confirmed? -->
+<% if user.pending_reconfirmation? || !user.confirmed? %>
+<i aria-hidden='true' class="material-icons align-middle text-danger" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.unconfirmed", infos: user.confirmed_at) %>'><%= Icons::MAT[:unverified] %></i>
+<% else %>
+<i aria-hidden='true' class="material-icons align-middle text-success" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.confirmed_at", infos: user.confirmed_at) %>'><%= Icons::MAT[:verified] %></i>
+<% end %>
+<!-- User password locked? -->
+<%- if user.access_locked? %>
+<i aria-hidden='true' class="material-icons align-middle text-danger" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.locked_at", infos: user.locked_at) %>'><%= Icons::MAT[:lock] %></i>
+<% end %>
+<!-- User otp activated? -->
+<%- if user.otp_activated? %>
+<i aria-hidden='true' class="material-icons align-middle text-success" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.otp_activated_at", infos: user.otp_activated_at) %>'><%= Icons::MAT[:otp] %></i>
+<% else %>
+<i aria-hidden='true' class="material-icons align-middle text-warning" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.otp_deactivated") %>'><%= Icons::MAT[:no_otp] %></i>
+<% end %>
+<!-- User otp locked? -->
+<%- if user.max_login_attempts? %>
+<i aria-hidden='true' class="material-icons align-middle text-danger" data-bs-toggle='tooltip' data-bs-placement="right" title='<%= t("users.notices.otp_locked") %>'><%= Icons::MAT[:otp_locked] %></i>
+<% end %>
+

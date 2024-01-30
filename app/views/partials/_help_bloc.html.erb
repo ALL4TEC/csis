@@ -1,0 +1,13 @@
+<%- visibility ||= 'hide' %>
+<div class="card rounded-0">
+  <div class="card-header text-white p-0">
+    <a class="btn btn-sm btn-secondary w-100 rounded-0" data-bs-toggle="collapse" href="#<%= id %>" role="button" aria-expanded="false" aria-controls="<%= id %>">
+      <span class="card-title">
+        <i aria-hidden='true' class="material-icons align-middle me-2"><%= Icons::MAT[:info] %></i><%= title %>
+      </span>
+    </a>
+  </div>
+  <div class="card-body p-2 collapse <%= visibility %>" id="<%= id %>">
+    <%= yield %>
+  </div>
+</div>

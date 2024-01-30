@@ -1,0 +1,28 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(client) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :internal_type, collection: %w[client supplier], as: :select, include_blank: false %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :web_url, as: :search %>
+      <% end %>
+        <% readonly = edition.presence || false %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :ref_identifier, readonly: readonly if current_user.super_admin? %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :contacts, collection: policy_scope(:contact).decorate,
+            as: :check_boxes, label_method: :full_name_and_email, value_method: :id %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

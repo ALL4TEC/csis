@@ -1,0 +1,23 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%- google_chat_config ||= ChatConfig.new(type: 'GoogleChatConfig') %>
+<%- data = google_chat_config.id.blank? ? { url: google_chat_configs_path, method: :post } : { url: google_chat_config_path(google_chat_config), method: :put } %>
+<div id='googleChatConfigForm'>
+<%= simple_form_for(google_chat_config, url: data[:url], method: data[:method], as: :google_chat_config) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :workspace_name, as: :search, label: t('activerecord.attributes.google_chat_config.name') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :url, as: :search, label: t('activerecord.attributes.google_chat_config.webhook_url') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :users, collection:  policy_scope(User).decorate.map { |decorated_user| [decorated_user.object.id, decorated_user.full_name_and_email]},
+            input_html: { data: { 'live-search': "true", 'actions-box': 'true' } }, label_method: :second, value_method: :first, label: t('activerecord.attributes.google_chat_config.accounts_users') %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+</div>
+

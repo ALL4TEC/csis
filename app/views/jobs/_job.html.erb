@@ -1,0 +1,43 @@
+<tr class='line-hover-<%= job_color(job.status) %>'
+    data-job-id-value="<%= job.id %>"
+    id="<%= dom_id(job) %>">
+  <td headers='jobs-list-name'>
+    <%= t("jobs.names.#{job.clazz.underscore}") %> <%= job.title %>
+  </td>
+  <td headers='jobs-list-creator'>
+    <%= job.creator&.full_name %>
+  </td>
+  <td headers='jobs-list-created_at'>
+    <%= job.created_at %>
+  </td>
+  <td headers='jobs-list-resque_job_id'>
+    <%= job.resque_job_id %>
+  </td>
+  <td headers='jobs-list-progress'>
+    <div class='text-<%= job_color(job.status) %>'>
+    <%= "#{job.progress_step}/#{job.progress_steps}" %>
+    </div>
+  </td>
+  <td headers='jobs-list-subscribers'>
+    <details>
+      <summary><i class='material-icons align-middle' aria-hidden='true'>visibility</i></summary>
+    <div class='d-flex flex-column'>
+    <%- job.subscribers.each do |sub| %>
+    <span><%= sub.full_name %></span>
+    <% end %>
+    </div>
+    </details>
+  </td>
+  <td headers='jobs-list-status'>
+    <div class='text-<%= job_color(job.status) %>'>
+    <i aria-hidden='true' class="material-icons align-middle job-status"><%= Icons::MAT[job_icon(job.status)] %></i><%= t("jobs.statuses.#{job.status}") %>
+    </div>
+  </td>
+  <td headers='jobs-list-debug'>
+    <%- if job.errored? %>
+    <button class="ms-1 job-debug-btn btn btn-danger rounded" type="button" data-bs-toggle="modal" data-bs-target="#ajax-modal" title="DebugJob">
+      <i class='material-icons align-middle' aria-hidden='true'>visibility</i>
+    </button>
+    <% end %>
+  </td>
+</tr>

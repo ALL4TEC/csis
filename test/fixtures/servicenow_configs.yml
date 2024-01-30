@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+snc_one:
+  name: First
+  id: 6ac7e80e-fc2a-520a-9307-727efb365ed7 # needed so that the issue is correctly linked to the ticketable
+  url: 'https://first.example.com'
+  encrypted_login: "<%= @secret = ServicenowConfig.new(login: 'access_token_1'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = ServicenowConfig.new(password: 'refresh_token_1'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+  encrypted_api_key: "<%= @secret = ServicenowConfig.new(api_key: 'client_id_1'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  encrypted_secret_key: "<%= @secret = ServicenowConfig.new(secret_key: 'client_secret_1'); @secret.encrypted_secret_key %>"
+  encrypted_secret_key_iv: "<%= @secret.encrypted_secret_key_iv %>"
+  type: 'ServicenowConfig'
+
+snc_two:
+  name: Second
+  url: 'https://second.example.com'
+  encrypted_login: "<%= @secret = ServicenowConfig.new(login: 'access_token_2'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = ServicenowConfig.new(password: 'refresh_token_2'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+  encrypted_api_key: "<%= @secret = ServicenowConfig.new(api_key: 'client_id_2'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  encrypted_secret_key: "<%= @secret = ServicenowConfig.new(secret_key: 'client_secret_2'); @secret.encrypted_secret_key %>"
+  encrypted_secret_key_iv: "<%= @secret.encrypted_secret_key_iv %>"
+  type: 'ServicenowConfig'

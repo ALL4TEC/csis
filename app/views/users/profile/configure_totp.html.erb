@@ -1,0 +1,25 @@
+<%= render 'users/profile/otp/edit_otp' %>
+<div id='totp-configuration' class='d-flex justify-content-center mt-2'>
+  <div class='card'>
+    <div class='card-header bg-secondary text-white'>
+      <h4><%= t('devise.two_factor_authentication.authenticator.secret') %></h4>
+    </div>
+    <div class='card-body p-2 d-flex justify-content-center align-items-center flex-column'>
+      <div class='d-flex align-items-center w-50 justify-content-around'>
+        <span><%= t('devise.two_factor_authentication.authenticator.your_secret') %></span>
+        <span class='badge badge-primary'><%= @user.otp_secret_key %></span>
+      </div>
+      <code class='mt-1'><%= @uri %></code>
+      <div class='m-2' title='<%= @uri %>' data-bs-toggle='tooltip'>
+        <%= image_tag "data:image/png;base64,#{Base64.strict_encode64(@qrcode_data)}" %>
+      </div>
+      <div class='m-2 d-flex'>
+        <%= form_with(url: test_totp_configuration_path, class: 'form-group d-flex align-items-center') do |f| %>
+          <%= f.text_field(:code, class: 'form-control') %>
+          <%= f.submit(t('devise.two_factor_authentication.authenticator.test'), class: 'btn btn-secondary m-1') %>
+          <span id='totp_test_response'></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

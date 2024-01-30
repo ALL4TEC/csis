@@ -1,0 +1,34 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = Vulnerability.kinds_select %>
+    <%= render 'partials/multiple_select', target: 'kind', title: t('activerecord.attributes.vulnerability.kind'), id: "vulnerabilities_filters_kind" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'
+        data-content='<span class="d-flex align-items-center text-<%= kind_color(key) %>"><i aria-hidden="true" class="material-icons align-middle me-1"><%= kind_icon(key) %></i><%= Vulnerability.human_attribute_name("kind.#{key}") %></span>'></option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :qid_eq, @q_base.filter_map(&:qid).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.vulnerability.qid'), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :title_eq, @q_base.filter_map(&:title).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.vulnerability.title'), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Vulnerability.severities_select %>
+    <%= render 'partials/multiple_select', target: 'severity', title: t('activerecord.attributes.vulnerability.severity'), id: "vulnerabilities_filters_severity" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' class='badge-<%= key %>'>
+        <%= label %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :category_eq, @q_base.filter_map(&:category).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.vulnerability.category'), data: { 'live-search': "true" } %>
+  </div>
+<% end %>

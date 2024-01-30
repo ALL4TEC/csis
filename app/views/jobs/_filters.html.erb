@@ -1,0 +1,30 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = @q_base.filter_map(&:status).uniq %>
+    <%= render 'partials/multiple_select', target: 'meta_state', title: t('activerecord.attributes.job.status'), id: "jobs_filters_statuses" do %>
+      <% opt.each do |status| %>
+      <option value='<%= status %>' data-content="<span class='d-flex align-items-center text-<%= job_color(status) %>'><i class='material-icons me-1'><%= job_icon(status) %></i><%= t("jobs.statuses.#{status}") %></span>">
+        <%= t("jobs.statuses.#{status}") %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :creator_id_eq, 
+          options_from_collection_for_select(@q_base.filter_map(&:creator).uniq, :id, :full_name, @q.creator_id_eq),
+          { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.job.creator'), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :clazz_eq, @q_base.filter_map(&:clazz).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.job.name'), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :title_eq, @q_base.filter_map(&:title).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.job.title'), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :resque_job_id_eq, @q_base.filter_map(&:resque_job_id).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.job.resque_job_id'), data: { 'live-search': "true" } %>
+  </div>
+<% end %>

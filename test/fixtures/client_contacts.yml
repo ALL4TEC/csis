@@ -1,0 +1,54 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+client_contact_one:
+  client: client_one
+  contact: c_one
+
+client_contact_bis1:
+  client: client_one
+  contact: c_two
+
+client_contact_bis2:
+  client: client_one
+  contact: c_three
+
+client_contact_bis3:
+  client: client_one
+  contact: c_four
+
+client_contact_bis4:
+  client: client_one
+  contact: c_five
+
+client_contact_bis5:
+  client: client_one
+  contact: another
+
+client_contact_two:
+  client: client_two
+  contact: c_two
+
+client_contact_three:
+  client: client_three
+  contact: c_three
+
+client_contact_four:
+  client: client_four
+  contact: c_four
+
+client_contact_five:
+  client: client_five
+  contact: pele
+
+client_contact_six:
+  client: client_five
+  contact: c_two
+
+client_contact_seven:
+  client: client_five
+  contact: c_three

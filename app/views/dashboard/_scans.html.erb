@@ -1,0 +1,14 @@
+<div class="btn-group m-0 pe-1" role="group" aria-label="Scans">
+  <span class="btn btn-dark d-inline-flex"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.import_scan') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:download] %></i>
+  </span>
+  <a role="button" class="btn btn-system"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.vm_scans_count') %>">
+    <%= @vm_scans_count %>
+  </a>
+  <a role="button" class="btn btn-applicative"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.wa_scans_count') %>">
+    <%= @wa_scans_count %>
+  </a>
+</div>

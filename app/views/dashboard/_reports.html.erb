@@ -1,0 +1,15 @@
+<div class="btn-group m-0 pe-1" role="group" aria-label="Reports">
+  <a role="button" href="<%= reports_path %>" class="btn btn-dark d-inline-flex"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.reports_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:reports] %></i>&nbsp;<%= @reports_count %>
+  </a>
+  <% Report.levels.keys.reverse_each do |nof| %>
+  <% color = level_color(nof) %>
+  <a role="button" class="btn btn-<%= color %> btn-secondary"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t("statistics.labels.nof_#{nof}") %>">
+    <span class="badge badge-<%= color %>">
+      <%= @reports_sum[nof] || 0 %>
+    </span>
+  </a>
+  <% end %>
+</div>

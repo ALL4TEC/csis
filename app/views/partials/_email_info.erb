@@ -1,0 +1,8 @@
+<% if resource.email.end_with?('@gmail.com') %>
+  <div class='d-flex flex-column me-4'>
+    <%= link_to("https://support.google.com/mail/answer/7436150?hl=en", method: "get", class: "me-1 btn btn-primary d-flex align-items-center", target: '_blank') do %>
+      <i aria-hidden='true' class='material-icons align-middle me-1'><%= Icons::MAT[:info] %></i>
+      <%= t('users.labels.gmail_email') %>
+    <% end %>
+  </div>
+<% end %>

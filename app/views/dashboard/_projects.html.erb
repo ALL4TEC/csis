@@ -1,0 +1,7 @@
+<div class="btn-group m-0 pe-1" role="group" aria-label="Projects">
+  <a href="<%= projects_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.projects_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:dashboard] %></i>&nbsp;<%= @projects_count %>
+  </a>
+  <%= render 'statistics_levels' %>
+</div>

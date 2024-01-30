@@ -1,0 +1,28 @@
+<div class='d-flex h-100' id='groups'>
+  <div class='h-100'>
+    <div class='card rounded-0 h-100'>
+      <div class='d-flex justify-content-between card-header bg-primary text-white align-items-center rounded-0'>
+        <h4><%= t('labels.users') %></h4>
+        <span class='badge badge-count me-1' data-bs-toggle='tooltip' title="<%= t('groups.labels.total_members') %>"><%= User.all.count %></span>
+      </div>
+      <div class='card-body groups-card-users' id='groups-users-card'>
+
+      </div>
+      <%= render 'groups/spinner', group_id: 'users' %>
+    </div>
+  </div>
+  <div class='card w-100'>
+    <div class='card-header bg-primary d-flex justify-content-between text-white align-items-center rounded-0'>
+      <h4><%= t('groups.section_title') %></h4>
+      <span class='badge badge-count me-1'><%= Group.all.count %></span>
+    </div>
+    <div class='card-body p-2 w-100'>
+      <%- Group.all.each_with_index do |group, index| %>
+      <div class="<%= index.zero? ? '' : 'mt-2' %>" id='groups-<%= group %>'>
+        <%= render "groups/#{group}" %>
+      </div>
+      <% end %>
+    </div>
+</div>
+
+<%= javascript_packs_with_chunks_tag  'groups', nonce: true, 'data-turbo-track': 'reload' %>

@@ -1,0 +1,11 @@
+google_chat_config_one:
+  name: 'gcc1'
+  url: 'url1'
+  type: 'GoogleChatConfig'
+  creator: staffuser
+
+google_chat_config_two:
+  name: 'gcc2'
+  url: 'url2'
+  type: 'GoogleChatConfig'
+  creator: staffuser

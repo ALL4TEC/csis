@@ -1,0 +1,27 @@
+<%- current_level_class = report.is_a?(Array) ? '' : "line-hover-#{level_color(report.level)}" %>
+<div class="form-check ps-0 mb-1 table table-hover <%= current_level_class %>">
+  <div class="row" data-target="filter.element" data-name="<%= b.object.name %>" data-date="<%= b.object.launched_at.to_date.iso8601 %>">
+    <div class="col-md-4 d-flex flex-row align-items-center form-check">
+      <%= b.check_box data: { target: 'filter.element', name: b.object.name, date: b.object.launched_at.to_date.iso8601 }, class: 'form-check-input' %>
+      <%= b.label(class: 'text-wrap ms-2 form-check-label') %>
+    </div>
+    <div class='col-md-3 d-flex flex-wrap'>
+      <% b.object.reports.except(report).each do |rep| %>
+        <div><%= render 'reports/report_badge', report: rep %></div>
+      <% end %>
+    </div>
+    <div class="col-md-2"><%= l b.object.launched_at, format: :classic %></div>
+    <div class="col-md-3">
+      <details>
+        <summary><%= t('reports.labels.choose_url') %></summary>
+        <% url = b.object.url %>
+        <%= t('reports.labels.original_url') %>
+        <br>
+        <%= url %>
+        <br>
+        <% url = (rws = b.object.report_wa_scans.find_by(report: report)) && rws.web_app_url.present? ? rws.web_app_url : url %>
+        <%= text_area_tag(b.object.id, url, size: '15x1', label: t('reports.labels.actual_url')) %>
+      </details>
+    </div>
+  </div>
+</div>

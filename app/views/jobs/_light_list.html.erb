@@ -1,0 +1,12 @@
+<% jobs.each do |job| %>
+  <div class='d-flex job-el btn-dark text-<%= job_color(job.status) %> p-1' data-id="<%= job.id %>">
+    <span class="d-flex w-100" data-bs-toggle='tooltip' title='<%= job.created_at.strftime("%F %T") %>'>
+      <%- title = job.title.present? ? "- #{job.title}" : '' %>
+      <%= t("jobs.names.#{job.clazz.underscore}") + title %>
+    </span>
+    <span class='d-flex rounded-0 p-1'>
+      <i aria-hidden='true' class="material-icons align-middle text-<%= job_color(job.status) %> job-status" data-bs-toggle='tooltip' title='<%= job.stacktrace.presence %>'><%= Icons::MAT[job_icon(job.status)] %></i>
+      <%= "#{job.progress_step}/#{job.progress_steps}" %>
+    </span>
+  </div>
+<% end %>

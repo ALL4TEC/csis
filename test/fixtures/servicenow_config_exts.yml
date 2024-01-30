@@ -1,0 +1,13 @@
+snce_one:
+  servicenow_config_id: 6ac7e80e-fc2a-520a-9307-727efb365ed7
+  status: ok
+  need_refresh_at: <%= 25.minutes.from_now.to_fs(:db) %>
+  fixed_vuln: 'Resolution found'
+  accepted_risk: 'No resolution found'
+
+snce_two:
+  servicenow_config: snc_two
+  status: ko
+  need_refresh_at: <%= 3.days.ago.to_fs(:db) %>
+  fixed_vuln: 'Resolution found'
+  accepted_risk: 'No resolution found'

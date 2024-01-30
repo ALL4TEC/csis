@@ -1,0 +1,15 @@
+slack_config_one:
+  name: EntrepriseOne-TeamOne-id
+  encrypted_api_key: "<%= @secret = SlackConfig.new(api_key: 'xoxoferzigzbe'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  type: 'SlackConfig'
+  creator: staffuser
+  slack_application: slack_application_one
+
+slack_config_two:
+  name: EntrepriseOne-TeamTwo-id
+  encrypted_api_key: "<%= @secret = SlackConfig.new(api_key: 'xoxoferzigzfezfzbe'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  type: 'SlackConfig'
+  creator: staffuser
+  slack_application: slack_application_two

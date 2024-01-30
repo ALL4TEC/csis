@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+aggregate_action_one:
+  action: action_one
+  aggregate: aggregate_one
+
+aggregate_action_two:
+  action: action_two
+  aggregate: aggregate_one
+
+aggregate_action_three:
+  action: action_three
+  aggregate: aggregate_one
+
+aggregate_action_four:
+  action: action_four
+  aggregate: aggregate_two
+
+aggregate_action_five:
+  action: action_five
+  aggregate: aggregate_one

@@ -1,0 +1,13 @@
+<%- channel_providers_accounts.each_with_index do |account_user, index| %>
+  <%- provider = account_user.provider %>
+  <%- account_user_id = account_user.id %>
+  <div class='d-flex flex-column align-items-center justify-content-center notification_configuration-col' data-bs-toggle='tooltip' title='<%= t("user_profile.notifications.by_#{provider}") %>'>
+    <%= image_tag("logos/#{Icons::LOGOS[provider]}", class: "material-icons align-middle md-24", height: '24px', data: { 'bs-toggle': 'tooltip' }, title: account_user.account.name) %>
+    <%- account_user_notify_on_all_checked = Set.new(channel_providers_accounts[index].notify_on.filter(&:present?)) == Set.new(Notification.subjects.keys) %>
+    <input type='checkbox' name='user[accounts_users_attributes][<%= index %>][notify_on][]' value='' checked class='d-none'>
+    <div class='form-check form-switch ms-1'>
+      <input type="checkbox" data-action="checker#checkAll" data-source="check-all-account-user-<%= account_user_id %>-notify" id="check-all-account-user-<%= account_user_id %>-notify" class='form-check-input' <%= account_user_notify_on_all_checked ? 'checked' : '' %>>
+      <label class="form-check-label" for='check-all-account-user-<%= account_user_id %>-notify'></label>
+    </div>
+  </div>
+<% end %>

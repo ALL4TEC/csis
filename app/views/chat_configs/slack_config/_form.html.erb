@@ -1,0 +1,27 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%- slack_config ||= ChatConfig.new(type: 'SlackConfig') %>
+<%- data = slack_config.id.blank? ? { url: slack_configs_path, method: :post } : { url: slack_config_path(slack_config), method: :put } %>
+<div id='slackConfigForm'>
+<%= simple_form_for(slack_config, url: data[:url], method: data[:method], as: :slack_config) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= t('activerecord.attributes.slack_config.application_name') %> : <%= slack_config.slack_application.name %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= t('activerecord.attributes.slack_config.workspace_name') %> : <%= slack_config.workspace_name %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search, label: t('activerecord.attributes.slack_config.name') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :channel_id, collection: @channels, as: :select, selected:  slack_config.channel_id, label: t('activerecord.attributes.slack_config.channel_name')  %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :users, collection: policy_scope(User).decorate,
+            input_html: { data: { 'live-search': "true", 'actions-box': 'true' } }, label_method: :full_name_and_email, value_method: :id %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

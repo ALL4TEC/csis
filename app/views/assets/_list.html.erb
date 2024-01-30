@@ -1,0 +1,108 @@
+<%- list = assets.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Assets</caption>
+    <thead>
+      <tr>
+        <% if list %>
+        <th id='assets-name'>
+          <%= sort_link_unless(@q.nil?, @q, :name) do %>
+            <%= t('activerecord.attributes.asset.name') %>
+          <% end %>
+        </th>
+        <% else %>
+        <th id='assets-description'><%= t('assets.labels.description') %></th>
+        <th id='assets-category'><%= t('assets.labels.category') %></th>
+        <th id='assets-os'><%= t('assets.labels.os') %></th>
+        <% end %>
+        <th id='assets-confidentiality'><%= t('assets.labels.confidentiality') %></th>
+        <th id='assets-integrity'><%= t('assets.labels.integrity') %></th>
+        <th id='assets-availability'><%= t('assets.labels.availability') %></th>
+        <th id='assets-targets'><%= t('models.targets') %></th>
+        <th id='assets-projects'><%= t('models.projects') %></th>
+        <th id='assets-created-at'>
+          <%= sort_link_unless(@q.nil?, @q, :created_at) do %>
+            <%= t('dashboard.labels.created_at') %>
+          <% end %>
+        </th>
+        <th id='assets-updated-at'>
+          <%= sort_link_unless(@q.nil?, @q, :updated_at) do %>
+            <%= t('dashboard.labels.updated_at') %>
+          <% end %>
+        </th>
+        <th id='assets-btn'>
+        <% if trashed %>
+          <%= t('models.actions') %>
+        <%- elsif list %>
+          <%= render 'partials/c_btn', new_resource_path: new_asset_path(), policy: policy(Asset) %>
+        <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <%- scoped_targets = policy_scope(Target) %>
+    <%- scoped_projects = policy_scope(Project) %>
+    <% assets.each do |asset| %>
+      <tr>
+        <% if list %>
+        <td>
+          <% if trashed %>
+            <%= asset.name %>
+          <% else %>
+            <%= link_to(asset.name, asset, class: 'link-block no-deco') %>
+          <% end %>
+        </td>
+        <% else %>
+        <td headers='assets-description'><%= asset.description %></td>
+        <td headers='assets-category'><%= Asset.human_attribute_name("category.#{asset.category}") %></td>
+        <td headers='assets-os'><%= asset.os %></td>
+        <% end %>
+        <td headers='assets-confidentiality' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Asset.human_attribute_name("confidentiality.#{asset.confidentiality}") %>'>
+          <i aria-hidden='true' class='material-icons left align-middle text-<%= asset_level_color(asset.confidentiality_short) %>'><%= Icons::MAT[:confidentiality] %></i>
+        </td>
+        <td headers='assets-integrity' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Asset.human_attribute_name("integrity.#{asset.integrity}") %>'>
+          <i aria-hidden='true' class='material-icons left align-middle text-<%= asset_level_color(asset.integrity_short) %>'><%= Icons::MAT[:integrity] %></i>
+        </td>
+        <td headers='assets-availability' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Asset.human_attribute_name("availability.#{asset.availability}") %>'>
+          <i aria-hidden='true' class='material-icons left align-middle text-<%= asset_level_color(asset.availability_short) %>'><%= Icons::MAT[:availability] %></i>
+        </td>
+        <td headers='assets-targets'>
+          <% unless asset.targets.nil? %>
+          <ul>
+            <% asset.targets.each do |target| %>
+              <li>
+                <%= render 'groups/group_badge', group: target, link: target.in?(scoped_targets) %>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='assets-projects'>
+          <% unless asset.projects.nil? %>
+          <ul>
+            <% asset.projects.each do |project| %>
+              <li>
+                <%= render 'groups/group_badge', group: project, link: project.in?(scoped_projects) %>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='assets-created-at'>
+          <%= I18n.l asset.created_at, format: :short_dmy %>
+        </td>
+        <td headers='assets-updated-at'>
+          <%= I18n.l asset.updated_at, format: :short_dmy %>
+        </td>
+        <td headers='assets-btn'>
+        <% if trashed %>
+          <%= link_to t('assets.actions.restore'), restore_asset_path(asset), method: :put, data: { confirm: t('assets.actions.restore_confirm', infos: asset.name) }, class: 'btn btn-secondary' %>
+        <% elsif list %>
+          <%= render 'partials/actions_btns', policy: policy(asset), resource: asset, discardable: true, klazz: 'asset' %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

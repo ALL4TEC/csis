@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+report_contact_one:
+  report: mapui
+  contact: c_one
+
+report_contact_two:
+  report: mapui2
+  contact: c_two
+
+report_contact_auto:
+  report: scan_report_auto
+  contact: c_one

@@ -1,0 +1,48 @@
+.text-pre {
+    white-space: pre;
+}
+
+#action_description {
+    +.card {
+        display: none;
+    }
+    &:focus {
+        +.card {
+            display: block;
+        }
+    }
+}
+
+#action-issues {
+    align-items: center;
+}
+
+#action-issues .card {
+    min-width: 12rem;
+    max-width: 17rem;
+    border-style: solid !important;
+    border-width: 1px !important;
+    border-radius: 0.25rem !important;
+}
+
+.div-text-right {
+    text-align: right;
+}
+
+#action-issues input[type="submit"] {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.remote_issue_link {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.close-ticket form {
+    display: inline;
+}

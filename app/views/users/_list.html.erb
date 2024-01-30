@@ -1,0 +1,96 @@
+<%= javascript_packs_with_chunks_tag  'public_key', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%- list = users.is_a?(ActiveRecord::Relation) %>
+<%- staff = type == :staff %>
+<%- contact = type == :contact %>
+<%- type_s = type.to_s %>
+<div class="table-responsive">
+  <table class="table table-user table-hover">
+    <caption>Users</caption>
+    <thead>
+      <tr>
+        <th id='users-state'>
+          <%- if policy(type_s.to_sym).admin? %>
+            <%- title1 = t("activerecord.attributes.#{type_s}.state") %>
+            <%= sort_link_unless(@q.nil?, @q, :state) do %>
+              <%= title1 %>
+            <% end %>
+            /
+          <% end %>
+          <%- title = t("activerecord.attributes.#{type_s}.full_name") %>
+          <%= sort_link_unless(@q.nil?, @q, :full_name) do %>
+            <%= title %>
+          <% end %>
+        </th>
+        <th id='users-email'>
+          <%- title = t("activerecord.attributes.#{type_s}.email") %>
+          <%= sort_link_unless(@q.nil?, @q, :email) do %>
+            <%= title %>
+          <% end %>
+        </th>
+        <th id='users-notification_email'>
+          <%- title = t("activerecord.attributes.#{type_s}.notification_email") %>
+          <%= sort_link_unless(@q.nil?, @q, :notification_email) do %>
+            <%= title %>
+          <% end %>
+        </th>
+        <th id='users-teams'>
+        <%- if staff %>
+          <%- title = t('activerecord.attributes.staff.staff_teams') %>
+          <%= sort_link_unless(@q.nil?, @q, :staff_teams_name) do %>
+            <%= title %>
+          <% end %>
+        <% elsif contact %>
+          <%- title = t('activerecord.attributes.contact.contact_clients') %>
+          <%= sort_link_unless(@q.nil?, @q, :contact_clients_name) do %>
+            <%= title %>
+          <% end %>
+        <% end %>
+        </th>
+        <th id='users-roles'>
+          <%- title = t("activerecord.attributes.#{type_s}.roles") %>
+          <%= sort_link_unless(@q.nil?, @q, :roles_name) do %>
+            <%= title %>
+          <% end %>
+        </th>
+        <% if list %>
+        <th id='users-btn'>
+          <%= render 'partials/c_btn', new_resource_path: send("new_#{type_s}_path"), policy: policy(@user_clazz) %>
+        </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.each do |user| %>
+        <%- policy = "#{type_s.capitalize}Policy".constantize.new(current_user, user) %>
+        <tr>
+          <td headers='users-state'>
+            <%= render partial: 'users/user_badge', locals: { user: user, type: type_s, instanciated_policy: policy, indicators: true, gpg: true, link: true } %>
+          </td>
+          <td headers='users-email'><%= user.email %></td>
+          <td headers='users-notification_email'><%= user.notification_email %></td>
+          <td headers='users-teams'>
+            <ul>
+            <%- scoped_teams = policy_scope(Group.team_kind(type)) %>
+            <%- user.group_teams(type)&.each do |team| %>
+              <li><%= render 'groups/group_badge', group: team, link: team.in?(scoped_teams) %></li>
+            <% end %>
+            </ul>
+          </td>
+          <td headers='users-roles'>
+            <div class="d-flex flex-column">
+              <% user.roles.send("of_#{type}s").reject { |role| role.name == 'super_admin' && !current_user.super_admin? }.each do |role| %>
+                <span><%= t("role.#{role.name}") %></span>
+              <% end %>
+            </div>
+          </td>
+          <% if list %>
+          <td headers='users-btn'>
+            <%= render 'partials/actions_btns', policy: policy, resource: user, activable: true, recoverable: true, discardable: true, klazz: @user_clazz.to_s.downcase %>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

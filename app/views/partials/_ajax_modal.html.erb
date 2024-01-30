@@ -1,0 +1,20 @@
+<div class="modal fade" id="ajax-modal" tabindex="-1" role="dialog" aria-labelledby="ajax-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header btn-primary">
+        <h5 class="d-none modal-title w-100" id="ajax-modal-title"></h5>
+        <h5 class="modal-title" id="ajax-modal-title-loading">
+          <%= t('labels.loading') %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-2 text-dark" id="ajax-modal-content-loading">
+        <div class="d-flex align-items-center justify-content-center w-100 h-100">
+          <%= render 'layouts/loader' %>
+        </div>
+      </div>
+      <div class="d-none modal-body p-2 text-dark" id="ajax-modal-content">
+      </div>
+    </div>
+  </div>
+</div>

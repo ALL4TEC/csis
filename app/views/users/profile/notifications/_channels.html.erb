@@ -1,0 +1,28 @@
+<%- overridable_channel_providers_accounts = channel_providers_accounts.select { |account_user| account_user.provider == :slack } %>
+<%- if overridable_channel_providers_accounts.count.positive? %>
+<div class="mt-2 ps-2 pe-2">
+  <div class='card rounded-0'>
+    <div class='card-header rounded-0 bg-secondary'>
+      <h5 class='card-title'><%= t('user_profile.notifications.specify_channel_providers_channel_id') %></h5>
+    </div>
+    <div class='card-body p-2'>
+      <%- overridable_channel_providers_accounts.each_with_index do |account_user, index| %>
+        <%- provider = account_user.provider %>
+        <%- account_user_id = account_user.id %>
+        <%- channels = ChatService.slack_channels(account_user) %>
+        <%- id = "#{account_user_id}-channel-id" %>
+        <div class='form-group d-inline-flex flex-wrap align-items-center justify-content-start'>
+          <%= image_tag("logos/#{Icons::LOGOS[provider]}", class: "material-icons align-middle md-24", height: '24px', data: { 'bs-toggle': 'tooltip' }, title: account_user.account.name) %>
+          <%= account_user.account.name %>
+          <select name='user[accounts_users_attributes][<%= index %>][channel_id]' class="form-control" id='<%= id %>'>
+            <option value="" class="form-control" id='<%= id %>'>default</option>
+            <%- channels.each do |channel| %>
+              <option  value='<%= channel[1] %>' <%= account_user.channel_id == channel[1] ? "selected" : "" %> class="form-control" id='<%= id %>'><%= channel[0] %></option>
+            <% end %>
+          <select>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

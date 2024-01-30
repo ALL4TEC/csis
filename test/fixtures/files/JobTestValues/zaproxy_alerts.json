@@ -1,0 +1,97 @@
+{
+  "@version": "2.9.0",
+  "@generated": "mer., 15 avr. 2020 18:22:45",
+  "site": [
+    {
+      "@name": "http://localhost:3000",
+      "@host": "localhost",
+      "@port": "3000",
+      "@ssl": "false",
+      "alerts": [
+        {
+          "pluginid": "10096",
+          "alert": "Timestamp Disclosure - Unix",
+          "name": "Timestamp Disclosure - Unix",
+          "riskcode": "0",
+          "confidence": "1",
+          "riskdesc": "Informational (Low)",
+          "desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
+          "instances": [
+            {
+              "uri": "http://localhost:3000/packs/js/application-9361ed557b521613e687.js",
+              "method": "GET",
+              "evidence": "1444681467"
+            },
+            {
+              "uri": "http://localhost:3000/aggregates/4470cb11-0878-4c54-978b-728aa2d556c0/edit",
+              "method": "GET",
+              "evidence": "31536000"
+            }
+          ],
+          "count": "2",
+          "solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
+          "otherinfo": "<p>1444681467, which evaluates to: 2015-10-12 22:24:27</p>",
+          "reference": "<p>https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure</p><p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+          "cweid": "200",
+          "wascid": "13",
+          "sourceid": "3"
+        },
+        {
+          "pluginid": "90033",
+          "alert": "Loosely Scoped Cookie",
+          "name": "Loosely Scoped Cookie",
+          "riskcode": "0",
+          "confidence": "1",
+          "riskdesc": "Informational (Low)",
+          "desc": "<p>Cookies can be scoped by domain or path. This check is only concerned with domain scope.The domain scope applied to a cookie determines which domains can access it. For example, a cookie can be scoped strictly to a subdomain e.g. www.nottrusted.com, or loosely scoped to a parent domain e.g. nottrusted.com. In the latter case, any subdomain of nottrusted.com can access the cookie. Loosely scoped cookies are common in mega-applications like google.com and live.com. Cookies set from a subdomain like app.foo.bar are transmitted only to that domain by the browser. However, cookies scoped to a parent-level domain may be transmitted to the parent, or any subdomain of the parent.</p>",
+          "instances": [
+            {
+              "uri": "http://localhost:3000/reports/5bd0e4cd-ed92-4c6f-9c81-e6d212330948/notes",
+              "method": "GET"
+            },
+            {
+              "uri": "http://localhost:3000/clients/2c147650-885b-4360-936d-e3f95fde8707",
+              "method": "GET"
+            }
+          ],
+          "count": "2",
+          "solution": "<p>Always scope cookies to a FQDN (Fully Qualified Domain Name).</p>",
+          "otherinfo": "<p>The origin domain used for comparison was: </p><p>localhost</p><p>_csis_session=WhWc01TX9aW0Gnnr0%2BhS7wLkpqcKpEVl%2B85vNMNoA5Dxnc4jz5fC1bfrA%2FnPEByQ6UZwN1v8VWBeaFe586Yg1I2UPyjUjBnvMO3Mr4NsjPOxvvNePE71Lt1qKIP4celdUCbE4GRJYzkbEaKgy4jqFa0tXhLLoYkgAYwACKXHPFfq92nNRH2rnJXxwD7IySjhrES7Rvh%2FJhmpn05l6oh6wqekPDXGG5M%2FkYYm0EjHqMVZvsQQRODR3iS%2Fr1zvjxYScLWC5UvfaFU%2FJWjxTZzK5coCHu3rUjoXO%2BlwztF0Gb9bvNPJYu9OiZDFgtGYxpsqU6V5YkOf3EUn5mkciKDRPvtFRtR4bUqtXNmQptVNZn63ybx38e0hGOhH9IGldf5E4k6bbXgsZ3U5NS6E2tDmg4vmypkjyK9AWiKWnXY1PRDQxesly5AM7%2Bc6jNUFe2ap7Mb9vLNLfwaCnsfj3Kpi1moIGghCWSYQekyE5uVXnDFWFiRYmA7%2FycVXkEDi22%2BY4iEOGOyN3FsJsbiyZpAmq%2BSCc3U7KfipCUjyGTe4XfYiJ1vK7rMVicfJo4oofWyfniSgy8%2FiCJbzYTL3p%2BPG4vtFTubcK22RU5x%2BNUn2YqorTU9Ed5QAPT79gsLtxHhzzsKgVikt6DNsZoQ3fHSwMIYPMtEUhFfaizD5I6oCPVx%2BQWJ1C4Ouyhc9VVvNs7bB6vmWFlotA0Ruy8R2C%2BrJ0LvV3V8smkh8q5WOjxoc%2Fh6uHmfZqudlz9yOElAXKgTIknmlHfMUY8uOCD9CXo%2BJ7Weua63NYVBP%2BA%3D%3D--TaNUMxS14UrZ1JcO--inF0BIA%2FRt1yM9sdhKZ91Q%3D%3D</p><p></p>",
+          "reference": "<p>https://tools.ietf.org/html/rfc6265#section-4.1</p><p>https://www.owasp.org/index.php/Testing_for_cookies_attributes_(OTG-SESS-002)</p><p>http://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy_for_cookies</p>",
+          "cweid": "565",
+          "wascid": "15",
+          "sourceid": "3"
+        },
+        {
+          "pluginid": "10055",
+          "alert": "CSP Scanner: Notices",
+          "name": "CSP Scanner: Notices",
+          "riskcode": "0",
+          "confidence": "2",
+          "riskdesc": "Informational (Medium)",
+          "desc": "<p>Info Items:</p><p>1:146: The \"'unsafe-inline'\" keyword-source has no effect in source lists that contain hash-source or nonce-source in CSP2 and later. Ensure that this pattern is only used for backwards compatibility with older CSP implementations and is not an oversight.</p><p>1:180: A draft of the next version of CSP deprecates report-uri in favour of a new report-to directive.</p><p></p>",
+          "instances": [
+            {
+              "uri": "http://localhost:3000/projects/2728083d-21ed-4e56-9269-2ef8c6587716/statistics",
+              "method": "GET",
+              "param": "Content-Security-Policy",
+              "evidence": "default-src 'self' https:; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; style-src 'self' https: 'unsafe-inline' 'nonce-tWfTtQvUU4LxhkyAjZppYg=='; report-uri https://sentry.io/api/1192299/csp-report/?sentry_key=794cd55d1d4f469e90ee26fa9cded307; script-src 'self' https: 'unsafe-eval' 'nonce-tWfTtQvUU4LxhkyAjZppYg=='"
+            },
+            {
+              "uri": "http://localhost:3000/scan_reports/5bd0e4cd-ed92-4c6f-9c81-e6d212330948/edit",
+              "method": "POST",
+              "param": "Content-Security-Policy",
+              "evidence": "default-src 'self' https:; font-src 'self' https: data:; img-src 'self' https: data:; object-src 'none'; style-src 'self' https: 'nonce-UsJNUBLaNc7kAWFdxzZ9Fg=='; report-uri https://sentry.io/api/1192299/csp-report/?sentry_key=794cd55d1d4f469e90ee26fa9cded307; script-src 'self' https: 'unsafe-eval' 'nonce-UsJNUBLaNc7kAWFdxzZ9Fg=='"
+            }
+          ],
+          "count": "2",
+          "solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+          "reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p>",
+          "cweid": "16",
+          "wascid": "15",
+          "sourceid": "3"
+        }
+      ]
+    }
+  ]
+}

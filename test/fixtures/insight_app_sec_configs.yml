@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+ias_one:
+  name: First IAS
+  url: 'fezgezg'
+  type: 'InsightAppSecConfig'
+  # Not very clean but best solution found yet
+  encrypted_api_key: "<%= @secret = InsightAppSecConfig.new(api_key: '6786f7e6z4f7z3g73ez7g3'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+
+ias_two:
+  name: Second IAS
+  url: 'fezgzezhz'
+  type: 'InsightAppSecConfig'
+  encrypted_api_key: "<%= @secret = InsightAppSecConfig.new(api_key: 'fe4z6f46ezfe6z7fz8f3z87f'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+

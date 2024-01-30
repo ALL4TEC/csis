@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-center w-100 align-items-center">
+  <%= image_tag("logos/#{Icons::LOGOS[:csis]}", class: "logo", height: '100px', alt: "") %>
+  <div class='ms-2 d-flex align-items-center flex-column'>
+    <% if resource.direct_otp %>
+      <h2><%= t('devise.two_factor_authentication.enter_sent_code') %></h2>
+    <% else %>
+      <h2><%= t('devise.two_factor_authentication.enter_authenticator_code') %></h2>
+    <% end %>
+  </div>
+</div>
+<div class="card-login mt-3">
+  <%= form_tag([resource_name, :two_factor_authentication], :method => :put) do %>
+    <div class="form-inputs">
+      <%= text_field_tag :code, '', autofocus: true, class:'form-control rounded' %>
+    </div>
+    <div class='form-actions'>
+      <%= submit_tag t('devise.two_factor_authentication.confirm'), class: 'btn btn-primary mt-2' %>
+    </div>
+  <% end %>
+
+  <div class='d-flex justify-content-between mt-2'>
+  <%- if ENV['RAILS_ENV'] == 'development' %>
+    <%- label = resource.direct_otp ? 'resend_code' : 'send_code_instead' %>
+    <%= button_to(send("resend_code_#{resource_name}_two_factor_authentication_path"), method: :get, class: 'btn btn-secondary d-flex text-white') do %>
+      <i aria-hidden='true' class="material-icons align-middle me-1"><%= Icons::MAT[:send] %></i>
+      <%= t("devise.two_factor_authentication.#{label}") %>
+    <% end %>
+  <% end %>
+  <%= button_to(send("destroy_#{resource_name}_session_path"), method: :delete, class: 'btn btn-secondary d-flex text-white') do %>
+    <i aria-hidden='true' class="material-icons align-middle exit me-1"><%= Icons::MAT[:exit] %></i>
+    <%= t('sign_out') %>
+  <% end %>
+  </div>
+</div>

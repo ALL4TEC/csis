@@ -1,0 +1,11 @@
+<% clazz = menu ? 'dropdown' : 'nav' %>
+<span class="<%= clazz %>-item <%= display_bg %>">
+  <a role="button" href="/<%= nav[:path].to_s %>" class="nav-link <%= nav[:disabled] ? 'disabled' : '' %>">
+  <% if nav[:logo].present? %>
+    <%= image_tag("logos/#{nav[:logo]}", class: "material-icons align-middle md-24", height: '24px') %>
+  <% else %>
+    <i aria-hidden='true' class="material-icons left i_scale align-middle"><%= nav[:icon] %></i>
+  <% end %>
+    <%= t(nav[:title] + '.section_title') %>
+  </a>
+</span>

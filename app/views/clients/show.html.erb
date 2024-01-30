@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="w-100">
+    <%= render 'clients/show', client: @client %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: 'contacts', header: t('clients.labels.contacts'), count: @client.contacts.count } do %>
+      <%= render 'contacts/list', contacts: @client.contacts %>
+    <% end %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: 'projects', header: t('models.projects'), count: @client.projects.count } do %>
+      <%= render 'projects/list', projects: @client.projects, trashed: false %>
+    <% end %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: 'supplied_projects', header: t('activerecord.attributes.client.supplied_projects'), count: @client.supplied_projects.count } do %>
+      <%= render 'projects/list', projects: @client.supplied_projects, trashed: false %>
+    <% end %>
+  </div>
+</div>
+
+<div class="fixed-bottom d-flex justify-content-end">
+  <%= link_to(t('labels.show'), actions_path + '?q[aggregate_report_project_client_id_eq]=' + @client.id, class: 'btn btn-primary') %>
+</div>

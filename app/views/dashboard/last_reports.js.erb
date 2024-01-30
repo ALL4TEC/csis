@@ -1,0 +1,2 @@
+<%- prefix = current_user.contact? ? 'contact_' : '' %>
+Rails.$('#tile-content-table')[0].innerHTML = ("<%= j (render partial: "dashboard/#{prefix}reports_tile_content", locals: { name: 'reports', reports: @reports }) %>")

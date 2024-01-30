@@ -1,0 +1,28 @@
+<%- occurrence_type = occ.class.to_s.delete_suffix('Occurrence').downcase %>
+<div class='btn-group w-100 d-flex occurrence-btn justify-content-center align-items-center' type='button'
+  data-bs-toggle="modal" data-bs-target="#ajax-modal" data-type='<%= occurrence_type %>' data-scan='<%= occ.scan.id %>' data-occurrence="<%= occ.id %>">
+  <button class= "btn-card btn btn-<%= occ.vulnerability.severity %>" type='button' data-bs-toggle='tooltip' title="<%= Vulnerability.human_attribute_name("severity.#{occ.vulnerability.severity}") %>">
+    <ul class='list-unstyled d-flex flex-column align-items-start mb-0'>
+      <li class='w-100 d-flex flex-wrap occurrence-title'>
+        <strong><%= occ.to_s %></strong>
+      </li>
+      <li class="w-100 btn-<%= occ.vulnerability.severity %>">
+        <div class='d-flex align-items-center'>
+          <%- prefix = occ.vulnerability.kb_type == 'qualys' ? 'QID' : '' %>
+          <strong class='qid'><%= "#{prefix} #{occ.vulnerability.qid}" %></strong>
+          <%- kind = occ.vulnerability.kind %>
+          <span class="ms-auto text-<%= VulnerabilitiesHelper.kind_color(kind) %> d-flex align-items-center p-1 rounded" data-bs-toggle='tooltip' title='<%= Vulnerability.human_attribute_name("kind.#{kind}") %>'>
+            <i aria-hidden='true' class='material-icons align-middle'><%= VulnerabilitiesHelper.kind_icon(kind) %></i>
+          </span>
+        </div>
+      </li>
+      <%- target = occ.respond_to?(:ip) ? occ.ip : occ.uri %>
+      <li class='scope-li'>
+        <strong>Scope :</strong>
+        <span class='scope'><%= target %></span>
+      </li>
+      <input type='hidden' class='description' value='<%= occ.vulnerability.diagnosis %>'>
+      <input type='hidden' class='solution' value='<%= occ.vulnerability.solution %>'>
+    </ul>
+  </button>
+</div>

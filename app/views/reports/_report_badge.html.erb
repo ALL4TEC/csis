@@ -1,0 +1,5 @@
+<div class='d-inline-flex align-items-center badge halo-<%= level_color(report.level) %> rounded-pill pt-0 pb-0' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("statistics.current_level.#{report.level}") %>'>
+  <i aria-hidden='true' class='material-icons align-middle i_quick_rotate m-1' data-bs-toggle='tooltip' title='<%= t("models.#{report.type.underscore}") %>'><%= Icons::MAT[report_icon(report.type)] %></i>
+  <%= link_to(report.title, report, class: "btn btn-sm btn-#{level_color(report.level)} rounded-pill") %>
+  <%= yield %>
+</div>

@@ -1,0 +1,49 @@
+<%= javascript_packs_with_chunks_tag  'debug_job', nonce: true, 'data-turbo-track': 'reload' %>
+
+<% content_for :table do %>
+  <%= pagination = paginate @jobs %>
+  <div class="table-responsive">
+    <table class="table table-jobs table-hover">
+      <caption>Jobs list</caption>
+      <thead>
+        <tr>
+          <th id='jobs-list-name'>
+            <%= sort_link(@q, :name, t('activerecord.attributes.job.name')) %>
+          </th>
+          <th id='jobs-list-creator'>
+            <%= sort_link(@q, :creator, t('activerecord.attributes.job.creator')) %>
+          </th>
+          <th id='jobs-list-created_at'>
+            <%= sort_link(@q, :created_at, t('activerecord.attributes.job.created_at')) %>
+          </th>
+          <th id='jobs-list-resque_job_id'>
+            <%= sort_link @q, :resque_job_id, t('activerecord.attributes.job.resque_job_id') %>
+          </th>
+          <th id='jobs-list-progress'>
+            <%= t('activerecord.attributes.job.progress') %>
+          </th>
+          <th id='jobs-list-subscribers'>
+            <%= sort_link @q, :subscribers, t('activerecord.attributes.job.subscribers') %>
+          </th>
+          <th id='jobs-list-status'>
+            <%= sort_link @q, :status %>
+          </th>
+          <th id='jobs-list-debug'>
+            <%= t('activerecord.attributes.job.stacktrace') %>
+          </th>
+        </tr>
+      </thead>
+      <tbody id='jobs_list' data-controller="jobs">
+        <%= render 'jobs/list', jobs: @jobs %>
+      </tbody>
+    </table>
+  </div>
+  <%= pagination %>
+  <div class='fixed-bottom d-flex justify-content-end'>
+    <%= link_to(resque_server_path, class: 'd-inline-flex align-items-center btn btn-sm btn-primary', target: '_blank') do %>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:jobs] %></i>
+      <%= 'DEBUG' %>
+    <% end %>
+  </div>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

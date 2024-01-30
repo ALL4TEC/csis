@@ -1,0 +1,54 @@
+<%= pagination = paginate qualys_clients %>
+<div class="table-responsive">
+  <table class="table table-qualys_client table-hover">
+    <caption>Qualys Clients</caption>
+    <thead>
+      <tr>
+        <th id='qualys-clients-qualys_config'><%= t('qualys_clients.labels.qualys_config') %></th>
+        <th id='qualys-clients-qualys_id'><%= t('qualys_clients.labels.qualys_id') %></th>
+        <th id='qualys-clients-name' class="th-qualys_client-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.qualys_client.qualys_name') %>
+        </th>
+        <th id='qualys-clients-teams' class="th-qualys_client-teams">
+          <%= sort_link @q, :teams_name, t('activerecord.attributes.qualys_client.teams') %>
+        </th>
+        <th id='qualys-clients-scans'><%= t('qualys_clients.labels.last_scans') %></th>
+        <th id='qualys-clients-btn'>
+        <%- if defined?(@qualys_config) %>
+          <%= render 'partials/c_btn', new_resource_path: send("new_qualys_config_#{@model_u}_path", @qualys_config), policy: policy(@clazz) %>
+        <% else %>
+          <%= render 'partials/c_btn' %>
+        <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% qualys_clients.each do |qualys_client| %>
+        <tr>
+          <td headers='qualys-clients-qualys_config'><%= link_to(qualys_client.qualys_config.name, qualys_client.qualys_config, class: 'link-block') %></td>
+          <td headers='qualys-clients-qualys_id'><%= qualys_client.qualys_id %></td>
+          <td headers='qualys-clients-name'>
+            <%= link_to(qualys_client.qualys_name, qualys_client, class: 'link-block') %>
+          </td>
+          <td headers='qualys-clients-teams'>
+            <% qualys_client.teams.each do |team| %>
+              <%= link_to(team.name, team, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='qualys-clients-scans'>
+            <details>
+              <summary><span class='badge badge-primary'><%= qualys_client.scans.count %></summary>
+              <ul>
+              <% qualys_client.scans.each do |scan| %>
+                <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn' %></li>
+              <% end %>
+              </ul>
+            </details>
+          </td>
+          <td headers='qualys-clients-btn'></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

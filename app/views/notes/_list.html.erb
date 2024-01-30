@@ -1,0 +1,32 @@
+<%- scop = trashed ? :discarded : :kept %>
+<%- prefix = trashed ? 'discarded' : '' %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption><%= "#{prefix.capitalize} Notes" %></caption>
+    <thead>
+      <tr>
+        <%- %i[title author].each do |name| %>
+          <th id='<%= "#{prefix}-" if prefix.present? %>notes-<%= name %>'>
+            <%= sort_link_unless(@q.nil?, @q, name) do %>
+              <%= t("activerecord.attributes.note.#{name}") %>
+            <% end %>
+          </th>
+        <% end %>
+        <th id='<%= "#{prefix}-" if prefix.present? %>notes-date'><%= t('dashboard.labels.date') %></th>
+        <th id='<%= "#{prefix}-" if prefix.present? %>notes-btn'></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% notes.send(scop).each do |note| %>
+        <tr>
+          <td headers='<%= "#{prefix}-" if prefix.present? %>notes-title'><span class='badge badge-primary'><%= link_to note.title, note %></span></td>
+          <td headers='<%= "#{prefix}-" if prefix.present? %>notes-author'><span class='badge badge-secondary'><%= note.author %></span></td>
+          <td headers='<%= "#{prefix}-" if prefix.present? %>notes-date'><code><%= I18n.l note.created_at, format: :short_dmy %></code></td>
+          <td headers='<%= "#{prefix}-" if prefix.present? %>notes-btn'>
+            <%= render 'partials/actions_btns', policy: policy(note), resource: note, discardable: true, klazz: 'note' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,31 @@
+.badge-notify {
+    top: -10px !important;
+    left: -15px;
+}
+
+i[class*="read"] {
+    font-size: 12px !important;
+    color: $csis-grey;
+}
+
+i[class*="not-"] {
+    color: $trivial;
+}
+
+#notif_list, #running-jobs {
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 400px;
+}
+
+.notif-el {
+    .notif-body {
+        a {
+            white-space: normal;
+        }
+    }
+}
+
+.notification_configuration-col {
+    width: 50px;
+}

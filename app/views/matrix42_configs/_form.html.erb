@@ -1,0 +1,35 @@
+<% content_for :sidebar_content_opened do %>
+  <%= render 'partials/help_bloc', id: 'helpConfig', title: t('matrix42_configs.instance_config.title'), visibility: 'show' do %>
+    <%= render 'matrix42_configs/matrix42_instance_config' %>
+  <% end %>
+<% end %>
+<% content_for :content do %>
+  <%= simple_form_for(matrix42_config, html: { class: 'w-100' }) do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :name %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :url %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :api_url %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :default_ticket_type, collection: Matrix42ConfigExt.default_ticket_types_select, include_blank: false %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :api_key, as: :password %>
+        <% end %>
+      </div>
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.association :suppliers, collection: Client.all.order('name ASC'), as: :check_boxes %>
+        <% end %>
+      </div>
+    </div>
+    <%= ui_fixed_form_footer f %>
+  <% end %>
+<% end %>
+<%= render template: 'layouts/_sidebar', locals: { direction: :rtl, no_btn: true, hidden: true } %>

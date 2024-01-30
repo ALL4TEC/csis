@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'insight_app_sec_configs/list', insight_app_sec_configs: @insight_app_sec_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

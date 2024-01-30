@@ -1,0 +1,30 @@
+<%- action = local_assigns[:action].presence %>
+<div>
+  <% opt = policy(Action).permitted_states_select %>
+  <div class="form-group flex-row align-items-center mt-0 mb-0">
+    <select class='selectpicker show-tick' title="<%= t('activerecord.attributes.action.state') %>" data-live-search="true" name="do" id="actions_states">
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' <%= action.present? && key.to_s == action.state.to_s ? 'selected' : '' %> data-content="<span class='d-flex align-items-center text-<%= action_state_color(key) %>'><i class='material-icons me-1'><%= action_state_icon(key) %></i><%= label %></span>">
+        <%= label %>
+      </option>
+      <% end %>
+    </select>
+  </div>
+</div>
+<div class="ps-2">
+  <% old_state = opt.select{|k,l| l.to_s == action.state.to_s}[0][0] if action.present? %>
+  <% action.present? ? notice=t('actions.multi_update.message', old: old_state) : notice =t('actions.multi_update.message_all')  %>
+  <button class="btn btn-primary" type="submit" data-confirm="<%= notice %>"><%= t('actions.multi_update.button') %></button>
+</div>
+<% if staff_signed_in? %>
+  <div class="ps-2">
+    <%= button_tag(name: 'do', value: 'mail', class: 'btn btn-outline-primary') do %>
+    <span><i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:send] %></i><%= t('actions.multi_update.mail') %></span>
+  <% end %>
+  </div>
+  <div class="ps-2">
+    <%= button_tag(name: 'do', value: 'delete', class: 'btn btn-outline-primary') do %>
+    <span><i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:delete] %></i><%= t('actions.multi_update.delete') %></span>
+  <% end %>
+  </div>
+<% end %>

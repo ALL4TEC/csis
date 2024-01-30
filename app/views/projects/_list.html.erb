@@ -1,0 +1,165 @@
+<%- list = projects.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Projects</caption>
+    <thead>
+      <tr>
+        <% if list %>
+        <th id='projects-name'>
+          <%= sort_link_unless(@q.nil?, @q, :name) do %>
+            <%= t('activerecord.attributes.project.name') %>
+          <% end %>
+          &nbsp/(
+          <%= sort_link_unless(@q.nil?, @q, :current_level) do %>
+            <%= t('activerecord.attributes.project.current_level') %>
+          <% end %>
+          )
+        </th>
+        <% end %>
+        <th id='projects-language'>
+        <%= sort_link_unless(@q.nil?, @q, :language_id) do %>
+          <%= t('labels.language') %>
+        <% end %>
+        </th>
+        <th id='projects-reports'><%= t('dashboard.labels.reports_count') %></th>
+        <th id='projects-owner'><%= t('models.owner') %></th>
+        <th id='projects-suppliers'><%= t('models.clients') %></th>
+        <th id='projects-teams'><%= t('models.teams') %></th>
+        <th id='projects-assets'><%= t('models.assets') %></th>
+        <th id='projects-certification'><%= t('dashboard.labels.certification') %></th>
+        <th id='projects-created-at'>
+          <%= sort_link_unless(@q.nil?, @q, :created_at) do %>
+            <%= t('dashboard.labels.created_at') %>
+          <% end %>
+        </th>
+        <th id='projects-updated-at'>
+          <%= sort_link_unless(@q.nil?, @q, :updated_at) do %>
+            <%= t('dashboard.labels.updated_at') %>
+          <% end %>
+        </th>
+        <th id='projects-btn'>
+        <% if trashed %>
+          <%= t('models.actions') %>
+        <%- elsif list %>
+          <%= render 'partials/c_btn', new_resource_path: new_project_path(), policy: policy(Project) %>
+        <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <%- scoped_clients = policy_scope(Client) %>
+    <%- scoped_teams = policy_scope(Team) %>
+    <%- scoped_assets = policy_scope(Asset) %>
+    <% projects.each do |project| %>
+      <tr class='line-hover-<%= level_color(project.statistics.current_level) %>'>
+        <% if list %>
+        <td headers='projects-name' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t('statistics.current_level.' + project.statistics.current_level) %>'
+            class='line-<%= level_color(project.statistics.current_level) %> border-0'>
+          <% if trashed %>
+            <%= project.name %>
+          <% elsif staff_signed_in? || current_user.contact_client_owner? %>
+            <%= link_to(project.name, project, class: '') %>
+          <% else %>
+            <%= link_to(project.name, project_statistics_path(project), class: '') %>
+          <% end %>
+        </td>
+        <% end %>
+        <td headers='projects-language'><%= render partial: 'partials/language', locals: { entity: project } %></td>
+        <td headers='projects-reports'>
+          <span class='badge halo-light rounded-pill d-inline-flex align-items-center'>
+            <% report_statistics = project.statistics.scan_reports_count %>
+            <% report_statistics += project.statistics.pentest_reports_count if project.statistics.pentest_reports_count.present? %>
+            <% report_statistics += project.statistics.action_plan_reports_count if project.statistics.action_plan_reports_count.present? %>
+            <span class='badge badge-primary'><%= report_statistics %></span>
+
+            <% auto_aggregate_data = project.auto_aggregate ? { color: 'success', state: 'on'} : { color: 'muted', state: 'off' } %>
+            <span class='badge rounded-pill p-0 ms-2' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("projects.labels.auto_aggregate_#{auto_aggregate_data[:state]}") %>'>
+              <i aria-hidden='true' class='material-icons md-30 align-middle text-<%= auto_aggregate_data[:color] %>'><%= Icons::MAT[:auto_aggregate] %></i>
+            </span>
+
+            <% auto_generate_data = project.auto_generate ? { color: 'success', state: 'on', icon: :auto_generate_on } : { color: 'muted', state: 'off', icon: :auto_generate_off } %>
+            <span class='badge rounded-pill p-0 ms-2' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("projects.labels.auto_generate_#{auto_generate_data[:state]}") %>'>
+              <i aria-hidden='true' class='material-icons md-30 align-middle text-<%= auto_generate_data[:color] %>'><%= Icons::MAT[auto_generate_data[:icon]] %></i>
+            </span>
+
+            <% if project.auto_generate %>
+              <% auto_export_data = project.auto_export ? { color: 'success', state: 'on'} : { color: 'muted', state: 'off' } %>
+              <span class='badge rounded-pill p-0 ms-2' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("projects.labels.auto_export_#{auto_export_data[:state]}") %>'>
+                <i aria-hidden='true' class='material-icons md-30 align-middle text-<%= auto_export_data[:color] %>'><%= Icons::MAT[:pdf] %></i>
+              </span>
+            <% end %>
+          </span>
+        </td>
+        <td headers='projects-owner'>
+          <%= render 'groups/group_badge', group: project.client, link: project.client.in?(scoped_clients) %>
+        </td>
+        <td headers='projects-suppliers'>
+          <ul>
+            <% project.suppliers.each do |supplier| %>
+              <li>
+                <%= render 'groups/group_badge', group: supplier, link: supplier.in?(scoped_clients) %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td headers='projects-teams'>
+          <% unless project.teams.nil? %>
+          <ul>
+            <% project.teams.each do |team| %>
+              <li>
+                <%= render 'groups/group_badge', group: team, link: team.in?(scoped_teams) %>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='projects-assets'>
+          <% unless project.assets.nil? %>
+          <ul>
+            <% project.assets.each do |asset| %>
+              <li>
+                <%= render 'groups/group_badge', group: asset, link: asset.in?(scoped_assets) %>
+              </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='projects-certification'>
+          <div class="d-flex flex-row justify-content-start">
+            <% certificate_generated = project.certificate.certificates_languages.present? %>
+            <% label = certificate_generated ? t('models.certificate') : t('statistics.labels.no_certificate') %>
+            <%= link_to(project_statistics_path(project), class: 'link-block no-deco') do %>
+              <span data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Certificate.human_attribute_name(project.certificate.transparency_level) %>'>
+                <i aria-hidden='true' class='material-icons md-36 i_rotate align-middle text-primary'><%= transparency_icon(project.certificate.transparency_level) %></i>
+              </span>
+              <span data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("labels.#{project.statistics.blazon}_badge") %>'>
+                <%= image_tag(badge(project.statistics.blazon, :thumb), size: '36x36', class: 'scale-hover') %>
+              </span>
+              <span data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= label %>'>
+                <% if certificate_generated %>
+                  <%= image_tag(wsc('1x', :thumb), size: '72x36') %>
+                <% else %>
+                <i aria-hidden='true' class="material-icons md-36 i_scale align-middle"><%= Icons::MAT[:statistics] %></i>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        </td>
+        <td headers='projects-created-at'>
+          <%= I18n.l project.created_at, format: :short_dmy %>
+        </td>
+        <td headers='projects-updated-at'>
+          <%= I18n.l project.updated_at, format: :short_dmy %>
+        </td>
+        
+        <td headers='projects-btn'>
+        <% if trashed %>
+          <%= link_to t('projects.actions.restore'), restore_project_path(project), method: :put, data: { confirm: t('projects.actions.restore_confirm', infos: project.name) }, class: 'btn btn-secondary' %></td>
+        <% elsif list %>
+          <%= render 'partials/actions_btns', policy: policy(project), resource: project, discardable: true, klazz: 'project' %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

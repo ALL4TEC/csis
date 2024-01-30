@@ -1,0 +1,22 @@
+<div class='d-flex justify-content-start'>
+  <div class="d-flex align-items-center text-secondary-hov-primary" data-bs-toggle="collapse" data-bs-target="#aggregate<%= aggregate.kind %><%= aggregate.rank %>-<%= id %>" aria-expanded="false" aria-controls="aggregate<%= aggregate.kind %><%= aggregate.rank %>-<%= id %>">
+    <button class="btn text-secondary-hov-primary btn-sm p-0 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#aggregate<%= aggregate.kind %><%= aggregate.rank %>-<%= id %>" aria-expanded="false" aria-controls="aggregate<%= aggregate.kind %><%= aggregate.rank %>-<%= id %>">
+      <span class="button_unfold_more">
+        <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i>
+      </span>
+      <span class="button_unfold_less">
+        <i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i>
+      </span>
+    </button>
+    <h5 class='d-inline-block p-0 mb-0'>
+      <%= title %>
+      <span class='badge badge-primary'><%= count %></span>
+    </h5>
+  </div>
+  <div class='ms-auto'>
+    <%= yield :sub_header %>
+  </div>
+</div>
+<div class='collapse' id='aggregate<%= aggregate.kind %><%= aggregate.rank %>-<%= id %>'>
+  <%= yield :sub_body %>
+</div>

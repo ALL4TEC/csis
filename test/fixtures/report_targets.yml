@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+report_target_one:
+  report_vm_scan: report_vm_scan_one
+  target: target_one
+
+report_target_two:
+  report_vm_scan: report_vm_scan_two
+  target: target_one
+
+report_target_three:
+  report_vm_scan: report_vm_scan_three
+  target: target_two

@@ -1,0 +1,89 @@
+c_one_group:
+  user: c_one
+  group: contact
+  current: true
+
+c_two_group:
+  user: c_two
+  group: contact
+  current: true
+
+c_three_group:
+  user: c_three
+  group: contact
+  current: true
+
+c_four_group:
+  user: c_four
+  group: contact
+  current: true
+
+c_five_group:
+  user: c_five
+  group: contact
+  current: true
+
+another_group:
+  user: another
+  group: contact
+  current: true
+
+contactadmin_group:
+  user: contactadmin
+  group: contact
+  current: true
+
+contactmanager_group:
+  user: contactmanager
+  group: contact
+  current: true
+
+basiccontact_group:
+  user: basiccontact
+  group: contact
+  current: true
+
+pele_group:
+  user: pele
+  group: contact
+  current: true
+
+staffuser_group:
+  user: staffuser
+  group: staff
+  current: true
+
+staffuser2:
+  user: staffuser2
+  group: staff
+  current: true
+
+superadmin:
+  user: superadmin
+  group: staff
+  current: true
+
+cyberadmin:
+  user: cyberadmin
+  group: staff
+  current: true
+
+cyberanalyst:
+  user: cyberanalyst
+  group: staff
+  current: true
+
+inactif:
+  user: inactif
+  group: staff
+  current: true
+
+unconfirmed:
+  user: unconfirmed
+  group: staff
+  current: true
+
+samuel:
+  user: samuel
+  group: staff
+  current: true

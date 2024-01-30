@@ -1,0 +1,42 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%- data = params[:action] == 'edit' ? { url: staff_path(staff), method: :put } : { url: staffs_path, method: :post } %>
+<%= simple_form_for(staff, url: data[:url], method: data[:method], as: :staff) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :full_name, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :email, placeholder: mail_placeholder %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <div class='d-flex'>
+          <%= f.input :notification_email, placeholder: mail_placeholder %>
+          <span class='mt-4' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t('labels.notification_email_info') %>'>
+            <i aria-hidden='true' class="material-icons align-middle me-2"><%= Icons::MAT[:info] %></i>
+          </span>
+        </div>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :language, label_method: ->(lang) { t("languages.#{lang.iso}") }, as: :select, include_blank: false %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :send_confirmation_notification, label: t('users.labels.send_confirmation_notification'), as: :boolean, :input_html => { :checked => true }, wrapper: :custom_boolean_switch if params[:action].in?(%w[new create]) %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :staff_teams, collection: policy_scope(Team).order('name ASC'), as: :check_boxes,
+                                  disabled: current_user?(staff) && !current_user.super_admin? %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :roles, collection: policy_scope([:Group, :Staff, Role]).order('name ASC'), as: :check_boxes, label_method: ->(role) { t("role.#{role.name}") },
+                                  disabled: ->(role) { policy([:Group, :Staff, role]).disabled? && current_user?(staff) } %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

@@ -1,0 +1,10 @@
+<p><%= t('mailer.content.hello') %> <%= @user.full_name %>,</p>
+<br>
+<%= t('mailer.content.notifications.comment_creation.new_comment_concerning_html', infos: @notif.data[:title]) %><br>
+<br>
+<span><strong><%= @notif.item.comment %></strong></span>
+<span>-- <em><%= @notif.item.author&.full_name %></em></span>
+<br>
+<p><%= t('mailer.content.notifications.comment_creation.how_to_respond') %></p>
+<a style="color: #5E6B76;" href="<%= @url %>"><%= t('mailer.content.CSIS') %></a><br><br>
+<p><%= t('mailer.content.polite') %></p>

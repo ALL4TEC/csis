@@ -1,0 +1,164 @@
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <caption>Cyberwatch Configuration</caption>
+      <thead>
+        <tr>
+          <th id='cyberwatch-config-url'><%= t('cyberwatch_configs.labels.url') %></th>
+          <th id='cyberwatch-config-teams'><%= t('cyberwatch_configs.labels.teams') %></th>
+          <th id='qualys-config-scans'><%= t('cyberwatch_configs.labels.last_scans') %> VM</th>
+          <th id='cyberwatch-config-ping'><%= t('settings.buttons.ping') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td headers='cyberwatch-config-url'>
+            <div class='d-flex flex-row'>
+              <code>https://<span><%= @cbw_config.url %></span></code>
+              <div class="ms-2 form-check form-switch">
+                <input type="checkbox" role='switch' class="form-check-input" disabled id="customSwitchVerifySslCertificate">
+                <label class="form-check-label" for="customSwitchVerifySslCertificate"><%= t('activerecord.attributes.cyberwatch_config.verify_ssl_certificate') %></label>
+              </div>
+            </div>
+          </td>
+          <td headers='cyberwatch-config-teams'>
+            <% @cbw_config.teams.each do |team| %>
+              <%= link_to(team.name, team, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='cyberwatch-config-scans'>
+            <ul>
+            <% @cbw_config.vm_scans.order(:created_at).limit(5).each do |scan| %>
+              <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-system' %></li>
+            <% end %>
+            </ul>
+          </td>
+          <td headers='cyberwatch-config-teams'>
+            <%= form_tag({ action: :ping, cyberwatch_config_id: @cbw_config.id }, method: :post) do %>
+              <div class='d-flex'>
+                <%= submit_tag(t('settings.buttons.ping'), class: 'btn btn-outline-primary') %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'cyberwatch_imports_history', header: t('cyberwatch_configs.labels.scans_imports_history'), count: @cbw_config.scans_imports.count } do %>
+  <div class='d-flex m-2'>
+    <%= render 'cyberwatch_configs/card', title: 'Scans', margin: false, color: 'system' do %>
+      <span data-toggle='tooltip' title='<%= t('activerecord.attributes.cyberwatch_config.import_cron') %>'><%= @cbw_config.vm_import_cron&.value %></span>
+    <% end %>
+  </div>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <table class="table table-hover">
+    <caption>Scans imports</caption>
+    <thead>
+      <tr>
+        <th id='scans-imports-created-at'>
+          <%= 'Creation' %>
+        </th>
+        <th id="scans-imports-importer">
+          <%= t('activerecord.attributes.scan_import.importer') %>
+        </th>
+        <th id="scans-imports-status">
+          <%= t('activerecord.attributes.scan_import.status') %>
+        </th>
+        <th id='scans-imports-scans'><%= t('activerecord.attributes.scan_import.scans') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @cbw_config.scans_imports.each do |scan_import| %>
+      <tr>
+        <td headers='scans-imports-created-at'><%= scan_import.created_at %></td>
+        <td headers='scans-imports-importer'><%= scan_import.importer %></td>
+        <td headers='scans-imports-status'><%= scan_import.status %></td>
+        <td headers='scans-imports-scans'>
+          <details>
+            <summary><span class='badge badge-primary'><%= scan_import.vm_scans.count %></span></summary>
+            <ul>
+              <%= scan_import.vm_scans.each do |scan| %>
+                <li><%= link_to "#{scan}: #{scan.reference}", scan, class: 'btn btn-applicative' %></li>
+              <% end %>
+            </ul>
+          </details>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+<% end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'cyberwatch_imports', header: t('settings.labels.import_all'), count: nil } do %>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'cyberwatch_configs/card', title: 'Scans', margin: false, color: 'system' do %>
+      <%= simple_form_for(@cbw_config, url: cyberwatch_config_import_scans_url(@cbw_config.id), method: :post, html: {class: 'w-100'}) do |f| %>
+        <div class="d-flex flex-row justify-content-between w-100">
+          <div class="form-group mt-0">
+            <%= f.search_field :name, class: 'form-control', value: '', id: 'scan_name' %>
+            <%= f.label :name, t('cyberwatch_configs.labels.scan_ref'), for: 'scan_ref' %>
+          </div>
+          <div class="form-group mt-0">
+            <%= t('labels.since') %>:
+            <%= date_select :cyberwatch_config, :created_at, {include_blank: true, selected: nil}, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="p-2 d-flex justify-content-center">
+          <%= f.submit t('settings.buttons.import_scans'), class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'cyberwatch_configs/card', title: t('models.assets'), margin: false, color: 'trivial' do %>
+      <%= form_tag({ action: :assets_import, cyberwatch_config_id: @cbw_config.id }, method: :post) do %>
+        <div class='p-2 d-flex justify-content-center'>
+          <%= submit_tag(t('settings.buttons.assets_import'), class: 'btn btn-outline-primary') %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'cyberwatch_configs/card', title: t('models.vulnerabilities'), margin: false, color: 'low' do %>
+      <%= form_tag({ action: :vulnerabilities_import, cyberwatch_config_id: @cbw_config.id }, method: :post) do %>
+        <% if Vulnerability.cyberwatch_kb_type.count.positive? %>
+        <div class='p-2'>
+          <%= label_tag 'last_only', t('settings.labels.last_only') %>(<%= Vulnerability.cyberwatch_kb_type.order(:created_at).last.created_at %>)
+          <%= check_box_tag 'last_only' %>
+        </div>
+        <% end %>
+        <div class='p-2 d-flex justify-content-center'>
+          <%= link_to t('cyberwatch_configs.labels.vulnerabilities_imports_history'), "#{vulnerabilities_imports_path}?@q['account_id_in']=['#{@cbw_config.id}']", class:'btn btn-outline-secondary mr-1' %>
+          <%= submit_tag(t('settings.buttons.vulnerabilities_import'), class: 'btn btn-outline-primary') %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<%#= render layout: 'layouts/header_collapse', locals: { id: 'cyberwatch_updates', header: t('settings.labels.update'), count: nil } do %>
+  <!--div class='d-flex flex-row justify-content-around m-2'>
+    <%#= render 'cyberwatch_configs/card', title: 'Scans', margin: false, color: 'system' do %>
+      <%#= form_tag({ action: :scans_update, cyberwatch_config_id: @cbw_config.id }, method: :put, class: 'w-100 p-2') do %>
+        <div class="d-flex flex-row justify-content-between flex-wrap">
+          <div class='form-group w-25'>
+            <%# opt = options_for_select([[]].concat(@cbw_config.vm_scans.recently_launched.map { |s| [s.name, s.reference] })) %>
+            <%#= select_tag :reference, opt, class: 'form-control btn-primary' %>
+          </div>
+          <div class="form-group mt-0">
+            <%#= t('labels.since') %>:
+            <%#= date_select :cyberwatch_config, :created_at, {include_blank: true, selected: nil}, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="p-2">
+          <%#= submit_tag t('settings.buttons.scan_update'), data: { confirm: t('settings.actions.update_confirm') }, class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <%# end %>
+    <%# end %>
+  </div-->
+<%# end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'cyberwatch_deletions', header: t('settings.labels.delete_one'), count: nil } do %>
+  <div class='d-flex flex-row justify-content-around m-2'>
+    <%= render 'cyberwatch_configs/delete_scan', kind_accro: 'vm', margin: false %>
+  </div>
+<% end %>

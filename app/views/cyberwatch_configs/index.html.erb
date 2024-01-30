@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'cyberwatch_configs/list', cyberwatch_configs: @cbw_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

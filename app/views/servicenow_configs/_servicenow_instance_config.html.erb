@@ -1,0 +1,19 @@
+<p><%= t('servicenow_configs.instance_config.intro') %></p>
+<ul>
+  <li>
+    <%= t('servicenow_configs.instance_config.kind_label') %>
+    <%= t('servicenow_configs.instance_config.kind') %>
+  </li>
+  <li>
+    <%= t('servicenow_configs.instance_config.name_label') %>
+    <%= t('servicenow_configs.instance_config.name') %>
+  </li>
+  <li>
+    <%= t('servicenow_configs.instance_config.redirect_url_label') %>
+    <%= content_tag(
+      :code,
+      "#{ENV['ROOT_URL']}/servicenow/oauth"
+    ) %>
+  </li>
+</ul>
+<p><%= t('servicenow_configs.instance_config.outro') %></p>

@@ -1,0 +1,7 @@
+<% notifs_subs.kept.last_created_first.each do |notification_subscription| %>
+  <% begin %>
+    <%= render 'notifications/notification', notification_subscription: notification_subscription %>
+  <% rescue ActionView::Template::Error %>
+    <% Cleaners::NotificationCleaner.clear_all %>
+  <% end %>
+<% end %>

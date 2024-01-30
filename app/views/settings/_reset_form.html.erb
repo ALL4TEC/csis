@@ -1,0 +1,6 @@
+<%= form_tag settings_reset_path, method: :post do %>
+  <%= hidden_field_tag :reset, field %>
+  <button class="btn btn-primary" type="submit">
+    <%= t('settings.buttons.reset') %>
+  </button>
+<% end %>

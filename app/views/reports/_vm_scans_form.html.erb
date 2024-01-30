@@ -1,0 +1,30 @@
+<%- current_level_class = report.is_a?(Array) ? '' : "line-hover-#{level_color(report.level)}" %>
+<div class="form-check ps-0 mb-1 table table-hover <%= current_level_class %>">
+  <div class="row d-flex align-items-center" data-target="filter.element" data-name="<%= b.object.name %>" data-date="<%= b.object.launched_at.to_date.iso8601 %>">
+    <div class="col-md-4 d-flex flex-row align-items-center form-check">
+      <%= b.check_box data: { action: 'filter#check', source: b.object.id }, class: 'form-check-input' %>
+      <%= b.label(class: 'text-wrap ms-2 form-check-label') %>
+    </div>
+    <div class='col-md-3 d-flex flex-wrap'>
+      <% b.object.reports.except(report).each do |rep| %>
+        <div><%= render 'reports/report_badge', report: rep %></div>
+      <% end %>
+    </div>
+    <div class="col-md-2"><%= l b.object.launched_at, format: :classic %></div>
+    <div class="col-md-3">
+      <% if b.object.targets.present? %>
+        <details>
+          <summary><%= t('reports.labels.choose_ips') %></summary>
+          <%= f.collection_check_boxes(:target_ids, b.object.targets.order('ip DESC'), :id, :to_s) do |c| %>
+            <div class="row">
+              <div class="col form-check">
+                <%= c.check_box data: { target: 'filter.checkbox', source: b.object.id }, class: 'form-check-input' %>
+                <%= c.label(class: 'form-check-label') %>
+              </div>
+            </div>
+          <% end %>
+        </details>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+target_scan_wa_one:
+  target: target_wa_one
+  scan: wa_scan_one
+  scan_type: WaScan
+
+target_scan_wa_two:
+  target: target_wa_one
+  scan: wa_scan_two
+  scan_type: WaScan
+
+target_scan_wa_three:
+  target: target_wa_one
+  scan: wa_scan_three
+  scan_type: WaScan
+
+target_scan_wa_four:
+  target: target_wa_two
+  scan: wa_scan_four
+  scan_type: WaScan
+
+target_scan_wa_five:
+  target: target_wa_two
+  scan: wa_scan_five
+  scan_type: WaScan
+
+target_scan_wa_one_ias:
+  target: target_wa_one
+  scan: wa_scan_one_ias
+  scan_type: WaScan
+
+target_scan_wa_two_ias:
+  target: target_wa_one
+  scan: wa_scan_two_ias
+  scan_type: WaScan
+
+target_scan_wa_three_ias:
+  target: target_wa_one
+  scan: wa_scan_three_ias
+  scan_type: WaScan
+
+target_scan_wa_four_ias:
+  target: target_wa_two
+  scan: wa_scan_four_ias
+  scan_type: WaScan
+
+target_scan_wa_five_ias:
+  target: target_wa_two
+  scan: wa_scan_five_ias
+  scan_type: WaScan
+
+target_scan_wa_auto:
+  target: target_wa_one
+  scan: wa_scan_auto
+  scan_type: WaScan
+
+target_scan_vm_auto:
+  target: target_auto
+  scan: vm_scan_auto
+  scan_type: VmScan

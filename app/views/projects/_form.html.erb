@@ -1,0 +1,74 @@
+<%= simple_form_for(project) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :language, as: :select, label: t('labels.language'), label_method: ->(lang) { t("languages.#{lang.iso}") }, include_blank: false %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :client, as: :select, label: t('projects.labels.client'), collection: policy_scope(Client).order('name ASC')  ,include_blank: false %>
+      <% end %>
+    </div>
+    <div class='col'>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :assets, as: :check_boxes, collection: policy_scope(Asset), label: t('models.assets') %>
+      <% end %>
+    </div>
+    <div class="col">
+      <div class="row">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.association :teams, as: :check_boxes, collection: policy_scope(Team), label: t('models.teams') %>
+        <% end %>
+      </div>
+        <div class="row mt-4">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.association :suppliers, as: :check_boxes %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :auto_aggregate, wrapper: :custom_boolean_switch %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%- expanded = project&.auto_generate? || false %>
+        <%= f.input :auto_generate, wrapper: :custom_boolean_switch, wrapper_html: { class: expanded ? '' : 'collapsed someone', data: { 'bs-toggle': 'collapse', 'bs-target': '#project_automation_options' }, aria: { controls: 'project_automation_options', expanded: expanded } } %>
+        <div class="collapse collapse_no_save <%= expanded ? 'show' : 'hide' %>" id='project_automation_options'>
+          <%= f.input :auto_export, wrapper: :custom_boolean_switch %>
+          <%= f.input :report_auto_generation_cron, placeholder: 'mm hh jj MMM JJJ' %>
+          <%= render 'partials/help_bloc', id: 'helpSchedule', title: t('projects.labels.info_schedule') do %>
+            <%= t('projects.labels.how_to_schedule') %>
+            <div class="d-flex flex-column">
+              <a href='https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table' target='_blank' rel='noopener'><em>https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table</em></a>
+              <p><sub>Ex:</sub></p>
+              <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_month') %></p>
+              <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.twice_a_month') %></p>
+              <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_week') %></p>
+            </div>
+          <% end %>
+          <div class="d-flex flex-row align-items-center">
+            <h2 class="me-2 mt-4">/</h2>
+            <span class="flex-fill">
+              <%= f.input :scan_regex, placeholder: t('projects.labels.scans_names_common_part') %>
+            </span>
+            <h2 class="ms-2 mt-4">/</h2>
+          </div>
+          <%= render 'partials/help_bloc', id: 'helpRegex', title: t('projects.labels.info_regex') do %>
+            <%= t('projects.labels.how_to_regex') %>
+            <div class="d-flex flex-column">
+              <a href='https://rubular.com/' target='_blank' rel='noopener'><em>https://rubular.com/</em></a>
+              <p><sub>Ex:</sub></p>
+              <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.regex_example') %></p>
+            </div>
+          <% end %>
+          <div class='mt-2'>
+            <%= f.input :notification_severity_threshold, collection: Project.notification_severity_thresholds_select, as: :select, label: t('simple_form.labels.project.notification_severity_threshold') %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

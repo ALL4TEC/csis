@@ -1,0 +1,26 @@
+<p><%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,</p>
+<p><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.new_vulnerabilities') %></p>
+<table border="1">
+  <thead>
+    <tr class='bg-grey text-white'>
+      <th id='qid'><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.qid') %></th>
+      <th id='severity'><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.severity') %></th>
+      <th id='title'><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.title') %></th>
+      <th id='target'><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.target_uri') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @occurrences.each do |occ| %>
+    <% vuln = occ.vulnerability %>
+    <tr>
+      <td headers='qid'><%= vuln.qid %></td>
+      <td headers='severity'><%= AggregatesHelper.translate_severity(vuln.severity) %></td>
+      <td headers='title'><%= vuln.title %></td>
+      <td headers='target'><%= occ.real_target.to_s %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<p><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.report_link') %></p>
+<a class='text-grey' href="<%= @url %>"><%= I18n.t('mailer.content.report') %></a><br>
+<p><%= I18n.t('mailer.content.polite') %></p>

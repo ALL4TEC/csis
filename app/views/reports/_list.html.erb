@@ -1,0 +1,85 @@
+<%= pagination = paginate @reports %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Reports</caption>
+    <thead>
+      <tr>
+        <th id='reports-title'>
+        [<%= sort_link(@q, :type, t('reports.labels.follow_type')) %>]&nbsp/
+        <%= sort_link(@q, :title, t('activerecord.attributes.report.title')) %>&nbsp/
+        (<%= sort_link(@q, :level, t('activerecord.attributes.report.level')) %>)
+        </th>
+        <th id='reports-language'><%= sort_link(@q, :language_id, t('labels.language')) %></th>
+        <th id='reports-project'><%= sort_link(@q, :project, t('activerecord.attributes.action.project')) %></th>
+        <th id='reports-scoring'><%= t('labels.scoring') %></th>
+        <th id='reports-date'><%= sort_link(@q, :edited_at, t('dashboard.labels.date')) %></th>
+        <th id='reports-edited_by'><%= sort_link(@q, :staff_id, t('activerecord.attributes.report.edited_by')) %></th>
+        <th id='reports-scan_screenshot'><%= t('reports.labels.scan_screenshot') %></th>
+        <th id='reports-btn'><%= render 'partials/c_btn' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+        <tr class='line-hover-<%= level_color(report.level) %>'>
+          <td headers='reports-title'>
+            <%= render 'reports/report_badge', report: report do %>
+              <% last_export = report.exports.order(created_at: :desc).select { |exp| exp.generated? && exp.document.attached? }.first %>
+              <% if last_export.present? %>
+                <% url = url_for(last_export.document) %>
+                <a target="_blank" href="<%= url %>" class='ms-auto'><i aria-hidden='true' class="material-icons align-middle i_scale"><%= Icons::MAT[:pdf] %></i></a>
+              <% end %>
+            <% end %>
+          </td>
+          <td headers='reports-language'><%= render partial: 'partials/language', locals: { entity: report } %></td>
+          <td headers='reports-project'><%= link_to(report.project.name, project_statistics_path(report.project), class: 'badge halo-light rounded-pill text-dark') %></td>
+          <td headers='reports-scoring'>
+            <span class='badge badge-system' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_system') %>"><%= report.scoring_vm %></span>
+            <span class='badge badge-applicative' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_applicative') %>"><%= report.scoring_wa %></span>
+          </td>
+          <td headers='reports-date'><%= l report.edited_at %></td>
+          <td headers='reports-edited_by'><%= report.staff %></td>
+          <td headers='reports-scan_screenshot'>
+          <% unless report.wa_scans.empty? %>
+            <% urlcount = 0 %>
+            <% report.wa_scans.sort_by { |x| [x.launched_at] }.each do |scan| %>
+              <%= render 'reports/landing_page', scan: scan, urlcount: urlcount %>
+              <% urlcount += 1 %>
+            <% end %>
+          <% end %>
+          </td>
+          <td headers='reports-btn'></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>
+
+<% if staff_signed_in? %>
+<details>
+  <summary> <%= t('scopes.trashed') %> </summary>
+  <%= pagination = paginate @trashed %>
+  <table class="table">
+    <caption>Discarded reports</caption>
+    <thead>
+      <tr>
+        <th id='discarded-reports-title'><%= sort_link(@q, :title, t('activerecord.attributes.report.title')) %></th>
+        <th id='discarded-reports-date'><%= sort_link(@q, :edited_at, t('dashboard.labels.date')) %></th>
+        <th id='discarded-reports-edited_by'><%= sort_link(@q, :staff_id, t('activerecord.attributes.report.edited_by')) %></th>
+        <th id='discarded-reports-btn'><%= t('models.actions') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @trashed.each do |report| %>
+        <tr>
+          <td headers='discarded-reports-title'><%= report.title %></td>
+          <td headers='discarded-reports-date'><%= l report.edited_at %></td>
+          <td headers='discarded-reports-edited_by'><%= report.staff %></td>
+          <td headers='discarded-reports-btn'><%= link_to t('reports.actions.restore'), restore_report_path(report), method: :put, data: { confirm: t('reports.actions.restore_confirm', infos: report.title) }, class: 'btn btn-secondary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= pagination %>
+</details>
+<% end %>

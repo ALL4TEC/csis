@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-center sticky-filter-header expand-width">
+  <%- if content_for?(:filters) %>
+    <%= yield :filters %>
+  <% else %>
+    <%= render "filters", q: @q %>
+  <% end %>
+</div>
+<div>
+  <%- if content_for?(:table) %>
+    <%= yield :table %>
+  <% else %>
+    <%= pagination = paginate data %>
+    <% locals = {} %>
+    <% locals[name] = data %>
+    <%= render 'list', locals %>
+    <%= pagination %>
+  <% end %>
+</div>

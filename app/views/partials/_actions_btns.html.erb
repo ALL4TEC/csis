@@ -1,0 +1,19 @@
+<%- activable ||= false %>
+<%- recoverable ||= false %>
+<%- discardable ||= false %>
+<%- klazz ||= resource.class.to_s.underscore %>
+<%- clazz = klazz %>
+<%- headers ||= @headers %>
+<ul class='d-flex justify-content-end float-end pasties w-100'>
+<%= render 'partials/activable_quick_btns', policy: policy, clazz: clazz, resource: resource, recoverable: recoverable if activable %>
+<% if policy.edit? %>
+  <li>
+  <%= link_to(send("edit_#{clazz}_path", resource), class:'badge rounded-pill p-1 halo-secondary d-flex align-items-center') do %>
+    <span data-bs-toggle='tooltip' title='<%= t("#{clazz.pluralize}.actions.edit") %>'>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:edit] %></i>
+    </span>
+  <% end %>
+  </li>
+<% end %>
+<%= render 'partials/discardable_btns', policy: policy, clazz: clazz, resource: resource, headers: headers if discardable %>
+</ul>

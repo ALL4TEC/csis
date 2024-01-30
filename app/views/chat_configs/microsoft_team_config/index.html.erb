@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'chat_configs/microsoft_team_config/list', microsoft_teams_configs: @chat_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

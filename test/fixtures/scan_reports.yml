@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+mapui:
+  type: 'ScanReport'
+  title: Scan MaPUI 2018
+  level: 1
+  scoring_vm: 120
+  scoring_wa: 45
+  edited_at: "2018-06-18T10:00:00.000Z"
+  staff: staffuser
+  project: project_one
+  language: fr
+
+mapui2:
+  type: 'ScanReport'
+  title: Scan MaPUI 2019
+  level: 4
+  scoring_vm: 12
+  scoring_wa: 4
+  edited_at: "2019-06-18T10:00:00.000Z"
+  staff: staffuser
+  project: project_one
+  language: fr
+  introduction: 'lorem ipsum'
+  addendum: 'lorem ipsum'
+
+scan_report_auto:
+  type: 'ScanReport'
+  title: Base Scan
+  level: 4
+  scoring_vm: 12
+  scoring_wa: 4
+  edited_at: "2019-06-18T10:00:00.000Z"
+  staff: staffuser
+  project: project_auto
+  language: fr
+  introduction: 'lorem ipsum'
+  addendum: 'lorem ipsum'

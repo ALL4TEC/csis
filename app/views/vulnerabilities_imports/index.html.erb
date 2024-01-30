@@ -1,0 +1,13 @@
+<% content_for :table do %>
+  <%= pagination = paginate @vuln_imports %>
+
+  <% VulnerabilityImport.import_types.keys.each do |import_type| %>
+    <%- imports = @vuln_imports.send("#{import_type}_import_type") %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: import_type, header: t("vulnerabilities.scopes.#{import_type}.name"), count: imports.count } do %>
+      <%= render 'vulnerabilities_imports/list', vulnerabilities_imports: imports %>
+    <% end %>
+  <% end %>
+
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

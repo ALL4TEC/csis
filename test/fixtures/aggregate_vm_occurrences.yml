@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+aggregate_vm_occurrence_one:
+  aggregate: aggregate_one
+  vm_occurrence: vm_occurrence_one
+
+aggregate_vm_occurrence_bis:
+  aggregate: aggregate_bis
+  vm_occurrence: vm_occurrence_two
+
+aggregate_vm_occurrence_ter:
+  aggregate: aggregate_bis
+  vm_occurrence: vm_occurrence_three
+
+aggregate_vm_occurrence_two:
+  aggregate: aggregate_two
+  vm_occurrence: vm_occurrence_two
+
+aggregate_vm_occurrence_three:
+  aggregate: aggregate_seven
+  vm_occurrence: vm_occurrence_one

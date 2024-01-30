@@ -1,0 +1,135 @@
+@import 'styles';
+
+// Option A: Include all parts of bootstrap
+// @import '~bootstrap/scss/bootstrap';
+
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "~bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+$dark: $csis_dark;
+$light: $bg-csis;
+$primary: $csis_blue;
+$secondary: #6c757d; // DEFAULT
+$link-color: $dark;
+$nav-tabs-link-hover-border-color:white;
+$nav-tabs-link-active-bg: $bg-csis;
+$nav-tabs-link-active-color: $csis_dark;
+$nav-link-color: #ffffffe1;
+$dropdown-link-active-bg: $quarter_transparency_csis_blue;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+  xl: 1600px
+);
+
+$container-max-widths: (
+  sm: 992px,
+  md: 1200px,
+  lg: 1600px,
+  xl: 2000px
+);
+
+$form-group-margin-bottom: 5px;
+// $enable-gradients: true;
+$body-bg: $bg-csis;
+$body-color: black;
+// $enable-rounded: true; Default
+
+$custom-colors: (
+  'light_blue': $light_blue,
+  'logo_blue_1': $logo_blue_1,
+  'logo_blue_2': $logo_blue_2,
+  'logo_red_1': $logo_red_1,
+  'logo_red_2': $logo_red_2,
+  'orange-l': $csis_tab,
+  'grey-l': $csis_grey,
+  'gray-l': $csis_gray,
+  'critical': $critical,
+  'high': $high,
+  'medium': $medium,
+  'low': $low,
+  'trivial': $trivial,
+  'falsepositive': $light,
+  'system': $scan_system,
+  'applicative': $scan_applicative,
+  'scan': $scan,
+  'pentest': $pentest,
+  'black': black,
+  'white': white
+);
+
+$min-contrast-ratio:   4.5 !default;
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+@import "~bootstrap/scss/maps";
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'light': $light,
+  'dark': $dark,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger
+);
+
+// $text-muted:           $grey-600;
+$theme-colors: map-merge($theme-colors, $custom-colors);
+// $colors: map-merge($colors, $custom-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/root"; // Required
+@import "~bootstrap/scss/reboot"; // Required
+
+// 4. Include any optional Bootstrap components as you like
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar"; // Requires nav
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
+// @import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal"; // Requires transitions
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+// @import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/offcanvas";
+// @import "~bootstrap/scss/print";
+
+// Helpers
+@import "~bootstrap/scss/helpers";
+
+// Utilities
+@import "~bootstrap/scss/utilities/api";
+
+// 5. Add additional custom code here
+@import 'mixins';

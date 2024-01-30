@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'sellsy_configs/list', sellsy_configs: @sellsy_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

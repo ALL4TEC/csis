@@ -1,0 +1,18 @@
+<% content_for :sidebar_content_opened do %>
+  <%= render 'partials/help_bloc', id: 'helpSchedule', title: t('projects.labels.info_schedule'), visibility: 'show' do %>
+    <%= t('projects.labels.how_to_schedule') %>
+    <div class="d-flex flex-column">
+      <a href='https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table' target='_blank' rel='noopener'><em>https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table</em></a>
+      <p><sub>Ex:</sub></p>
+      <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_month') %></p>
+      <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.twice_a_month') %></p>
+      <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_week') %></p>
+    </div>
+  <% end %>
+<% end %>
+<% content_for :content do %>
+  <div class='d-flex flex-row w-100'>
+    <%= render 'scan_configurations/new' %>
+  </div>
+<% end %>
+<%= render template: 'layouts/_sidebar', locals: { direction: :rtl, no_btn: true, hidden: true } %>

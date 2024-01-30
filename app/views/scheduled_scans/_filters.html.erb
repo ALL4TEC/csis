@@ -1,0 +1,32 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = @q_base.filter_map(&:launcher).uniq %>
+    <%= render 'partials/multiple_select', target: 'scan_configuration_launcher_id', title: t('activerecord.attributes.scheduled_scan.launcher'), id: "scheduled_scans_filters_launcher" do %>
+      <% opt.each do |launcher| %>
+      <option value='<%= launcher.id %>'>
+        <%= launcher.full_name %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = @q_base.map(&:scan_type).uniq %>
+    <%= render 'partials/multiple_select', target: 'scan_configuration_scan_type', title: t('activerecord.attributes.scheduled_scan.scan_type'), id: "scheduled_scans_filters_scan_type" do %>
+      <% opt.each do |scan_type| %>
+      <option value='<%= scan_type %>'>
+        <%= scan_type %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = @q_base.map(&:target).uniq %>
+    <%= render 'partials/multiple_select', target: 'scan_configuration_target', title: t('activerecord.attributes.scheduled_scan.target'), id: "scheduled_scans_filters_target" do %>
+      <% opt.each do |target| %>
+      <option value='<%= target %>'>
+        <%= target %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+scheduled_scan_one:
+  report_action: 0
+  project: project_one
+  scan_configuration: scan_configuration_one
+
+scheduled_scan_two:
+  report_action: 1
+  project: project_one
+  scan_configuration: scan_configuration_two

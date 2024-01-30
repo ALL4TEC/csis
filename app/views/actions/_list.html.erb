@@ -1,0 +1,172 @@
+<%# JS for checking boxes automatically %>
+<%= javascript_packs_with_chunks_tag  'report_form', nonce: true, 'data-turbo-track': 'reload' %>
+
+<div class="d-flex flex-row justify-content-center actions_filters expand-width">
+  <%= render 'actions/severity_filters', actions: actions, parent: 'actions-filter-block' %>
+</div>
+<%= pagination = paginate actions %>
+<div class="table-responsive" data-controller="filter">
+  <table class="table table-actions table-hover">
+    <caption>Actions list</caption>
+    <thead>
+      <tr>
+        <% unless local_assigns[:trashed] %>
+        <th id='actions-list-check-all' class="th-act-actions">
+          <input type="checkbox" data-action="filter#checkVisibleOnly" data-source="check-all-actions-id" id="check-all" class='form-check-input'>
+        </th>
+        <% end %>
+
+        <% if local_assigns[:action_import] %>
+          <th id='actions-list-meta-state' class="th-act-meta-state">
+            <%= sort_link @q, :meta_state %>
+          </th>
+        <% end %>
+        <th id='actions-list-state' class="th-act-state">
+          <%= sort_link @q, :state %>
+        </th>
+        <th id='actions-list-priority' class="th-act-priority">
+          <%= sort_link @q, :priority %>
+        </th>
+        <th id='actions-list-name' class="th-act-name">
+          <%= sort_link(@q, :name, t('activerecord.attributes.action.name')) %>(<%= sort_link(@q, :aggregate_severity, t('activerecord.attributes.aggregate.severity')) %>)
+        </th>
+        <% if staff_signed_in? %>
+        <th id='actions-list-aggregate' class="th-act-aggregate">
+          <%= sort_link @q, :aggregate_title, t('activerecord.attributes.action.aggregate') %>
+        </th>
+        <% end %>
+        <th id='actions-list-client' class="th-act-client">
+          <%= sort_link @q, :aggregate_report_project_client_name, t('activerecord.attributes.action.client') %>
+        </th>
+        <th id='actions-list-project' class="th-act-project">
+          <%= sort_link @q, :aggregate_report_project_name, t('activerecord.attributes.action.project') %>
+        </th>
+        <th id='actions-list-report' class="th-act-report">
+          <%= sort_link @q, :aggregate_report_title, t('activerecord.attributes.action.report') %>
+        </th>
+        <th id='actions-list-created-at' class="th-act-created_at">
+          <%= sort_link @q, :created_at, t('labels.opened') %>
+        </th>
+        <th id='actions-list-due_date' class="th-act-due_date">
+          <%= sort_link @q, :due_date, t('activerecord.attributes.action.overdue_date')  %>
+        </th>
+        <th id='actions-list-updated_at'>
+          <%= sort_link @q, :updated_at, t('labels.updated_at') %>
+        </th>
+        <th id='actions-list-receiver' class="th-act-receiver">
+          <%= sort_link @q, :receiver_full_name, t('activerecord.attributes.action.receiver') %>
+        </th>
+        <% if local_assigns[:trashed] %>
+        <th id='actions-list-actions'>
+          <%= t('models.actions') %>
+        </th>
+        <% end %>
+        <th id='actions-list-pmt'>
+          <%= t('actions.labels.pmt_title') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% actions.each do |action| %>
+        <%# Le scope 'kept' par défaut donne lieu à des bidouilles de la sorte %>
+        <% aggregate = local_assigns[:trashed] ? action.aggregates.with_discarded.first : action.aggregate %>
+        <% report = local_assigns[:trashed] ? Report.with_discarded.where(aggregates: aggregate).first || action.report : action.report %>
+        <% project = local_assigns[:trashed] ? Project.with_discarded.where(reports: report).first || action.project : action.project %>
+        <% client = local_assigns[:trashed] ? Client.where(projects: project).first : action.client %>
+        <tr class='line-hover-<%= aggregate&.severity || "grey-l" %> actions'>
+          <% unless local_assigns[:trashed] %>
+          <td headers='actions-list-check-all' class="checkboxes">
+            <input type="checkbox" name="choice[]" value="<%= action.id %>" data-target="filter.checkbox" data-source="check-all-actions-id" class='form-check-input'>
+          </td>
+          <% end %>
+          <% if local_assigns[:action_import] %>
+          <%- meta_state = action.meta_state %>
+            <td headers='actions-list-meta-state' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Action.human_attribute_name("meta_state.#{meta_state}") %>'>
+              <i aria-hidden='true' class='material-icons  align-middle text-<%= action_meta_state_color(meta_state) %>'><%= action_meta_state_icon(meta_state) %></i>
+            </td>
+          <% end %>
+          <%- state = action.state %>
+          <td headers='actions-list-state' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= Action.human_attribute_name("state.#{state}") %>'>
+            <i aria-hidden='true' class='material-icons align-middle text-<%= action_state_color(state) %>'><%= action_state_icon(state) %></i>
+          </td>
+          <%- priority = action.priority %>
+          <td headers='actions-list-priority' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("activerecord.attributes.action/priority.#{priority}") %>'>
+            <% if !action.no_priority? %>
+              <i aria-hidden='true' class='material-icons align-middle text-<%= action_priority_color(priority) %>'><%= action_priority_icon() %></i>
+            <% end %>
+          </td>
+          <% if aggregate.present? %>
+            <td headers='actions-list-name' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= translate_severity(aggregate.severity) %>'
+                class='line-<%= aggregate.severity %> border-0 severity' data-severity='<%= aggregate.severity_to_i %>'>
+              <% if local_assigns[:trashed] %>
+                  <%= action.name %>
+              <% else %>
+                <%= link_to(action.name, action, class: 'link-block') %>
+              <% end %>
+            </td>
+            <% if staff_signed_in? %>
+              <td headers='actions-list-aggregate'>
+                <%= link_to(aggregate.title, aggregate, class: 'link-block') %>
+              </td>
+            <% end %>
+            <td headers='actions-list-client'>
+              <%= link_to_if(staff_signed_in?, client.name, client, class: 'link-block') do %>
+                <%= client.name %>
+              <% end %>
+            </td>
+            <td headers='actions-list-project'>
+              <%= link_to_if(staff_signed_in?, project.name, project, class: 'link-block') do %>
+                <%= project.name %>
+              <% end %>
+            </td>
+            <td headers='actions-list-report'>
+              <%= link_to_if(staff_signed_in?, report.title, report, class: 'link-block') do %>
+                <%= report.title %>
+              <% end %>
+            </td>
+          <% else %>
+            <td headers='actions-list-name'>
+              <%= action.name.present? ? action.name : '' %>
+            </td>
+            <% if staff_signed_in? %>
+              <td headers='actions-list-aggregate'></td>
+            <% end %>
+              <td headers='actions-list-client'></td>
+              <td headers='actions-list-project'></td>
+              <td headers='actions-list-report'></td>
+          <% end %>
+          <td headers='actions-list-created-at'>
+            <%= l action.created_at, format: :classic %>
+          </td>
+          <td headers='actions-list-due_date' class='text-<%= action_due_date_status_color(action.due_date_status) %>' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("activerecord.attributes.action/due_date_status.#{action.due_date_status}") %>'>
+            <% if action.due_date.present? %>
+            <i aria-hidden='true' class='material-icons left align-middle text-<%= action_due_date_status_color(action.due_date_status) %>'><%= action_due_date_status_icon() %></i>
+              <%= l action.due_date, format: :classic %>
+            <% end %>
+          </td>
+          <td headers='actions-list-updated_at' class='text-<%= action_due_date_status_color(action.due_date_status) %>' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("activerecord.attributes.action/due_date_status.#{action.due_date_status}") %>'>
+            <%= l action.updated_at, format: :classic %>
+          </td>
+          <td headers='actions-list-receiver' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= action.receiver.present? ? action.receiver.email : "" %>'>
+            <% if action.receiver.present? %>
+              <%= link_to_if(staff_signed_in?, action.receiver.full_name, contact_path(action.receiver), class: 'link-block') do %>
+                <%= action.receiver.full_name %>
+              <% end %>
+            <% else %>
+              <%= t('actions.labels.unknown') %>
+            <% end %>
+          </td>
+          <% if local_assigns[:trashed] %>
+          <td headers='actions-list-actions'>
+            <%= link_to t('actions.actions.restore'), restore_action_path(action), method: :put, data: { confirm: t('actions.actions.restore_confirm', infos: action.name) }, class: 'btn btn-secondary' %>
+          </td>
+          <% end %>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>
+
+<%= javascript_packs_with_chunks_tag  'actions', nonce: true, 'data-turbo-track': 'reload' %>

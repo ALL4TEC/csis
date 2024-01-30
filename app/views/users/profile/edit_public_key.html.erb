@@ -1,0 +1,7 @@
+<%= render 'error_form', url: edit_profile_public_key_path, button_label: t('helpers.submit.user_profile.update') do |f| %>
+  <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :public_key, input_html: { rows: '8', name: 'user[public_key]' } %>
+    <% end %>
+  </div>
+<% end %>

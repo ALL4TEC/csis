@@ -1,0 +1,13 @@
+<%= javascript_packs_with_chunks_tag  'file_browser', nonce: true, 'data-turbo-track': 'reload' %>
+
+<div class="d-flex flex-column">
+  <%# render 'partials/square_card_input_wrapper' do %>
+    <%# f.input :import_type, collection: ActionImport.import_types_select, label_method: ->(obj){ t("reports.imports.#{obj[1]}") }, include_blank: false %>
+  <%# end %>
+  <%= f.simple_fields_for :report_action_import do |rai| %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <!-- TODO: Sync accept with import_type -->
+      <%= rai.input :document, accept: 'text/csv', required: true, label: t('simple_form.labels.action_plan_report.document'), as: :file %>
+    <% end %>
+  <% end %>
+</div>

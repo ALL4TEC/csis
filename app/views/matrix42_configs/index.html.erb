@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'matrix42_configs/list', matrix42_configs: @matrix42_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

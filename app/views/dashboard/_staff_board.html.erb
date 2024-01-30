@@ -1,0 +1,10 @@
+<div class='row slider slide-in d-flex mt-2'>
+  <div class='d-flex flex-wrap tiles-list justify-content-center align-items-center'>
+    <%= render 'dashboard/tile', name: 'vulnerabilities', icon: :vulnerabilities, visible: 'true' %>
+    <%= render 'dashboard/tile', name: 'reports', icon: :reports %>
+    <%= render 'dashboard/tile', name: 'vm-scans', color: 'system', icon: :download %>
+    <%= render 'dashboard/tile', name: 'wa-scans', color: 'applicative', icon: :download %>
+  </div>
+</div>
+
+<%= javascript_packs_with_chunks_tag  'whois', nonce: true, 'data-turbo-track': 'reload' %>

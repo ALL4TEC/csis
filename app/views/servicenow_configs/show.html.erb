@@ -1,0 +1,51 @@
+<table class="table table-servicenow_config table-hover">
+  <caption>Servicenow configuration</caption>
+  <thead>
+    <tr>
+      <th id='servicenow-configs-url' class="th-servicenow_config-url">
+        <%= t('activerecord.attributes.servicenow_config.url') %>
+      </th>
+      <th id='servicenow-configs-suppliers' class="th-servicenow_config-suppliers">
+        <%= t('activerecord.attributes.servicenow_config.suppliers') %>
+      </th>
+      <th id='servicenow-configs-status' class="th-servicenow_config-status">
+        <%= t('activerecord.attributes.servicenow_config.status') %>
+      </th>
+
+      <th id='servicenow-configs-fixed-vuln' class="th-servicenow_config-fixed_vuln">
+        <%= t('activerecord.attributes.servicenow_config.fixed_vuln') %>
+      </th>
+      <th id='servicenow-configs-accepted-risk' class="th-servicenow_config-accepted_risk">
+        <%= t('activerecord.attributes.servicenow_config.accepted_risk') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td headers='servicenow-configs-url'>
+        <%= @servicenow_config.url %>
+      </td>
+      <td headers='servicenow-configs-suppliers'>
+        <% @servicenow_config.suppliers.each do |supplier| %>
+          <%= link_to(supplier.name, supplier, class: 'link-block') %>
+        <% end %>
+      </td>
+      <td headers='servicenow-configs-status'>
+        <%= t("activerecord.attributes.servicenow_config_ext/status.#{@servicenow_config.status}") %>
+      </td>
+      <td headers='servicenow-configs-fixed-vuln'>
+        <%= @servicenow_config.fixed_vuln %>
+      </td>
+      <td headers='servicenow-configs-accepted-risk'>
+        <%= @servicenow_config.accepted_risk %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<% unless @servicenow_config.status == 'ok' %>
+  <%= render layout: 'layouts/header_collapse', locals: { id: 'servicenow_config_status_info', header: t('servicenow_configs.labels.status_info'), expanded: true } do %>
+    <div class='d-flex flex-row m-2'>
+      <%= t("servicenow_configs.status_info.#{@servicenow_config.status}") %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,6 @@
+--- !ruby/object:QualysWa::Webapp
+id: '1000'
+name: WAS Client
+screenshot: "Base64img"
+tag_name: Penn ar Box
+tag_id: '654321'

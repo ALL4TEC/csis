@@ -1,0 +1,28 @@
+<%- ipcount = 0 %>
+<%= render 'scans/show', scan: @scan do %>
+  <div class='card-title bg-secondary d-flex justify-content-center align-items-center p-2'>
+    <%= render 'partials/scan_status', status: @scan.status if @scan.status.present? %>
+    <span class='ms-1 badge badge-light rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_author') %>"><%= @scan.launched_by %></span>
+    <span class='ms-1 badge badge-primary' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_nbrequests') %>"><%= number_with_precision(@scan.processed.to_i, precision: 0) %></span>
+    <span class='ms-1 badge badge-secondary rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_testduration') %>"><%= (dur = @scan.duration).present? ? ActiveSupport::Duration.parse(dur).inspect : '?' %></span>
+    <span class='ms-1 badge badge-secondary rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_launched_at') %>"><%= @scan.launched_at.to_time %></span>
+  </div>
+  <div class='w-100 d-flex'>
+    <%= render 'scans/collapsible_right_element', elements: :reports do %>
+      <div class='d-flex flex-wrap'>
+      <%- @scan.reports.each do |report| %>
+        <%= render 'reports/report_badge', report: report %>
+      <% end %>
+      </div>
+    <% end %>
+    <%= render 'scans/collapsible_right_element', elements: :targets do %>
+      <div class='w-100 d-flex flex-wrap'>
+      <% @scan.targets.each do |target| %>
+        <% next if target.ip.blank? %>
+        <%- ipcount += 1 %>
+        <%= render 'partials/whois_btn', id_prefix: 'ip', target: target.ip, count: ipcount, infos: target.ip, state: 'light' %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,45 @@
+<%= render 'scans/show', scan: @scan do %>
+  <div class='card-title bg-secondary d-flex justify-content-center align-items-center p-2'>
+    <div class='d-flex align-items-center'>
+      <%= render 'partials/scan_status', status: @scan.status if @scan.status.present? %>
+      <span class='ms-1 badge badge-orange-l rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_url') %>">
+        <% @scan.targets.each do |target| %>
+          <%= target.name %>
+        <% end %>
+      </span>
+      <span class='ms-1 badge rounded-pill' data-bs-toggle='tooltip' title="<%= "#{t('reports.labels.scan_authent')}: #{@scan.auth_status}" %>">
+        <% if @scan.auth_status.in?(%w[FAILED SUCCESSFUL]) %>
+        <i aria-hidden='true' class="material-icons"><%= Icons::MAT[:lock] %></i>
+        <% else %>
+        <i aria-hidden='true' class="material-icons"><%= Icons::MAT[:unlock] %></i>
+        <% end %>
+      </span>
+      <span class='ms-1 badge badge-light rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_author') %>"><%= @scan.launched_by %></span>
+      <span class='ms-1 badge badge-grey-l rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_mode') %>"><%= @scan.mode %></span>
+      <span class='ms-1 badge badge-primary' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_linkscrawled') %>"><%= number_with_precision(@scan.links_crawled.to_i, precision: 0) %></span>
+      <span class='ms-1 badge badge-primary' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_nbrequests') %>"><%= number_with_precision(@scan.nb_requests.to_i, precision: 0) %></span>
+      <span class='ms-1 badge badge-secondary rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_launched_at') %>"><%= @scan.launched_at.to_time %></span>
+      <span class='ms-1 badge badge-secondary rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_crawlduration') %>"><%= (dur = @scan.crawl_duration).present? ? ActiveSupport::Duration.parse(dur).inspect : '?' %></span>
+      <span class='ms-1 badge badge-secondary rounded-pill' data-bs-toggle='tooltip' title="<%= t('reports.labels.scan_testduration') %>"><%= (dur = @scan.test_duration).present? ? ActiveSupport::Duration.parse(dur).inspect : '?' %></span>
+    </div>
+  </div>
+  <div class='w-100 d-flex'>
+    <%= render 'scans/collapsible_right_element', elements: :reports do %>
+      <div class='d-flex flex-wrap'>
+      <%- @scan.reports.each do |report| %>
+        <%= render 'reports/report_badge', report: report %>
+      <% end %>
+      </div>
+    <% end %>
+    <%= render 'scans/collapsible_right_element', elements: :targets do %>
+      <div class='w-100 d-flex flex-wrap'>
+        <% @scan.targets.each do |target| %>
+          <%= render 'partials/whois_btn', id_prefix: 'url', target: domain_name(target.url), count: 0, infos: target.url %>
+        <% end %>
+      </div>
+      <div class='ms-1'>
+        <%= render 'reports/landing_page', scan: @scan, urlcount: 0 %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<h6 class='card-subtitle m-2 d-flex align-items-center justify-content-between'>
+  <span><%= t("user_profile.labels.#{label}") %></span>
+  <span class='badge badge-grey-l'><%= groups.count %></span>
+</h6>
+<div class='d-flex flex-column'>
+<%- groups.each do |group| %>
+  <div class='d-flex justify-content-between m-2 p-2 bg-light align-items-center'>
+    <span class="text-<%= color %>"><%= group_name(group.name) %></span>
+    <span class='badge badge-<%= color %>' data-bs-toggle='tooltip' title="<%= t('groups.labels.total_members') %>"><%= group.users.count %></span>
+  </div>
+<% end %>
+</div>

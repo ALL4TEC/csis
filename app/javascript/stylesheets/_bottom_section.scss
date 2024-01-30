@@ -1,0 +1,12 @@
+#bottom-section {
+  >div {
+    padding: 0.75rem !important;
+  }
+  #bottom-section__btns {
+    z-index: 2000;
+    position: absolute;
+    left: 0;
+  }
+}
+
+

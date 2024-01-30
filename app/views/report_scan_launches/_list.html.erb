@@ -1,0 +1,100 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Report scan launches</caption>
+    <thead>
+      <tr>
+        <th id='scan-launches-<%= scanner %>-created-at' class="th-scan-launch-created-at">
+          <%= sort_link(@q, :created_at, t('activerecord.attributes.scan_launch.created_at')) %>
+        </th>
+        <th id='scan-launches-<%= scanner %>-launcher' class="th-scan-launch-launcher">
+          <%= sort_link(@q, :scan_configuration_launcher, t('activerecord.attributes.scan_launch.launcher')) %>
+        </th>
+        <th id='scan-launches-<%= scanner %>-launched_at'><%= t('activerecord.attributes.scan_launch.launched_at') %></th>
+        <th id='scan-launches-<%= scanner %>-scan_type'><%= t('activerecord.attributes.scan_launch.scan_type') %></th>
+        <th id='scan-launches-<%= scanner %>-target'><%= t('activerecord.attributes.scan_launch.target') %></th>
+        <th id='scan-launches-<%= scanner %>-parameters'><%= t('activerecord.attributes.scan_launch.parameters') %></th>
+        <th id='scan-launches-<%= scanner %>-automation'><%= t('activerecord.attributes.scan_launch.automation') %></th>
+        <th id='scan-launches-<%= scanner %>-status' class="th-scan-launch-status">
+          <%= sort_link(@q, :status, t('activerecord.attributes.scan_launch.status')) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scan_launches.each do |scan_launch| %>
+        <%- policy = policy(scan_launch) %>
+        <tr>
+          <td headers='scan-launches-<%= scanner %>-created-at'><%= l scan_launch.created_at, format: :full %></td>
+          <td headers='scan-launches-<%= scanner %>-launcher'><%= scan_launch.launcher %></td>
+          <td headers='scan-launches-<%= scanner %>-launched_at'><%= l scan_launch.launched_at, format: :full if scan_launch.launched_at.present? %></td>
+          <td headers='scan-launches-<%= scanner %>-scan_type'><%= ScanConfiguration::SCANNERS_DATA[scanner.to_sym][:scan_types].key(scan_launch.scan_type) %></td>
+          <td headers='scan-launches-<%= scanner %>-target'><%= scan_launch.target %></td>
+          <td headers='scan-launches-<%= scanner %>-parameters'>
+            <ul>
+              <% scan_launch.parameters&.split('-')&.compact_blank&.each do |param| %>
+                <li><%= ScanConfiguration::SCANNERS_DATA[scanner.to_sym][:options]["-#{param.strip}".to_sym] %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td headers='scan_launches-<%= scanner %>-automation'>
+            <div class='d-flex flex-column'>
+              <span>
+                <%- data = bool_data(scan_launch.auto_import) %>
+                <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                <%= t('activerecord.attributes.scan_launch.auto_import') %>
+              </span>
+              <%- if scan_launch.scan_configuration.auto_import? %>
+                <span>
+                  <%- data = bool_data(scan_launch.auto_aggregate) %>
+                  <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                  <%= t('activerecord.attributes.scan_launch.auto_aggregate') %>
+                </span>
+                <%- if scan_launch.scan_configuration.auto_aggregate? %>
+                  <span>
+                    <%- data = bool_data(scan_launch.auto_aggregate_mixing) %>
+                    <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                    <%= t('activerecord.attributes.scan_launch.auto_aggregate_mixing') %>
+                  </span>
+                <% end %>
+              <% end %>
+            </div>
+          </td>
+          <td headers='scan-launches-<%= scanner %>-status'>
+            <div class='d-flex justify-content-between w-100'>
+            <%- if scan_launch.created? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.scan_launch/status.created') %>
+              </button>
+            <%- elsif scan_launch.launched? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.scan_launch/status.launched') %>
+              </button>
+            <%- elsif scan_launch.done? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <i aria-hidden='true' class='material-icons align-middle'>check</i>
+              </button>
+              <%- if scan_launch.result.present? %>
+                <%= link_to t('scan_launches.actions.download'), rails_blob_path(scan_launch.result, disposition: 'preview'), class: 'btn btn-sm btn-secondary', target: :_blank, rel: :noopener %>
+                <%- if policy.import? %>
+                  <%= link_to(import_scan_launch_path(scan_launch), method: :post, class: 'btn btn-sm btn-secondary') do %>
+                    <i class='material-icons align-middle' data-bs-toggle='tooltip' title='<%= t('scan_launches.actions.import') %>' aria-hidden="true"><%= Icons::MAT[:download] %></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <%- elsif scan_launch.errored? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.scan_launch/status.errored') %>
+              </button>
+            <% end %>
+            <%= l scan_launch.terminated_at, format: :full if scan_launch.terminated_at.present? %>
+            <%- if policy.destroy? %>
+              <%= link_to scan_launch_path(scan_launch), method: :delete, data: { confirm: t('scan_launches.actions.destroy_confirm', infos: l(scan_launch.created_at, format: :long)) }, class: 'btn btn-sm btn-outline-danger' do %>
+                <i aria-hidden='true' class='material-icons align-middle' title=<%= t('scan_launches.actions.destroy') %> data-bs-toggle='tooltip'><%= Icons::MAT[:delete] %></i>
+              <% end %>
+            <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

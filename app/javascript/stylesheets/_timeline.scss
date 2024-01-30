@@ -1,0 +1,28 @@
+.timeline {
+  &:before{
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: calc(100% - 70px);
+    background: $csis_tab;
+    left: calc(0.5rem + 17px);
+    border-radius: 4px;
+  }
+  .timeline-date {
+    position: relative;
+    margin-left: 0.4rem;
+  }
+  .timeline-section {
+    position: relative;
+    .timeline-badge {
+      position: relative;
+      display: inline-block;
+    }
+  }
+}
+
+.heatmap {
+  .heatmap-day {
+    width: 30px;
+  }
+}

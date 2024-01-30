@@ -1,0 +1,49 @@
+<%= pagination = paginate cyberwatch_configs %>
+<div class="table-responsive">
+  <table class="table table-cyberwatch_config table-hover">
+    <caption>Qualys configurations</caption>
+    <thead>
+      <tr>
+        <th id='cyberwatch-configs-name' class="th-cyberwatch_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.cyberwatch_config.name') %>
+        </th>
+        <th id='cyberwatch-configs-url' class="th-cyberwatch_config-url">
+          <%= sort_link @q, :url, t('activerecord.attributes.cyberwatch_config.url') %>
+        </th>
+        <th id='cyberwatch-configs-teams' class="th-cyberwatch_config-teams">
+          <%= sort_link @q, :teams_name, t('activerecord.attributes.cyberwatch_config.teams') %>
+        </th>
+        <th id='cyberwatch-configs-btn'><%= render 'partials/c_btn', new_resource_path: new_cyberwatch_config_path, policy: policy(CyberwatchConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cyberwatch_configs.each do |cyberwatch_config| %>
+        <tr>
+          <td headers='cyberwatch-configs-name'>
+            <%= link_to(cyberwatch_config.name, cyberwatch_config, class: 'link-block') %>
+          </td>
+          <td headers='cyberwatch-configs-url'>
+            <div class='d-flex flex-row'>
+              <code>https://<%= cyberwatch_config.url %></code>
+              <div class="ms-2 form-check form-switch">
+                <input type="checkbox" role='switch' class="form-check-input" disabled id="customSwitchVerifySslCertificate">
+                <label class="form-check-label" for="customSwitchVerifySslCertificate"><%= t('activerecord.attributes.cyberwatch_config.verify_ssl_certificate') %></label>
+              </div>
+            </div>
+          </td>
+          <td headers='cyberwatch-configs-teams'>
+            <% cyberwatch_config.teams.each do |team| %>
+              <%= link_to(team.name, team, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='cyberwatch-configs-btn'>
+            <ul class='d-flex justify-content-end float-right pasties w-100'>
+            <%= render 'partials/activable_quick_btns', policy: policy(cyberwatch_config), resource: cyberwatch_config, recoverable: false %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

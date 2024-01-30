@@ -1,0 +1,43 @@
+version: '3'
+
+volumes:
+  postgres_data: {}
+
+services:
+  csis-db:
+    image: postgres:alpine
+    container_name: csis-db
+    environment:
+      - "POSTGRES_DB=csis_db_dev"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  csis-redis:
+    container_name: csis-redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  csis-app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    image: csis-app
+    command: "rails s -p 3000 -b '0.0.0.0'"
+    container_name: csis-app
+    volumes:
+      - .:/var/www/csis
+    working_dir: /var/www/csis
+    ports:
+      - "3000:3000"
+    depends_on:
+      - csis-db
+      - csis-redis
+    environment:
+      - "RAILS_ENV=development"
+      - "REDIS_URL=redis://csis-redis:6379"
+      - "POSTGRES_HOST=csis-db"
+  csis-queue:
+    image: csis-app:latest
+    command: "env QUEUE=* rails resque:work"
+    working_dir: /var/www/csis

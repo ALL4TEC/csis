@@ -1,0 +1,60 @@
+<%- list = teams.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-teams table-hover">
+    <caption>Teams</caption>
+    <thead>
+      <tr>
+        <th id='teams-name' class="th-team-name">
+          <%= sort_link_if(list, @q, :name) do %>
+            <%= t('activerecord.attributes.team.name') %>
+          <% end %>
+        </th>
+        <th id='teams-staffs'>
+          <%= t('activerecord.attributes.team.staffs') %>
+        </th>
+        <th id='teams-projects'>
+          <%= t('activerecord.attributes.team.projects') %>
+        </th>
+        <% if list %>
+        <th id='teams-btn'>
+          <%= render 'partials/c_btn', new_resource_path: new_team_path, policy: policy(Team) %>
+        </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%- scoped_staffs = policy_scope(:staff) %>
+      <%- scoped_projects = policy_scope(Project) %>
+      <% teams.each do |team| %>
+        <tr>
+          <td headers='teams-name'>
+            <%= render 'groups/group_badge', group: team, link: true %>
+          </td>
+          <td headers='teams-staffs'>
+            <%- unless team.staffs.blank? %>
+            <ul>
+              <% team.staffs.order('full_name ASC').each do |staff| %>
+              <li><%= render partial: 'users/user_badge', locals: { user: staff, type: 'staff', indicators: false, gpg: false, link: staff.in?(scoped_staffs) } %></li>
+              <% end %>
+            </ul>
+            <% end %>
+          </td>
+          <td headers='teams-projects'>
+            <%- unless team.projects.blank? %>
+              <ul>
+              <% team.projects.order('name ASC').each do |project| %>
+                <li><%= render partial: 'projects/project_badge', locals: { project: project, link: project.in?(scoped_projects) } %></li>
+              <% end %>
+              </ul>
+            <% end %>
+          </td>
+          <% if list %>
+          <td headers='teams-btn'>
+            <%= render 'partials/actions_btns', policy: policy(team), resource: team, discardable: true, klazz: 'team' %>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

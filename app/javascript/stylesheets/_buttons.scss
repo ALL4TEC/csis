@@ -1,0 +1,106 @@
+a[role="button"] {
+  cursor: pointer;
+}
+
+button[aria-expanded=false] .button_unfold_less {
+  display: none;
+}
+
+button[aria-expanded=true] .button_unfold_more {
+  display: none;
+}
+
+.i-btn {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .rounded-circle;
+  border: none!important;
+  box-shadow: none!important;
+  background: transparent;
+  &:hover {
+    @extend .shadow-sm;
+    opacity: 0.8;
+  }
+}
+
+.btn {
+  @extend .shadow-sm;
+  &:hover {
+    @extend .shadow;
+  }
+}
+
+tr {
+  .pasties {
+    li {
+      opacity: 0.2;
+    }
+  }
+  &:hover {
+    .pasties {
+      li {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.pasties {
+  li {
+    opacity: 1;
+    margin-left: 5px;
+    .badge {
+      &:not([class="text-*"]) {
+        box-shadow: 0 0 0 0.1rem white;
+      }
+    }
+  }
+  &:not(.flex-column) {
+    @for $i from 1 through 8 {
+      li:nth-last-child(#{$i + 1}) {
+        position: relative;
+        left: $i * 15px;
+        z-index: $i;
+      }
+    }
+    li:last-child {
+      @extend .me-0;
+      position: relative;
+      left: 0px;
+      z-index: 0;
+    }
+    &:hover {
+      li {
+        position:relative;
+        left: 0px;
+      }
+    }
+  }
+  &.flex-column {
+    li {
+      @extend .me-0;
+      position: relative;
+      top: 0px;
+      z-index: 0;
+    }
+    &:hover {
+      li {
+        position:relative;
+        top: 0px;
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  border: none;
+  z-index: 1020;
+}
+
+.btn-card {
+  width: 95%;
+}
+
+.badge .badge {
+  font-size: inherit;
+}

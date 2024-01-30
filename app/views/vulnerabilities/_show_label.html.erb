@@ -1,0 +1,8 @@
+<%= render 'partials/card_bloc', clazz: '', title: t("vulnerabilities.labels.#{vuln_label}") do %>
+  <% label = @vulnerability.send(vuln_label) %>
+  <% if label.present? %>
+    <%= sanitize label.to_s %>
+  <% else %>
+    <em class="text-muted"><%= t('labels.none') %></em>
+  <% end %>
+<% end %>

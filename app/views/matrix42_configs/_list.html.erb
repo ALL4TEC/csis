@@ -1,0 +1,50 @@
+<%= pagination = paginate matrix42_configs %>
+<div class="table-responsive">
+  <table class="table table-matrix42_config table-hover">
+    <caption>Matrix42 configurations</caption>
+    <thead>
+      <tr>
+        <th id='matrix42-configs-name' class="th-matrix42_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.matrix42_config.name') %>
+        </th>
+        <th id='matrix42-configs-url' class="th-matrix42_config-url">
+          <%= sort_link @q, :url, t('activerecord.attributes.matrix42_config.url') %>
+        </th>
+        <th id='matrix42-configs-suppliers' class="th-matrix42_config-suppliers">
+          <%= t('activerecord.attributes.matrix42_config.suppliers') %>
+        </th>
+        <th id='matrix42-configs-status' class="th-matrix42_config-status">
+          <%= sort_link @q, :status, t('activerecord.attributes.matrix42_config.status') %>
+        </th>
+        <th id='matrix42-configs-btn'><%= render 'partials/c_btn', new_resource_path: new_matrix42_config_path, policy: policy(JiraConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% matrix42_configs.each do |matrix42_config| %>
+        <tr>
+          <td headers='matrix42-configs-name'>
+            <%= link_to(matrix42_config.name, matrix42_config, class: 'link-block') %>
+          </td>
+          <td headers='matrix42-configs-url'>
+            <%= matrix42_config.url %>
+          </td>
+          <td headers='matrix42-configs-suppliers'>
+            <% matrix42_config.suppliers.each do |supplier| %>
+              <%= link_to(supplier.name, supplier, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='matrix42-configs-status'>
+            <%= t("activerecord.attributes.matrix42_config_ext/status.#{matrix42_config.status}") %>
+          </td>
+          <td headers='matrix42-configs-btn'>
+            <ul class='d-flex justify-content-end float-end pasties w-100'>
+            <%= render 'partials/actions_btns', policy: policy(matrix42_config), resource: matrix42_config,
+              discardable: true, klazz: 'matrix42_config', headers: @headers %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

@@ -1,0 +1,32 @@
+<% nav_infos.each do |nav_arr_e| %>
+  <%- specified_role = nav_arr_e.first.key?(:role) ? current_user.has_role?(nav_arr_e.first[:role]) : true %>
+  <% if specified_role %>
+    <% if nav_arr_e.first.has_key?(:path) %>
+      <%# Affichage d'un item %>
+      <%- display_bg = (request.env['PATH_INFO'].include?('/' + nav_arr_e.first[:path].to_s) ? 'active' : '') %>
+      <%= render 'layouts/navbar_item', menu: false, nav: nav_arr_e.first, display_bg: display_bg %>
+    <% else %>
+      <%# Affichage d'un en-tête de menu %>
+      <span class="btn-group">
+        <button type="button" class="btn nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i aria-hidden='true' class="material-icons left i_scale align-middle"><%= nav_arr_e.first[:icon] %></i>
+          <%= t(nav_arr_e.first[:title] + '.section_title') %>
+        </button>
+        <div class="dropdown-menu m-0 p-0">
+        <% nav_arr_e.drop(1).each do |item| %>
+          <%- is_header = item.key?(:header) ? item[:header] : false %>
+          <% if is_header %>
+            <%= render 'layouts/navbar_header', nav: item %>
+          <% else %>
+            <%- overriden_role = item.key?(:role) ? current_user.has_role?(item[:role]) : true %>
+            <% if overriden_role %>
+              <%- display_bg = (request.env['PATH_INFO'].include?('/' + item[:path].to_s) ? 'active bg-dark' : 'bg-dark') %>
+              <%= render 'layouts/navbar_item', menu: true, nav: item, display_bg: display_bg %>
+            <% end %>
+          <% end %>
+        <% end %>
+        </div>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>

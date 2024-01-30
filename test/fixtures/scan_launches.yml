@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+scan_launch_one:
+  status: 0
+  report: mapui
+  scan_configuration: scan_configuration_one
+
+scan_launch_two:
+  launched_at: <%= Time.now %>
+  status: 3
+  report: mapui
+  scan_configuration: scan_configuration_two

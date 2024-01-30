@@ -1,0 +1,27 @@
+<%= javascript_packs_with_chunks_tag  'charts', nonce: true, 'data-turbo-track': 'reload' %>
+
+<% content_for :sidebar_content_opened do %>
+  <div class='d-flex justify-content-start align-items-center'>
+    <%= form_with(method: "post", local: true, class: 'w-100 h-100') do %>
+      <%- accordion_id = 'statisticsAccordion' %>
+      <%= render Accordion::Component.new(id: accordion_id) do |accordion| %>
+        <% %i[vulnerabilities scores].each do |label| %>
+          <%= accordion.accordion_item(parent: accordion_id) do |accordion_item| %>
+            <% accordion_item.accordion_header(id: "stats-heading-#{label}") do %>
+              <%= render IconedLabel::Component.new(icon: { name: stats_icon(label.to_sym) }, label: { value: t("statistics.headers.#{label}"), clazz: 'ms-1 me-2' }) %>
+            <% end %>
+            <% accordion_item.accordion_body(id: "stats-collapse-#{label}") do %>
+              <%= render "show_#{label}" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<% content_for :content do %>
+  <%= render 'display_graph' %>
+<% end %>
+<%= render template: 'layouts/_sidebar', locals: { direction: :ltr, no_btn: true, clazz: "show statistics line-light" } %>
+
+<%= javascript_packs_with_chunks_tag  'check_all', nonce: true, 'data-turbo-track': 'reload' %>

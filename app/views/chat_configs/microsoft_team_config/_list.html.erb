@@ -1,0 +1,47 @@
+<div class="table-responsive">
+  <table class="table table-microsoft_team table-hover">
+    <caption>MicrosoftTeamConfigs</caption>
+    <thead>
+      <tr>
+        <th id='microsoft_team_channel_name' class="th-microsoft_team_channel_name">
+          <%= sort_link @q, :channel_name, t('activerecord.attributes.microsoft_teams_config.name') %>
+        </th>
+        <th id='microsoft_team-webhook_url' class="th-microsoft_team-webhook_url">
+          <%= t('activerecord.attributes.microsoft_teams_config.webhook_url') %>
+        </th>
+        <th id='microsoft_team-users' class="th-slack_config-users">
+          <%= t('activerecord.attributes.microsoft_teams_config.accounts_users') %>
+        </th>
+        <th id='microsoft_teams_config-btn'>
+          <%= render 'partials/c_btn', new_resource_path: new_microsoft_teams_config_path, policy: policy(MicrosoftTeamsConfig) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% microsoft_teams_configs.each do |microsoft_teams_config| %>
+        <tr>
+          <td headers='microsoft_team_channel_name'>
+            <%= microsoft_teams_config.channel_name %>
+          </td>
+          <td headers='microsoft_team-webhook_url'>
+            <%= microsoft_teams_config.url %>
+          </td>
+          <td headers='microsoft_team-users'>
+          <%- users = microsoft_teams_config.accounts_users.map(&:user) %>
+            <details>
+              <summary><div class='badge badge-primary'><%= users.count %></div></summary>
+              <div class='d-flex flex-wrap'>
+              <%- users.each do |user| %>
+              <span class='badge halo-success' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= user.email %>'><%= user.full_name %></span>
+              <% end %>
+            </details>
+          </td>
+          <td headers='microsoft_teams_config-btn'>
+            <%= render 'partials/actions_btns', policy: policy(microsoft_teams_config), resource: microsoft_teams_config,
+                discardable: true, klazz: 'microsoft_teams_config', headers: @headers %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

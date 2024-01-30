@@ -1,0 +1,32 @@
+<%= simple_form_for(note, as: :note, method: method, url: url) do |f| %>
+  <div class="row">
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :title, as: :search %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <div class="field">
+        <%= f.label t('notes.labels.content') %>
+        <%= f.rich_text_area :content %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+  <div class='fixed-bottom d-flex justify-content-end'>
+    <button class="btn btn-primary d-none" type="button" disabled id='note-save-btn'>
+      <div class='spinner-load'>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class='spinner-text'><%= t('notes.labels.saving') %></span>
+      </div>
+      <div class='checked d-none'>
+        <i aria-hidden='true' class='material-icons align-middle'>check</i>
+      </div>
+      <div class='error d-none'>
+        <i aria-hidden='true' class='material-icons align-middle'>error</i>
+      </div>
+    </button>
+  </div>
+  <%= f.input :id, as: :hidden %>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'notes_autosave', nonce: true, 'data-turbo-track': 'reload' %>

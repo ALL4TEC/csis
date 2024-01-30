@@ -1,0 +1,4 @@
+<%= link_to scan, class: "d-flex justify-content-between align-items-center btn btn-#{kind}" do %>
+  <span><%= "#{scan}: #{scan.reference}" %></span>
+  <span class='badge badge-<%= kind %>'><%= scan.launched_at %></span>
+<% end %>

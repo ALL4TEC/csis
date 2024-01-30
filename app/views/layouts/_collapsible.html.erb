@@ -1,0 +1,14 @@
+<% expanded ||= 'false' %>
+<% bg_color ||= 'secondary' %>
+<% text_color ||= 'white' %>
+<% btn_color ||= 'primary' %>
+<div class="p-1 w-100 h-100 d-flex justify-content-start bg-<%= bg_color %> text-<%= text_color %> align-items-center">
+  <button class="btn btn-<%= btn_color %> btn-sm p-0" type="button" data-bs-toggle="collapse" data-bs-target="#<%= id %>" aria-expanded="<%= expanded %>" aria-controls="<%= id %>">
+    <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+    <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+  </button>
+  <%= yield :header %>
+</div>
+<div class="collapse" id="<%= id %>">
+  <%= yield :body %>
+</div>

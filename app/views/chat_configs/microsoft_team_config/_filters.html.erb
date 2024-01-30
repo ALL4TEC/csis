@@ -1,0 +1,13 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.chat_config.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opts = policy_scope(User) %>
+    <%= render 'partials/multiple_select', target: 'accounts_users_user_id', title: t('activerecord.attributes.chat_config.accounts_users'), id: "chat_configs_filters_users" do %>
+      <% opts.each do |user| %>
+      <option value='<%= user.id %>'><%= user.decorate.full_name_and_email %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

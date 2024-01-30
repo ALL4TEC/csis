@@ -1,0 +1,32 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>Reports</caption>
+  <thead>
+    <tr>
+      <th id='reports-title'><%= t('activerecord.attributes.report.title') %></th>
+      <th id='reports-project'><%= t('activerecord.attributes.action.project') %></th>
+      <th id='reports-date'><%= t('dashboard.labels.date') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+    <tr class='line-hover-<%= level_color(report.level) %>'>
+      <td headers='reports-title'>
+        <%= render 'reports/report_badge', report: report do %>
+          <%= link_to(project_statistics_path(report.project), class: "btn btn-sm btn-#{level_color(report.level)} rounded-pill") do %>
+            <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:statistics] %></i>
+          <% end %>
+        <% end %>
+        <% last_export = report.exports.order(created_at: :desc).select { |exp| exp.generated? && exp.document.attached? }.first %>
+        <% if last_export.present? %>
+          <% url = url_for(last_export.document) %>
+          <a target="_blank" href="<%= url %>" class="ms-auto"><i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:pdf] %></i></a>
+        <% end %>
+      </td>
+      <td headers='reports-project' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t('statistics.current_level.' + report.project.statistics.current_level) %>'>
+        <%= render 'projects/project_badge', project: report.project, link: current_user.contact_client_owner? %>
+      </td>
+      <td headers='reports-date'><%= I18n.l report.edited_at, format: :short_dmy %></td>
+    </tr>
+    <% end %>
+  </tbody>
+<% end %>

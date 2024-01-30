@@ -1,0 +1,33 @@
+<div class="btn-group bg-dark">
+  <% color = request.env['PATH_INFO'].in?([settings_path, audit_logs_path]) ? 'text-primary' : 'text-white' %>
+  <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <% if current_user.avatar_url.blank? %>
+      <i aria-hidden='true' class="material-icons align-middle text-white"><%= Icons::MAT[:verified] %></i>
+    <% else %>
+      <%= image_tag(current_user.avatar_url, alt: current_user.full_name, class: 'bg-dark rounded-circle staff', data: { 'bs-toggle': 'tooltip' }, title: current_user.full_name) %>
+    <% end %>
+    <span class='<%= color %>'><%= current_user.full_name %></span>
+  </button>
+  <div class="dropdown-menu dropdown-menu-end m-0 p-0">
+    <a class="dropdown-item d-flex text-white bg-dark" href='<%= profile_path %>'>
+      <i aria-hidden='true' class='material-icons align-middle me-1'><%= Icons::MAT[:account] %></i>
+      <%= t('edit_profile') %>
+    </a>
+    <% current_user.groups.where.not(name: current_user.current_group_name).order(name: :desc).each do |group| %>
+      <%= button_to(switch_view_path(group), method: :put, class: "dropdown-item d-flex text-white bg-dark") do %>
+        <i aria-hidden='true' class='material-icons align-middle me-1'><%= Icons::MAT[:switch] %></i>
+        <%= t("switch_view_to_#{group.name.singularize}") %>
+      <% end %>
+    <% end %>
+    <a class="dropdown-item d-flex text-white bg-dark" target='_blank' href="<%= ENV.fetch('HELP_CENTER_URL', '') %>" rel='noopener'>
+      <i aria-hidden='true' class="material-icons align-middle me-1"><%= Icons::MAT[:help_center] %></i>
+      <%= t('help_center') %>
+    </a>
+    <div class="dropdown-divider bg-dark m-0"></div>
+    <%- logout = IdpConfig.active.find_by(name: current_user.provider).nil? ? { path: destroy_user_session_path, method: :delete} : { path: saml_logout_path, method: :get } %>
+    <%= button_to(logout[:path], method: logout[:method], class: 'dropdown-item d-flex text-white bg-dark') do %>
+      <i aria-hidden='true' class="material-icons align-middle exit me-1"><%= Icons::MAT[:exit] %></i>
+      <%= t('sign_out') %>
+    <% end %>
+  </div>
+</div>

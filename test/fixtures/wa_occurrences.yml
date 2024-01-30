@@ -1,0 +1,50 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+wa_occurrence_one:
+  scan: wa_scan_one
+  vulnerability: vulnerability_one
+  uri: 'google.com'
+
+wa_occurrence_two:
+  scan: wa_scan_two
+  vulnerability: vulnerability_two
+  uri: 'google.com'
+
+wa_occurrence_three:
+  scan: wa_scan_one
+  vulnerability: vulnerability_three
+  result: "IP address Host name\n8.8.8.8 www.google.com"
+  uri: 'google.com'
+
+wa_occurrence_four:
+  scan: wa_scan_one
+  vulnerability: vulnerability_one
+  result: "<div><img src='<script>alert(document.cookie);</script>'>HTML content</div>"
+
+wa_occurrence_five:
+  scan: wa_scan_three
+  vulnerability: vulnerability_one
+  result: 'Something5'
+
+wa_occurrence_six:
+  scan: wa_scan_four
+  vulnerability: vulnerability_one
+  result: 'Something6'
+
+wa_occurrence_seven:
+  scan: wa_scan_five
+  vulnerability: vulnerability_three
+  result: 'Something7'
+
+wa_occurrence_imported_vuln:
+  vulnerability: vulnerability_four
+  result: 'Something8'
+
+wa_occurrence_auto:
+  scan: wa_scan_auto
+  vulnerability: vulnerability_one
+  uri: 'google.com'

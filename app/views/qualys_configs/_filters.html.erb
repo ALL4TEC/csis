@@ -1,0 +1,40 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = QualysConfigExt.kinds %>
+    <%= render 'partials/multiple_select', target: 'ext_kind', title: t('activerecord.attributes.qualys_config.kind'), id: "qualys_configs_filters_kind" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' data-content="<span class='badge badge-<%= account_kind_color(label) %>'><em><%= label %></em></span>"><%= key %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.qualys_config.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :url_eq, @q_base.filter_map(&:url).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.qualys_config.url'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opt = @q_base.flat_map(&:teams).uniq %>
+    <%= render 'partials/multiple_select', target: 'teams_id', title: t('activerecord.attributes.qualys_config.teams'), id: "qualys_configs_filters_teams" do %>
+      <% opt.each do |team| %>
+      <option value='<%= team.id %>'><%= team.name %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = @q_base.flat_map(&:qualys_vm_clients).uniq %>
+    <%= render 'partials/multiple_select', target: 'qualys_vm_clients_id', title: t('models.qualys_vm_clients'), id: "qualys_configs_filters_qualys_vm_clients" do %>
+      <% opt.each do |qualys_vm_client| %>
+      <option value='<%= qualys_vm_client.id %>' data-subtext='<%= qualys_vm_client.qualys_id %>'><%= qualys_vm_client.qualys_name %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = @q_base.flat_map(&:qualys_wa_clients).uniq %>
+    <%= render 'partials/multiple_select', target: 'qualys_wa_clients_id', title: t('models.qualys_wa_clients'), id: "qualys_configs_filters_qualys_wa_clients" do %>
+      <% opt.each do |qualys_wa_client| %>
+      <option value='<%= qualys_wa_client.id %>' data-subtext='<%= qualys_wa_client.qualys_id %>'><%= qualys_wa_client.qualys_name %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

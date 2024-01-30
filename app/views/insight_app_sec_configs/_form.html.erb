@@ -1,0 +1,15 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(insight_app_sec_config) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.input :name, as: :search %>
+      <code>https://</code><%= f.input :url, as: :search, placeholder: 'ex: eu.api.insight.rapid7.com/ias' %>
+      <%= f.input :api_key, as: :password %>
+    </div>
+    <div class="col">
+      <%= f.association :teams, collection: Team.all.order('name ASC'), as: :check_boxes %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

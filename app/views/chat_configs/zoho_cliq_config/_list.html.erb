@@ -1,0 +1,53 @@
+<div class="table-responsive">
+  <table class="table table-zoho_cliq table-hover">
+    <caption>ZohoCliqConfigs</caption>
+    <thead>
+      <tr>
+        <th id='zoho_cliq-bot_name' class="th-zoho_cliq-bot_name">
+          <%= sort_link @q, :bot_name, t('activerecord.attributes.zoho_cliq_config.bot_name') %>
+        </th>
+        <th id='zoho_cliq-webhook_domain' class="th-zoho_cliq-webhook_domain">
+          <%= t('activerecord.attributes.zoho_cliq_config.webhook_domain') %>
+        </th>
+        <th id='zoho_cliq-zapikey' class="th-zoho_cliq-zapikey">
+          <%= t('activerecord.attributes.zoho_cliq_config.zapikey') %>
+        </th>
+        <th id='zoho_cliq_config-users' class="th-zoho_cliq-users">
+          <%= t('activerecord.attributes.zoho_cliq_config.accounts_users') %>
+        </th>
+        <th id='zoho_cliq_config-btn'>
+          <%= render 'partials/c_btn', new_resource_path: new_zoho_cliq_config_path, policy: policy(ZohoCliqConfig) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% zoho_cliq_configs.each do |zoho_cliq_config| %>
+        <tr>
+          <td headers='zoho_cliq-bot_name'>
+            <%= zoho_cliq_config.bot_name %>
+          </td>
+          <td headers='zoho_cliq-webhook_domain'>
+            <%= zoho_cliq_config.webhook_domain %>
+          </td>
+          <td headers='zoho_cliq-zapikey'>
+            <%= zoho_cliq_config.api_key %>
+          </td>
+          <td headers='zoho_cliq_config-users'>
+          <%- users = zoho_cliq_config.accounts_users.map(&:user) %>
+            <details>
+              <summary><div class='badge badge-primary'><%= users.count %></div></summary>
+              <div class='d-flex flex-wrap'>
+              <%- users.each do |user| %>
+              <span class='badge halo-success' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= user.email %>'><%= user.full_name %></span>
+              <% end %>
+            </details>
+          </td>
+          <td headers='zoho_cliq_config-btn'>
+            <%= render 'partials/actions_btns', policy: policy(zoho_cliq_config), resource: zoho_cliq_config, 
+                discardable: true, klazz: 'zoho_cliq_config', headers: @headers %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

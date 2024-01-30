@@ -1,0 +1,29 @@
+<%- expanded = local_variables.include?(:visible) ? visible.presence : 'false' %>
+<%- collapsed = expanded == 'true' ? '' : 'collapsed' %>
+<div class="card tile ms-1 me-1 mb-1 card-btns-v" id="v-<%= name %>">
+  <div class="card-header p-0 h-100" id='heading-<%= name %>'>
+    <%- title = t("dashboard.labels.last_#{name.underscore.pluralize}") %>
+    <div class="rounded-0 btn line-dark line-hover-secondary border-0 text-white w-100 h-100">
+      <span class="card-content d-flex flex-column justify-content-between h-100">
+        <span class="d-flex mx-auto h-100 align-items-center text-primary">
+          <i aria-hidden='true' class="material-icons align-middle me-1 icon-2x"><%= Icons::MAT[icon] %></i>
+        </span>
+        <h5 class='mt-2'>
+          <%= title %>
+        </h5>
+        <% if current_user.current_dashboard_default_card == name %>
+        <span class="default-v p-0 text-success badge">
+          <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:check] %></i>
+        </span>
+        <% end %>
+      </span>
+      <div class="card-btns d-flex justify-content-end pasties w-100 h-100 p-0 m-0 align-items-start">
+        <%- color = current_user.current_dashboard_default_card == name ? 'success' : 'white' %>
+        <%- current_dashboard_default_card_action = current_user.current_dashboard_default_card == name ? 'unset' : 'set' %>
+        <%= link_to("/dashboard/default_card?view=" + name, method: :post, role: 'button', class: "card-btns-default-view badge badge-primary p-0 rounded-0 text-#{color}") do %>
+          <i aria-hidden='true' class='material-icons align-middle' data-bs-toggle='tooltip' title='<%= t("dashboard.labels.#{current_dashboard_default_card_action}_default_card") %>'><%= Icons::MAT[:check] %></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

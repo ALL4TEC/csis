@@ -1,0 +1,32 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.jira_config.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :url_eq, @q_base.filter_map(&:url).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.jira_config.url'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opts = JiraConfigExt.all.flat_map(&:context).uniq %>
+    <%= render 'partials/multiple_select', target: 'ext_context', title: t('activerecord.attributes.jira_config.context'), id: "jira_configs_filters_context" do %>
+      <% opts.each do |opt| %>
+      <option value='<%= opt %>'><%= opt %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opts = JiraConfigExt.all.flat_map(&:project_id).uniq %>
+    <%= render 'partials/multiple_select', target: 'ext_project_id', title: t('activerecord.attributes.jira_config.project_id'), id: "jira_configs_filters_project_id" do %>
+      <% opts.each do |opt| %>
+      <option value='<%= opt %>'><%= opt %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opts = JiraConfigExt.statuses_select %>
+    <%= render 'partials/multiple_select', target: 'ext_status', title: t('activerecord.attributes.jira_config.status'), id: "jira_configs_filters_status" do %>
+      <% opts.each do |label, key| %>
+      <option value='<%= key %>'><%= label %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

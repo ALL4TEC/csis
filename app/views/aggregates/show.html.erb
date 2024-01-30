@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col">
+    <% @aggregates = []%>
+    <% @aggregates << @aggregate %>
+    <%= render partial: 'aggregates/aggregate', collection: @aggregates, locals: {:kind=>@aggregate.kind} %>
+  </div>
+</div>

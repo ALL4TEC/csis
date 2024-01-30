@@ -1,0 +1,24 @@
+<%- color = export_color(report_export.status) %>
+<%- icon = export_icon(report_export.status) %>
+<tr data-report-export-id="<%= report_export.id %>" id="<%= dom_id(report_export) %>" class='line-hover-<%= color %>'>
+  <td headers='exports-date'><%= l report_export.created_at, format: :long %></td>
+  <td headers='exports-exporter'><%= report_export.exporter %></td>
+  <td headers='exports-status'>
+    <div class='d-flex align-items-center justify-content-end'>
+      <button class="btn btn-sm btn-<%= color %> d-flex align-items-center" disabled>
+        <i class='material-icons align-middle me-1'><%= Icons::MAT[icon] %></i>
+        <%= t("activerecord.attributes.report_export/status.#{report_export.status}") %>
+      </button>
+    <%- if report_export.document.attached? %>
+      <%= link_to rails_blob_path(report_export.document, disposition: 'preview'), class: 'btn btn-sm btn-secondary m-1', target: :_blank, rel: :noopener do %>
+        <i class='material-icons align-middle' data-bs-toggle='tooltip' title='<%= t('exports.actions.download') %>'><%= Icons::MAT[:dl] %></i>
+      <% end %>
+    <% end %>
+      <button class='m-1 btn btn-sm btn-outline-danger'
+        data-bs-toggle='tooltip' title='<%= t('exports.actions.destroy') %>'
+        data-action="click->report-exports#destroy" data-reflex-dataset="combined" data-reflex-confirm="<%= t('exports.actions.destroy_confirm', infos: l(report_export.created_at, format: :long)) %>">
+        <i class='material-icons align-middle'><%= Icons::MAT[:delete] %></i>
+      </button>
+    </div>
+  </td>
+</tr>

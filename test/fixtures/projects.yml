@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+project_one:
+  name: MaPUI
+  client: client_one
+  language: fr
+
+project_two:
+  name: Hospiville
+  client: client_two
+  suppliers:
+    - client_three
+    - client_four
+  language: en
+
+project_auto:
+  name: auto
+  client: client_five
+  language: fr
+  auto_generate: true
+  auto_export: true
+  notification_severity_threshold: 3
+  scan_regex: Scan name

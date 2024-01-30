@@ -1,0 +1,12 @@
+<div class='card-filters text-muted'>
+  <div class='card rounded-0 multi collapse fade' id='filter-body'>
+    <%= search_form_for(*args) do |f| %>
+      <div class='d-flex align-items-center flex-wrap'>
+        <%= yield(f) %>
+      </div>
+      <div class='m-3'>
+        <%= f.submit I18n.t('labels.search'), class: 'btn btn-sm btn-secondary rounded' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<%- activated = @user.otp_activated? %>
+<div id='otp-status' class='d-flex mt-3'>
+  <%- status = activated ? 'activated' : 'deactivated' %>
+  <%- action = activated ? 'deactivate' : 'activate' %>
+  <%- icon = activated ? :check : :cancel %>
+  <%- color = activated ? 'success' : 'danger' %>
+  <div class='d-flex align-items-center text-<%= color %> badge badge-dark me-2 ms-2'>
+    <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[icon] %></i>
+    <%= t("devise.two_factor_authentication.#{status}") %>
+  </div>
+  <%- disabled = activated && @user.otp_mandatory? %>
+  <%= button_to(t("devise.two_factor_authentication.#{action}"), send("#{action}_otp_path"), class: "btn btn-primary", disabled: disabled) %>
+</div>
+<%- if activated %>
+<div id='otp-configuration' class='d-flex flex-column justify-content-center align-items-center'>
+  <% if @user.otp_secret_key.present? %>
+    <h4><%= t('devise.two_factor_authentication.authenticator.currently') %></h4>
+    <div class='d-flex'>
+    <%= button_to(t('devise.two_factor_authentication.authenticator.resetup'), resetup_otp_authenticator_path, class: 'btn btn-primary') %>
+    <hr>
+    <%= button_to(t('devise.two_factor_authentication.authenticator.clear'), clear_otp_authenticator_path, class: 'btn btn-primary') %>
+    </div>
+  <% else %>
+    <h4><%= t('devise.two_factor_authentication.direct_otp.currently') %></h4>
+    <%= button_to(t('devise.two_factor_authentication.authenticator.setup'), setup_otp_authenticator_path, class: 'btn btn-primary') %>
+  <% end %>
+</div>
+<% end %>

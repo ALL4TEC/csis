@@ -1,0 +1,347 @@
+--- !ruby/object:Sellsy::ListResponse
+method: Client.getList
+per_page: 50
+page: 1
+total: 3
+data:
+- !ruby/object:Sellsy::Client
+  id: 12345678
+  details_id:
+  corporation_id: 12345
+  csis:
+  - id: '107943393'
+    status: ok
+    code: csis
+    formatted_value: oui
+  owner_id: 12345
+  joined_at: 2018-03-26 17:10:34.000000000 +02:00
+  type: corporation
+  status: 
+  active: true
+  contacts:
+  - &1 !ruby/object:Sellsy::Contact
+    client_ids: [12345678]
+    last_name: JP
+    first_name: Koff
+    phone_fixed: 
+    phone_mobile: !ruby/object:Phonelib::Phone
+      original: "+33777777777"
+      extension: ''
+      sanitized: '33777777777'
+      original_s: "+33777777777"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '777777777'
+          :format: &2
+            :pattern: "(\\d)(\\d{2})(\\d{2})(\\d{2})(\\d{2})"
+            :national_prefix_formatting_rule: "$NP$FG"
+            :leading_digits: "[1-79]"
+            :format: "$1 $2 $3 $4 $5"
+          :valid:
+          - :mobile
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '777777777'
+    email: JP@Koff.fr
+    gender: man
+    role: Président
+    birthdate: ''
+    third_id: 23456789
+    id: 23456789
+    people_id: 23456789
+    full_name: Mr JP KOFF
+    corporation_id: '23456'
+    picture: ''
+  main_contact_id: 23456789
+  main_contact: *1
+  ident: ''
+  accounting_code: '234567'
+  accounting_purchase_code: 
+  aux_code: DIVERS
+  sticky_note: ''
+  twitter: 
+  facebook: 
+  linkedin: 
+  viadeo: 
+  rate_category: '234567'
+  was_prospect: false
+  source: 
+  origin_id: 
+  origin_type:
+  ten_last_type:
+  massmailing_unsubscribed: false
+  massmailing_unsubscribed_sms: false
+  phoning_unsubscribed: false
+  massmailing_unsubscribed_mail: false
+  massmailing_unsubscribed_custom: false
+  firm_search_url: 
+  lang: 
+  name: JPK Kompany
+  logo: https://JP.com/Koff/a.jpg
+  phone_fixed: !ruby/object:Phonelib::Phone
+    original: "+33777777777"
+    extension: ''
+    sanitized: '33777777777'
+    original_s: "+33777777777"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '777777777'
+        :format: *2
+        :valid:
+        - :mobile
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '777777777'
+  phone_mobile:
+  email: JPK@test.fr
+  website_url: !ruby/object:URI::HTTPS
+    scheme: https
+    user:
+    password:
+    host: JPK.fr
+    port: 443
+    path: "/"
+    query:
+    opaque:
+    fragment:
+    parser: &5 !ruby/object:URI::RFC3986_Parser
+      regexp:
+        :SCHEME: !ruby/regexp /\A[A-Za-z][A-Za-z0-9+\-.]*\z/
+        :USERINFO: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=A-Z_a-z~])*\z/
+        :HOST: !ruby/regexp /\A(?:(?<IP-literal>\[(?:(?<IPv6address>(?:\h{1,4}:){6}(?<ls32>\h{1,4}:\h{1,4}|(?<IPv4address>(?<dec-octet>[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]|\d)\.\g<dec-octet>\.\g<dec-octet>\.\g<dec-octet>))|::(?:\h{1,4}:){5}\g<ls32>|\h{,4}::(?:\h{1,4}:){4}\g<ls32>|(?:(?:\h{1,4}:)?\h{1,4})?::(?:\h{1,4}:){3}\g<ls32>|(?:(?:\h{1,4}:){,2}\h{1,4})?::(?:\h{1,4}:){2}\g<ls32>|(?:(?:\h{1,4}:){,3}\h{1,4})?::\h{1,4}:\g<ls32>|(?:(?:\h{1,4}:){,4}\h{1,4})?::\g<ls32>|(?:(?:\h{1,4}:){,5}\h{1,4})?::\h{1,4}|(?:(?:\h{1,4}:){,6}\h{1,4})?::)|(?<IPvFuture>v\h+\.[!$&-.0-;=A-Z_a-z~]+))\])|\g<IPv4address>|(?<reg-name>(?:%\h\h|[!$&-.0-9;=A-Z_a-z~])*))\z/
+        :ABS_PATH: !ruby/regexp /\A\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+        :REL_PATH: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~])+(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+        :QUERY: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+        :FRAGMENT: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+        :OPAQUE: !ruby/regexp /\A(?:[^\/].*)?\z/
+        :PORT: !ruby/regexp /\A[\x09\x0a\x0c\x0d ]*\d*[\x09\x0a\x0c\x0d ]*\z/
+- !ruby/object:Sellsy::Client
+  id: 34567891
+  details_id:
+  corporation_id: 34567
+  csis:
+  - id: '107943393'
+    status: ok
+    code: csis
+    formatted_value: oui
+  owner_id: 34567
+  joined_at: 2019-04-10 10:20:35.000000000 +02:00
+  type: corporation
+  status:
+  active: true
+  contacts:
+  - &3 !ruby/object:Sellsy::Contact
+    client_ids: [34567891]
+    last_name: Dylan
+    first_name: Bob
+    phone_fixed: !ruby/object:Phonelib::Phone
+      original: "+33777777777"
+      extension: ''
+      sanitized: '33777777777'
+      original_s: "+33777777777"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '777777777'
+          :format: *2
+          :valid:
+          - :mobile
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '777777777'
+    phone_mobile:
+    email: Bob@dylan.com
+    gender: man
+    role: ''
+    birthdate: ''
+    third_id: 45678912
+    id: 45678912
+    people_id: 45678912
+    full_name: M Bob DYLAN
+    corporation_id: '45678'
+    picture: ''
+  - !ruby/object:Sellsy::Contact
+    client_ids: [67891234]
+    last_name: Monroe
+    first_name: Marylin
+    phone_fixed: 
+    phone_mobile: 
+    email: monroe@marylin.com
+    gender: woman
+    role: Directeur Général
+    birthdate: ''
+    third_id: 56789123
+    id: 56789123
+    people_id: 56789123
+    full_name: Mme Marylin MONROE
+    corporation_id: '56789'
+    picture: ''
+  main_contact_id: 56789123
+  main_contact: *3
+  ident: ''
+  accounting_code: '567891'
+  accounting_purchase_code:
+  aux_code: 0MONER001
+  sticky_note: "Nop"
+  twitter:
+  facebook:
+  linkedin:
+  viadeo:
+  rate_category: '567891'
+  was_prospect: false
+  source:
+  origin_id:
+  origin_type:
+  ten_last_type:
+  massmailing_unsubscribed: false
+  massmailing_unsubscribed_sms: true
+  phoning_unsubscribed: false
+  massmailing_unsubscribed_mail: true
+  massmailing_unsubscribed_custom: true
+  firm_search_url:
+  lang:
+  name: MONROE_INC
+  logo: ''
+  phone_fixed:
+  phone_mobile:
+  email: ''
+  website_url:
+- !ruby/object:Sellsy::Client
+  id: 67891234
+  details_id:
+  corporation_id: 67891
+  csis:
+  - id: '107943393'
+    status: ok
+    code: csis
+    formatted_value: oui
+  owner_id: 67891
+  joined_at: 2018-07-11 13:14:40.000000000 +02:00
+  type: corporation
+  status:
+  active: true
+  contacts:
+  - &4 !ruby/object:Sellsy::Contact
+    client_ids: [67891234]
+    last_name: Naiassé
+    first_name: Jean
+    phone_fixed: !ruby/object:Phonelib::Phone
+      original: "+33777777777"
+      extension: ''
+      sanitized: '33777777777'
+      original_s: "+33777777777"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '777777777'
+          :format: *2
+          :valid:
+          - :mobile
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '777777777'
+    phone_mobile: 
+    email: jean@naiasse.com
+    gender: man
+    role: ''
+    birthdate: ''
+    third_id: 78912345
+    id: 78912345
+    people_id: 78912345
+    full_name: Mr Jean Naiassé
+    corporation_id: '78912'
+    picture: ''
+  - !ruby/object:Sellsy::Contact
+    client_ids: [67891234]
+    last_name: Long
+    first_name: Trop
+    phone_fixed: 
+    phone_mobile: 
+    email: trop@long.com
+    gender: man
+    role: ''
+    birthdate: ''
+    third_id: 89123456
+    id: 89123456
+    people_id: 89123456
+    full_name: M Trop Long
+    corporation_id: '89123'
+    picture: ''
+  main_contact_id: 89123456
+  main_contact: *4
+  ident: ''
+  accounting_code: '912345'
+  accounting_purchase_code: 
+  aux_code: ''
+  sticky_note: "Bonjour\n\nmerci"
+  twitter:
+  facebook:
+  linkedin: 
+  viadeo: 
+  rate_category: '912345'
+  was_prospect: false
+  source: 
+  origin_id: 
+  origin_type: 
+  ten_last_type: 
+  massmailing_unsubscribed: true
+  massmailing_unsubscribed_sms: true
+  phoning_unsubscribed: true
+  massmailing_unsubscribed_mail: true
+  massmailing_unsubscribed_custom: true
+  firm_search_url: 
+  lang: 
+  name: Loooooong
+  logo: ''
+  phone_fixed: 
+  phone_mobile: 
+  email: ''
+  website_url: !ruby/object:URI::HTTP
+    scheme: http
+    user: 
+    password: 
+    host: trop.long.com
+    port: 80
+    path: ''
+    query: 
+    opaque: 
+    fragment: 
+    parser: *5

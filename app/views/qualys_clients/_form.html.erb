@@ -1,0 +1,25 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(qualys_client) do |f| %>
+  <div class="row">
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :qualys_id, as: :search, label: t('activerecord.attributes.qualys_client.qualys_id') %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :qualys_name, as: :search %>
+    <% end %>
+    </div>
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.association :teams, collection: @qualys_config.teams.order('name ASC'), as: :check_boxes %>
+    <% end %>
+    </div>
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :qualys_config_id, collection: QualysConfig.where(id: QualysConfigExt.consultants_kind.map(&:qualys_config_id)), as: :select, label: t('qualys_configs.labels.consultants_only'), include_blank: false %>
+    <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

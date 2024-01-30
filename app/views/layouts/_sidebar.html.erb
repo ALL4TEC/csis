@@ -1,0 +1,24 @@
+<%- direction ||= :ltr %>
+<%- no_btn ||= false %>
+<%- hidden ||= false %>
+<%- clazz ||= 'bg-light hide' %>
+<%- wrapper_clazz ||= '' %>
+<div class='sidebar-wrapper <%= wrapper_clazz %>'>
+  <%= yield :content if direction == :rtl %>
+  <nav id="sidebar" class='card rounded-0 collapse <%= clazz %> <%= hidden ? "hidden" : "" %>'>
+    <div class='sidebar-header d-flex justify-content-center align-items-center p-1 <%= no_btn ? "no_btn" : "" %>'>
+      <button type="button" class='btn btn-orange-l burger-btn p-0'>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <ul class='m-0 p-1 collapsed list-group'>
+      <%= yield :sidebar_content_collapsed %>
+    </ul>
+    <ul class='m-0 p-1 opened fade-in'>
+      <%= yield :sidebar_content_opened %>
+    </ul>
+  </nav>
+  <%= yield :content if direction == :ltr %>
+</div>

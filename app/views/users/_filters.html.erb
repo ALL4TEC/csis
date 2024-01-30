@@ -1,0 +1,33 @@
+<%- pluralized = user_type.to_s.pluralize %>
+<%- groups = Group::USER_TEAMS[user_type] %>
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :full_name_eq, @q_base.filter_map(&:full_name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t("activerecord.attributes.#{user_type}.full_name"), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :email_eq, @q_base.filter_map(&:email).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t("activerecord.attributes.#{user_type}.email"), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :notification_email_eq, @q_base.filter_map(&:notification_email).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t("activerecord.attributes.#{user_type}.notification_email"), data: { 'live-search': "true" } %>
+  </div>
+
+  <div class="form-group">
+    <% opt = @q_base.flat_map(&groups).uniq %>
+    <%= render 'partials/multiple_select', target: "#{groups}_id", title: t("activerecord.attributes.#{user_type}.#{groups}"), id: "#{pluralized}_filters_#{groups}" do %>
+      <% opt.each do |client_or_team| %>
+      <option value='<%= client_or_team.id %>'><%= client_or_team.name %></option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Role.send("of_#{pluralized}") %>
+    <%= render 'partials/multiple_select', target: 'roles_id', title: t("activerecord.attributes.#{user_type}.roles"), id: "#{pluralized}_filters_roles" do %>
+      <% opt.each do |role| %>
+      <option value='<%= role.id %>'><%= role.to_s %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

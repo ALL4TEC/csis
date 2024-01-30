@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+m42_one:
+  name: First
+  id: d660895c-399e-43db-a7c2-7d395f35036f # needed so that the issue is correctly linked to the ticketable
+  url: 'https://first.example.com'
+  encrypted_api_key: "<%= @secret = Matrix42Config.new(api_key: 'client_id_1'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  encrypted_secret_key: "<%= @secret = Matrix42Config.new(secret_key: 'client_secret_1'); @secret.encrypted_secret_key %>"
+  encrypted_secret_key_iv: "<%= @secret.encrypted_secret_key_iv %>"
+  type: 'Matrix42Config'
+
+m42_two:
+  name: Second
+  url: 'https://second.example.com'
+  encrypted_api_key: "<%= @secret = Matrix42Config.new(api_key: 'client_id_2'); @secret.encrypted_api_key %>"
+  encrypted_api_key_iv: "<%= @secret.encrypted_api_key_iv %>"
+  encrypted_secret_key: "<%= @secret = Matrix42Config.new(secret_key: 'client_secret_2'); @secret.encrypted_secret_key %>"
+  encrypted_secret_key_iv: "<%= @secret.encrypted_secret_key_iv %>"
+  type: 'Matrix42Config'

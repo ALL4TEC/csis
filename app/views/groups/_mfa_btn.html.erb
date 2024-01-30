@@ -1,0 +1,25 @@
+<%- color = 'light' %>
+<%- resource = target.class.to_s.downcase.to_sym %>
+<%- mandatory = target.otp_mandatory? %>
+<%- data1 = mandatory ? {icon: :otp, color: 'success'} : {icon: :no_otp, color: 'danger'} %>
+<%- icon2 = mandatory ? :no_otp : :otp %>
+<%- prefix = mandatory ? 'un' : '' %>
+<%- status = mandatory ? '' : 'un' %>
+<%- action = "#{prefix}force_mfa" %>
+<%- policy = defined?(instanciated_policy) ? instanciated_policy : policy(target) %>
+<%- enabled = policy.send("#{action}?") %>
+<div class='d-flex align-items-center'>
+  <%- unless defined?(no_count) %>
+  <span class='badge badge-count me-1' data-bs-toggle='tooltip' title="<%= t('groups.labels.total_members') %>"><%= target.users.count %></span>
+  <% end %>
+  <%= button_to(send("#{action}_#{resource}_path", target.id), method: :put, class: "d-flex align-items-center btn btn-sm btn-#{color} p-1 rounded-circle", disabled: !enabled) do %>
+    <span class="mfa-btn <%= enabled ? 'mfa-btn-enabled' : '' %> text-<%= data1[:color] %>" data-bs-toggle='tooltip' title='<%= t("groups.labels.mfa.#{resource}.#{status}forced") %>'>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[data1[:icon]] %></i>
+    </span>
+    <%- if enabled %>
+    <span class="fade-in-down" data-bs-toggle='tooltip' title='<%= t("groups.labels.mfa.#{resource}.#{prefix}force") %>'>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[icon2] %></i>
+    </span>
+    <% end %>
+  <% end %>
+</div>

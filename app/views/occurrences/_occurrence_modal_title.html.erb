@@ -1,0 +1,15 @@
+<%- prefix = occ.vulnerability.kb_type == 'qualys' ? 'QID ' : ' ' %>
+<%- severity = occ.vulnerability.severity %>
+<%- kind = occ.vulnerability.kind %>
+<div class='d-flex align-items-center w-100'>
+  <div class='d-flex align-items-center'>
+    <span class="ms-auto text-<%= VulnerabilitiesHelper.kind_color(kind) %> d-flex align-items-center p-1 rounded" data-bs-toggle='tooltip' title='<%= Vulnerability.human_attribute_name("kind.#{kind}") %>'>
+      <i aria-hidden='true' class='material-icons align-middle'><%= VulnerabilitiesHelper.kind_icon(kind) %></i>
+    </span>
+    <span><%= occ.to_s %></span>
+  </div>
+  <div class='ms-auto'>
+    <%= link_to("#{prefix}#{occ.vulnerability.qid}", vulnerability_path(occ.vulnerability), target: '_blank', class:"badge badge-#{severity}") %>
+    <span class='badge badge-<%= severity %>'><%= Vulnerability.human_attribute_name("severity.#{severity}") %></span>
+  </div>
+</div>

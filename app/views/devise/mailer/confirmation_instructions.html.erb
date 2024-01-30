@@ -1,0 +1,6 @@
+<%= t('devise.mailer.confirmation_instructions.greeting', recipient: User.find_by("email = ? OR unconfirmed_email = ?", @email, @email).full_name) %><br><br>
+<%= I18n.t('mailer.content.activate') %><br>
+<%= I18n.t('mailer.content.link') %><br><br>
+<%= I18n.t('mailer.content.visit') %>
+<a style="color: #5E6B76;" href="<%= confirmation_url(@resource, confirmation_token: @token) %>"><%= I18n.t('mailer.content.CSIS') %></a><br><br>
+<%= I18n.t('mailer.content.polite') %>

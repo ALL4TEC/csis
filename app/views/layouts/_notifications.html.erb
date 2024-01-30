@@ -1,0 +1,31 @@
+<%- notifs_subs = current_user.notifications_subscriptions.kept %>
+<div class="btn-group bg-dark">
+  <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span><i id='notif_btn' aria-hidden='true' class="material-icons align-middle i_vibrate"><%= Icons::MAT[:notif_new] %></i></span>
+    <span id="notif_counter" class="badge badge-primary badge-notify"><%= notifs_subs.unread.count if notifs_subs.unread.present? %></span>
+  </button>
+
+  <div class="dropdown-menu dropdown-menu-end m-0 p-0">
+    <div class='d-flex bg-dark justify-content-between notifs_subs-toolbar'>
+      <div class='btn-group'>
+        <span class='btn btn-sm p-0 d-flex align-items-center' data-bs-toggle='tooltip' title='<%= t('notifications.mark_all_as_unread') %>' data-reflex="click->Notification#unread_all">
+          <i aria-hidden='true' class='material-icons align-middle mark-all-not-read i_scale'><%= Icons::MAT[:dot] %></i>
+        </span>
+        <span class='btn btn-sm p-0 d-flex align-items-center' data-bs-toggle='tooltip' title='<%= t('notifications.mark_all_as_read') %>' data-reflex="click->Notification#read_all">
+          <i aria-hidden='true' class='material-icons align-middle mark-all-read i_scale'><%= Icons::MAT[:dot] %></i>
+        </span>
+      </div>
+      <div class='btn-group'>
+        <button class='btn btn-sm text-secondary ps-1 d-flex align-items-center' data-bs-toggle='tooltip' title='<%= t('notifications.clear_all') %>' data-reflex="click->Notification#clear_all">
+          <i aria-hidden='true' class='material-icons align-middle clear-all i_scale'><%= Icons::MAT[:close] %></i>
+        </button>
+        <button class='btn btn-sm text-secondary ps-1 d-flex align-items-center' data-bs-toggle='tooltip' title='<%= t('notifications.restore_all') %>' data-reflex="click->Notification#restore_all">
+          <i aria-hidden='true' class='material-icons align-middle unarchive-all i_scale'><%= Icons::MAT[:restore] %></i>
+        </button>
+      </div>
+    </div>
+    <div id='notif_list' data-controller='notification' class='bg-dark'>
+      <%= render 'notifications/list', notifs_subs: notifs_subs %>
+    </div>
+  </div>
+</div>

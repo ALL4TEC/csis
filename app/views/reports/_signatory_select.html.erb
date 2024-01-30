@@ -1,0 +1,6 @@
+<div class='form-group select optional'>
+  <label><%= t('labels.signatory') %></label>
+  <%= f.select :signatory_id, @report.potential_signatories(current_user),
+      { include_blank: true }, class: 'form-control selectpicker show-tick', data: { 'live-search': "true" },
+      selected: @report.signatory&.id || current_user.id %>
+</div>

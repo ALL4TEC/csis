@@ -1,0 +1,46 @@
+FROM ruby:3.2-alpine
+
+ENV RAILS_ENV production
+# ENV NODE_ENV production
+# RUN apt-get update -qq && apt-get install -y nodejs postgresql-client tzdata
+RUN apk --update add --no-cache build-base musl-dev gpgme-dev gnupg postgresql-dev postgresql-client nodejs npm tzdata imagemagick git vips
+# RUN apk --update add --no-cache --virtual .run-deps postgresql-client nodejs npm tzdata gnupg imagemagick git vips
+
+RUN gem update --system
+RUN gem install bundler
+
+# Set an environment variable where the Rails app is installed to inside of Docker image
+ENV RAILS_ROOT /var/www/csis
+RUN mkdir -p "$RAILS_ROOT"
+# Set working directory
+WORKDIR $RAILS_ROOT
+
+COPY .gemrc $RAILS_ROOT
+COPY . $RAILS_ROOT
+# COPY Gemfile Gemfile
+# COPY Gemfile.lock Gemfile.lock
+# COPY package.json package.json
+# ADD vendor vendor
+RUN npm install @rails/webpacker
+
+RUN gem install gpgme -- --use-system-libraries
+# RUN bundle config --global frozen 1
+# RUN bundle config set --local path '/usr/local/bundle'
+# RUN bundle config set --local with "${RAILS_ENV}"
+RUN bundle config set --local without 'development test ci'
+RUN bundle install -j $(nproc)
+# Clean
+RUN rm -rf "$GEM_HOME/cache/*.gem"
+RUN find "$GEM_HOME/gems/" -name "*.c" -delete
+RUN find "$GEM_HOME/gems/" -name "*.o" -delete
+# clean install dirs
+RUN rm -rf /var/cache/apk/* /var/lib/cache/* /var/lib/log/* /var/tmp/* /tmp/*
+
+# Add a script to be executed every time the container starts.
+# COPY docker/app/entrypoint.sh /usr/bin/
+# RUN chmod +x /usr/bin/entrypoint.sh
+# ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+
+# Start the main process.
+CMD ["bundle", "exec", "rails", "s"]

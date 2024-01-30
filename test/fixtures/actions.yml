@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+action_one:
+  name: Action1
+  description: 'à faire'
+  state: 1
+  meta_state: 'active'
+  author: staffuser
+  receiver: c_one
+
+action_two:
+  name: Action2
+  description: 'à faire'
+  state: 3
+  meta_state: 'clotured'
+  author: staffuser2
+  receiver: c_one
+
+action_three:
+  name: Action3
+  description: 'à faire'
+  state: 3
+  meta_state: 'active'
+  author: staffuser2
+  receiver: c_two
+
+action_four:
+  name: Action4
+  description: 'à faire'
+  state: 3
+  meta_state: 'archived'
+  author: staffuser2
+  receiver: c_two
+
+action_five:
+  name: Action5
+  description: 'à faire'
+  state: 3
+  meta_state: 'active'
+  author: staffuser2
+  receiver: c_one

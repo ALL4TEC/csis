@@ -1,0 +1,14 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.targets.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :reference_id_eq, @q_base.filter_map(&:reference_id).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.targets.reference_id'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :ip_eq, @q_base.filter_map(&:ip).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.targets.ip'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= f.select :url_eq, @q_base.filter_map(&:url).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.targets.url'), data: { 'live-search': "true" } %>
+  </div>
+<% end %>

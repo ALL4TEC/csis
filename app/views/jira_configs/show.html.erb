@@ -1,0 +1,54 @@
+<table class="table table-jira_config table-hover">
+  <caption>Jira configuration</caption>
+  <thead>
+    <tr>
+      <th id='jira-configs-url' class="th-jira_config-url">
+        <%= t('activerecord.attributes.jira_config.full_url') %>
+      </th>
+      <th id='jira-configs-project-id' class="th-jira_config-project_id">
+        <%= t('activerecord.attributes.jira_config.project_id') %>
+      </th>
+      <th id='jira-configs-suppliers' class="th-jira_config-suppliers">
+        <%= t('activerecord.attributes.jira_config.suppliers') %>
+      </th>
+      <th id='jira-configs-status' class="th-jira_config-status">
+        <%= t('activerecord.attributes.jira_config.status') %>
+      </th>
+      <th id='jira-configs-expiration' class="th-jira_config-expiration">
+        <%= t('activerecord.attributes.jira_config.expiration_date') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td headers='jira-configs-url'>
+        <%= @jira_config.url %><%= @jira_config.context %>
+      </td>
+      <td headers='jira-configs-project-id'>
+        <%= @jira_config.project_id %>
+      </td>
+      <td headers='jira-configs-suppliers'>
+        <% @jira_config.suppliers.each do |supplier| %>
+          <%= link_to(supplier.name, supplier, class: 'link-block') %>
+        <% end %>
+      </td>
+      <td headers='jira-configs-status'>
+        <%= jira_config_format_status @jira_config.status %>
+      </td>
+      <td headers='jira-configs-expiration'>
+        <%= @jira_config.expiration_date.strftime(t('time.formats.audit')) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<% unless @jira_config.status == 'ok' %>
+  <%= render layout: 'layouts/header_collapse', locals: { id: 'jira_config_status_info', header: t('jira_configs.labels.status_info'), expanded: true } do %>
+    <div class='d-flex flex-row m-2'>
+      <%= t("jira_configs.status_info.#{@jira_config.status}") %>
+    </div>
+  <% end %>
+<% end %>
+<!-- # TODO: convertir en linked_issues plutôt ? -->
+<%= render layout: 'layouts/header_collapse', locals: { id: 'jira_config_linked_actions', header: t('jira_configs.labels.linked_actions'), count: @jira_config.actions.distinct.length } do %>
+  <%= render 'linked_actions', actions: @jira_config.actions.distinct %>
+<% end %>

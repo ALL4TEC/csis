@@ -1,0 +1,6 @@
+<%- state ||= 'muted' %>
+<button class="whois-btn btn btn-<%= state %>" type="button" data-whois='<%= target %>' data-bs-toggle="modal" data-bs-target="#ajax-modal">
+  <span data-bs-toggle='tooltip' title="WHOIS <%= infos %>">
+  <%= infos %>
+  </span>
+</button>

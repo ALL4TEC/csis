@@ -1,0 +1,69 @@
+.auto-overflow-x {
+  overflow-x: hidden;
+  &:hover {
+    overflow-x: auto;
+  }
+}
+
+.sticky-aggregate-header {
+  position: sticky;
+  z-index: 1010;
+  top: 0;
+}
+
+.badge-2 {
+  @extend .badge;
+  width: 2em;
+}
+
+.aggregate_occurrence_dropzone {
+  height: 500px;
+  overflow-y: auto;
+}
+
+.aggregate_occurrence_bloc_vm, .aggregate_occurrence_bloc_wa {
+  padding: 0;
+  max-height: 90px;
+}
+
+.handle-drag {
+  cursor: move!important;
+	cursor: -webkit-grabbing!important;
+}
+
+.sortable-selected {
+  @extend .border-dashed;
+  @extend .bg-secondary;
+}
+
+.scope-li {
+  overflow-x: hidden;
+  width: 100%;
+  text-align: start;
+}
+
+.shadow-colored-out {
+  &:hover {
+    box-shadow: -5px 5px 5px 5px;
+  }
+}
+
+.shadow-colored-in {
+  &:hover {
+    box-shadow: 5px 5px 5px 5px;
+  }
+}
+
+.agg_title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.aggregate-rank-btn {
+  width: 80px;
+}
+
+hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

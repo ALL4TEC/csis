@@ -1,0 +1,8 @@
+<div class="w-100 rounded-0 card <%= margin ? 'ml-2' : '' %>">
+  <div class='card-header bg-<%= color %> w-100 rounded-0 d-flex align-items-center justify-content-center'>
+    <h6 class='card-title'><%= title %></h6>
+  </div>
+  <div class="d-flex p-2 w-100 card-body justify-content-center">
+    <%= yield %>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = @q_base.filter_map(&:importer).uniq %>
+    <%= render 'partials/multiple_select', target: 'importer_id', title: t('activerecord.attributes.report_scan_import.importer'), id: "report_imports_filters_importer" do %>
+      <% opt.each do |importer| %>
+      <option value='<%= importer.id %>'>
+        <%= importer.full_name %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% opt = Import.statuses %>
+    <%= render 'partials/multiple_select', target: 'status', title: t('activerecord.attributes.report_scan_import.status'), id: "report_imports_filters_status" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'><%= ReportImport.human_attribute_name("status.#{label}") %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

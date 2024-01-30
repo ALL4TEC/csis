@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'jira_configs/list', jira_configs: @jira_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

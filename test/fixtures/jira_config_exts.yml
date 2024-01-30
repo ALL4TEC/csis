@@ -1,0 +1,13 @@
+jce_one:
+  jira_config_id: d59389b0-f973-11ed-a9a5-24418c13e8f4
+  status: ok
+  context: ''
+  expiration_date: <%= 3.days.ago.to_fs(:db) %>
+  project_id: PROJECT
+
+jce_two:
+  jira_config: jc_two
+  status: ko
+  context: '/example'
+  expiration_date: <%= 3.days.ago.to_fs(:db) %>
+  project_id: PROJECT2

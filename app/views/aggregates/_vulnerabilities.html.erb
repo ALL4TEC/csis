@@ -1,0 +1,77 @@
+<div class="col" data-controller="filter">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group mt-0">
+        <input class="form-control" id="<%= id_prefix %>filter-id-input" type="search" data-target="filter.id" data-action="filter#refine">
+        <label class='form-control-label' for="<%= id_prefix %>filter-id-input"><%= t('filters.occurrence.id') %></label>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group mt-0">
+        <input class="form-control" id="<%= id_prefix %>filter-title-input" type="search" data-target="filter.title" data-action="filter#refine">
+        <label class='form-control-label' for="<%= id_prefix %>filter-title-input"><%= t('filters.occurrence.title') %></label>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-4'>
+      <div class="form-group mt-0">
+        <label class='form-control-label' for="<%= id_prefix %>filter-kind-input"><%= t('filters.occurrence.kind') %></label>
+        <select name="kinds" id="<%= id_prefix %>filter-kind-input" data-target="filter.kind" data-action="filter#refine" class='form-control selectpicker show-tick' title="<%= t('filters.occurrence.kind') %>" data-live-search='true' data-actions-box='true'>
+          <option value=""></option>
+          <% Aggregate.kinds_select[0..1].each do |label, key| %>
+          <option value='<%= key %>' class='bg-<%= key %>'>
+            <%= label %>
+          </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class='col-4'>
+      <div class="form-group mt-0">
+        <label class='form-control-label' for="<%= id_prefix %>filter-status-input"><%= t('filters.occurrence.status') %></label>
+        <select name="statuses" id="<%= id_prefix %>filter-status-input" data-target="filter.status" data-action="filter#refine" class='form-control selectpicker show-tick' title="<%= t('filters.occurrence.status') %>" data-live-search='true' data-actions-box='true'>
+          <option value=""></option>
+          <% Vulnerability.kinds.keys.values_at(*[0, 3, 1, 2]).each do |status| %>
+          <option value=<%= status %> data-content="
+            <span class='text-<%= kind_color(status.to_sym) %>'>
+              <i class='material-icons align-middle' aria-hidden='true'><%= kind_icon(status.to_sym) %></i>
+              <%= t("activerecord.attributes.vulnerability/kind.#{status}") %>
+            </span>">
+            <%= t("activerecord.attributes.vulnerability/kind.#{status}") %>
+          </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group mt-0">
+        <label class='form-control-label' for="<%= id_prefix %>filter-severity-input"><%= t('filters.occurrence.severity') %></label>
+        <select name="severities" id="<%= id_prefix %>filter-severity-input" data-target="filter.severity" data-action="filter#refine" class='form-control selectpicker show-tick' title="<%= t('filters.occurrence.severity') %>" data-live-search='true' data-actions-box='true'>
+          <option value=""></option>
+          <% Vulnerability.severities.keys.each do |severity| %>
+          <option value=<%= severity %> class='bg-<%= severity %>'>
+            <%= t("activerecord.attributes.vulnerability/severity.#{severity}") %>
+          </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class='p-2 d-flex justify-content-center'>
+    <button type='button' data-action="filter#moveFiltered" class='btn btn-primary btn-sm' data-id-prefix='<%= id_prefix %>'>
+      <i aria-hidden='true' class='material-icons align-middle'>open_with</i><%= t('filters.occurrence.move_filtered') %>
+    </button>
+    <button type='button' data-action="filter#addFilteredScopes" class='btn btn-primary btn-sm'>
+      <i aria-hidden='true' class='material-icons align-middle'>add</i><%= t('filters.occurrence.fill_scopes') %>
+    </button>
+  </div>
+  <div class='row w-100 m-0' id=<%= "#{id_prefix}agg-occ-dropzone" %>>
+    <div class='d-flex aggregate_occurrence_dropzone w-100 border-dashed border-system'>
+      <%= f.association :vm_occurrences, collection: vm_vulns, as: :vm_occurrence, wrapper_html: {id: "#{id_prefix}agg-occ-dropzone-vm"}, label: '' %>
+    </div>
+    <div class='d-flex aggregate_occurrence_dropzone w-100 border-dashed border-applicative'>
+      <%= f.association :wa_occurrences, collection: wa_vulns, as: :wa_occurrence, wrapper_html: {id: "#{id_prefix}agg-occ-dropzone-wa"}, label: '' %>
+    </div>
+  </div>
+</div>

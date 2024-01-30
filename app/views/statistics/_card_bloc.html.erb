@@ -1,0 +1,9 @@
+<%- bg_color ||= 'secondary' %>
+<div class="statistics-card">
+  <div class="card-header bg-<%= bg_color %>">
+    <span><%= title %></span>
+  </div>
+  <div class="card-body">
+    <%= yield %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<%- if devise_mapping.omniauthable? %>
+
+<div class="card-login mt-3 mb-3">
+  <h5 class='me-auto mb-3'><%= t('sign_in_with') %></h5>
+  <div class='d-flex align-items-center justify-content-center mw-25 flex-wrap-reverse'>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%- provider_name = provider.to_s.delete_suffix('_oauth2') %>
+      <%= button_to(
+            omniauth_authorize_path(resource_name, provider),
+            class: 'me-2 mt-2 btn btn-light d-flex align-items-center'
+          ) do |b| %>
+        <%= image_tag("logos/#{Icons::LOGOS[provider_name.to_sym]}", class: "material-icons align-middle md-24", height: '24px') %>
+        <span class='ms-2'><%= OauthHelper::PROVIDERS[provider_name.to_sym] %></span>
+        <input type='hidden' name='prompt' value='select_account' autocomplete='off'>
+      <% end %>
+    <% end %>
+    <% IdpConfig.active.order(name: :asc).each do |idp_config| %>
+      <%= link_to saml_init_path(idp_config.id), class: 'btn btn-light text-dark me-2 mt-2' do %>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:idp_configs] %></i>
+      <%= idp_config.name %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% end %>

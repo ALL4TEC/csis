@@ -1,0 +1,9 @@
+<%- kind ||= 'halo' %>
+<%- clazz = kind == 'halo' ? "badge #{kind}-secondary rounded-pill p-1 h-100" : 'btn btn-secondary' %>
+<a href='#filter-body' aria-expanded='false' aria-controls='filter-body' data-bs-toggle='collapse'
+  class='<%= clazz %> d-flex align-items-center justify-content-center'
+  id='card-filters-a' role='button'>
+  <span data-bs-toggle='tooltip' title='<%= I18n.t('labels.filters') %>'>
+  <i aria-hidden="true" class='material-icons align-middle'>filter_alt</i>
+  </span>
+</a>

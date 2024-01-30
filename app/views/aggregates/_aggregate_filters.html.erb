@@ -1,0 +1,38 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <span class="btn btn-sm btn-secondary d-inline-flex show-next-hover">
+      <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:filter_list] %></i>
+      <span><%= t('labels.quick_filters') %></span>
+    </span>
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Second group">
+  <% Vulnerability.severities.each do |severity_k, sev_value| %>
+    <a role="button" class="btn btn-sm btn-<%= severity_k %> filter-aggregates" show-severities='<%= sev_value + 1 %>' parent="<%= parent %>"
+        data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name("severity.#{severity_k}") %>">
+      <span class="badge-2 badge-<%= severity_k %>"><%= aggregates.select { |hash| hash[:severity] == severity_k.to_s }.count %></span>
+    </a>
+  <% end %>
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Third group">
+  <%- Aggregate.ordered_statuses.each do |status_k, _status_value| %>
+    <a role="button" class="btn btn-sm btn-light text-<%= kind_color(status_k) %> filter-aggregates" show-statuses='<%= Aggregate.human_attribute_name("status.#{status_k}") %>' parent="<%= parent %>"
+        data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Aggregate.human_attribute_name("status.#{status_k}") %>">
+      <i aria-hidden='true' class='material-icons align-middle'><%= kind_icon(status_k) %></i>
+      <span class="badge-2 badge-light"><%= aggregates.select { |hash| hash[:status] == status_k.to_s }.count %></span>
+    </a>
+  <% end %>
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Fourth group">
+    <a role="button" class="btn btn-sm btn-success filter-aggregates" show-visibility='1' parent="<%= parent %>">
+      <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:visibility] %></i><span class="badge-2 badge-success"><%= aggregates.select { |hash| hash[:visibility] == 'shown' }.count %></span>
+    </a>
+    <a role="button" class="btn btn-sm btn-warning filter-aggregates" show-visibility='0' parent="<%= parent %>">
+      <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:visibility_off] %></i><span class="badge-2 badge-warning"><%= aggregates.select { |hash| hash[:visibility] == 'hidden' }.count %></span>
+    </a>
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Fifth group">
+    <a role="button" class="btn btn-sm btn-primary filter-aggregates" show-all='true' parent="<%= parent %>">
+      <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:all] %></i><span class="badge-2 badge-primary"><%= aggregates.count %></span>
+    </a>
+  </div>
+</div>

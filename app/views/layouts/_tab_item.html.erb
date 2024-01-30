@@ -1,0 +1,14 @@
+<%- direction ||= :row %>
+<%- margin = direction == :row ? 'ms-1' : 'mt-1' %>
+<%= link_to(scope[:href], class: "nav-link #{active_clazz} #{disabled_clazz} d-flex flex-#{direction} align-items-center") do %>
+  <% if scope[:icon].present? %>
+    <i aria-hidden='true' class="material-icons align-middle"><%= scope[:icon] %></i>
+  <% elsif scope[:logo].present? %>
+    <%= image_tag("logos/#{scope[:logo]}", class: "material-icons align-middle md-24", height: '24px') %>
+  <% end %>
+  <span class='<%= margin %> d-flex align-items-center justify-content-center'><%= scope[:label] %></span>
+  <% unless scope[:badge].nil? %>
+    <%- color = current_page?(scope[:href]) ? 'primary' : 'secondary' %>
+    <span class="<%= margin %> badge badge-<%= color %>"><%= scope[:badge] %></span>
+  <% end %>
+<% end %>

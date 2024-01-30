@@ -1,0 +1,5 @@
+<p><%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,</p>
+<p><%= I18n.t('mailer.content.notifications.comment_creation.new_comment') %></p>
+<p><%= I18n.t('mailer.content.notifications.comment_creation.how_to_respond') %></p>
+<a style="color: #5E6B76;" href="<%= @url %>"><%= I18n.t('mailer.content.CSIS') %></a><br>
+<p><%= I18n.t('mailer.content.polite') %></p>

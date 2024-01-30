@@ -1,0 +1,4 @@
+fr:
+  errors:
+    messages:
+      weak_password: "Pas assez solide. Nécessite l'ajout d'un nombre, de symboles ou de plus de lettres pour le rendre plus fort."

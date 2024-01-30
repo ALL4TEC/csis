@@ -1,0 +1,29 @@
+<%= simple_form_for(@scan_launch, method: :post, url: zaproxy_report_scan_launches_path(@report)) do |f| %>
+  <div class="card-filters d-flex flex-row flex-wrap align-items-center w-100">
+    <%= f.simple_fields_for :scan_configuration,  (@scan_launch.scan_configuration || ScanConfiguration.new) do |scan_conf_form| %>
+      <%= scan_conf_form.input :scan_type, collection: ScanConfiguration::SCANNERS_DATA[:zaproxy][:scan_types].to_a, required: true, input_html: { class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.scan_launch.scan_type') } %>
+      <%= scan_conf_form.input :target, placeholder: 'http(s)://url', class: 'form-control', required: true %>
+      <%= scan_conf_form.input :scan_name, placeholder: 'ZAP: <Target>', input_html: { data: { 'bs-toggle': 'tooltip' }, title: t('activerecord.attributes.scan_launch.scan_name_help') } %>
+      <div class="form-group">
+        <% opt = ScanConfiguration::SCANNERS_DATA[:zaproxy][:options] %>
+        <%= render 'partials/multiple_select', name: "scan_launch[scan_configuration_attributes][parameters][]", target: 'parameters', title: t('activerecord.attributes.scan_launch.parameters'), id: "scan_launches_zaproxy_parameters" do %>
+          <% opt.each do |value, label| %>
+          <option value='<%= value %>'>
+            <%= label %>
+          </option>
+          <% end %>
+        <% end %>
+      </div>
+      <div class='d-flex flex-column auto_switches'>
+        <%= scan_conf_form.input :auto_import, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scan_launch.auto_import'), wrapper_html: { class:'show', data: { 'bs-toggle': 'collapse', 'bs-target': '.auto_aggregate_multi' }, aria: { controls: 'auto_aggregate_multi', expanded: true } } %>
+        <%= scan_conf_form.input :auto_aggregate, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scan_launch.auto_aggregate'), wrapper_html: { id: 'auto_aggregate', class: 'ms-3 auto_aggregate_multi collapse collapse_no_save show', data: { 'bs-toggle': 'collapse', 'bs-target': '#auto_aggregate_mixing' }, aria: { controls: 'auto_aggregate auto_aggregate_mixing', expanded: true } } %>
+        <%= scan_conf_form.input :auto_aggregate_mixing, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.scan_launch.auto_aggregate_mixing'), wrapper_html: { id: 'auto_aggregate_mixing', class: 'ms-4 auto_aggregate_multi collapse collapse_no_save show' } %>
+      </div>
+    <% end %>
+    <div class='ms-2 me-2'>
+      <%= button_content f do |b| %>
+        <i class='material-icons align-middle me-1' aria-hidden="true"><%= Icons::MAT[:launch] %></i><%= t('labels.launch') %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

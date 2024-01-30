@@ -1,0 +1,22 @@
+<%= simple_form_for(target) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+        <div id='target_kinds' data-objects="<%= @objects %>"
+          data-i18n-target-kind="<%= I18n.t('simple_form.labels.target.kind') %>"></div>
+        <%= f.input :reference_id %>
+      <% end %>
+    </div>
+    <% if assets_selection %>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :assets, as: :check_boxes, collection: policy_scope(Asset).kept, label: t('models.assets') %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'target_kinds_form', nonce: true, 'data-turbo-track': 'reload' %>

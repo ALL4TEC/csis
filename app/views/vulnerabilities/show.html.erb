@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col">
+    <div class='card rounded-0'>
+      <div class='card-header line-<%= @vulnerability.severity %> rounded-0'>
+        <h5 class='d-flex align-items-center mb-0'>
+          <i aria-hidden='true' class='material-icons align-middle text-<%= kind_color(@vulnerability.kind) %>' data-bs-toggle='tooltip' title='<%= Vulnerability.human_attribute_name("kind.#{@vulnerability.kind}") %>'><%= kind_icon(@vulnerability.kind) %></i>
+          <span data-bs-toggle='tooltip' title='<%= "#{t('vulnerabilities.labels.qid')}: #{@vulnerability.qid}" %>'><%= @vulnerability.to_s %></span>
+          <div class='p-1 ms-auto btn-<%= @vulnerability.severity %>'>
+            <%= Vulnerability.human_attribute_name("severity.#{@vulnerability.severity}") %>
+          </div>
+        </h5>
+      </div>
+      <%= render 'partials/card_bloc', clazz: '' do %>
+        <div class='d-flex justify-content-between align-items-center'>
+          <span data-bs-toggle='tooltip' title='<%= t('labels.category') %>' class='badge badge-secondary m-1'><%= @vulnerability.category %></span>
+          <div class='d-flex align-items-center m-1'>
+            <%- %i[patchable pci_flag remote].each do |vuln_label| %>
+              <%= render partial: 'show_iconed_label', locals: { vuln_label: vuln_label } %>
+            <% end %>
+            <div class='d-flex flex-column align-items-center justify-content-center m-1 p-1'>
+              <%= render partial: 'exploitable' %>
+              <% flag = @vulnerability.exploits.count %>
+              <% status = flag.zero? ? :ko : :ok %>
+              <%- data = bool_data(flag.positive?) %>
+              <%= render 'partials/tooltiped_icon', icon: data[:icon], clazz: "text-#{data[:color]}", title: t("#{status}") %>
+            </div>
+          </div>
+          <div class='d-flex align-items-center m-1'>
+            <%= render 'partials/tooltiped_icon', title: "#{t('vulnerabilities.labels.modified')} #{l @vulnerability.modified, format: :long}", icon: :edit %>
+            <%= render 'partials/tooltiped_icon', title: "#{t('vulnerabilities.labels.published')} #{l @vulnerability.published, format: :long}", icon: :visibility %>
+          </div>
+        </div>
+      <% end %>
+    <%- %i[diagnosis consequence solution].each do |vuln_label| %>
+      <%= render partial: 'show_label', locals: { vuln_label: vuln_label } %>
+    <% end %>
+    </div>
+  </div>
+  <div class="col">
+    <%= render 'partials/card_bloc', clazz: '', title: "CVSS v#{@vulnerability.cvss_version}" do %>
+      <%= @vulnerability.cvss %> | <em>Vector:</em> <%= @vulnerability.cvss_vector %>
+    <% end %>
+    <%= render partial: 'show_label', locals: { vuln_label: :additional_info } %>
+    <%= render partial: 'show_cves' %>
+    <%= render partial: 'show_bugtraqs' %>
+  </div>
+</div>
+<div class='row'>
+  <div class='col'>
+    <%= render 'partials/card_bloc', clazz: '', title: t('vulnerabilities.labels.exploits') do %>
+      <div class='table-responsive w-100'>
+        <table class="table table-hover">
+          <caption>Exploits</caption>
+          <thead>
+            <tr>
+              <th id='exploits-ref'>Reference</th>
+              <th id='exploits-description'>Description</th>
+              <th id='exploits-link'>Link</th>
+              <th id='exploits-source'>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @vulnerability.exploits.each do |exploit| %>
+            <tr>
+              <td headers='exploits-ref'><%= exploit.reference %></td>
+              <td headers='exploits-description'><%= exploit.description %></td>
+              <td headers='exploits-link'><%= link_to(exploit.link, exploit.link, class: 'link-block') %></td>
+              <td headers='exploits-source'><%= exploit.exploit_source.name %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

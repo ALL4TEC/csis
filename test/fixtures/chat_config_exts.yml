@@ -1,0 +1,23 @@
+gcc_one:
+  chat_config: google_chat_config_one
+  workspace_name: 'workspace1'
+
+gcc_two:
+  chat_config: google_chat_config_two
+  workspace_name: 'workspace2'
+
+mtc_one:
+  chat_config: microsoft_teams_config_one
+  channel_name: 'channel1'
+
+mtc_two:
+  chat_config: microsoft_teams_config_two
+  channel_name: 'channel2'
+
+zcc_one:
+  chat_config: zoho_cliq_config_one
+  bot_name: 'bot1'
+
+zcc_two:
+  chat_config: zoho_cliq_config_two
+  bot_name: 'bot2'

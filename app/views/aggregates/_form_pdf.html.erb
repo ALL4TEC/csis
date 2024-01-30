@@ -1,0 +1,17 @@
+<%= javascript_packs_with_chunks_tag  'aggregate_contents', nonce: true, 'data-turbo-track': 'reload' %>
+<%= simple_form_for(aggregate, url: url, method: method, html: { multipart: true }) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.input :kind, collection: Aggregate.kinds_select[2..3], include_blank: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= f.input :title, input_html: { class: 'form-control-lg' }, as: :search %>
+    </div>
+  </div>
+
+  <%= render partial: 'aggregate_contents' %>
+
+  <%= ui_form_footer f %>
+<% end %>

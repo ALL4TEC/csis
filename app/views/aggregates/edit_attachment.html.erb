@@ -1,0 +1,8 @@
+<%= simple_form_for(@aggregate, url: update_attachment_aggregate_path(@aggregate), method: :put) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.association :actions, collection: @actions, as: :check_boxes %>
+    </div>
+  </div>
+  <%= ui_form_footer f %>
+<% end %>

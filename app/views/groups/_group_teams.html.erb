@@ -1,0 +1,13 @@
+<div id='<%= group_id %>-<%= group.team_kind %>' class='m-2'>
+  <h5><span class='card-title bg-primary ps-2 pe-2 slider slide-in'><%= t('labels.teams') %></span></h5>
+  <div class='d-flex w-100 h-100 flex-wrap'>
+    <%- group.team_kind.all.order(name: :asc).each do |team| %>
+    <div class='card m-1'>
+      <div class='mfa-btn-parent bg-light d-flex flex- justify-content-between align-items-center p-1'>
+        <span class='card-title d-flex align-items-center me-2'><%= render 'groups/group_badge', group: team, link: true %></span>
+        <%= render 'groups/mfa_btn', target: team %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

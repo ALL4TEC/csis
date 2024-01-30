@@ -1,0 +1,14 @@
+<div class='card mt-2 d-flex w-100'>
+  <div class='w-100'>
+    <span class='d-inline-flex badge badge-grey-l rounded-0 text-orange-l p-1'><%= title %></span>
+  </div>
+  <div class='card-body d-flex flex-wrap mt-2'>
+  <% period.each do |day| %>
+    <%- value = day.in?(grouped_connections) ? grouped_connections[day].count : 0 %>
+    <%- color = UsersHelper.compute_heatmap(value) %>
+    <div class='heatmap-day badge badge-<%= color %> d-flex align-items-center justify-content-center m-1 shadow-sm' data-bs-toggle='tooltip' title="<%= value %>">
+      <%= day %>
+    </div>
+  <% end %>
+  </div>
+</div>

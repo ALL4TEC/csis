@@ -1,0 +1,19 @@
+reference_one:
+  top: top_one
+  name: 'XSS'
+  rank: 1
+
+reference_two:
+  top: top_one
+  name: 'XXE'
+  rank: 2
+
+reference_three:
+  top: top_two
+  name: 'SQLi'
+  rank: 1
+
+reference_four:
+  top: top_two
+  name: 'CSRF'
+  rank: 2

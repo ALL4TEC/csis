@@ -1,0 +1,64 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Scheduled scans</caption>
+    <thead>
+      <tr>
+        <th id='scheduled-scans-<%= scanner %>-created-at' class="th-scan-launch-created-at">
+          <%= sort_link(@q, :created_at, t('activerecord.attributes.scheduled_scan.created_at')) %>
+        </th>
+        <th id='scheduled-scans-<%= scanner %>-launcher' class="th-scan-launch-launcher">
+          <%= sort_link(@q, :scan_configuration_launcher, t('activerecord.attributes.scheduled_scan.launcher')) %>
+        </th>
+        <th id='scheduled-scans-<%= scanner %>-scan_type'><%= t('activerecord.attributes.scheduled_scan.scan_type') %></th>
+        <th id='scheduled-scans-<%= scanner %>-target'><%= t('activerecord.attributes.scheduled_scan.target') %></th>
+        <th id='scheduled-scans-<%= scanner %>-parameters'><%= t('activerecord.attributes.scheduled_scan.parameters') %></th>
+        <th id='scheduled-scans-<%= scanner %>-automation'><%= t('activerecord.attributes.scheduled_scan.automation') %></th>
+        <th id='scheduled-scans-<%= scanner %>-cron'><%= t('activerecord.attributes.scheduled_scan.scheduled_scan_cron') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scheduled_scans.each do |scheduled_scan| %>
+        <%- policy = policy(scheduled_scan) %>
+        <tr>
+          <td headers='scheduled-scans-<%= scanner %>-created-at'>
+            <span class='badge halo-<%= active_color(!scheduled_scan.discarded?) %>'><%= active_text(!scheduled_scan.discarded?) %></span><%= scheduled_scan.discarded? %>
+            <%= l scheduled_scan.created_at, format: :full %>
+          </td>
+          <td headers='scheduled-scans-<%= scanner %>-launcher'><%= scheduled_scan.launcher %></td>
+          <td headers='scheduled-scans-<%= scanner %>-scan_type'><%= ScanConfiguration::SCANNERS_DATA[scanner.to_sym][:scan_types].key(scheduled_scan.scan_type) %></td>
+          <td headers='scheduled-scans-<%= scanner %>-target'><%= scheduled_scan.target %></td>
+          <td headers='scheduled-scans-<%= scanner %>-parameters'>
+            <ul>
+              <% scheduled_scan.parameters&.split('-')&.compact_blank&.each do |param| %>
+                <li><%= ScanConfiguration::SCANNERS_DATA[scanner.to_sym][:options]["-#{param.strip}".to_sym] %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td headers='scan_launches-<%= scanner %>-automation'>
+            <div class='d-flex flex-column'>
+              <span>
+                <%- data = bool_data(scheduled_scan.auto_import) %>
+                <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                <%= t('activerecord.attributes.scheduled_scan.auto_import') %>
+              </span>
+              <%- if scheduled_scan.scan_configuration.auto_import? %>
+                <span>
+                  <%- data = bool_data(scheduled_scan.auto_aggregate) %>
+                  <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                  <%= t('activerecord.attributes.scheduled_scan.auto_aggregate') %>
+                </span>
+                <%- if scheduled_scan.scan_configuration.auto_aggregate? %>
+                  <span>
+                    <%- data = bool_data(scheduled_scan.auto_aggregate_mixing) %>
+                    <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                    <%= t('activerecord.attributes.scheduled_scan.auto_aggregate_mixing') %>
+                  </span>
+                <% end %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

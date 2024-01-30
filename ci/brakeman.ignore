@@ -1,0 +1,167 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "0801a8b52743e5bbfa55afde3f4a6a81bef925e1c356149ffb22018a385840aa",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/groups_controller.rb",
+      "line": 59,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "GroupPolicy.new(current_user, :group => (@group), :user => (@user)).send(\"#{params[:action]}?\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GroupsController",
+        "method": "authorize_group_user!"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "Previously filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "3621cc661a5359d28800d7befe93bb4e4ede8e45ef0e361160059a1605658cbc",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/actions_controller.rb",
+      "line": 269,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "ActionPolicy::Scope.new(current_user, Action).send(\"#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActionsController",
+        "method": "set_actions"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] is filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "81068c31d9fec40165ec3bd4088c3e2259391c03203a1f8d2e03ebba3a91fd53",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/vulnerabilities_controller.rb",
+      "line": 69,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "VulnerabilityPolicy::Scope.new(current_user, Vulnerability).send(\"#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "VulnerabilitiesController",
+        "method": "set_vulnerability"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] is filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "9231423e44d837762fd2144125189a06c5f7e9380ce2f47dc6b554b9ac88888d",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/actions_controller.rb",
+      "line": 259,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "ActionPolicy::Scope.new(current_user, Action).send(\"#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActionsController",
+        "method": "set_action"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] is filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "aae13abe74a20e8f64adbb88b614140eec03245607bb0f9b6e87f3fffc3b913c",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/actions_controller.rb",
+      "line": 249,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "AggregatePolicy::Scope.new(current_user, Aggregate).send(\"actions_#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActionsController",
+        "method": "set_aggregate"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] is filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "d76d02e325229cbce89a8496b5fbe80eab78602e671233bbb92c1cfe8ec12fc0",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/concerns/reports_controller.rb",
+      "line": 197,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Pundit::PolicyFinder.new(Report.with_discarded.find(params[:id]).class).scope.new(current_user, Report.with_discarded.find(params[:id]).class).send(\"#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportsController",
+        "method": "set_report"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] already filtered in before_action"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "ece6b22f2eed2e22448df1e0cd7e8d1947a77c9fd5cf347e1a5a8a42beb810d8",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/clients_controller.rb",
+      "line": 116,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "ClientPolicy::Scope.new(current_user, Client).send(\"#{params[:action]}_includes\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ClientsController",
+        "method": "set_client"
+      },
+      "user_input": "params[:action]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "params[:action] is filtered in before_action"
+    }
+  ],
+  "updated": "2023-03-07 15:19:32 +0100",
+  "brakeman_version": "5.4.1"
+}

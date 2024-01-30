@@ -1,0 +1,11 @@
+<%= render 'cyberwatch_configs/card', title: kind_accro.to_s.upcase, margin: margin, color: KindUtil.from_accro(kind_accro).to_s do %>
+  <%= form_tag({ action: :scan_delete, cyberwatch_config_id: @cbw_config.id }, method: :delete) do %>
+    <div class="p-2">
+      <% opt = options_for_select([[]].concat(@cbw_config.send("#{kind_accro}_scans").recently_launched.map { |s| [s.to_s, s.id] })) %>
+      <%= select_tag :scan_id, opt, class: 'selectpicker' %>
+    </div>
+    <div class="p-2">
+      <%= submit_tag t('settings.buttons.delete'), data: { confirm: t('settings.actions.destroy_confirm') }, class: 'btn btn-outline-primary btn-block' %>
+    </div>
+  <% end %>
+<% end %>

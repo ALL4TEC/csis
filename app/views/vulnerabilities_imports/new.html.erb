@@ -1,0 +1,13 @@
+<%= javascript_packs_with_chunks_tag  'file_browser', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%= simple_form_for(@vuln_import, method: :post, url: vulnerabilities_import_path) do |f| %>
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <%= f.input :import_type, collection: VulnerabilityImport.import_type_without_accounts_select, include_blank: false, label: t('activerecord.attributes.vulnerability_import.import_type') %>
+  <% end %>
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <%= f.input :document, accept: 'application/json', required: true, as: :file, label: '' %>
+  <% end %>
+  <%= ui_fixed_form_footer f do %>
+    <%= t('activerecord.attributes.vulnerability_import.create') %>
+  <% end %>
+<% end %>

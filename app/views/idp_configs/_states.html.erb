@@ -1,0 +1,2 @@
+<%- active_clazz = idp_config.discarded? ? 'text-danger' : active_color(idp_config.active) %>
+<i aria-hidden='true' class="material-icons align-middle <%= active_clazz %>" data-bs-toggle="<%= idp_config.discarded? ? '' : 'tooltip' %>" data-bs-placement="right" title='<%= active_text(idp_config.active) %>'><%= icon %></i>

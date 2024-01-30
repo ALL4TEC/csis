@@ -1,0 +1,86 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+aggregate_one:
+  title: 'First aggregate'
+  kind: :system
+  report: mapui
+  severity: 2
+  status: 2
+  rank: 1
+
+aggregate_bis:
+  title: 'Bis aggregate'
+  kind: :system
+  report: mapui
+  severity: 3
+  status: 2
+  rank: 2
+
+aggregate_two:
+  title: 'Second aggregate'
+  kind: :applicative
+  report: hospiville
+  severity: 1
+  status: 2
+  rank: 1
+
+aggregate_three:
+  title: 'Third aggregate'
+  kind: :applicative
+  report: hospiville
+  severity: 2
+  status: 2
+  rank: 2
+
+aggregate_four:
+  title: 'Fourth aggregate'
+  kind: :applicative
+  report: hospiville
+  severity: 3
+  status: 2
+  rank: 3
+
+aggregate_five:
+  title: 'Fifth aggregate'
+  kind: :applicative
+  report: hospiville
+  severity: 4
+  status: 2
+  rank: 4
+
+aggregate_six:
+  title: 'Sixth aggregate'
+  kind: :applicative
+  report: mapui
+  severity: 3
+  status: 2
+  rank: 1
+
+aggregate_seven:
+  title: '7th'
+  kind: :system
+  report: mapui2
+  severity: 3
+  status: 2
+  rank: 1
+  solution: 'solve'
+
+aggregate_eight:
+  title: '8th'
+  kind: :applicative
+  report: mapui2
+  severity: 4
+  status: 2
+  rank: 1
+
+aggregate_org_one:
+  title: 'one'
+  kind: :organizational
+  report: action_plan_report_cats
+  severity: 3
+  status: 2
+  rank: 1

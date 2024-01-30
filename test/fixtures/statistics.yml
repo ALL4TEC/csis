@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+statistics_one:
+  project: project_one
+  score: 0
+
+statistics_two:
+  project: project_two
+  score: 20
+
+# statistics_three:
+#   project: project_three
+#   score: 2000
+
+statistics_auto:
+  project: project_auto
+  score: 0

@@ -1,0 +1,14 @@
+Nom de l'audit [Report_Name] ;
+Date de l'audit [Report_Date] ;
+Type d'audit [Audit_Type] ; <- ?
+Niveau général de sécurité [Global_Security_Level] ;
+Les applications et ressources auditées [Resource_Name], données essentielles si le nom de l'audit ne permet pas d'identifier le périmètre audité ;
+Pour chaque vulnérabilité :
+Titre [Title]3) ;
+Description [Description]4) ;
+Niveau de risque [Risk_Level] ; <- 
+Statut de la remédiation [Status] ;
+Date de mise à jour du statut de la remédiation [Update_date]
+CVSS V3 : final vector
+CVSS V3 : Global score
+CWE

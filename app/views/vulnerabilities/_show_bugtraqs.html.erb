@@ -1,0 +1,17 @@
+<%= render 'partials/card_bloc', clazz: '', title: t("vulnerabilities.labels.bugtraq") do %>
+  <% traqs = @vulnerability.bugtraqs %>
+  <% unless traqs.blank? %>
+    <ul>
+      <% traqs.each do |traq| %>
+        <%- unless /.*:.*/.match?(traq) %>
+        <%- traq = "BUGTRAQ:#{traq} (http://www.securityfocus.com/bid/#{traq})" %>
+        <% end %>
+        <li>
+          <%= link_to traq, traq, target: '_blank', ref: 'noopener noreferrer', rel: 'noopener' %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <em class="text-muted"><%= t('labels.none') %></em>
+  <% end %>
+<% end %>

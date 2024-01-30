@@ -1,0 +1,188 @@
+<?xml version="1.0" ?>
+<NessusClientData_v2>
+  <Policy>
+    <policyName>Malware Scan</policyName>
+    <Preferences>
+      <ServerPreferences>
+        <preference>
+          <name>scan.enable_utf8_output</name>
+          <value>no</value>
+        </preference>
+      </ServerPreferences>
+      <PluginsPreferences>
+        <item>
+          <pluginName>ADSI Settings</pluginName>
+          <pluginId>60024</pluginId>
+          <fullName>ADSI Settings[entry]:Domain Controller :</fullName>
+          <preferenceName>Domain Controller :</preferenceName>
+          <preferenceType>entry</preferenceType>
+          <preferenceValues></preferenceValues>
+          <selectedValue></selectedValue>
+        </item>
+        <item>
+          <pluginName>ADSI Settings</pluginName>
+          <pluginId>60024</pluginId>
+          <fullName>ADSI Settings[entry]:Domain :</fullName>
+          <preferenceName>Domain :</preferenceName>
+          <preferenceType>entry</preferenceType>
+          <preferenceValues></preferenceValues>
+          <selectedValue></selectedValue>
+        </item>
+      </PluginsPreferences>
+    </Preferences>
+    <FamilySelection>
+      <FamilyItem>
+        <FamilyName>MacOS X Local Security Checks</FamilyName>
+        <Status>mixed</Status>
+      </FamilyItem>
+      <FamilyItem>
+        <FamilyName>F5 Networks Local Security Checks</FamilyName>
+        <Status>disabled</Status>
+      </FamilyItem>
+    </FamilySelection>
+    <IndividualPluginSelection>
+      <PluginItem>
+        <PluginId>92371</PluginId>
+        <PluginName>Microsoft Windows DNS Cache</PluginName>
+        <Family>Microsoft Windows DNS Cache</Family>
+        <Status>enabled</Status>
+      </PluginItem>
+      <PluginItem>
+        <PluginId>92420</PluginId>
+        <PluginName>Foxit History</PluginName>
+        <Family>Foxit History</Family>
+        <Status>enabled</Status>
+      </PluginItem>
+    </IndividualPluginSelection>
+  </Policy>
+  <Report name="Malware Scan 1"
+    xmlns:cm="http://www.nessus.org/cm">
+    <ReportHost name="localhost">
+      <HostProperties>
+        <tag name="HOST_END_TIMESTAMP">1593509378</tag>
+        <tag name="HOST_END">Tue Jun 30 11:29:38 2020</tag>
+        <tag name="LastUnauthenticatedResults">1593509378</tag>
+        <tag name="Credentialed_Scan">false</tag>
+        <tag name="policy-used">Malware Scan</tag>
+        <tag name="system-type">general-purpose</tag>
+        <tag name="operating-system">Windows</tag>
+        <tag name="local-checks-proto">local</tag>
+        <tag name="host-fqdn">localhost</tag>
+        <tag name="host-rdns">localhost</tag>
+        <tag name="host-ip">127.0.0.1</tag>
+        <tag name="HOST_START_TIMESTAMP">1593509260</tag>
+        <tag name="HOST_START">Tue Jun 30 11:27:40 2020</tag>
+      </HostProperties>
+      <ReportItem port="0" svc_name="general" protocol="tcp" severity="1" pluginID="21745" pluginName="Authentication Failure - Local Checks Not Run" pluginFamily="Settings">
+        <description>Local security checks have been disabled for this host because either the credentials supplied in the scan policy did not allow Nessus to log into it or some other problem occurred.</description>
+        <fname>hostlevel_check_failed.nasl</fname>
+        <plugin_modification_date>2018/11/02</plugin_modification_date>
+        <plugin_name>Authentication Failure - Local Checks Not Run</plugin_name>
+        <plugin_publication_date>2006/06/23</plugin_publication_date>
+        <plugin_type>remote</plugin_type>
+        <risk_factor>Low</risk_factor>
+        <script_version>1.24</script_version>
+        <solution>Address the problem(s) so that local security checks are enabled.</solution>
+        <synopsis>The local security checks are disabled.</synopsis>
+        <plugin_output>
+The following service errors were logged :
+
+  - Plugin      : smb_login.nasl
+    Plugin ID   : 10394
+    Plugin Name : Microsoft Windows SMB Log In Possible
+    Protocol    : SMB
+    Message     : 
+It was not possible to log into the remote host via smb (invalid credentials).
+        </plugin_output>
+      </ReportItem>
+      <ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Settings">
+        <agent>all</agent>
+        <always_run>1</always_run>
+        <description>This plugin displays, for each tested host, information about the scan itself :
+
+  - The version of the plugin set.
+  - The type of scanner (Nessus or Nessus Home).
+  - The version of the Nessus Engine.
+  - The port scanner(s) used.
+  - The port range scanned.
+  - Whether credentialed or third-party patch management     checks are possible.
+  - The date of the scan.
+  - The duration of the scan.
+  - The number of hosts scanned in parallel.
+  - The number of checks done in parallel.</description>
+        <fname>scan_info.nasl</fname>
+        <plugin_modification_date>2020/06/12</plugin_modification_date>
+        <plugin_name>Nessus Scan Information</plugin_name>
+        <plugin_publication_date>2005/08/26</plugin_publication_date>
+        <plugin_type>summary</plugin_type>
+        <risk_factor>Medium</risk_factor>
+        <script_version>1.95</script_version>
+        <solution>n/a</solution>
+        <synopsis>This plugin displays information about the Nessus scan.</synopsis>
+        <plugin_output>Information about this scan : 
+
+Nessus version : 8.10.1
+Plugin feed version : 202006291552
+Scanner edition used : Nessus Home
+Scan type : Normal
+Scan policy used : Malware Scan
+Scanner IP : 127.0.0.1
+Thorough tests : no
+Experimental tests : no
+Paranoia level : 1
+Report verbosity : 1
+Safe checks : yes
+Optimize the test : yes
+Credentialed checks : no
+Patch management checks : None
+CGI scanning : disabled
+Web application tests : disabled
+Max hosts : 30
+Max checks : 4
+Recv timeout : 5
+Backports : None
+Allow post-scan editing: Yes
+Scan Start Date : 2020/6/30 11:27 Romance Standard Time
+Scan duration : 117 sec
+        </plugin_output>
+      </ReportItem>
+      <ReportItem port="0" svc_name="general" protocol="tcp" severity="2" pluginID="11936" pluginName="OS Identification" pluginFamily="General">
+        <agent>all</agent>
+        <asset_inventory>True</asset_inventory>
+        <description>Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP, SNMP, etc.), it is possible to guess the name of the remote operating system in use. It is also possible sometimes to guess the version of the operating system.</description>
+        <fname>os_fingerprint.nasl</fname>
+        <os_identification>True</os_identification>
+        <plugin_modification_date>2020/03/09</plugin_modification_date>
+        <plugin_name>OS Identification</plugin_name>
+        <plugin_publication_date>2003/12/09</plugin_publication_date>
+        <plugin_type>combined</plugin_type>
+        <risk_factor>High</risk_factor>
+        <script_version>2.57</script_version>
+        <solution>n/a</solution>
+        <synopsis>It is possible to guess the remote operating system.</synopsis>
+        <plugin_output>
+Remote operating system : Windows
+Confidence level : 50
+Method : Misc
+
+ 
+The remote host is running Windows</plugin_output>
+      </ReportItem>
+      <ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="12053" pluginName="Host Fully Qualified Domain Name (FQDN) Resolution" pluginFamily="General">
+        <description>Nessus was able to resolve the fully qualified domain name (FQDN) of the remote host.</description>
+        <fname>fqdn.nasl</fname>
+        <plugin_modification_date>2017/04/14</plugin_modification_date>
+        <plugin_name>Host Fully Qualified Domain Name (FQDN) Resolution</plugin_name>
+        <plugin_publication_date>2004/02/11</plugin_publication_date>
+        <plugin_type>remote</plugin_type>
+        <risk_factor>Critical</risk_factor>
+        <script_version>$Revision: 1.16 $</script_version>
+        <solution>n/a</solution>
+        <synopsis>It was possible to resolve the name of the remote host.</synopsis>
+        <plugin_output>
+127.0.0.1 resolves as localhost.
+        </plugin_output>
+      </ReportItem>
+    </ReportHost>
+  </Report>
+</NessusClientData_v2>

@@ -1,0 +1,38 @@
+.mfa-btn-parent {
+  .mfa-btn-enabled + span {
+    @extend .d-none;
+  }
+  &:hover {
+    .mfa-btn-enabled {
+      @extend .d-none;
+      + span {
+        border: none;
+        opacity: 1;
+        @extend .d-block;
+      }
+    }
+  }
+}
+
+.group-btn-parent {
+  .group-btn-enabled + span {
+    @extend .d-none;
+  }
+  &:hover {
+    .group-btn-enabled {
+      @extend .d-none;
+      + span {
+        @extend .d-block;
+      }
+    }
+  }
+}
+
+.groups-card-users {
+  @extend .h-100;
+  overflow-y: auto;
+}
+
+.badge-count {
+  color: $logo_red_2;
+}

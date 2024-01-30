@@ -1,0 +1,56 @@
+<%= pagination = paginate jira_configs %>
+<div class="table-responsive">
+  <table class="table table-jira_config table-hover">
+    <caption>Jira configurations</caption>
+    <thead>
+      <tr>
+        <th id='jira-configs-name' class="th-jira_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.jira_config.name') %>
+        </th>
+        <th id='jira-configs-url' class="th-jira_config-url">
+          <%= sort_link @q, :url, [:url, :context], t('activerecord.attributes.jira_config.full_url') %>
+        </th>
+        <th id='jira-configs-project-id' class="th-jira_config-project_id">
+          <%= sort_link @q, :project_id, t('activerecord.attributes.jira_config.project_id') %>
+        </th>
+        <th id='jira-configs-suppliers' class="th-jira_config-suppliers">
+          <%= t('activerecord.attributes.jira_config.suppliers') %>
+        </th>
+        <th id='jira-configs-status' class="th-jira_config-status">
+          <%= sort_link @q, :status, t('activerecord.attributes.jira_config.status') %>
+        </th>
+        <th id='jira-configs-btn'><%= render 'partials/c_btn', new_resource_path: new_jira_config_path, policy: policy(JiraConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% jira_configs.each do |jira_config| %>
+        <tr>
+          <td headers='jira-configs-name'>
+            <%= link_to(jira_config.name, jira_config, class: 'link-block') %>
+          </td>
+          <td headers='jira-configs-url'>
+            <%= jira_config.url %><%= jira_config.context %>
+          </td>
+          <td headers='jira-configs-project-id'>
+            <%= jira_config.project_id %>
+          </td>
+          <td headers='jira-configs-suppliers'>
+            <% jira_config.suppliers.each do |supplier| %>
+              <%= link_to(supplier.name, supplier, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='jira-configs-status'>
+            <%= jira_config_format_status jira_config.status %>
+          </td>
+          <td headers='jira-configs-btn'>
+            <ul class='d-flex justify-content-end float-end pasties w-100'>
+            <%= render 'partials/actions_btns', policy: policy(jira_config), resource: jira_config,
+              discardable: true, klazz: 'jira_config', headers: @headers %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

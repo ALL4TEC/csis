@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+APP_ROOT = File.expand_path('..', __dir__)
+Dir.chdir(APP_ROOT) do
+  begin
+    exec "npm", *ARGV
+  rescue Errno::ENOENT
+    $stderr.puts "Npm executable was not detected in the system."
+    $stderr.puts "Download Npm at https://nodejs.org/en/"
+    exit 1
+  end
+end

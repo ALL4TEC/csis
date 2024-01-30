@@ -1,0 +1,48 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>Reports</caption>
+  <thead>
+    <tr>
+      <th id='reports-title'><%= t('activerecord.attributes.report.title') %></th>
+      <th id='reports-language'><%= t('labels.language') %></th>
+      <th id='reports-project'><%= t('activerecord.attributes.action.project') %></th>
+      <th id='reports-scoring'><%= t('labels.scoring') %> (VM/WA)</th>
+      <th id='reports-date'><%= t('dashboard.labels.date') %></th>
+      <th id='reports-notexportable' notexportable>
+        <ul class="d-flex justify-content-end float-end pasties w-100">
+          <li>
+            <a role='button' class="badge rounded-pill p-1 halo-primary d-flex align-items-center btn-export" data-name="<%= name %>-content"
+                title="<%= t('labels.export_data') %>" data-bs-toggle='tooltip'>
+              <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:export] %></i>
+            </a>
+          </li>
+          <li>
+            <a  class="ms-1 me-1 card-btns-chart badge rounded-pill p-1 halo-primary d-flex align-items-center" role="button" id="chart-reports" href='/statistics?view=3'>
+              <i aria-hidden='true' class='material-icons align-middle' data-bs-toggle='tooltip' title="<%= t('labels.visualize_chart') %>"><%= Icons::MAT[:pie_chart] %></i>
+            </a>
+          </li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr class='line-hover-<%= level_color(report.level) %>'>
+        <td headers='reports-title'>
+          <%= render 'reports/report_badge', report: report do %>
+            <%= link_to(project_statistics_path(report.project), class: "btn btn-sm btn-#{level_color(report.level)} rounded-pill") do %>
+              <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:statistics] %></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td headers='reports-language' data-export="<%= report.language %>"><%= render partial: 'partials/language', locals: { entity: report } %></td>
+        <td headers='reports-project'><%= render 'projects/project_badge', project: report.project, link: true %></td>
+        <td headers='reports-scoring'>
+          <span class='badge badge-system' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_system') %>"><%= report.scoring_vm %></span>
+          <span class='badge badge-applicative' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_applicative') %>"><%= report.scoring_wa %></span>
+        </td>
+        <td headers='reports-date'><%= I18n.l report.edited_at, format: :short_dmy %></td>
+        <td headers='reports-notexportable' notexportable></td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

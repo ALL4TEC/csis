@@ -1,0 +1,169 @@
+.nav-tabs {
+    border: none;
+    .nav-link {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        @extend .shadow;
+        @extend .bg-orange-l;
+        margin-bottom: 0;
+        &.active {
+            transform: scale(1.05);
+            border-color: $bg-csis $bg-csis $bg-csis;
+            color: $primary;
+            font-weight: bold;
+        }
+        &.disabled {
+            background-color: $csis_tab;
+        }
+        &:hover {
+            transform: scale(1.05);
+            @extend .text-primary;
+            i {
+                @extend .text-logo_red_2;
+            }
+        }
+    }
+    .nav-item {
+        margin-bottom: 0px;
+        // margin-left: 2px;
+        // margin-right: 2px;
+    }
+}
+
+.navbar {
+    .nav-item.active .nav-link, .dropdown-item.active .nav-link {
+        @extend .text-primary;
+        i {
+            @extend .text-logo_red_2;
+        }
+    }
+    .nav-link {
+        &:hover {
+            @extend .text-primary;
+            i {
+                @extend .text-logo_red_2;
+            }
+        }
+    }
+    .navbar-brand img:hover {
+        @-moz-keyframes half-spin { 100% { -moz-transform: rotateY(180deg); } }
+        @-webkit-keyframes half-spin { 100% { -webkit-transform: rotateY(180deg); } }
+        @keyframes half-spin { 100% { -webkit-transform: rotateY(180deg); transform:rotateY(180deg); } }
+        -webkit-animation:half-spin 2s linear infinite;
+        -moz-animation:half-spin 2s linear infinite;
+        animation:half-spin 2s linear infinite;
+    }
+    img.staff:hover {
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+        -webkit-animation:spin 2s linear infinite;
+        -moz-animation:spin 2s linear infinite;
+        animation:spin 2s linear infinite;
+    }
+    img.flag:hover {
+        @-moz-keyframes zoom { 100% { -moz-transform: scale(1.5); } }
+        @-webkit-keyframes zoom { 100% { -webkit-transform: scale(1.5); } }
+        @keyframes zoom { 100% { -webkit-transform: scale(1.5); transform:scale(1.5); } }
+        -webkit-animation:zoom 0.5s linear infinite;
+        -moz-animation:zoom 0.5s linear infinite;
+        animation:zoom 0.5s linear infinite;
+    }
+    i.exit:hover {
+        @-moz-keyframes anim { 0% {transform: translateX(0%); } 100% {transform: translateX(40%);} }
+        @-webkit-keyframes anim { 0% {transform: translateX(0%); }100% {transform: translateX(40%);}}
+        @keyframes anim { 0% {transform: translateX(0%); } 100% {transform: translateX(40%);}}
+        -webkit-animation:anim 1s linear infinite;
+        -moz-animation:anim 1s linear infinite;
+        animation:anim 1s linear infinite;
+    }
+}
+.nav-link {
+    @media(max-width: 1199px) {
+        text-align: center;
+    }
+}
+.navbar-text {
+    @media(max-width: 1199px) {
+        text-align: center;
+        justify-content: center;
+        display:flex;
+    }
+}
+
+.dropdown-menu-language {
+    min-width: 4rem !important;
+    min-height: 1rem !important;
+}
+
+.toast {
+    position: absolute;
+    top: 50px;
+    right: 5px;
+    opacity: 0.9 !important;
+    z-index: 2000;
+    .progress {
+        background-color: transparent;
+        height: 5px;
+        position: absolute;
+        bottom: 0;
+        right:0;
+        .progress-bar {
+            opacity: 0.4;
+            @keyframes show-progress {
+                100%   {width: 0%;}
+                0% {width: 100%;}
+            }
+            animation-name: show-progress;
+            animation-duration: 5s; // WARNING: this is the delay value
+        }
+    }
+    
+}
+
+.flag {
+    width: 30px;
+    height: 20px;
+}
+
+.staff {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.sticky-top {
+    z-index: 5000;
+}
+
+.sticky-top-report {
+    height: 0px;
+    position: sticky;
+    top: 0px;
+    z-index: 1010; // Must be < Dropdown menu z-index
+}
+
+#left-menu {
+    background-color: rgba($csis-grey, 0.1) !important;
+    border-left: 1px solid rgba(grey, 0.3);
+    border-right: 1px solid rgba(grey, 0.3);
+    width: 80px;
+    line-height: 1;
+    font-size: small;
+    &:hover {
+        box-shadow: 5px 0px 5px 0px grey;
+    }
+    .left-menu__item {
+        margin: 5px 0px 5px 0px;
+        & .nav-link {
+            text-align: center;
+            padding: 5px;
+        }
+        & .nav-link.active {
+            @extend .menu-line-hover-primary;
+        }
+        &:hover .nav-link:not(.active) {
+            @extend .menu-line-hover-grey-l;
+        }
+    }
+}

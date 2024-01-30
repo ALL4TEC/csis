@@ -1,0 +1,32 @@
+<div class='w-100 h-100 d-flex'>
+  <%= form_with(url: order_report_aggregates_path(@report), method: "put", local: true, class: 'w-100 h-100') do |f| %>
+    <div class='d-flex justify-content-center align-items-center w-100 flex-row'>
+      <ol id='aggregates_order' class='d-flex flex-column p-1'>
+        <%- order_list = @report.aggregates_order_by %>
+        <%- order_list ||= ['status', 'severity', 'visibility', 'title'] %>
+        <%- order_list.each do |order| %>
+          <li id='aggregates_order_<%= order %>' class='bg-orange-l rounded p-1 agg-order handle-drag'>
+            <span><%= t("aggregates.order.#{order}") %></span>
+            <input type='hidden' name='aggregates_order_by[]' value='<%= order %>'>
+          </li>
+        <% end %>
+      </ol>
+      <button class='btn btn-sm btn-primary' data-bs-toggle='tooltip' title="<%= t('aggregates.order.save_order') %>">
+        <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:check] %></i>
+      </button>
+    </div>
+  <% end %>
+  <div class='d-flex flex-column justify-content-around align-items-center m-2' role='group'>
+    <%- if params[:action] != 'index' %>
+    <a role='button' class='btn btn-sm btn-primary text-white' data-bs-toggle='tooltip' title="<%= t('aggregates.order.display_actual_ranks') %>" href="<%= report_aggregates_path(@report) %>">
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:back] %></i>
+    </a>
+    <% end %>
+    <%= button_to apply_order_report_aggregates_path(@report), form_class:'d-flex align-items-center', class: 'btn btn-sm btn-primary' do %>
+      <i aria-hidden='true' class='material-icons align-middle' title="<%= t('aggregates.order.apply_order') %>" data-bs-toggle='tooltip'><%= Icons::MAT[:actions] %></i>
+    <% end %>
+    <a role='button' class='btn btn-sm btn-<%= css_data[:color] %> text-white' id='btn-save-all-ranks' data-bs-toggle='tooltip' title="<%= t('aggregates.order.save_all_ranks') %>">
+      <i aria-hidden='true' class='material-icons align-middle mb-0 <%= css_data[:animation] %>'><%= Icons::MAT[:reorder] %></i>
+    </a>
+  </div>
+</div>

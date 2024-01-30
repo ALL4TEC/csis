@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'chat_configs/google_chat_config/list', google_chat_configs: @chat_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

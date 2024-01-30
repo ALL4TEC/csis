@@ -1,0 +1,3 @@
+name;state;meta_state;description;created_at;aggregate;due_date;priority;pmt_name;pmt_reference
+actio1;to_fix;active;Voluptate voluptatum rerum. Impedit provident consequuntur. Architecto consequatur velit.;2022-02-12 07:16:37 +0100;one;;low;;
+actio2;to_fix;active;Aliquid omnis odit. Nihil non et. Dignissimos autem quis.;2022-02-12 07:16:37 +0100;one;11/11/2021;medium;;

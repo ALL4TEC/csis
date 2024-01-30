@@ -1,0 +1,27 @@
+<%- notif = notification_subscription.notification %>
+<%- path = notif.data[:path] %>
+<%- notif_id = notif.id %>
+<div class='d-flex notif-el flex-column bg-secondary m-1 p-1' id="<%= dom_id(notification_subscription) %>">
+  <div class='d-flex p-0 notif-header align-items-center text-dark justify-content-between'>
+    <span class='btn btn-sm rounded-0 p-0' data-reflex="click->Notification#toggle_state" data-notification-id="<%= notif_id %>">
+      <i aria-hidden='true' class="material-icons align-middle <%= notification_subscription.state_class %> notif-status"><%= Icons::MAT[:dot] %></i>
+    </span>
+    <span>
+      <%= notif.created_at.strftime("%F %T") %>
+    </span>
+    <span class='btn btn-sm text-dark p-0' data-reflex="click->Notification#clear" data-notification-id="<%= notif_id %>">
+      <i aria-hidden='true' class='material-icons align-middle i_quick_rotate notif-clear'><%= Icons::MAT[:close] %></i>
+    </span>
+  </div>
+  <div class='notif-body'>
+    <a type='button' class='ps-1 pe-1 ms-auto d-flex flex-column' href='<%= path %>'>
+      <span class="d-flex w-100 font-weight-bold">
+        <%= notif.data[:title] %>
+        <i aria-hidden='true' class='material-icons align-middle ms-auto'><%= notif.data[:icon].presence %></i>
+      </span>
+      <span>
+        <%= notif.data[:message] %>
+      </span>
+    </a>
+  </div>
+</div>

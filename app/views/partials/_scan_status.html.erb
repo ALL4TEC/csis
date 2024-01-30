@@ -1,0 +1,4 @@
+<% finished = status.casecmp('FINISHED').zero? %>
+<% icon = finished ? 'check_circle_outline' : 'cancel' %>
+<% color = finished ? 'success' : 'secondary' %>
+<i aria-hidden='true' class='material-icons i_scale text-<%= color %>' data-bs-toggle='tooltip' title="<%= status.upcase %>"><%= icon %></i>

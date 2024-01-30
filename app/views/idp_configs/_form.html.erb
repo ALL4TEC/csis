@@ -1,0 +1,30 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(idp_config) do |f| %>
+  <div class="row">
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :name, as: :search %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <div class='d-flex align-items-center justify-content-between'>
+        <%= f.input :idp_metadata_url, as: :search, wrapper_html: { class:'w-50' } %>
+        <hr>
+        <div class='d-flex flex-column justify-content-between align-items-center w-25'>
+          <%- if idp_config.idp_metadata_xml.attached? %>
+            <div class='mb-2 d-flex flex-column align-items-center'>
+              <%= link_to(idp_config.idp_metadata_xml.blob.filename, rails_blob_path(idp_config.idp_metadata_xml), class: 'btn btn-sm btn-secondary mb-1', target: :_blank, rel: :noopener) %>
+              <%= t('idp_configs.actions.replace_metadata_xml') %>
+            </div>
+          <% end %>
+          <%= f.input :idp_metadata_xml, class: 'd-inline-box', accept: 'text/xml, application/xml', as: :file, label: '' %>
+        </div>
+      </div>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :idp_entity_id, as: :search %>
+    <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

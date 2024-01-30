@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title><%= t('app_name') %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <%= javascript_packs_with_chunks_tag  'application', nonce: true, 'data-turbo-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', nonce: true, 'data-turbo-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body data-turbo="false">
+    <div class='wrapper'>
+      <div class="collapse overlay hide">
+        <div class="d-flex justify-content-center align-items-center w-100 h-100">
+          <%= render 'layouts/loader' %>
+        </div>
+      </div>
+      <%# HEADER %>
+      <div id='header-section'>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+          <a class="navbar-brand ms-3 me-3" href="<%= dashboard_path %>">
+            <div class="d-flex justify-content-center align-items-center">
+              <%= image_tag('logos/csis_logo_only.png', class: "align-self-center rounded-circle persistent-halo-gray-l", height: '30px', alt: "Logo CSIS") %>
+              <div class='align-self-center d-flex justify-content-center align-items-center'>
+                <div class="ms-1 me-1 mb-1 text-logo_red_1 fw-semibold">|</div>
+                <div class='text-white fw-bold'><%= t('app_name') %></div>
+              </div>
+            </div>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#csis-main-navbar" aria-controls="csis-main-navbar" aria-expanded="false" aria-label="Afficher ou cacher la navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="csis-main-navbar">
+            <span class="navbar-nav me-auto nav d-flex justify-content-center">
+              <%= render 'layouts/navbar', nav_infos: nav_infos %>
+            </span>
+            <span class="navbar-text text-white p-1">
+              <%= render 'layouts/languages' %>
+              <%= render 'layouts/settings' if current_user.super_admin? %>
+              <%= render 'layouts/notifications' %>
+              <%= render 'layouts/right_menu' %>
+            </span>
+          </div>
+        </nav>
+        <%= render 'layouts/toasts' %>
+        <%= render 'layouts/section-breadcrumbs' %>
+        <% unless @app_section.nil? %>
+          <%= render 'layouts/section-header', section_header: @app_section %>
+        <% end %>
+      </div>
+      <%# MAIN %>
+      <main class="container d-flex" id='main-container'>
+        <%= render 'layouts/section-left', section_header: @app_section if @app_section&.scopes.present? && current_user.display_submenu_direction_vertical? %>
+        <div class='content w-100'>
+        <%= yield %>
+        </div>
+      </main>
+
+      <%= render 'partials/ajax_modal' %>
+
+      <%= render 'layouts/section-topbottom' %>
+      <%= javascript_packs_with_chunks_tag  'bootstrapd', nonce: true, 'data-turbo-track': 'reload' %>
+      <%= javascript_packs_with_chunks_tag  'bootstrap-selectd', nonce: true, 'data-turbo-track': 'reload' %>
+    </div>
+  </body>
+</html>

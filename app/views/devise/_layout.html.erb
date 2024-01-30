@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center w-100 align-items-center">
+  <div class='ms-2 d-flex align-items-center flex-column'>
+    <h2><%= yield :title %></h2>
+  </div>
+</div>
+<div class="card-login mt-3">
+  <%= yield :body %>
+</div>
+<hr>
+<%= render "devise/shared/oauth" %>
+<%= render "devise/shared/links" %>

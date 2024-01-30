@@ -1,0 +1,13 @@
+<%= simple_form_for(dependency) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.collection_check_boxes(:predecessor_id, @action.potential_deps, :id, :name) do |b| %>
+          <%= b.label { b.check_box + b.text } %>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_form_footer f %>
+<% end %>

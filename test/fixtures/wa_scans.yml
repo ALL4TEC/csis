@@ -1,0 +1,116 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+wa_scan_one:
+  reference: 'Ref1'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 1'
+  launched_by: 'User'
+  launched_at: '2150-04-23T00:00:00Z'
+  account: qc_one
+  qualys_wa_client: qwc_one
+
+wa_scan_two:
+  reference: 'Ref2'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 2'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_wa_client: qwc_one
+
+wa_scan_three:
+  internal_id: '7894531'
+  reference: 'was/1234567890.1234567'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 3'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_wa_client: qwc_one
+
+wa_scan_four:
+  internal_id: '78945621'
+  reference: 'was/7894561230.7894561'
+  name: 'Scan 4'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_wa_client: qwc_one
+
+wa_scan_five:
+  internal_id: '7891234'
+  reference: 'was/7894567891.7891234'
+  name: 'Scan 5'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one
+  qualys_wa_client: qwc_one
+
+wa_scan_one_ias:
+  reference: 'Ref1 Ias'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 1 bis'
+  launched_by: 'User'
+  launched_at: '2150-04-23T00:00:00Z'
+  account: ias_one
+
+wa_scan_two_ias:
+  reference: 'Ref2 Ias'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 2 Ias'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: ias_one
+
+wa_scan_three_ias:
+  internal_id: '7894531d'
+  reference: 'was_ias/1234567890.1234567'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 3 Ias'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: ias_one
+
+wa_scan_four_ias:
+  internal_id: '78945621d'
+  reference: 'was_ias/7894561230.7894561'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 4 Ias'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: ias_one
+
+wa_scan_five_ias:
+  internal_id: '7891234d'
+  reference: 'was_ias/7894567891.7891234'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan 5 Ias'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: ias_one
+
+wa_scan_auto:
+  internal_id: '7891534d'
+  reference: 'was_ias/7895567891.7891234'
+  scan_type: 'VULNERABILITY'
+  status: 'COMPLETED'
+  name: 'Scan name'
+  launched_by: 'User'
+  launched_at: '2018-04-22T00:00:00Z'
+  account: qc_one

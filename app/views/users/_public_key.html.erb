@@ -1,0 +1,7 @@
+<%- id = 'pub_key' %>
+<div class='d-flex'>
+  <%= text_area :user, :public_key, value: @user.public_key, class: 'form-control textarea-scroll', id: id %>
+  <div class='pub-key__clip'>
+  <%= render partial: 'partials/clip', locals: {target_id: id} %>
+  </div>
+</div>

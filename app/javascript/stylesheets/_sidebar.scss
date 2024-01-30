@@ -1,0 +1,117 @@
+.sidebar-wrapper {
+  margin: 0px!important;
+  @extend .w-100;
+  @extend .h-100;
+  display: flex;
+  align-items: stretch;
+  // perspective: 1500px;
+
+  #sidebar {
+    display: block;
+    overflow-x: hidden;
+    &:not(.hidden) {
+      min-width: 70px;
+      max-width: 70px;
+    }
+    &.hidden {
+      min-width: 0px;
+      max-width: 0px;
+    }
+    text-align: center;
+    height: 100%;
+
+    // transition: all 0.4s;
+    transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+    transform-origin: left center; /* Set the transformed position of sidebar to center left side. */
+
+    &:not(.active), &.hide {
+      > ul.collapsed {
+        display: block;
+      }
+      > ul.opened {
+        display: none;
+      }
+    }
+
+    .sidebar-header.no_btn {
+      display: none!important;
+    }
+
+    &.dashboard.show {
+      min-width: 200px!important;
+      max-width: 200px!important;
+    }
+    &.statistics.show {
+      min-width: fit-content!important;
+      max-width: unset!important;
+    }
+
+    &.active, &.show {
+      min-width: 600px;
+      max-width: 600px;
+      // transition: all 0.4s;
+      transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+      transform-origin: center left; /* Set the transformed position of sidebar to center left side. */
+
+      > ul.collapsed {
+        display: none;
+      }
+      > ul.opened {
+        display: block;
+      }
+
+      ul li a {
+        padding: 20px 10px;
+        text-align: center;
+        i {
+          margin-right:  0;
+          display: block;
+          margin-bottom: 5px;
+        }
+      }
+
+      ul ul a {
+        padding: 0px;
+      }
+    }
+
+    /* Toggling the sidebar header content, hide the big heading [h3] and showing the small heading [strong] and vice versa*/
+    ul li a {
+      padding: 10px;
+      display: block;
+      text-align: left;
+    }
+  }
+}
+
+.burger-btn {
+  width: 26px;
+  height: 26px;
+  span {
+    /* no rotation */
+    transform: none;
+    /* all bars are visible */
+    opacity: 1;
+    margin: 5px auto;
+    width: 80%;
+    height: 2px;
+    display: block;
+    background: $dark;
+    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+  }
+  &.active span {
+    margin: 0 auto;
+    &:first-of-type {
+      /* rotate first one */
+      transform: rotate(45deg) translate(2px, 2px);
+    }
+    &:nth-of-type(2) {
+      /* second one is not visible */
+      opacity: 0;
+    }
+    &:last-of-type {
+      /* rotate third one */
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+  }
+}

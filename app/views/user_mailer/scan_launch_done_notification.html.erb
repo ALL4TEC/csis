@@ -1,0 +1,5 @@
+<p><%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,</p>
+<p><strong><%= @notif.data[:title] %></strong></p>
+<p><%= @notif.data[:message] %></p>
+<a style="color: #5E6B76;" href="<%= @url %>"><%= I18n.t('mailer.content.CSIS') %></a><br>
+<p><%= I18n.t('mailer.content.polite') %></p>

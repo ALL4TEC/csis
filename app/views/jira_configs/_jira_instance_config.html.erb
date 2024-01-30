@@ -1,0 +1,42 @@
+<p><%= t('jira_configs.instance_config.intro') %></p>
+<ul>
+  <li>
+    <%= t('jira_configs.instance_config.app_url_label') %>
+    <%= content_tag(
+      :code,
+      "#{ENV['ROOT_URL']}"
+    ) %>
+  </li>
+  <li>
+    <%= t('jira_configs.instance_config.app_type_label') %>
+    <%= t('jira_configs.instance_config.app_type') %>
+  </li>
+  <li>
+    <%= t('jira_configs.instance_config.consumer_key_label') %>
+    <%= content_tag(
+      :code,
+      Rails.application.credentials.dig(:jira, :consumer_key)
+    ) %>
+  </li>
+  <li>
+    <%= t('jira_configs.instance_config.public_key_label') %>
+    <div class='w-100 h-100 d-flex justify-content-center border-secondary'>
+      <%- id = 'jira_config_pub_key' %>
+      <div class='d-flex'>
+        <%= content_tag(
+            :textarea,
+            Rails.application.credentials.dig(:jira, :rsa_pub),
+            cols: 64,
+            disabled: true,
+            class: 'font-monospace form-control textarea-scroll',
+            id: id
+          ) %>
+        <div class='pub-key__clip w-100'>
+          <%= render partial: 'partials/clip', locals: {target_id: id} %>
+        </div>
+      </div>
+      <%=  %>
+    </div>
+  </li>
+</ul>
+<p><%= t('jira_configs.instance_config.outro') %></p>

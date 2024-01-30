@@ -1,0 +1,21 @@
+.consultants {
+  display: none;
+}
+
+.consultants_only {
+  &:hover {
+    z-index: 10000;
+    @extend .rounded;
+    // @extend .border;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    @extend .badge-danger;
+    @extend .text-muted;
+    border-width: 5px!important;
+    border-style: dashed!important;
+    .consultants {
+      display: inherit;
+    }
+  }
+}

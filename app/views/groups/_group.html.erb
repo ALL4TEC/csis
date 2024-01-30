@@ -1,0 +1,12 @@
+<div class='card'>
+  <div class='card-header bg-secondary text-white d-flex justify-content-between mfa-btn-parent align-items-center'>
+    <h4 class='card-title d-flex align-items-center'>
+      <%= t("groups.#{group_id}") %>
+    </h4>
+    <%= render 'mfa_btn', target: group %>
+  </div>
+  <div class='card-body flex-column' id='groups-<%= group_id %>-card'>
+
+  </div>
+  <%= render 'groups/spinner', group_id: group_id %>
+</div>

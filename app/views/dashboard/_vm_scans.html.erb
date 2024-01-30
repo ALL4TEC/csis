@@ -1,0 +1,49 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>VM scans</caption>
+  <thead>
+    <tr>
+      <th id='vm-scans-status'><%= t('labels.status') %></th>
+      <th id='vm-scans-title'><%= t('reports.labels.scan_name') %></th>
+      <th id='vm-scans-date'><%= t('reports.labels.scan_date') %></th>
+      <th id='vm-scans-ip'><%= t('reports.labels.scan_ip') %></th>
+      <% if current_user.super_admin? %>
+        <th id='vm-scans-qualys_client' data-export="<%= t('dashboard.labels.has_qualys_client') %>"><i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.has_qualys_client') %>"><%= Icons::MAT[:download] %></i></th>
+      <% end %>
+      <th id='vm-scans-reports' data-export="<%= t('dashboard.labels.linked_to_report') %>"><i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.linked_to_report') %>"><%= Icons::MAT[:reports] %></i></th>
+      <th id='vm-scans-notexportable' notexportable>
+        <ul class="d-flex justify-content-end float-end pasties w-100">
+          <li>
+            <a role='button' class="badge halo-primary rounded-pill p-1 d-flex align-items-center btn-export" data-name="<%= name %>-content"
+                title="<%= t('labels.export_data') %>" data-bs-toggle='tooltip'>
+              <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:export] %></i>
+            </a>
+          </li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% vm_scans.each do |scan| %>
+    <tr>
+      <td headers='vm-scans-status' data-export="<%= scan.status %>"><%= render 'partials/scan_status', status: scan.status %></td>
+      <td headers='vm-scans-title'><%= link_to scan.name, scan, class: 'btn' %></td>
+      <td headers='vm-scans-date'><%= I18n.l scan.launched_at, format: :short_dmy %></td>
+      <td headers='vm-scans-ip' data-export="<%= scan.targets.flat_map { |t| t.ip } %>">
+        <% scan.targets.each_with_index do |target, index| %>
+          <%= render 'partials/whois_btn', target: target.ip, infos: target.ip, state: 'success' %>
+          <br>
+        <% end %>
+      </td>
+    <% if current_user.super_admin? %>
+      <td headers='vm-scans-qualys_client'>
+        <%= render 'dashboard/qualys_client', scan: scan, kind: 'vm' %>
+      </td>
+    <% end %>
+      <td headers='vm-scans-reports' data-export="<%= scan.reports.present? %>">
+        <%= render 'dashboard/scan_reports', scan: scan %>
+      </td>
+      <td headers='vm-scans-notexportable' notexportable></td>
+    </tr>
+    <% end %>
+  </tbody>
+<% end %>

@@ -1,0 +1,15 @@
+<% if Rails.application.config.qualys_enabled %>
+  <% if (scan.send("qualys_#{kind}_client").present?) %>
+    <%- qualys_client = scan.send("qualys_#{kind}_client") %>
+    <%= link_to(send("qualys_#{kind}_client_path", qualys_client), class: 'link-block') do %>
+      <% cond = qualys_client.teams.present? %>
+      <i aria-hidden='true' class="material-icons i_scale text-<%= cond ? 'success' : 'warning' %>"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= cond ? t('dashboard.labels.linked_to_client') : t('dashboard.labels.client_not_linked_to_team') %>">
+      <%= Icons::MAT[:linked] %></i>
+    <% end %>
+  <% else %>
+    <%= link_to(send("qualys_#{kind}_clients_path"), class: 'link-block') do %>
+      <i aria-hidden='true' class="material-icons i_scale text-muted" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.no_client') %>"><%= Icons::MAT[:unlinked] %></i>
+    <% end %>
+  <% end %>
+<% end %>

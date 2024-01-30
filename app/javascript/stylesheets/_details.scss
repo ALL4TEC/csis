@@ -1,0 +1,9 @@
+details {
+  summary {
+    text-transform: uppercase;
+    color: $secondary;
+    &:hover {
+      color: $primary;
+    }
+  }
+}

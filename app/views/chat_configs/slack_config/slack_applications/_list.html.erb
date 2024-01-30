@@ -1,0 +1,43 @@
+<%= pagination = paginate slack_applications %>
+<div class="table-responsive">
+  <table class="table table-slack_config table-hover">
+    <caption>Slack Workspace</caption>
+    <thead>
+      <tr>
+        <th id='slack-workspace-name' class="th-slack-workspace-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.slack_config.name') %>
+        </th>
+        <th id='slack-workspace-app-id' class="th-slack-workspace-app-id">
+          <%= t('activerecord.attributes.slack_config.app_id') %>
+        </th>
+        <th id='slack-workspace-client-id' class="th-slack-workspace-client-id">
+          <%= t('activerecord.attributes.slack_config.client_id') %>
+        </th>
+        <th id='slack-workspace-btn'>
+          <%= render 'partials/c_btn', new_resource_path: new_slack_application_path, policy: policy(SlackApplication) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% slack_applications.each do |slack_application| %>
+        <tr>
+          <td headers='slack-workspace-name'>
+            <%= link_to(slack_application.name, slack_application, class: 'link-block') %>
+          </td>
+          <td headers='slack-workspace-app-id'>
+            <%= slack_application.app_id %>
+          </td>
+          <td headers='slack-workspace-client-id'>
+            <%= slack_application.client_id %>
+          </td>
+          <td headers='slack-workspace-btn'>
+            <%= render 'partials/actions_btns', policy: policy(slack_application), resource: slack_application,
+              discardable: true, klazz: 'slack_application', headers: @headers %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= pagination %>

@@ -1,0 +1,29 @@
+<%- data = aggregate.actions %>
+<% content_for :sub_header, flush: true do %>
+  <div class="btn-group me-2" role="group" aria-label="Action group">
+  <% [[:list, aggregate_actions_path(aggregate), true], [:add, new_aggregate_action_path(aggregate), false], [:edit, edit_attachment_aggregate_path(aggregate), false]].each do |button, link, hideable| %>
+    <% unless hideable && data.count.zero? %>
+    <a role="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t("aggregates.labels.#{button}_attachment") %>"
+      href=<%= link %>>
+      <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[button] %></i>
+    </a>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+<% content_for :sub_body, flush: true do %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <caption>Aggregate actions</caption>
+      <% data.each do |act| %>
+      <tr>
+        <td id='aggregate-actions-state' class="d-flex me-auto btn-<%= action_state_color(act.state)%> text-<%= action_state_color(act.state) %>">
+          <i aria-hidden='true' class='material-icons align-middle me-1'><%= action_state_icon(act.state) %></i>
+          <%= link_to(act.name, action_path(act, anchor: 'top'), class: 'link-block no-deco') %></td>
+        <td id='aggregate-actions-description' class="me-auto text-pre"><%= sanitize act.description, tags: ['b'] %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+<%= render 'aggregates/aggregate_sub_bloc', id: 'actions', title: t('models.actions'), aggregate: aggregate, count: data.count %>

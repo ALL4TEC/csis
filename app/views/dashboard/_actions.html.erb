@@ -1,0 +1,14 @@
+<div class="btn-group m-0 pe-1" role="group" aria-label="Actions">
+  <a href="<%= actions_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.actions_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:actions] %></i>&nbsp;<%= @actions_count %>
+  </a>
+  <% Vulnerability.severities.keys.each do |severity| %>
+  <a role="button" class="btn btn-<%= severity %> btn-secondary"
+      data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name("severity.#{severity}") %>">
+    <span class="badge badge-<%= severity %>">
+      <%= @actions_sum[severity] || 0 %>
+    </span>
+  </a>
+  <% end %>
+</div>

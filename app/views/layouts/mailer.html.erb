@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>TITLE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Montserrat, Verdana, Geneva, Sans-Serif;
+      }
+      .content, .not-answer {
+        color: #5E6B76;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+      }
+      .w-100 {
+        width: 100%;
+      }
+      .w-600 {
+        width: 600px;
+      }
+      table tr td {
+        padding: 0;
+      }
+      table {
+        border-spacing : 0;
+        border-collapse : collapse;
+      }
+      .d-flex {
+        display: flex;
+	      flex-direction: row;
+      }
+      .d-inline-flex {
+        display: inline-flex;
+      }
+      .justify-content-center {
+        justify-content: center;
+      }
+      .flex-column {
+        flex-direction: column;
+      }
+      .align-items-center {
+        align-items: center;
+      }
+      .header {
+        background-color: #4688A2;
+        border-radius: 10px 10px 0px 0px;
+      }
+      .logo {
+        background-color: #F1F8FE;
+        padding: 20px 0 0px 0;
+      }
+      .content {
+        background-color: #F1F8FE;
+        padding: 30px 30px 30px 30px;
+        width: -webkit-fill-available;
+      }
+      .footer {
+        background-color: #4688A2;
+        padding: 30px 30px 30px 30px;
+        border-radius: 0px 0px 10px 10px;
+      }
+      .footer a {
+        text-decoration: none;
+      }
+      .not-answer {
+        font-size: 14px;
+      }
+      .text-white {
+        color: #ffffff;
+      }
+      .slogan {
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+      }
+      .ms-auto {
+        margin-left: auto;
+      }
+      .mt-15 {
+        margin-top: 15px;
+      }
+      .bg-grey {
+        background-color: #5E6B76;
+      }
+      .text-grey {
+        color: #5E6B76;
+      }
+    </style>
+  </head>
+  <body>
+    <%- company_url = Branding.singleton.company_url %>
+    <div class='w-100 d-flex justify-content-center flex-column align-items-center'>
+      <div class='w-600'>
+        <div class='header d-flex align-items-center justify-content-center'>
+          &nbsp;<br>&nbsp;
+        </div>
+        <div class='logo d-flex align-items-center justify-content-center'>
+          <a href="<%= company_url %>" imageanchor="1" rel="nofollow">
+            <%= image_tag(attachments[ApplicationMailer::LOGO].url, size: Branding::SIZES[:mails_logo]) %>
+          </a>
+        </div>
+        <div class='content d-flex flex-column'>
+          <%= yield %>
+        </div>
+        <div class='footer d-flex flex-column align-items-center justify-content-center'>
+          <div class='w-100 d-flex'>
+            <div class=''>
+              <a class="text-white mt-15" href="<%= company_url %>" imageanchor="1" rel="nofollow"><%= company_url %></a>
+            </div>
+            <div class='ms-auto'>
+              <% AssetsUtil::WEBICONS.keys.each do |social| %>
+                <%- social_url = Branding.singleton.send("#{social}_url") %>
+                <%- if social_url.present? %>
+                <a href="<%= social_url %>" rel="nofollow">
+                  <%= image_tag(attachments["webicon-#{social}.png"].url, size: Branding::SIZES[:webicons], alt: social) %>
+                </a>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class='d-flex align-items-center not-answer'><%= I18n.t('mailer.content.do_not_answer') %></p>
+    </div>
+  </body>
+</html>

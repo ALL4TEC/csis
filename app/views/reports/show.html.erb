@@ -1,0 +1,198 @@
+<div class='sticky-top-report'>
+  <div class='ms-2 me-2 d-flex justify-content-center align-items-center'>
+    <div class='shadow d-inline-flex align-items-center bg-<%= level_color(@report.level) %> rounded-bottom p-1' data-bs-toggle='tooltip' title='<%= I18n.t("statistics.current_level.#{@report.level}") %>'>
+      <div class='badge'>
+        <i aria-hidden='true' class='material-icons align-middle i_quick_rotate' data-bs-toggle='tooltip' title='<%= t("models.#{@report.type.underscore}") %>'><%= Icons::MAT[report_icon(@report.type)] %></i>
+      </div>
+      <div class='badge d-flex align-items-center'>
+        <span class='badge badge-system me-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_system') %>"><%= @report.scoring_vm %></span>
+        <span class='badge badge-applicative' data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('labels.scoring_applicative') %>"><%= @report.scoring_wa %></span>
+      </div>
+      <div class='shadow d-inline-flex align-items-center badge-light rounded-0 p-1 slider slide-in'>
+        <%= render partial: 'partials/language', locals: { entity: @report } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @report.is_a?(PentestReport) && Rails.application.config.pentest_enabled && @report.client_logo.attached? %>
+  <%= render 'partials/card_bloc', title: t('labels.client_logo') do %>
+    <div><%= image_tag(@report.client_logo.variant(:thumb)) %></div>
+  <% end %>
+<% end %>
+
+<%= render 'show_simple_bloc', attribute: :subtitle %>
+<%= render 'show_simple_bloc', attribute: :introduction %>
+<% if @report.is_a?(ScanReport) %>
+  <%= render 'show_simple_bloc', attribute: :org_introduction %>
+  <%= render 'show_simple_bloc', attribute: :vm_introduction %>
+  <%= render 'show_simple_bloc', attribute: :wa_introduction %>
+<% elsif Rails.application.config.pentest_enabled && @report.is_a?(PentestReport) %>
+  <%= render 'show_simple_bloc', attribute: :purpose, translation_root: 'reports.labels' %>
+  <% if @report.tops.present? %>
+    <%= render 'partials/card_bloc', title: t('tops.section_title') do %>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <caption>Tops</caption>
+          <thead>
+            <tr>
+              <th id='tops-name'><%= t('tops.labels.name') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @report.tops.each do |top| %>
+              <tr>
+                <td headers='tops-name'><%= top.name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @report.tools.present? %>
+    <%= render 'partials/card_bloc', title: t('reports.labels.tools.category') do %>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <caption>Tools</caption>
+          <thead>
+            <tr>
+              <th id='tools-name'><%= t('reports.labels.tools.name') %></th>
+              <th id='tools-version'><%= t('reports.labels.tools.version') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% JSON.parse(@report.tools).each do |tool| %>
+              <tr>
+                <td headers='tools-name'><%= tool['name'] %></td>
+                <td headers='tools-version'><%= tool['version'] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render 'show_simple_bloc', attribute: :exec_cond, translation_root: 'reports.labels' %>
+  <%= render 'show_simple_bloc', attribute: :results, translation_root: 'reports.labels' %>
+<% elsif Rails.application.config.action_plan_enabled && @report.is_a?(ActionPlanReport) %>
+  <%= render 'show_simple_bloc', attribute: :org_introduction %>
+  <%= render 'show_simple_bloc', attribute: :purpose, translation_root: 'reports.labels' %>
+<% end %>
+
+<%= render 'show_simple_bloc', attribute: :addendum %>
+<% if @report.signatory.present? %>
+  <%= render 'partials/card_bloc', title: t('labels.signatory') do %>
+    <%= @report.signatory.decorate.full_name_and_email %>
+  <% end %>
+<% end %>
+<% diffusion_list = @report.diffusion_list %>
+<% if diffusion_list.present? %>
+  <%= render 'partials/card_bloc', title: t('labels.diffusion_list') do %>
+    <% diffusion_list.each do |contact| %>
+      <%= contact[0] %>
+      <br>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @report.is_a?(ScanReport) || @report.is_a?(PentestReport) %>
+  <%= render 'partials/card_bloc', title: t('labels.related_vm_scans') do %>
+    <% unless @report.vm_scans.empty? %>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <caption>Report Vm Scans</caption>
+          <thead>
+            <tr>
+              <th id='report-vm-scans-status'><%= t('labels.status') %></th>
+              <th id='report-vm-scans-name'><%= t('reports.labels.scan_name') %></th>
+              <th id='report-vm-scans-date'><%= t('reports.labels.scan_date') %></th>
+              <th id='report-vm-scans-ip'><%= t('reports.labels.scan_ip') %></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% ipcount = 0 %>
+          <% @report.vm_scans.sort_by { |x| [x.launched_at] }.each do |scan| %>
+            <tr>
+              <td headers='report-vm-scans-status'><%= render 'partials/scan_status', status: scan.status if scan.status.present? %></td>
+              <td headers='report-vm-scans-name'><%= link_to scan.to_s, scan, class: 'btn' %></td>
+              <td headers='report-vm-scans-date'><%= l scan.launched_at, format: :long %></td>
+              <td headers='report-vm-scans-ip'>
+                <%- targets_intersection = scan.targets & @report.targets %>
+                <%- targets_difference = scan.targets - @report.targets %>
+                <% [[targets_intersection, 'success'], [targets_difference, 'warning']].each do |targets, state| %>
+                  <% targets.each do |target| %>
+                    <% ipcount += 1 %>
+                    <%= render 'partials/whois_btn', id_prefix: 'ip', target: target.ip, count: ipcount, infos: target.ip, state: state %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="text-muted">
+        <%= t('labels.none') %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <%= render 'partials/card_bloc', title: t('labels.related_wa_scans') do %>
+    <% unless @report.wa_scans.empty? %>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <caption>Report Wa Scans</caption>
+          <thead>
+            <tr>
+              <th id='report-wa-scans-status'><%= t('labels.status') %></th>
+              <th id='report-wa-scans-name'><%= t('reports.labels.scan_name') %></th>
+              <th id='report-wa-scans-date'><%= t('reports.labels.scan_date') %></th>
+              <th id='report-wa-scans-targets'><%= t('reports.labels.scan_url') %>/(<%= t('reports.labels.scan_whois') %>)</th>
+              <th id='report-wa-scans-application_name'><%= t('reports.labels.scan_application_name') %></th>
+              <th id='report-wa-scans-screenshot'><%= t('reports.labels.scan_screenshot') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% urlcount = 0 %>
+            <% @report.wa_scans.sort_by { |x| [x.launched_at] }.each do |scan| %>
+              <tr>
+                <td headers='report-wa-scans-status'><%= render 'partials/scan_status', status: scan.status if scan.status.present? %></td>
+                <td headers='report-wa-scans-name'><%= link_to scan.to_s, scan, class: 'btn' %></td>
+                <td headers='report-wa-scans-date'><%= l scan.launched_at, format: :long %></td>
+                <td headers='report-wa-scans-targets'>
+                <% scan.targets.each do |target| %>
+                  <%= render 'partials/whois_btn', id_prefix: 'url', target: domain_name(target.url), count: urlcount, infos: target.url %>
+                <% end %>
+                </td>
+                <td headers='report-wa-scans-application_name'><%= scan.web_app_name %></td>
+                <td headers='report-wa-scans-screenshot'><%= render 'reports/landing_page', scan: scan, urlcount: urlcount %></td>
+              </tr>
+              <% urlcount += 1 %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="text-muted">
+        <%= t('labels.none') %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="fixed-bottom d-flex justify-content-end">
+  <% if @report.project.auto_generate? && @report.is_a?(ScanReport) %>
+    <%= form_tag notify_report_path(@report), method: :post do %>
+      <button class="btn btn-primary" type="submit">
+        <i aria-hidden='true' class='material-icons md-30 align-middle'><%= Icons::MAT[:send] %></i>
+        <%= t('reports.labels.notify_contacts') %>
+      </button>
+    <% end %>
+  <% end %>
+
+  <%= link_to(t('labels.show'), actions_path + '?q[aggregate_report_id_eq]=' + @report.id, class: 'btn btn-primary ms-1') %>
+</div>
+
+<%= javascript_packs_with_chunks_tag  'whois', nonce: true, 'data-turbo-track': 'reload' %>

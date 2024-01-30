@@ -1,0 +1,29 @@
+<div class="col" data-controller="filter">
+  <div class="card rounded-0 collapse show multi" id="filter-body">
+    <fieldset class="mt-2">
+      <legend class='d-none'>Filters</legend>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <input class="form-control" id="filter-name-input" type="text" data-target="filter.query" data-action="filter#refine">
+            <label for="filter-name-input"><%= t('filters.scans') %></label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <input class="form-control" id="filter-date-min-input" type="date" data-target="filter.dateMin" data-action="filter#refine" placeholder="hack">
+            <label for="filter-date-min-input"><%= t('filters.after') %></label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <input class="form-control" id="filter-date-max-input" type="date" data-target="filter.dateMax" data-action="filter#refine" placeholder="hack">
+            <label for="filter-date-max-input"><%= t('filters.before') %></label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <%# TODO: send unecessary attributes, disable and enable in JS ? %>
+  <%= render 'reports/form_scans', report: report, report_instanciated: report_instanciated, f: f %>
+</div>

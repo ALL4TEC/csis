@@ -1,0 +1,2553 @@
+en:
+  column: ":"
+  app_name: "CSIS"
+  app_description: "Your centralized platform to manage vulnerabilities"
+  sign_in: "Sign In"
+  sign_in_with: "Sign in with:"
+  staff_exclusive_area: "Reserved Area"
+  signed_in_as: "Signed in as %{name}"
+  sign_out: "Logout"
+  first_password: "Create a password"
+  edit_profile: "Profile"
+  switch_view_to_staff: "Move to Cyber view"
+  switch_view_to_contact: "Move to IT view"
+  top_page: "Top of the page"
+  bottom_page: "Bottom of the page"
+  ok: "Yes"
+  ko: "No"
+  help_center: "Help Center"
+  or: &or OR
+  ago: "%{time} ago"
+  languages:
+    fr: "French"
+    en: "English"
+    bzh: "Breizh"
+  devise:
+    mailer:
+      email_change:
+        message: We're contacting you to notify you that your email is being changed to %{email}.
+      two_factor_authentication:
+        greetings: Hello %{recipient},
+        code_sent: Please use the code below to authenticate yourself on CSIS.
+    two_factor_authentication:
+      enter_sent_code: Enter the code that was sent to you
+      enter_authenticator_code: Enter the code from your authenticator app
+      confirm: Confirm
+      resend_code: Resend Code
+      send_code_instead: Send me a code instead
+      activated: 2FA activated
+      deactivated: 2FA deactivated
+      activate: Activate 2FA
+      deactivate: Deactivate 2FA
+      authenticator:
+        currently: You are currently using a Third Party Authenticator (TPA) for 2FA
+        setup: Setup a Third Party Authenticator(TPA) for 2FA
+        resetup: Reconfigure 2FA Third Party Authenticator (TPA)
+        clear: Move to codes sent by email
+        secret: Scan this qrcode or set the following uri in your Third Party Authenticator(TPA)
+        test: Test
+        your_secret: "Your secret key"
+      direct_otp:
+        currently: You are currently using codes sent by email to double authenticate your account
+  models:
+    account: &account Account
+    action: &action Action
+    actions: &actions Actions
+    action_import: &action_import Action Import
+    action_plan_report: Action plan report
+    aggregate: &aggregate Aggregate
+    aggregates: &aggregats Aggregates
+    asset: &asset Asset
+    assets: &assets Assets
+    certificate: &certificate Certificate
+    chat_config: &chat_config Chat tool account
+    chat_configs: &chat_configs Chat tools accounts
+    comment: &comment Message
+    comments: &comments Internal messaging
+    contact: &contact User
+    contacts: &contacts Remediation contacts
+    client: &client Remediation team
+    clients: &clients Remediation teams
+    cyberwatch_config: &cyberwatch_config Compte Cyberwatch
+    cyberwatch_configs: &cyberwatch_configs Comptes Cyberwatch
+    dependencies: &dependencies Dependencies
+    exports: &exports Exports
+    idp_configs: &idp_configs SAML
+    idp_config: &idp_config Identity Provider
+    imports: &imports Imports
+    insight_app_sec_configs: &insight_app_sec_configs InsightAppSec
+    insight_app_sec_config: &insight_app_sec_config InsightAppSec
+    notes: &notes Notes
+    owner: &owner Owner
+    project: &project Project
+    projects: &projects Projects
+    qualys_config: &qualys_config Qualys Account
+    qualys_configs: &qualys_configs Qualys Accounts
+    qualys_vm_clients: &qualys_vm_clients 'Qualys Client VM'
+    qualys_wa_clients: &qualys_wa_clients 'Qualys Client WA'
+    report: &report Report
+    reports: &reports Reports
+    report_export: Export
+    scan_report: Scans report
+    pentest_report: Pentest report
+    scan_launches: Scan launches
+    scan_launch: Scan launch
+    scheduled_scans: Scheduled scans
+    scheduled_scan: Scheduled scan
+    sellsy_config: &sellsy_config Sellsy
+    sellsy_configs: &sellsy_configs Sellsy
+    slack_config: &slack_config Slack Connection
+    slack_configs: &slack_configs Slack Connections
+    slack_application: &slack_application Slack Application
+    slack_applications: &slack_applications Slack Applications
+    zoho_cliq_config: &zoho_cliq_config Zoho Cliq Connection
+    zoho_cliq_configs: &zoho_cliq_configs Zoho Cliq Connections
+    google_chat_config: &google_chat_config Google Chat
+    google_chat_configs: &google_chat_configs Google Chats
+    microsoft_teams_config: &microsoft_teams_config Microsoft Teams
+    microsoft_teams_configs: &microsoft_teams_configs Microsoft Teams
+    staff: &staff Cyberanalyst
+    staffs: &staffs Cyberanalysts
+    statistics: &statistics Statistics
+    target: &target Target
+    targets: &targets Targets
+    team: &team Cyber team
+    teams: &teams Cyber teams
+    vm_scan: &vm_scan System scan
+    vulnerability: &vulnerability Vulnerability
+    vulnerabilities: &vulnerabilities Vulnerabilities
+    wa_scan: &wa_scan Applicative scan
+  labels:
+    active: Active
+    activity: Monthly activity
+    addendum: *notes
+    api_url: &api_url Api url
+    author: &author Author
+    average: Average
+    burp: Burp
+    cyberwatch: Cyberwatch
+    category: &category Category
+    client_logo: Client logo
+    closed: Closed
+    comment: Comment
+    completed: &completed Completed
+    confirmed_vulnerability: &confirmed_vulnerability Confirmed vulnerability
+    created_at: &created_at "Created at"
+    current_certification: &current_certification Current certification
+    cve: CVE
+    description: &description Description
+    diffusion_list: &diffusion_list "Report diffusion list (5 persons max)"
+    due_date: &due_date Due Date
+    export_data: Export data
+    failed: &failed Failed
+    filters: Advanced search
+    full_name: &full_name Fullname
+    gathered_information: &gathered_information Gathered information
+    groups: &groups Groups
+    history: Monthly connections
+    inactive: Inactive
+    informations: More informations
+    introduction: &introduction Introduction
+    jobs: Background jobs
+    jobs_in_progress: Jobs in progress
+    language: &language Language
+    langue: &langue Language
+    loading: Loading...
+    launch: Launch scan
+    login_mail: &login_mail Login email
+    gold_badge: GOLD
+    silver_badge: SILVER
+    bronze_badge: BRONZE
+    black_badge: No blazon
+    name: &name Name
+    nessus: Nessus
+    none: &none (None)
+    notes: *notes
+    notifications_mail: &notifications_mail Notifications email
+    notification_email_info: "Allows you to receive emails on an address other than the login address"
+    consultants_only: Only for consultants account
+    opened: Opened
+    otp_mandatory: 2FA mandatory
+    otp_not_mandatory: 2FA not mandatory
+    password: &password Password
+    pmt_name: &pmt_name Project Management Tool Name
+    pmt_reference: &pmt_reference Project Management Tool Reference
+    potential_vulnerability: &potential_vulnerability Potential vulnerability
+    priority: &priority Priority
+    private_key: &private_key Private key
+    processing: &processing Processing
+    public_key: Public key
+    quick_filters: Quick filters
+    related_vm_scans: &related_vm_scans Related system scans
+    related_wa_scans: &related_wa_scans Related applicative scans
+    reorder: Save new list order
+    report_export: Report
+    roles: &roles Roles
+    scans: &scans Scans
+    schedule: Schedule
+    scheduled: &scheduled Scheduled
+    scope: &scope Scope
+    scoring: &scoring Scoring
+    scoring_system: &scoring_system Scoring System
+    scoring_applicative: &scoring_applicative Scoring Applicative
+    search: Search
+    sensitive_information: &sensitive_information Sensitive information
+    severity: &severity Severity
+    show: Show related actions
+    since: Since
+    signatory: Report Signatory
+    solution: &solution Solution
+    sso_target_url: &sso_target_url Target SSO URL
+    state: &state State
+    status: &status Status
+    subtitle: &subtitle Subtitle
+    teams: Teams
+    title: &title Title
+    updated_at: &updated_at "Updated at"
+    users: Users
+    visualize_chart: Visualize chart
+    visualize_table: Visualize table
+    org_introduction: &org_introduction Organizational Vulnerabilities Introduction
+    vm_introduction: &vm_introduction System Vulnerabilities Introduction
+    vm_scan: *vm_scan
+    vm_scans: &vm_scans System Scans
+    wa_introduction: &wa_introduction Applicative Vulnerabilities Introduction
+    wa_scan: *wa_scan
+    wa_scans: &wa_scans Applicative Scans
+    with_secure: WithSecure
+    zaproxy: Zaproxy
+  accounts:
+    labels:
+      active: Scheduled imports activated
+      inactive: Scheduled imports deactivated
+  filters:
+    scans: Filter scans
+    before: Before
+    after: After
+    name_cont: Name contains
+    occurrence:
+      id: ID
+      title: *title
+      severity: *severity
+      kind: *category
+      status: Status
+      fill_scopes: Concatenate filtered occurrences scopes
+      copy_title: Copy title
+      copy_description: Copy description
+      copy_solution: Copy solution
+      move_filtered: Move filtered occurrences to other list
+  notifications:
+    comment:
+      create: 'New message !'
+    export:
+      update: 'New export generated !'
+      updated: 'Generated export deleted.'
+    scan:
+      create: 'A new scan has been imported: %{scan_name} !'
+      created: 'Imported scan deleted.'
+      destroyd: 'Imported scan deleted.'
+      destroy: 'The scan %{scan_name} has been deleted.'
+    scan_launch:
+      done: 'Launched scan on %{target} is done.'
+    occurrence:
+      warning: 'New occurrences with severity "%{severity}" or above !'
+      created: 'New occurrences deleted.'
+    create: "created"
+    update: "updated"
+    destroy: "deleted"
+    clear_all: Clear all
+    mark_all_as_read: Mark all as read
+    mark_all_as_unread: Mark all as unread
+    restore_all: Restore all
+  occurrences:
+    uri: URI
+    ip: &ip IP
+    fqdn: FQDN
+    netbios: Netbios
+    param: Param
+    content: Content
+    payload: Payload
+    data: Data
+    result: Result
+    diagnosis: *description
+    consequence: Consequence
+    solution: *solution
+    additional_infos: Additional informations
+    notices:
+      move_success: "Occurrences have been moved successfully."
+      move_failure: "Occurrences were not moved."
+  jobs:
+    section_title: Jobs
+    names:
+      destructor_job: Nikita
+      generators/auto_generate_report_job: Auto generation
+      generators/certificate_generator_job: Certificate generator
+      generators/pentest_report_generator_job: Pentest report generation
+      generators/scan_report_generator_job: Scans report generation
+      generators/xlsx_report_aggregates_generator_job: Aggregates export generation (.xlsx)
+      importers/actions_import_job: Actions import
+      importers/burp_issues_import_job: Burp import
+      importers/cve_import_job: Nist CVE import
+      importers/nessus_import_job: Nessus import
+      importers/qualys/vm/scans_import_job: Qualys VM import
+      importers/qualys/vm/scans_update_job: Qualys VM update
+      importers/qualys/wa/scans_import_job: Qualys WA import
+      importers/qualys/wa/scans_update_job: Qualys WA update
+      importers/qualys/vulnerabilities_import_job: Qualys vulnerabilities import
+      importers/scb/zaproxy_import_job: SecureCodeBox Zaproxy import
+      importers/sellsy_import_job: Sellsy import
+      importers/zaproxy_import_job: Zaproxy import
+      importers/cyberwatch/vm/scans_import_job: Cyberwatch scans import
+      importers/cyberwatch/assets_import_job: Cyberwatch assets import
+      importers/cyberwatch/vulnerabilities_import_job: Cyberwatch vulnerabilities import
+      importers/with_secure_import_job: WithSecure import
+      launchers/scb/zaproxy_scan_job: SecureCodeBox Zaproxy scan launch
+      lman_report_uploader_job: Reporting
+      mail_delivery_job: Mail
+      schedulers/scb/prepare_job: Scan scheduling
+      verify_auto_generation_job: Auto generation checker
+    statuses:
+      error: Error
+      init: Initialization
+      generating_file: File generation
+      opening_document: Opening document
+      looking_for_issues: Looking for issues
+      create_wa_scan: Create applicative scan
+      create_vm_scan: Create system scan
+      handle_issues: Handle issues
+      update_status: Update status
+      completed: Completed
+      destroying: Deleting
+      flyleaf: Flyleaf
+      footer: Footer
+      preambule: Preamble
+      summary: Summary
+      introduction: Introduction
+      results: Results
+      details: Details
+      appendix: Appendix
+      last_page: Last page
+      numerotation: Numbering
+      managerial_summary: Managerial summary
+      architecture: Architecture
+      import_actions: Import actions
+  access:
+    denied: Access denied.
+  section_header:
+    labels:
+      other_actions: "Other actions"
+    actions:
+      back: "Back"
+  administration:
+    section_title: "Administration"
+  configuration:
+    section_title: "Configuration"
+  data:
+    section_title: "Data"
+  menu:
+    headers:
+      authentication: &authentication Authentication
+      remediation: &remediation "Remediation"
+      cyber: &cyber "Cyber"
+      scanners: "Scanners"
+      provisioning: "User provisioning"
+      communication: Communication
+      ticketing: Ticketing
+  user_profile:
+    actions:
+      overview: Informations
+      edit_password: Password
+      edit_public_key: GPG
+      edit_otp: 2FA
+      edit_display: Display
+      edit_notifications: Notifications
+    display:
+      horizontal: Display submenu above content (= Horizontal)
+      vertical: Display submenu to the left of content (=Vertical)
+    labels:
+      my_groups: My groups
+      other_groups: Other groups
+    notifications:
+      by_mail: By mail
+      by_slack: In Slack
+      by_google_chat: In Google Chats
+      by_microsoft_teams: In Microsoft Teams
+      by_zoho_cliq: In Zoho Cliq
+      in_app: In CSIS
+      choose_notification_channel: 'Choose how to be notified when:'
+      specify_channel_providers_channel_id: 'Setup channels to be used per communication tool user account'
+      action_state_update: Update of an action state
+      comment_creation: New action comment
+      export_generation: Report export available
+      scan_launch_done: Manually launched scan done
+      scan_created: New scan created
+      scan_destroyed: Deleted scan
+      exceeding_severity_threshold: New occurrence(s) exceeding project criticity threshold
+  groups:
+    section_title: *groups
+    staff: *cyber
+    contact: *remediation
+    actions:
+      add_user: Add to group
+      remove_user: Remove from group
+    labels:
+      total_members: Total number of members
+      mfa:
+        group:
+          forced: 2FA is mandatory for all members of this group
+          unforced: Management of 2FA obligation is left to sub-entities of this group
+          force: Force 2FA use for all members of this group
+          unforce: Let management of 2FA obligation to sub-entities of this group
+        team:
+          forced: 2FA is mandatory for all members of this team
+          unforced: Users of this team can activate or not 2FA
+          force: Force 2FA use for all members of this team
+          unforce: Let users of this team activate or not 2FA
+        client:
+          forced: 2FA is mandatory for all members of this remediation team
+          unforced: Users of this remediation team can activate or not 2FA
+          force: Force 2FA use for all members of this remediation team
+          unforce: Let users of this remediation team activate or not 2FA
+        role:
+          forced: 2FA is mandatory for all users with this role
+          unforced: Users with this role can activate or not 2FA
+          force: Force 2FA use for all users with this role
+          unforce: Let users with this role activate or not 2FA
+        user:
+          forced: 2FA is mandatory for this user
+          unforced: This user can choose to activate or not 2FA
+          force: Force 2FA use for this user
+          unforce: Let this user activate or not 2FA
+    user:
+      teams_count: Number of teams
+  versions:
+    event:
+      creation: Creation
+      connexion: Connection %{mfa}
+      switch_view_html: Switched to view <b>%{view}</b>
+      display_submenu_direction_html: "Modified display to mode: <b>%{direction}</b>"
+      totp_configuration_validation: 2FA new configuration validation
+      new_totp_configuration: New 2FA configuration
+      clear_totp: Deletion of 2FA configuration
+      otp_mandatory_html: Forced 2FA use for <b>%{infos}</b>
+      no_otp_mandatory_html: Removed 2FA mandatory use for <b>%{infos}</b>
+      otp_activated: 2FA activated
+      otp_deactivated: 2FA deactivated
+      deletion: Deletion of %{target}
+  users:
+    actions:
+      resend_confirmation: &resend_confirmation "Resend confirmation instructions"
+      activate: &activate "Activate user account"
+      deactivate: &deactivate "Disable user Account"
+      send_unlock: &send_unlock "Send instructions to unlock account"
+      send_reset_password: &send_reset_password "Send instructions to reset password"
+      force_unlock: &force_unlock "Force unlock"
+      force_direct_otp: &force_direct_otp "Force codes sent by mail for 2fa"
+      force_unlock_otp: &force_unlock_otp "Unlock 2FA"
+      force_deactivate_otp: &force_deactivate_otp "Deactivate 2FA"
+      force_confirm: &force_confirm "Force email confirmation"
+    errors:
+      unauthorized_domain: "This domain doesn't have access to CSIS"
+      unauthorized_email: "This account doesn't have access to CSIS"
+      unauthorized_name: "The user name given by the identity provider does not match"
+    notices:
+      auto_deletion: "You cannot delete yourself!"
+      success: "Successful authentication."
+      fail: "Missing or incorrect data."
+      key_success: "The public key has been saved."
+      key_fail: "The public key sent is not valid."
+      password_success: "The password change has been saved."
+      password_fail: "The password must be 16 characters with at least one capital, one lowercase, one number and one symbol."
+      password_different: "Non-coherent passwords."
+      confirmation_sent: "An email containing a temporary confirmation link has been sent."
+      activated: "The account has been activated."
+      deactivated: "The account has been deactivated."
+      restored: "The account has been restored."
+      password_created: "The password has been registered, you can login now."
+      login_failure: "Username or password is incorrect."
+      unlock_sent: "An email containing account unlocking instructions has been sent."
+      reset_password_sent: "An email containing password reset instructions has been sent."
+      switched_to_staff: "You are now in Cyber view"
+      switched_to_contact: "You are now in IT view"
+      confirmed_at: "Email confirmed at %{infos}"
+      unconfirmed: "Pending email confirmation"
+      locked_at: "Locked at %{infos}"
+      unlocked: "Unlocked"
+      deletion_success: "User has been deleted successfully."
+      deletion_failure: "User has not been deleted."
+      forced_unlock: "Unlocked"
+      forced_direct_otp: "Moved to codes sent by mail"
+      email_update_success: "Email change has been saved."
+      email_update_fail: "Email change could not be saved."
+      otp_activated_at: "2FA activated at %{infos}"
+      otp_deactivated: "2FA deactivated"
+      otp_locked: "Too many login attemps for 2FA"
+      forced_email_confirmation: "Email confirmed"
+      forced_otp_deactivation: "2FA deactivated."
+      forced_unlock_otp: "2FA unlocked."
+    labels:
+      send_confirmation_notification: Send an email confirmation notification
+  staffs:
+    section_title: *staffs
+    actions:
+      create: "Create an analyst"
+      edit: "Modify the analyst"
+      destroy: "Delete the analyst"
+      destroy_confirm: "Are you sure you want to delete the analyst %{infos}?"
+      restore: "Restore the analyst"
+      restore_confirm: "Are you sure you want to restore the analyst %{infos}?"
+      resend_confirmation: *resend_confirmation
+      activate: *activate
+      deactivate: *deactivate
+      send_unlock: *send_unlock
+      send_reset_password: *send_reset_password
+      force_unlock: *force_unlock
+      force_direct_otp: *force_direct_otp
+      force_unlock_otp: *force_unlock_otp
+      force_deactivate_otp: *force_deactivate_otp
+      force_confirm: *force_confirm
+    pages:
+      edit: "Editing the analyst %{user}"
+  teams:
+    section_title: *teams
+    actions:
+      create: "Create a team"
+      edit: "Modify the team"
+      destroy: "Delete the team"
+      destroy_confirm: "Are you sure you want to delete the %{infos} team?"
+      restore: "Restore the team"
+      restore_confirm: "Are you sure you want to restore the %{infos} team?"
+    labels:
+      staff: "Member(s)"
+    pages:
+      edit: "Editing the team %{team}"
+    notices:
+      restored: "The team has been successfully restored."
+      deletion_success: "The team has been successfully deleted."
+      deletion_failure: "The team was not deleted."
+  aggregates:
+    labels:
+      selected_vulnerabilities: "Selected Vulnerabilities"
+      unselected_vulnerabilities: "Unselected vulnerabilities"
+      vulnerabilities: "Vulnerabilities List"
+      organizational_aggregates: "Organizational Aggregates"
+      system_aggregates: "System Aggregates"
+      applicative_aggregates: "Applicative Aggregates"
+      vulnerability_scan_aggregates: "Vulnerability scan"
+      appendix_aggregates: "Appendix"
+      contents: "Description of the aggregate"
+      list_attachment: 'List actions'
+      add_attachment: 'Create new action'
+      edit_attachment: 'Manage actions'
+    actions:
+      new: "Add an aggregate"
+      create: "Add an aggregate"
+      edit: "Modify the aggregate"
+      hide: "Aggregate Visible"
+      show: "Aggregate Hidden"
+      destroy: "Delete the aggregate"
+      destroy_confirm: "Are you sure you want to delete the %{infos} aggregate?"
+      create_action: "Create an action"
+      merge: 'Merge selected aggregates and/or occurrences into this aggregate'
+      move_up: "Up"
+      move_down: "Down"
+      new_vulnerability_scan: 'Add vulnerability scan'
+      new_appendix: 'Add appendix'
+    notices:
+      visibility_updated: "The visibility of the aggregate has been changed successfully."
+      deletion_success: "The aggregate has been deleted successfully."
+      deletion_failure: "The aggregate was not deleted."
+      attachment_success: 'Actions have been updated successfully.'
+      merge_success: "Aggregates have been merged successfully."
+      merge_failure: "Aggregates were not merged."
+    order:
+      apply_order: Apply sorting order to aggregates
+      display_actual_ranks: Display aggregates according to their last persisted rank
+      header: Aggregates order in report
+      save_all_ranks: Save all new ranks of report aggregates
+      save_order: Save sorting order for this report
+      severity: By descending severity
+      status: By descending status
+      visibility: By visibility
+      title: By alphabetical order
+    duplicate:
+      action: Duplicate selected aggregates
+      header: Aggregates duplication
+      select: Select targeted report(s)
+      error:
+        no_aggregate: Please select at least one aggregate
+        no_report: Please select at least one report
+    delete:
+      action: Delete selected aggregates
+      header: Aggregates deletion
+      error:
+        no_aggregate: Please select at least one aggregate
+  clients:
+    section_title: *clients
+    section_subtitle:
+      zero: "No registered remediation teams"
+      one: One registered remediation team"
+      other: "%{count} registered remediation teams"
+    actions:
+      new: "Add a client"
+      create: "Add a client"
+      edit: "Modify the client"
+      destroy: "Delete the client"
+      destroy_confirm: "Are you sure you want to delete the %{infos} client?"
+      restore: "Restore the client"
+      restore_confirm: "Are you sure you want to restore the %{infos} client?"
+    labels:
+      show: "Show"
+      contacts: *contacts
+      relation_type: "Relation type"
+      ref_identifier: &ref_identifier Reference identifier
+      web_url: "Web URL"
+      internal_type:
+        supplier: *client
+        client: *owner
+    pages:
+      edit: "Editing the client %{client}"
+    notices:
+      restored: "The client has been successfully reactivated."
+      deletion_success: "The client has been successfully deleted."
+      deletion_failure: "The client has not been deleted."
+      member_empty: "You must select at least one member."
+  contacts:
+    section_title: *contacts
+    section_subtitle:
+      zero: "No registered contact"
+      one: "One registered contact"
+      other: "%{count} registered contacts"
+    actions:
+      new: "Add a contact"
+      create: "Add a contact"
+      edit: "Modify the contact"
+      destroy: "Delete the contact"
+      destroy_confirm: "Are you sure you want to delete the %{infos} contact?"
+      restore: "Restore the contact"
+      restore_confirm: "Are you sure you want to restore the %{infos} contact?"
+      change_password: "Change password"
+      resend_confirmation: *resend_confirmation
+      activate: *activate
+      deactivate: *deactivate
+      send_unlock: *send_unlock
+      send_reset_password: *send_reset_password
+      force_unlock: *force_unlock
+      force_direct_otp: *force_direct_otp
+      force_unlock_otp: *force_unlock_otp
+      force_deactivate_otp: *force_deactivate_otp
+      force_confirm: *force_confirm
+      change_email: "Change email without confirmation"
+    pages:
+      edit: "Editing the contact %{user}"
+    labels:
+      email: "Email"
+      password: "Password"
+    form:
+      old_password: 'Current password'
+      new_password: 'New password'
+      password_confirmation: 'Confirmation'
+      new_email: 'New email'
+    notices:
+      teams_selection: "You have to select at least one remediation team !"
+      outside_perimeter: "This contact is also in another administrator perimeter. Your remediation teams only were deleted!"
+  dashboard:
+    section_title: "Home"
+    welcome_title: "Computer Security Information System"
+    labels:
+      client_not_linked_to_team: 'Client not linked to a cyber team'
+      import_scan: "Scans Import"
+      linked_to_client: 'Linked to client'
+      no_client: 'Not linked to a client'
+      vm_scans_count: "Number of system scans"
+      wa_scans_count: "Number of applicative scans"
+      qualys_vm_client_without_team_count: "Number of QualysVmClient configuration without team"
+      qualys_wa_client_without_team_count: "Number of QualysWaClient configuration without team"
+      actions_count: "Number of active actions"
+      contacts_count: "Number of Remediation Users"
+      clients_count: "Number of Remediation Teams"
+      staffs_count: "Number of Cyber Analysts"
+      teams_count: "Number of Cyber Teams"
+      reports_count: "Reports"
+      projects_count: "Number of projects"
+      occurrences_count: "Occurrences"
+      project_occurrences: "Occurrences by project"
+      graph_title_projects: "Projects Severity Repartition"
+      graph_title_reports: "Reports Severity Repartition"
+      graph_title_actions: "Actions Severity Repartition"
+      last_actions: "Last active actions"
+      last_reports: "Last reports"
+      last_projects: "last projects"
+      last_vm_scans: "Last system scans"
+      last_wa_scans: "Last applicative scans"
+      last_vulnerabilities: "Most present vulnerabilities"
+      certification : "Actual Certification"
+      security_level: "Security Level"
+      follow_type : "Follow-type"
+      date: "Creation date"
+      created_at: *created_at
+      updated_at: *updated_at
+      linked_to_report: "Used in at least one report"
+      has_qualys_client: "Linked to a Qualys Client"
+      scoring_system_aggregate: Aggregate scoring system
+      scoring_applicative_aggregate: Aggregate scoring applicative
+      set_default_card: Set as default preloaded content
+      unset_default_card: Unset as default preloaded content
+  exports:
+    section_title: "Exports"
+    actions:
+      download: "Download"
+      destroy: "Delete export"
+      destroy_confirm: "Are you sure you want to delete the export from %{infos}?"
+      no_architecture: "Export without showing architecture"
+      no_history: "Export without showing history"
+    notices:
+      generating: "Your report is being generated"
+      non_generating: "Your report cannot be generated"
+      deleted: "The export has been successfully deleted"
+  imports:
+    actions:
+      create: New import
+      download: "Download"
+      destroy: "Delete import and related scans if not used"
+      destroy_confirm: "Are you sure you want to delete the import from %{infos}?"
+    notices:
+      processing: "Your import is being processed"
+      deleted: "The import has been successfully deleted"
+  projects:
+    section_title: *projects
+    actions:
+      create: "Create a project"
+      create_scan_report: "Create a scan report"
+      create_pentest_report: "Create a pentest report"
+      create_action_plan_report: "Create an action plan report"
+      edit: "Edit project"
+      destroy: "Delete project"
+      destroy_confirm: "Are you sure you want to delete the project %{infos}?"
+      restore: "Restore project"
+      restore_confirm: "Are you sure you want to restore the project %{infos}?"
+      schedule_scan: Schedule a scan
+    pages:
+      edit: "Editing the project %{project}"
+    notices:
+      deleted_html: "The project %{project} has been deleted. %{cancel}"
+      restored: "The project %{project} has been successfully restored."
+      length: "Title length must be under 100 characters"
+    scopes:
+      all:
+        subtitle:
+          zero: "No saved project"
+          one: "One saved project"
+          other: "%{count} saved projects"
+      trashed:
+        subtitle:
+          zero: "No project in the trash"
+          one: "One project in the trash"
+          other: "%{count} projects in the trash"
+    labels:
+      scoring: "Update Scoring"
+      client: "Owner"
+      suppliers: *clients
+      language: "Project Language"
+      info_schedule: "Schedule help"
+      how_to_schedule: "Cron expression made of five fields which represent the time to execute the command."
+      once_a_month: 'Monthly: "0 0 1 * *"'
+      twice_a_month: 'Twice a month: "0 0 1,15 * *"'
+      once_a_week: 'Weekly: "0 0 * * *"'
+      info_regex: "Regex help"
+      how_to_regex: "Sequence of characters that define a search pattern."
+      regex_example: "VM - Company name"
+      auto_aggregate_off: "Automatic occurrences aggregation OFF"
+      auto_aggregate_on: "Automatic occurrences aggregation ON"
+      auto_generate_off: "Automatic report generation OFF"
+      auto_generate_on: "Automatic report generation ON"
+      auto_export_on: "Automatic report exportation OFF"
+      auto_export_off: "Automatic report exportation ON"
+      scans_names_common_part: Scans names common part
+  reports:
+    section_title: *reports
+    section_subtitle: "Reports List"
+    actions:
+      create: "Create a report"
+      edit: "Edit report"
+      export_as_pdf: "Export rapport"
+      export_as_xlsx: "Export aggregates"
+      import_scan: "Import scan"
+      destroy: "Delete report"
+      destroy_confirm: "Are you sure you want to delete the report %{infos}?"
+      create_aggregate: "Create an aggregate"
+      launch_scan: "Launch scan"
+      restore: "Restore report"
+      restore_confirm: "Are you sure you want to restore the report %{infos} ?"
+      auto_aggregate: "Auto aggregate occurrences"
+      auto_aggregate_no_mixing: "Auto aggregate without changing the existent"
+    pages:
+      create: "New report creation"
+      edit: "Editing the report %{report}"
+      project: "%{client} / %{project}"
+      title: "%{report} (%{date})"
+    labels:
+      vm_scans: *vm_scans
+      wa_scans: *wa_scans
+      actual: Currently used in this report
+      not_used: "Not Used"
+      ip_notused: "Ip not used for this report"
+      ip_used: "Ip used for this report"
+      scan_application_name: Web app
+      scan_field : "Field"
+      scan_field_description : "Description"
+      scan_crawlduration : "Crawl Duration"
+      scan_testduration : "Test Duration"
+      scan_linkscrawled : "Links Crawled"
+      scan_launched_at: 'Launched at'
+      scan_nbrequests : "Number of Requests"
+      scan_mode: "Mode"
+      scan_authent: "Authentification"
+      scan_author: "Launched by"
+      scan_name: *name
+      scan_date: "Launched at "
+      scan_ip: "IP (WhoIs)"
+      scan_url: "URL"
+      scan_whois: "URL (WhoIs)"
+      scan_screenshot: "Thumbnail(s)"
+      already_used: "Already used in other(s) report(s)"
+      related_ips: "Related IPs"
+      choose_ips: "Choose IPs"
+      choose_url: "Choose URL"
+      original_url: "Original URL:"
+      actual_url: "URL used:"
+      language: "Report Language"
+      follow_type: &type Type
+      tools:
+        category: 'Used tools'
+        name: 'Name'
+        version: 'Version'
+        action: *action
+      exec_cond: "Conditions of execution"
+      purpose: 'Purpose of the document'
+      results: "Results of the pentest"
+      preamble: 'Preamble'
+      notify_contacts: 'Notify remediation contacts by email'
+      base_report_default: By default, the last project report of similar type
+    notices:
+      restored: "The report %{report} has been restored."
+      contacts_length: ": between 1 et 5 selected"
+      mailed: "Emails have been sent successfully."
+      auto_aggregated: "Occurrences have been aggregated successfully."
+    imports:
+      burp: Burp (Xml)
+      nessus: Nessus (Xml)
+      with_secure: WithSecure (Xml)
+      zaproxy: Zaproxy (json)
+  scan_launches:
+    actions:
+      create: New scan launch
+      destroy: "Delete scan launch"
+      destroy_confirm: "Are you sure you want to delete the scan launch %{infos}?"
+      download: "Download"
+      import: Launch import
+    notices:
+      processing: "Your scan launch is being processed"
+      deleted: "The scan launch has been successfully deleted"
+  scheduled_scans:
+    actions:
+      create: New scan schedule
+      destroy: 'Delete schedule'
+      destroy_confirm: 'Are you sure you want to delete the scheduled scan %{infos}?'
+      activate: Activate schedule
+      deactivate: Deactivate schedule
+    notices:
+      activated: Scheduled scan is now active
+      deactivated: Scheduled scan is now inactive
+      deleted: Scheduled scan has been deleted
+      scheduled: Scan has been scheduled
+  vulnerabilities:
+    cvss_to_severity:
+      description: Low threshold (in CVSS score, from 0.1 to 10) for each severity level; "Minimal" always starts at 0, it is therefore not customizable.
+    section_title: "Vulnerabilities"
+    section_subtitle:
+      zero: "No registered vulnerability"
+      one: "One registered vulnerability"
+      other: "%{count} registered vulnerabilities"
+    scopes:
+      burp:
+        name: "Burp"
+        subtitle:
+          zero: "No vulnerability in the Burp database"
+          one: "One vulnerability in the Burp database"
+          other: "%{count} vulnerabilities in the Burp database"
+      qualys:
+        name: "Qualys"
+        subtitle:
+          zero: "No vulnerability in the Qualys database"
+          one: "One vulnerability in the Qualys database"
+          other: " %{count} vulnerabilities in the Qualys database"
+      cve:
+        name: "CVE"
+        subtitle:
+          zero: "No CVE imported."
+          one: "One CVE imported"
+          other: "%{count} CVEs"
+      nessus:
+        name: "Nessus"
+        subtitle:
+          zero: "No vulnerability in the Nessus database"
+          one: "One vulnerability in the Nessus database"
+          other: "%{count} vulnerabilities in the Nessus database"
+      zaproxy:
+        name: "Zaproxy"
+        subtitle:
+          zero: "No vulnerability in the Zaproxy database"
+          one: "One vulnerability in the Zaproxy database"
+          other: "%{count} vulnerabilities in the Zaproxy database"
+      cyberwatch:
+        name: "Cyberwatch"
+        subtitle:
+          zero: "No vulnerability in the Cyberwatch database"
+          one: "One vulnerability in the Cyberwatch database"
+          other: "%{count} vulnerabilities in the Cyberwatch database"
+    actions:
+      import: "Import"
+    labels:
+      qid: "QID"
+      kind: "Category (kind)"
+      diagnosis: "Original diagnosis"
+      consequence: "Consequence"
+      solution: "Original solution"
+      additional_info: "Additional informations"
+      cve: "Associated CVEs"
+      bugtraq: "Associated Bugtraq"
+      modified: "Last modified on"
+      published: "Published the"
+      patchable: "Patchable"
+      pci_flag: "PCI flag"
+      remote: "Remote"
+      exploits: "Exploits"
+      title: "Title"
+    pages:
+      edit: "Vulnerability Translation \"%{vulnerability}\""
+  notes:
+    section_title: *notes
+    actions:
+      create: "Create a note"
+      edit: "Edit note"
+      destroy: "Delete note"
+      destroy_confirm: "Are you sure you want to delete the note %{infos}?"
+      restore: "Restore note"
+      restore_confirm: "Are you sure you want to restore the note %{infos}?"
+    labels:
+      author: "Author"
+      actives: Active notes
+      content: Content
+      deleted: Deleted notes
+      new: New note
+      saving: Saving...
+    pages:
+      edit: "Editing the note %{note}"
+    notices:
+      deletion_success: "The Note has been deleted successfully."
+      deletion_failure: "The Note was not deleted."
+      deleted_html: "The note %{note} has been deleted. %{cancel}"
+      restored: "The note %{note} has been successfully restored."
+  actions:
+    section_title: *actions
+    section_subtitle: "Actions List"
+    actions:
+      create: "Create an action"
+      create_dependency: "Create a dependency"
+      edit: "Edit action"
+      destroy: "Delete action"
+      destroy_confirm: "Are you sure you want to delete the action %{infos}?"
+      restore: "Restore action"
+      restore_confirm: "Are you sure you want to restore the action %{infos}?"
+      issues:
+        title: "Tickets"
+        close: "close"
+        status:
+          open: "Open"
+          closed: "Closed"
+        fixed_vuln: "solved"
+        accepted_risk: "risk accepted"
+    multi_update:
+      button: "Modify action state"
+      message: "The current action state is '%{old}', are you sure to change the action state?"
+      message_all: "Are you sure to change the action(s) state?"
+      mail: "Send an email"
+      delete: &delete Delete
+    scopes:
+      active:
+        name: &actives "Actives"
+      trashed:
+        name: &trashed "Trash"
+      clotured:
+        name: &clotured "Clotured"
+      archived:
+        name: &archived "Archived"
+    pages:
+      edit: "Editing the action %{action}"
+    notices:
+      deleted_html: "The action %{action} has been removed. %{cancel}"
+      restored: "The action %{action} has been restored."
+      cannot_restore: "The action hasn't been restored, its aggregate isn't available"
+      created: "The action has been created."
+      maj: "Settings have been updated."
+      maj_failed: "One or more actions have not been updated, please check dependencies."
+      incomplete: "Incomplete fields."
+      mail_success: "The mail has been sent."
+      mail_fail: "The action is not linked to a contact."
+      delete: "Deletion performed."
+      no_selection: "No action selected."
+      receiver_error: "The selected actions do not have the same recipient."
+      no_rights: "You do not have rights to perform this action."
+      aggregate_error: "The selected actions do not have the same aggregate."
+    labels:
+      pmt_title: "Project Management"
+      pmt_name: *pmt_name
+      pmt_reference: *pmt_reference
+      description: "Description"
+      info: "Description help"
+      how_to: "To display html code, please encapsulate your html code into <script></script> tags or use &lt; as < and &gt; as >. You can use the following tags to format your text : "
+      state: "State"
+      meta_state: "Meta State"
+      client: "Owner"
+      project: "Project"
+      report: "Report"
+      aggregate: "Vulnerability"
+      receiver: *contact
+      unknown: "Not specified"
+      author: "Cyberanalyst"
+      history: 'Previous appearances of the action'
+      issues:
+        available_configs: Available configuration(s)
+        new_ticket: "New ticket"
+        methods:
+          new: New ticket
+  dependencies:
+    actions:
+      edit: "Edit dependencies"
+      delete: *delete
+    pages:
+      index: "Requires the completion of these actions:"
+      edit: "Editing dependency %{dependency}"
+    notices:
+      done: "Dependencies added."
+      maj: "The dependencies have been updated."
+      no_selection: "No action selected."
+  comments:
+    actions:
+      add: "Send a message:"
+    notices:
+      created: "Message sent"
+      failed: "Error while sending the message"
+      length: "The length of a message must be between 3 and 1024 characters"
+    labels:
+      user_not_found: "User not found"
+  audit_logs:
+    section_title: "Audit Log"
+    labels:
+      user: &user "User"
+      model: "Model"
+      action: "Action"
+      changement: "Changes made"
+      date: "Date"
+      versions_ranges: Ranges to include ( 3 MAX )
+  time:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%e %b"
+      short_dmy: "%m/%d/%y"
+      classic: "%d %b %Y"
+      long: "%-d %B %Y"
+      full: "%d %B %Y %H:%M:%S"
+      audit: "%m/%d/%y %H:%M:%S"
+      message_day: "%B %-d %Y"
+      message_hour: "%-H:%M"
+  date:
+    formats:
+      short_dmy: "%m/%d/%y"
+      classic: "%d %b %Y"
+      long: "%-d %B %Y"
+      sentence: "%B %-d, %Y"
+  statistics:
+    name: "Project Statistics"
+    section_title: *statistics
+    section_subtitle:
+      name: "Projects List"
+      statistics: "Statistics of your Projects"
+    scopes:
+      global:
+        name: "Global"
+    headers:
+      scores: Scores
+      vulnerabilities: *vulnerabilities
+    labels:
+      level_average: "Average certification"
+      scans_count: "Number of scans repartition function of scan level"
+      repartition_of_system_vulnerabilities: "Repartition of system vulnerabilities"
+      repartition_of_applicative_vulnerabilities: "Repartition of applicative vulnerabilities"
+      scans_history: "Scans history"
+      nof_excellent: &excellent Excellent
+      nof_very_good: &verygood Very Good
+      nof_good: &good Good
+      nof_satisfactory: &satisfactory Medium
+      nof_in_progress: &in_progress Weak
+      score: "Points"
+      scan_reports_count: "Scan reports count"
+      pentest_reports_count: "Pentest reports count"
+      action_plan_reports_count: "Action plan reports count"
+      language: *langue
+      no_certificate: "No certificate"
+      sync_link: "Sync link"
+      last_most_present_vm_vulnerabilities: Last most present system vulnerabilities
+      last_most_present_wa_vulnerabilities: Last most present applicative vulnerabilities
+      last_most_critical_vm_vulnerabilities: Last most critical system vulnerabilities
+      last_most_critical_wa_vulnerabilities: Last most critical applicative vulnerabilities
+      last_most_present_vulnerabilities: Per vulnerabilities occurrences
+      last_owasp_vulnerabilities: Top 10 OWASP
+      last_most_critical_vulnerabilities: Per severity
+      last_reports: Projects levels
+      limit: "Maximum nb of elements present on the pie-charts"
+      limit_tooltip: last one includes all others
+      projects_security_levels: Projects security levels
+      projects_scores: Projects scores
+      others: Others
+      projects_options: Projects to include
+      reports_options: Reports to include
+      vulns_options: Vulnerabilities options
+      vulnerabilities:
+        inclusion: "Grouping vulnerabilities like below:"
+        all: Potentials and confirmed and sensible informations
+        potential: Potentials for one part
+        confirmed: Confirmed for one part
+        sensible: Sensible informations for one part
+      check_all_projects: All projects
+      check_all_projects_tooltip: &by_default By default
+      check_all_projects_default: All last reports of all projects
+      check_all_projects_default_tooltip: *by_default
+      check_all_available_reports: All available reports
+      check_all: Check all reports for projet %{project}
+      or: *or
+    current_level:
+      in_progress: *in_progress
+      satisfactory: *satisfactory
+      good: *good
+      very_good: *verygood
+      excellent: *excellent
+    blazon:
+      name: "Blazon"
+      yours: "Your Blazon"
+      type:
+        gold: "Golden Blazon"
+        silver: "Silver Blazon"
+        bronze: "Bronze Blazon"
+      levels:
+        gold: 'Gold reaches from 3120 points'
+        silver: 'Silver reaches from 1950 points'
+        bronze: 'Bronze reaches from 975 points'
+    sentences:
+      last_scan_vm: "Your last system scan was from:"
+      last_scan_wa: "Your last applicative scan was from:"
+      no_scan_vm: "No System Scan done yet"
+      no_scan_wa: "No Applicative Scan done yet"
+      no_stat: "No statistics available yet"
+    exports:
+      section_title: "Exports"
+      labels:
+        object: "Object"
+        columns: "Columns"
+        export: "Export"
+      errors:
+        wrong_object: 'Wrong object ...'
+        wrong_columns: 'Wrong columns ...'
+  certificate:
+    labels:
+      links: "Synchronization links"
+      nolink: "No sync link"
+      transparency: "Transparency Level"
+      update_certificate: "Update certificate"
+      current_transparency: "Current Transparency"
+      language: "Certificate languages"
+      change_language: "Regenerate certificates"
+      project_follow: "Follow-type"
+      follow_type:
+        scan: "Scan"
+        pentest: "Pentest"
+        action_import: "Action Import"
+    sentences:
+      update: "Certificates successfully updated"
+      help: "Help"
+    pdf:
+      presentation: 'For a presentation of our security certificates:'
+      website: "The following sites:"
+      have_been: "have been "
+      one_scan: "scanned once for vulnerabilities,"
+      multiple_scan: "scanned for vulnerabilities %{number} times,"
+      one_pentest: "pentested once,"
+      multiple_pentest: "pentested %{number} times,"
+      one_action_import: "actions import once,"
+      multiple_action_import: "actions imports %{number} times,"
+      since: "since "
+      the: "on "
+      result: "The last result was:"
+      statistics: *statistics
+      signatory_name: "Signatory name"
+      signatory_title: "Signatory title"
+      signatory_town: "signatory town, "
+      last_result: "The last result obtained was:"
+  settings:
+    section_title: "Customization"
+    section_sellsy: "Sellsy"
+    section_qualys: "Qualys"
+    section_certificate: "Certificates"
+    section_mails: "Mails"
+    section_reports: "Reports"
+    section_thresholds: "Thresholds"
+    import_sellsy: "The Sellsy import has started."
+    import_sellsy_canceled: "No Sellsy account was found."
+    import_scans: "The import of scans has started."
+    import_vulnerabilities: "The import of vulnerabilities has started."
+    import_assets: "The import of assets has started."
+    labels:
+      import_all: "Import"
+      last_only: Added after last imported vulnerability only
+      thumb_only: "Landing page(s) only"
+      update_one: "Scan Update"
+      delete_one: "Scan Deletion"
+      bg_certificate_mime: "Jpeg format"
+      bg_certificate: "Current certificates background"
+      reports_logo: "Reports logo"
+      reports_logo_mime: &logo_mime "Png format"
+      mails_logo: "Mails logo"
+      mails_logo_mime: *logo_mime
+      mails_webicons: "Social webicons"
+      wsc: "WSC"
+      badges: "badges"
+      update: &update Update
+      colors: "Colors"
+      severity: *severity
+      signatory: "Signatory"
+    buttons:
+      delete: "Delete scan"
+      upload: "Upload"
+      update: "Update certificates and statistics"
+      import_scans: "Import scan(s)"
+      idp_import: "IdP import"
+      sellsy_import: "Sellsy import"
+      vulnerabilities_import: "Vulnerabilities import"
+      assets_import: "Assets import"
+      scan_update: "Update scan(s)"
+      vm_scans_update: "Update VM scans"
+      wa_scans_update: "Update WA scans"
+      wa_scans_thumbnails_update: "Update WA scans thumbnails"
+      wa_scans_thumbnails_update_force: "Force update WA scans thumbnails"
+      reset: "Reset"
+      color_update: "Update color"
+      signatory_update: "Update signatory"
+      ping: "Ping"
+    notices:
+      filename_error: "Please put a full filename."
+      missing_image_error: "Please add an image."
+      type_error: "The image has the wrong type."
+      success: "The image has been updated."
+      updated: "The certificates and statistics have been updated."
+      no_selection: "No scan selected."
+      deleted: "The scan has been deleted."
+      wrong_value: "Invalid value."
+      missing_account: "A valid Qualys account is required for this action."
+      reset_success: "Reset has been successful."
+      reset_failure: "Reset has failed."
+      customize_success: "Parameters have been updated."
+      customize_failure: "Parameters have not been updated."
+    social:
+      no_url: No url. Nothing to display
+    actions:
+      destroy_confirm: "Are you sure you want to delete this scan?"
+      update_confirm: "Are you sure you want to update this scan?"
+  pdf:
+    slogan: Let us build together your
+    cyber_serenity: Cyber-serenity
+    website: 'WWW.SOMEWEBSITE.EU'
+    contact: 'contact@somedomain.com'
+    preamble: "Preamble"
+    classification:
+      class_name: "Classification"
+      level_classification: "Definition of the used classification levels:"
+      name:
+        public: 'PUBLIC'
+        restricted: 'RESTRICTED'
+        confidential: 'CONFIDENTIAL'
+        secret: 'SECRET'
+      level_public: 'The document can be distributed to everyone'
+      level_restricted: 'For internal use only - the document can be distributed by the members
+          of the diffusion list within the scope of their business needs'
+      level_confidential: 'Sensitive/critical information - the document can be distributed by a
+          member of the distribution list to another person on his(her) own responsibility'
+      # Emty line to match fr.yml
+      # Emty line to match fr.yml
+      # Emty line to match fr.yml
+      level_secret: 'Extremely sensitive/critical information (strategic) - cannot be distributed'
+      # Emty line to match fr.yml
+      # Emty line to match fr.yml
+    diffusion: Diffusion List
+    security_center: '(Security Center).'
+    diffusion_text: 'Only the mentioned staff (or staff whose companies are mentioned) can receive
+        the diffusion of this document'
+    title:
+      summary: "Summary"
+      tested_architecture: 'Targeted architecture'
+      system: "OS & Middleware"
+      applicative: "Application"
+    text:
+      managerial_summary: "Managerial Summary"
+      architecture: "Targeted architecture"
+      organizational: "Organizational vulnerabilities"
+      system: "OS & Middleware vulnerabilities"
+      applicative: "Application vulnerabilities"
+      score_depends: "Scoring depends on the number of URLs and IPs"
+      full_list: The list of gathered informations
+      available_from_referent: is available from your cyber analyst contact
+      server: The servers below responded during the OS & Middleware scan
+      applications: The web applications below responded during the applicative scan
+    tab:
+      confirmed: "Confirmed"
+      potential: "Potential"
+      total: "Total"
+      scoring: *scoring
+      not_this_line: "The scoring does not include this line"
+      not_this_col: "The scoring does not include this column and this line"
+    score_tab:
+      immediate_correction: "5 : Immediate correction"
+      48h_correction: "4 : Fix <48h"
+      minor_correction: "3 : Correction next minor delivery"
+      major_correction: "2 : Correction next major delivery"
+      illimited_time: "1 : When possible"
+      false_positive: "0 : False positive"
+    scanreport:
+      title:
+        name: "Vulnerabilities scan"
+        filename: "_Vulnerabilities_Scan.pdf"
+      managerial_summary:
+        this_document: "this document reports found vulnerabilities on"
+    pentestreport:
+      title:
+        name: "Pentest"
+        filename: "_Pentest.pdf"
+      managerial_summary:
+        this_document: "this document reports found vulnerabilities on"
+    pentest:
+      title:
+        intro: 'Introduction of the document'
+        purpose: 'Purpose of the document'
+        exec_cond: 'Conditions of execution'
+        results: 'Results of the pentest'
+        managerial_summary: 'Managerial summary'
+        tech_synth: 'Technical synthesis'
+        tools: 'Used tools'
+        details: 'Detailled results'
+        scan: 'Vulnerability scan'
+        pentest: 'Penetration testing'
+        appendix: 'Appendix'
+      aggregates:
+        impact: 'Impact:'
+        complexity: 'Complexity:'
+        reference: "<color rgb='D35D2C'>%{top}</color> reference :"
+      text:
+        audit_scale: 'Audit scale:'
+        correction_time: 'Correction time:'
+        complexity: 'Complexity:'
+        vuln_level_five: 'Level 5 vulnerabilities identified:'
+        vuln_level_other: 'Maximum level %{level} vulnerabilities identified:'
+        level: 'Level %{level}:'
+        observed_level: "The observed security level of this application is "
+        total: 'TOTAL'
+        end: '- End of document -'
+      level:
+        low: Low
+        medium: Medium
+        high: High
+    ActionPlanReport:
+      title:
+        name: "Actions Import"
+        filename: "_Actions_Import.pdf"
+        intro: 'Introduction of the document'
+        purpose: 'Purpose of the document'
+        exec_cond: 'Conditions of execution'
+        results: 'Results of the pentest'
+        managerial_summary: 'Managerial summary'
+        tech_synth: 'Technical synthesis'
+        tools: 'Used tools'
+        details: 'Detailled results'
+        scan: 'Vulnerability scan'
+        pentest: 'Penetration testing'
+        appendix: 'Appendix'
+      managerial_summary:
+        this_document: "this document reports vulnerabilities imported state on"
+      aggregates:
+        impact: 'Impact:'
+        complexity: 'Complexity:'
+        reference: "<color rgb='D35D2C'>%{top}</color> reference :"
+      text:
+        audit_scale: 'Audit scale:'
+        correction_time: 'Correction time:'
+        complexity: 'Complexity:'
+        vuln_level_five: 'Level 5 vulnerabilities identified:'
+        vuln_level_other: 'Maximum level %{level} vulnerabilities identified:'
+        level: 'Level %{level}:'
+        observed_level: "The observed security level of this application is "
+        total: 'TOTAL'
+        end: '- End of document -'
+      level:
+        low: Low
+        medium: Medium
+        high: High
+  idp_configs:
+    section_title: *idp_configs
+    actions:
+      create: "Create an Identity Provider configuration"
+      edit: "Modify the Identity Provider configuration"
+      destroy: "Delete the Identity Provider configuration"
+      destroy_confirm: "Are you sure you want to delete the Identity Provider configuration %{infos}?"
+      activate: "Activate Identity Provider configuration"
+      deactivate: "Disable Identity Provider configuration"
+      replace_metadata_xml: 'Replace by:'
+      restore: "Restore Identity Provider configuration"
+      restore_confirm: "Are you sure you want to restore the Identity Provider configuration %{infos}?"
+    pages:
+      edit: "Editing the Identity Provider configuration %{idp_config}"
+    errors:
+      configuration_error: "Problem with the Identity Provider configuration"
+    notices:
+      deletion_success: "The Identity Provider configuration has been deleted successfully."
+      deletion_failure: "The Identity Provider configuration was not deleted."
+      activated: "The Identity Provider configuration was deactivated."
+      deactivated: "The Identity Provider configuration was activated."
+      restored: "The Identity Provider configuration was restored."
+      no_metadata: At least an url or a file containing idp metadata must be provided.
+    labels:
+      state: *state
+      idp_metadata_url: &idp_metadata_url "Idp Metadata url"
+      idp_metadata_xml: &idp_metadata_xml Idp Metadata Xml
+      idp_entity_id: &idp_entity_id "Idp Entity Id"
+      sp_data: &sp_metadata "Data useful for Idp administrator"
+  insight_app_sec_configs:
+    section_title: *insight_app_sec_configs
+    actions:
+      create: "Create an InsightAppSec configuration"
+      edit: "Modify the InsightAppSec configuration"
+      destroy: "Delete the InsightAppSec configuration"
+      destroy_confirm: "Are you sure you want to delete the InsightAppSec configuration %{infos}?"
+    pages:
+      edit: "Editing the InsightAppSec configuration %{insight_app_sec_config}"
+    notices:
+      deletion_success: "The InsightAppSec configuration has been deleted successfully."
+      deletion_failure: "The InsightAppSec configuration was not deleted."
+    labels:
+      teams: *teams
+      url: *api_url
+  issues:
+    notices:
+      creation_failure: The issue could not be created.
+      deletion_failure: The issue was not deleted.
+  jira_configs:
+    section_title: Jira configurations
+    actions:
+      activate: Activate configuration
+      deactivate: Deactivate configuration
+      create: Add a Jira configuration
+      edit: Edit the Jira configuration
+      destroy: Delete the Jira configuration
+      destroy_confirm: Are you sure you want to delete the Jira configuration %{infos}? Nothing will be deleted if at least one action uses this configuration
+    pages:
+      edit: Editing the Jira configuration %{jira_config}
+    access_error: Check URL and context, as well as the application link configuration on Jira
+    instance_config:
+      title: Required configuration on Jira
+      intro: "Your Jira instance administrator must add a direct incoming application link with the following settings:"
+      app_url_label: "Application URL:"
+      app_type_label: "Application type:"
+      app_type: "generic application"
+      consumer_key_label: "Consumer key:"
+      public_key_label: "Public key:"
+      outro: "These settings are the same for every Jira configuration created on this CSIS instance."
+    labels:
+      linked_actions: Actions linked to this Jira configuration
+      status_info: Informations about connection status
+    status_info:
+      request: "You have created the Jira configuration on CSIS, but you haven't validated it on Jira yet. Go to the Jira configuration edit page, click on Update to access the validation page."
+      project_not_found: "Connection to Jira is up and working, but the specified project isn't reachable. Make sure that the project ID is correct (it usually is a word of less than 10 uppercase letters)."
+      ko: "A Jira configuration may fail because you declined the validation. Go to the Jira configuration edit page, click on Update to access the validation page."
+      expire_soon: "The connection has a lifespan of 5 years and will soon expire. Go to the Jira configuration edit page, click on Update to access the validation page and thus refresh the connexion."
+    notices:
+      deletion_success: The Jira configuration has been deleted.
+      deletion_failure: The Jira configuration has not been deleted.
+  servicenow_configs:
+    section_title: Servicenow configurations
+    actions:
+      activate: Activate configuration
+      deactivate: Deactivate configuration
+      create: Add a Servicenow configuration
+      edit: Edit the Servicenow configuration
+      destroy: Delete the Servicenow configuration
+      destroy_confirm: Are you sure you want to delete the Servicenow configuration %{infos}? Nothing will be deleted if at least one action uses this configuration
+    pages:
+      edit: Editing the Servicenow configuration %{servicenow_config}
+    instance_config:
+      title: Required configuration on Servicenow
+      intro: "Your Servicenow instance administrator must add an OAuth application with the following settings:"
+      kind_label: "Kind of OAuth application:"
+      name_label: "Name:"
+      redirect_url_label: "Redirect URL:"
+      kind: "OAuth API endpoint for external clients"
+      name: "what you want. This field allows you to identify CSIS on your side."
+      outro: These settings are the same for every Servicenow configuration created on this CSIS instance. Once the OAuth application is created, your Servicenow administrator must provide you with the Client ID and Client secret.
+    labels:
+      status_info: Informations about connexion status
+    status_info:
+      ko: "A Servicenow configuration may fail because you declined the validation, or the authorization has expired. Go to the Servicenow configuration edit page, click on Update to access the validation page."
+    notices:
+      deletion_success: The Servicenow configuration has been deleted.
+      deletion_failure: The Servicenow configuration has not been deleted.
+  matrix42_configs:
+    section_title: Matrix42 configurations
+    actions:
+      create: Add a Matrix42 configuration
+      edit: Edit the Matrix42 configuration
+      destroy: Delete the Matrix42 configuration
+      destroy_confirm: Are you sure you want to delete the Matrix42 configuration %{infos}? Nothing will be deleted if at least one action uses this configuration
+    labels:
+      status_info: Informations about connexion status
+    status_info:
+      auth_ko: A Matrix42 configuration may fail because the API key is invalid or revoked. Ask your Matrix42 administrator to generate a new one, then go to the Matrix42 configuration edit page, insert the new API key and click on Update.
+      url_ko: The given API address doesn't answer to CSIS' queries as expected. Check that it is correct and that your Matrix42 instance's API is open, then go to the Matrix42 configuration edit page and click on Update to try again.
+    pages:
+      edit: "Editing the Matrix42 Configuration %{matrix42_config}"
+    instance_config:
+      title: Required configuration on Matrix42
+      permissions: "The connector needs a Matrix42 account with access to specific API services. Giving access to these services is done in Administration → Integration → Web Services → select the service → Set Audience → add a user or a role according to your administration policy. The required services are:"
+      user_role: The user must also be part of a role with the permission Ticket (SPSActivityTypeTicket) → Create. Roles are managed in Administration → Security → User Roles.
+      api_token: "Then your Matrix42 instance administrator has to generate an API token for the Matrix42 account previously configured. This is done in Administration → Integration → Web Services Tokens → Generate API Token. Official documentation is available here:"
+      api_url: In addition to the base URL of your Matrix42 instance, you also need to know the API URL, which can be different according to the network environment of your instance. It usually is the base address to which the suffix "/m42Services" is appended.
+    notices:
+      deletion_success: The Matrix42 configuration has been deleted.
+      deletion_failure: The Matrix42 configuration has not been deleted.
+  qualys_configs:
+    section_title: *qualys_configs
+    actions:
+      activate: Activate Qualys configuration
+      deactivate: Deactivate Qualys configuration
+      create: "Create a Qualys configuration"
+      edit: "Modify the Qualys configuration"
+      destroy: "Delete the Qualys configuration"
+      destroy_confirm: "Are you sure you want to delete the Qualys configuration %{infos}, nothing will be deleted if any scan is present ?"
+    pages:
+      edit: "Editing the Qualys configuration %{qualys_config}"
+    notices:
+      deletion_success: "The Qualys configuration has been deleted successfully."
+      deletion_failure: "The Qualys configuration was not deleted."
+    labels:
+      consultants_only: Qualys configs consultants
+      url: *api_url
+      kind: *type
+      teams: *teams
+      scan_ref: &vm_scan_ref Scan reference
+      vulnerabilities_imports_history: Vulnerabilities imports history
+      scans_imports_history: Scans imports history
+      qualys_vm_clients_form: "If nothing selected, then it is equivalent to having all clients selected. The behaviour of Qualys VM API forces to make a request per client, so it is preferable to select at least a client or your account risks to be temporarily unavailable."
+      qualys_wa_clients_form: "If nothing selected, then it is equivalent to having all clients selected. The behaviour of Qualys WA API does not risk an unavailability of your account like for VMs."
+      all_qualys_clients: All (including scans not related to a client)
+  qualys_clients:
+    labels:
+      qualys_id: "Qualys Client Id"
+      qualys_name: *name
+      teams: *teams
+      qualys_config: *qualys_config
+      last_scans: &last_scans Last scans
+  qualys_vm_clients:
+    section_title: *qualys_vm_clients
+    actions:
+      create: "Create a Qualys Client VM"
+      edit: "Modify the Qualys Client VM"
+      destroy: "Delete the Qualys Client VM"
+      destroy_confirm: "Are you sure you want to delete the Qualys Client VM %{infos}?"
+    pages:
+      edit: "Editing the Qualys Client VM %{qualys_client}"
+    notices:
+      deletion_success: "The Qualys Client VM has been deleted successfully."
+      deletion_failure: "The Qualys Client VM was not deleted."
+  qualys_wa_clients:
+    section_title: *qualys_wa_clients
+    actions:
+      create: "Create a Qualys Client WA"
+      edit: "Modify the Qualys Client WA"
+      destroy: "Delete the Qualys Client WA"
+      destroy_confirm: "Are you sure you want to delete the Qualys Client WA %{infos}?"
+    pages:
+      edit: "Editing the Qualys Client WA %{qualys_client}"
+    notices:
+      deletion_success: "The Qualys Client WA has been deleted successfully."
+      deletion_failure: "The Qualys Client WA was not deleted."
+  scans:
+    labels:
+      targets: Targets
+      reports: Linked reports
+  sellsy_configs:
+    section_title: *sellsy_configs
+    actions:
+      create: "Create a Sellsy configuration"
+      edit: "Modify the Sellsy configuration"
+      destroy: "Delete the Sellsy configuration"
+      destroy_confirm: "Are you sure you want to delete the Sellsy configuration %{infos}?"
+    pages:
+      edit: "Editing the Sellsy configuration %{sellsy_config}"
+    notices:
+      deletion_success: "The Sellsy configuration has been deleted successfully."
+      deletion_failure: "The Sellsy configuration was not deleted."
+  chat_configs:
+    section_title: *chat_configs
+  slack_configs:
+    section_title: *slack_configs
+    actions:
+      create: "Create a Slack connection"
+      edit: "Modify the Slack connection"
+      destroy: "Delete the Slack connection"
+      destroy_confirm: "Are you sure you want to delete the Slack connection %{infos}?"
+    notices:
+      creation_success: 'The Slack connection has been successfully created. Please update related channel to notify on.'
+      creation_failure: 'The Slack connection could not be created.'
+      deletion_success: "The Slack connection has been deleted successfully."
+      deletion_failure: "The Slack connection has not been deleted."
+    pages:
+      edit: "Editing the Slack connection %{chat_config}"
+  slack_applications:
+    section_title: *slack_applications
+    actions:
+      create: "Add a Slack Application"
+      edit: "Modify the Slack Application"
+      destroy: "Delete the Slack Application"
+      destroy_confirm: "Are you sure you want to delete the Slack Application %{infos}?"
+    notices:
+      creation_success: 'The Slack Application has been successfully created. Please update related channel to notify on.'
+      creation_failure: 'The Slack Application could not be created.'
+      deletion_success: "The Slack Application has been deleted successfully."
+      deletion_failure: "The Slack Application has not been deleted."
+    pages:
+      edit: "Editing the Slack Application %{slack_application}"
+  zoho_cliq_configs:
+    section_title: *zoho_cliq_configs
+    actions:
+      create: "Create a Zoho Cliq connection"
+      edit: "Modify the Zoho Cliq connection"
+      destroy: "Delete the Zoho Cliq connection"
+      destroy_confirm: "Are you sure you want to delete the Zoho Cliq connection %{infos}?"
+    notices:
+      creation_success: 'The Zoho Cliq connection has been successfully created. Please update related channel to notify on.'
+      creation_failure: 'The Zoho Cliq connection could not be created.'
+      deletion_success: "The Zoho Cliq connection has been deleted successfully."
+      deletion_failure: "The Zoho Cliq connection has not been deleted."
+    pages:
+      edit: "Editing the Zoho Cliq connection %{chat_config}"
+  google_chat_configs:
+    section_title: *google_chat_configs
+    actions:
+      create: "Create a Google Chat Space"
+      edit: "Modify the Google Chat Space"
+      destroy: "Delete the Google Chat Space"
+      destroy_confirm: "Are you sure you want to delete the Google Chat Space %{infos}?"
+    notices:
+      creation_success: 'The Google Chat Space has been successfully created. Please update related channel to notify on.'
+      creation_failure: 'The Google Chat Space could not be created.'
+      deletion_success: "The Google Chat Space has been deleted successfully."
+      deletion_failure: "The Google Chat Space has not been deleted."
+    pages:
+      edit: "Editing the Google Chat Space %{chat_config}"
+  microsoft_teams_configs:
+    section_title: *microsoft_teams_configs
+    actions:
+      create: "Create a Microsoft Teams Channel"
+      edit: "Modify the Microsoft Teams Channel"
+      destroy: "Delete the Microsoft Teams Channel"
+      destroy_confirm: "Are you sure you want to delete the Microsoft Teams Channel %{infos}?"
+    notices:
+      creation_success: 'The Microsoft Teams Channel has been successfully created. Please update related channel to notify on.'
+      creation_failure: 'The Microsoft Teams Channel could not be created.'
+      deletion_success: "The Microsoft Teams Channel has been deleted successfully."
+      deletion_failure: "The Microsoft Teams Channel has not been deleted."
+    pages:
+      edit: "Editing the Microsoft Teams Channel %{chat_config}"
+  mailer:
+    subjects:
+      new_actions: 'New Action(s)'
+      activation: 'Account activation'
+      notifications:
+        exceeding_severity_threshold: 'New Vulnerability'
+        action_state_update: 'Action state update'
+        comment_creation: 'New comment'
+        export_generation: 'Exported file available'
+        scan_launch_done: 'Scan launch done'
+        scan_created: 'New scan'
+        scan_destroyed: 'Scan destroyed'
+    titles:
+      actions: 'Email template for new actions'
+      contact: 'Email template for creating contact password'
+      staff: 'Email template for activating staff'
+      vulnerabilities: 'Email template for new vulnerabilities'
+    content:
+      hello: "Hi "
+      new_actions: "You have new actions in your actions list."
+      login: "Please connect to the following address: "
+      CSIS: 'CSIS'
+      polite: 'Have a nice day !'
+      do_not_answer: 'Please do not reply to this email.'
+      activate: "You now can activate your CSIS account."
+      link: "This link is active 24h and can only be used once."
+      visit: "To do so, please visit the following address: "
+      more_details: "For more information, please visit the following address : "
+      columns:
+        date: Date
+        name: Name
+        description: Description
+        state: State
+        meta_state: Meta state
+        author: Author
+      notifications:
+        action_state_update:
+          state_update: "An action state changed."
+        comment_creation:
+          new_comment: "You have a new comment."
+          new_comment_concerning_html: "You have a new comment concerning action : <code>%{infos}</code>."
+          how_to_respond: "You can answer by visiting the following address: "
+        exceeding_severity_threshold:
+          columns:
+            qid: QID
+            severity: *severity
+            title: *title
+            target_uri: Target/URI
+          new_vulnerabilities: "A report requires your attention."
+          report_link: "Please go to the following address: "
+        export_generation:
+          new_export: "A new exported file is available."
+        scan_created:
+          new_scan: "A new scan is available."
+      report: *report
+  contents:
+    labels:
+      text: Text
+      image: Image
+      preview: Preview
+      dropzone: 'Choose an image file or drag it here'
+      removed: 'This content will be removed'
+  tops:
+    section_title: Tops
+    labels:
+      name: *name
+  assets:
+    section_title: *assets
+    actions:
+      create: "Create an asset"
+      edit: "Edit asset"
+      destroy: "Delete asset"
+      destroy_confirm: "Are you sure you want to delete the asset %{infos}?"
+      restore: "Restore asset"
+      restore_confirm: "Are you sure you want to restore the asset %{infos}?"
+      create_target: &create_target "Create a target"
+      view_all_targets: "View all targets"
+    pages:
+      edit: "Editing the asset %{asset}"
+    notices:
+      deleted_html: "The asset %{asset} has been deleted. %{cancel}"
+      restored: "The asset %{asset} has been successfully restored."
+    scopes:
+      all:
+        subtitle:
+          zero: "No saved asset"
+          one: "One saved asset"
+          other: "%{count} saved assets"
+      trashed:
+        subtitle:
+          zero: "No asset in the trash"
+          one: "One asset in the trash"
+          other: "%{count} assets in the trash"
+    labels:
+      name: *name
+      description: *description
+      category: *category
+      os: &os Operating system
+      confidentiality: &confidentiality Confidentiality
+      integrity: &integrity Integrity
+      availability: &availability Availability
+  targets:
+    section_title: *targets
+    section_subtitle: "Targets List"
+    actions:
+      create: *create_target
+      edit: "Edit target"
+      destroy: "Delete target"
+      destroy_confirm: "Are you sure you want to delete the target %{infos}?"
+      restore: "Restore target"
+      restore_confirm: "Are you sure you want to restore the target %{infos}?"
+      view_all_assets: "View all assets"
+    pages:
+      edit: "Editing the target %{target}"
+    notices:
+      deleted_html: "The target %{target} has been deleted. %{cancel}"
+      restored: "The target %{target} has been successfully restored."
+    scopes:
+      all:
+        subtitle:
+          zero: "No saved target"
+          one: "One saved target"
+          other: "%{count} saved targets"
+      trashed:
+        subtitle:
+          zero: "No target in the trash"
+          one: "One target in the trash"
+          other: "%{count} targets in the trash"
+    labels:
+      name: *name
+      description: *description
+      category: *category
+      kind: *type
+      ip: *ip
+      url: *api_url
+      reference_id: &reference Reference
+      last_scans: *last_scans
+  cyberwatch_configs:
+    section_title: *cyberwatch_configs
+    actions:
+      activate: Activate Cyberwatch configuration
+      deactivate: Deactivate Cyberwatch configuration
+      create: "Create a Cyberwatch configuration"
+      edit: "Modify the Cyberwatch configuration"
+      destroy: "Delete the Cyberwatch configuration"
+      destroy_confirm: "Are you sure you want to delete the Cyberwatch configuration %{infos}, nothing will be deleted if any scan is present ?"
+    pages:
+      edit: "Editing the Qualys configuration %{cyberwatch_config}"
+    notices:
+      deletion_success: "The Cyberwatch configuration has been deleted successfully."
+      deletion_failure: "The Cyberwatch configuration was not deleted."
+    labels:
+      url: *api_url
+      kind: *type
+      teams: *teams
+      vulnerabilities_imports_history: Vulnerabilities imports history
+      scans_imports_history: Scans imports history
+      scan_ref: *vm_scan_ref
+      last_scans: *last_scans
+      verify_ssl_certificate: SSL Certificate check
+
+  # ActiveRecord I18n helpers
+  activerecord:
+    attributes:
+      aggregate:
+        title: *title
+        description: *description
+        solution: *solution
+        severity: *severity
+        vuln_type: Vulnerability type
+        kind: *category
+        visibility: Aggregate Visibility
+        scope: *scope
+        complexity: Complexity
+      aggregate/kind:
+        organizational: "Organizational"
+        system: "System"
+        applicative: "Applicative"
+        vulnerability_scan: Vulnerabilities scan
+        appendix: Appendix
+      aggregate/visibility:
+        shown: Visible in the report
+        hidden: Hidden in the report
+      aggregate/status:
+        information_gathered: *gathered_information
+        vulnerability: *confirmed_vulnerability
+        potential_vulnerability: *potential_vulnerability
+        vulnerability_or_potential_vulnerability: *sensitive_information
+      aggregate/severity:
+        falsepositive: &falsepositive 0 - False positive
+        trivial: &trivial 1 - Minimal
+        low: &low 2 - Average
+        medium: &medium 3 - Serious
+        high: &high 4 - Critical
+        critical: &critical 5 - Urgent
+      asset/category:
+        no_category: No category
+        server: Server
+        desktop: Desktop
+        hypervisor: Hypervisor
+        network_device: Network device
+        network_target_or_website: Network target or website
+        docker_image: Docker Image
+      asset/confidentiality:
+        confidentiality_requirement_low: &low_requirement Low
+        confidentiality_requirement_medium: &medium_requirement Medium
+        confidentiality_requirement_high: &high_requirement High
+      asset/integrity:
+        integrity_requirement_low: *low_requirement
+        integrity_requirement_medium: *medium_requirement
+        integrity_requirement_high: *high_requirement
+      asset/availability:
+        availability_requirement_low: *low_requirement
+        availability_requirement_medium: *medium_requirement
+        availability_requirement_high: *high_requirement
+      client:
+        name: *full_name
+        web_url: Website
+        contacts: *contacts
+        ref_identifier: *ref_identifier
+        internal_type: Team kind
+        supplied_projects: "Supplied projects"
+        projects: "Owned projects"
+      contact:
+        state: *status
+        full_name: *full_name
+        email: *login_mail
+        notification_email: *notifications_mail
+        contact_clients: *clients
+        password: *password
+        language: *language
+        ref_identifier: *ref_identifier
+        roles: *roles
+      jira_config:
+        name: Configuration name
+        url: "Instance URL (i.e. https://intranet.corporation.com)"
+        full_url: Whole address (URL + context)
+        context: "Instance context (i.e. /jira)"
+        project_id: Jira project ID
+        suppliers: Teams using this configuration
+        status: Connection status
+        expiration_date: Expiration date
+        linked_action:
+          project_name: Project name
+          report_title: Report title
+          report_date: Report creation date
+      jira_config_ext/status:
+        ok: OK
+        expire_soon: Expire soon
+        ko: Error
+        project_not_found: Unreachable project
+        request: Waiting for validation
+      servicenow_config:
+        name: Configuration name
+        url: "Instance URL"
+        client_id: Client ID
+        client_secret: Client secret
+        suppliers: Teams using this configuration
+        status: Connection status
+        fixed_vuln: '"Corrected" resolution code'
+        accepted_risk: '"Uncorrected risk accepted" resolution code'
+        linked_action:
+          project_name: Project name
+          report_title: Report title
+          report_date: Report creation date
+      servicenow_config_ext/status:
+        ok: OK
+        ko: Error
+      matrix42_config:
+        name: Configuration name
+        url: Instance URL
+        api_url: API URL
+        api_key: API token
+        suppliers: Teams using this configuration
+        status: Connection status
+        default_ticket_type: Default ticket type
+      matrix42_config_ext/status:
+        ok: OK
+        auth_ko: Authentication error
+        url_ko: URL error
+      project:
+        name: *name
+        current_level: Current security level
+        client: *owner
+        suppliers: *clients
+        team: *team
+        created_at: &created_at Created at
+      project/notification_severity_threshold:
+        falsepositive: *falsepositive
+        trivial: *trivial
+        low: *low
+        medium: *medium
+        high: *high
+        critical: *critical
+      statistic/current_level:
+        in_progress: *in_progress
+        satisfactory: *satisfactory
+        good: *good
+        very_good: *verygood
+        excellent: *excellent
+      certificate/transparency_level:
+        secretive: Secretive
+        obfuscate: Obfuscate
+        clearness: Clearness
+      report:
+        title: *title
+        subtitle: *subtitle
+        level: Level
+        edited_at: Edited at
+        edited_by: Edited by
+        vm_scans: *vm_scans
+        wa_scans: *wa_scans
+        project: *project
+        scoring_vm: *scoring_system
+        scoring_wa: *scoring_applicative
+        base_report_id: Base report for auto generation
+      report_export:
+        created_at: *created_at
+        exporter: &created_by "Created by"
+        status: *status
+        delete: *delete
+      report_export/status:
+        scheduled: *scheduled
+        processing: *processing
+        generated: *completed
+        errored: *failed
+      report_scan_import:
+        create: &import Import a scan
+        created_at: *created_at
+        importer: *created_by
+        status: *status
+        delete: *delete
+        automation: &automation Automation
+        auto_aggregation: Auto occurrences aggregation
+        auto_aggregate: &auto_aggregate Automatically group occurrences in aggregates
+        auto_aggregate_mixing: &auto_aggregate_mixing Mix with existing aggregates
+        scan_name: Scan name
+      report_scan_import/status:
+        scheduled: *scheduled
+        processing: *processing
+        completed: *completed
+        failed: *failed
+      scan_configuration:
+        launcher: &launched_by Launched by
+        scan_type: &scan_type Scan type
+        scan_name: &scan_name Scan name
+        target: &target Target
+        parameters: &parameters Parameters
+        auto_import: &auto_import Automatically import after completion
+        auto_aggregate: *auto_aggregate
+        auto_aggregate_mixing: *auto_aggregate_mixing
+      scan_import:
+        import_type: &import_type Import type
+        created_at: *created_at
+        importer: *created_by
+        status: *status
+        scans: *scans
+      scan_import/status:
+        scheduled: *scheduled
+        processing: *processing
+        completed: *completed
+        failed: *failed
+      scan_launch:
+        created_at: *created_at
+        launcher: *launched_by
+        launched_at: Launched at
+        scan_type: *scan_type
+        scan_name: *scan_name
+        scan_name_help: "Can be useful for project auto generation, defaults to <Scanner>: <Target>"
+        target: *target
+        parameters: *parameters
+        kubernetes_scan_id: Kubernetes Scan identifier
+        status: *status
+        automation: *automation
+        auto_import: *auto_import
+        auto_aggregate: *auto_aggregate
+        auto_aggregate_mixing: *auto_aggregate_mixing
+      scan_launch/status:
+        created: Created
+        launched: Launched
+        done: Done
+        errored: Errored
+      scheduled_scan:
+        created_at: *created_at
+        launcher: *launched_by
+        scan_type: *scan_type
+        scan_name: *scan_name
+        scan_name_help: "Can be useful for project auto generation, defaults to <Scanner>: <Target>. An index will be added for each new scan launch."
+        target: *target
+        parameters: *parameters
+        automation: *automation
+        auto_import: *auto_import
+        auto_aggregate: *auto_aggregate
+        auto_aggregate_mixing: *auto_aggregate_mixing
+        scheduled_scan_cron: "Scheduled scan cron"
+      scheduled_scan/report_action:
+        new: Create a new report for each new scan launch
+        last: Use last available report for each new scan launch
+      chat_config:
+        name: *name
+        accounts_users: &accounts_users Users who can use account
+      slack_application:
+        name: *name
+        app_id: Application ID
+        client_id: "Client ID"
+        client_secret: "Client Secret"
+        signing_secret: "Signing Secret"
+      slack_config:
+        chat_application_id: Application ID
+        application_name: Application Name
+        workspace_name: Workspace Name
+        slack_config_id: Slack configuration ID
+        channel_name: Channel Name
+        channel_id: &channel_id Channel ID
+        bot_user_id: Bot User ID
+        return_uri: "Return URI"
+        name: *name
+        channel_id_placeholder: Set a default value for a channel with csis app write access. Each user can override this value in his profile.
+        bot_user_name: Bot name
+        accounts_users: *accounts_users
+      zoho_cliq_config:
+        bot_name: Bot Name
+        webhook_domain: Webhook domain
+        zoho_cliq_id: Zoho Cliq Connection ID
+        zapikey: Zoho API Key
+        name: *name
+        accounts_users: *accounts_users
+      google_chat_config:
+        webhook_url: &webhook_url Webhook URL
+        name: *name
+        accounts_users: *accounts_users
+      microsoft_teams_config:
+        webhook_url: *webhook_url
+        name: *name
+        accounts_users: *accounts_users
+      vulnerability:
+        qid: QID
+        title: *title
+        kind: Classification
+        severity: *severity
+        category: *category
+      vulnerability/kind:
+        information_gathered: *gathered_information
+        vulnerability: *confirmed_vulnerability
+        potential_vulnerability: *potential_vulnerability
+        vulnerability_or_potential_vulnerability: *sensitive_information
+      vulnerability/severity:
+        falsepositive: *falsepositive
+        trivial: *trivial
+        low: *low
+        medium: *medium
+        high: *high
+        critical: *critical
+      action:
+        created_at: *created_at
+        name: *name
+        description: *description
+        client: *owner
+        project: *project
+        report: *report
+        aggregate: *vulnerability
+        state: *state
+        meta_state: *status
+        overdue_date: *due_date
+        due_date: *due_date
+        priority: *priority
+        receiver: In charge
+        pmt_name: *pmt_name
+        pmt_reference: *pmt_reference
+      action/state:
+        opened: Opened
+        to_fix: To mitigate
+        assigned: Assigned
+        fixed_vulnerability: Corrected
+        accepted_risk_not_fixed: Uncorrected risk accepted
+        not_fixed: Uncorrected
+        reviewed_fix: Verified
+        reopened: Reopened
+      action/meta_state:
+        active: *actives
+        clotured: *clotured
+        archived: *archived
+      action/due_date_status:
+        no_due_date: "No due date"
+        overdue: "Overdue"
+        today: "Due today"
+        on_time: "On time"
+      action/priority:
+        'no': "None"
+        low: "Low priority"
+        medium: "Medium priority"
+        high: "High priority"
+      comment:
+        created_at: *created_at
+        comment: *comment
+        author: *author
+      team:
+        name: *name
+        staffs: *staffs
+        projects: *projects
+      staff:
+        state: *state
+        full_name: *full_name
+        staff_teams: *teams
+        language: *language
+        email: *login_mail
+        notification_email: *notifications_mail
+        roles: *roles
+      idp_config:
+        state: *state
+        name: *name
+        idp_metadata: Idp Metadata
+        idp_metadata_url: *idp_metadata_url
+        idp_metadata_xml: *idp_metadata_xml
+        idp_entity_id: *idp_entity_id
+        sp_data: *sp_metadata
+      insight_app_sec_config:
+        name: *name
+        teams: *teams
+        url: *api_url
+      qualys_config:
+        kind: *type
+        name: *name
+        teams: *teams
+        url: *api_url
+        vm_import_cron: Vm scans import cron
+        wa_import_cron: Wa scans import cron
+        qualys_vm_clients: Qualys VM clients
+        qualys_wa_clients: Qualys WA clients
+      qualys_client:
+        qualys_id: "Qualys Client Id"
+        qualys_name: *name
+        teams: *teams
+        qualys_config: *qualys_config
+      sellsy_config:
+        name: *name
+      note:
+        author: *author
+        title: *title
+      vulnerability_import:
+        account: &account Account
+        create: Import vulnerabilities
+        created_at: *created_at
+        importer: *created_by
+        import_type: *import_type
+        status: *status
+        delete: *delete
+      vulnerability_import/status:
+        scheduled: *scheduled
+        processing: *processing
+        completed: *completed
+        failed: *failed
+      job:
+        created_at: *created_at
+        creator: *created_by
+        name: *name
+        progress: Progress
+        resque_job_id: Job identifier
+        subscribers: Subscribers
+        stacktrace: Trace
+        status: *status
+        title: Title
+      asset:
+        name: *name
+        description: *description
+        os: *os
+        confidentiality: *confidentiality
+        integrity: *integrity
+        availability: *availability
+        created_at: *created_at
+      cyberwatch_config:
+        name: *name
+        teams: *teams
+        url: *api_url
+        import_cron: Cron d'import des scans
+        verify_ssl_certificate: Ssl certificate check
+      targets:
+        name: *name
+        kind: *type
+        category: *category
+        ip: *ip
+        url: *api_url
+        reference_id: *reference
+    errors:
+      models:
+        report:
+          attributes:
+            edited_at:
+              already_used: ": A report already exists on this date for this project."
+        scan_configuration:
+            target: Must start with http(s)://
+      not_found: "Well tried but ... it seems that's not for you."
+    languages:
+      changed: "Your language has been succesfully changed"
+      failed: "We cannot change currently your language"
+
+  # Rails I18n helpers
+  helpers:
+    submit:
+      aggregate:
+        create: "Create aggregate"
+        update: "Update aggregate"
+      project:
+        create: "Create project"
+        update: "Update project"
+      scan_report:
+        create: "Create scan report"
+        update: "Update scan report"
+      pentest_report:
+        create: "Create pentest report"
+        update: "Update pentest report"
+      action_plan_report:
+        create: "Create action plan report"
+        update: "Update action plan report"
+      action:
+        create: "Create action"
+        update: "Update action"
+      dependency:
+        create: "Add"
+      comment:
+        create: "Send message"
+      contact:
+        create: "Add a contact"
+        update: "Update the user"
+      certificate:
+        update: "Change visibility"
+      client:
+        create: "Update team"
+        update: "Update team"
+      team:
+        create: "Create team"
+        update: "Update team"
+      staff:
+        create: "Add an analyst"
+        update: "Update the user"
+      inisght_app_sec_config:
+        create: "Create InsightAppSec configuration"
+        update: "Update InsightAppSec configuration"
+      jira_config:
+        create: Create the Jira configuration
+        update: Update the Jira configuration
+      qualys_config:
+        create: "Create Qualys configuration"
+        update: "Update Qualys configuration"
+      qualys_vm_client:
+        create: "Create Qualys VM client"
+        update: "Update Qualys VM client"
+      qualys_wa_client:
+        create: "Create Qualys WA client"
+        update: "Update Qualys WA client"
+      sellsy_config:
+        create: "Create Sellsy configuration"
+        update: "Update Sellsy configuration"
+      slack_application:
+        create: "Add Slack application"
+        update: "Update Slack application"
+      slack_config:
+        update: 'Update Slack configuration'
+      zoho_cliq_config:
+        update: 'Update Zoho Cliq configuration'
+      google_chat_config:
+        update: "Update Google Chat Space"
+      microsoft_teams_config:
+        update: "Update Microsoft Teams Channel"
+      idp_config:
+        create: "Create Identity provider configuration"
+        update: "Update Identity provider configuration"
+      asset:
+        create: "Create asset"
+        update: "Update asset"
+      target:
+        create: "Create target"
+        update: "Update target"
+      cyberwatch_config:
+        create: "Create Cyberwatch configuration"
+        update: "Update Cyberwatch configuration"
+      user:
+        create: "Add user"
+        update: "Update user"
+      user_profile:
+        update: "Update user profile"
+    label:
+      filename:
+        WSC: 'WSC_'
+        extension: '.png'
+
+  # SimpleForm I18n helpers
+  simple_form:
+    labels:
+      project:
+        name: *name
+        client: *owner
+        team: *teams
+        suppliers: *clients
+        language: "Change the project language"
+        auto_aggregate: "Auto aggregate similar occurrences"
+        auto_generate: "Auto generate reports"
+        auto_export: "Auto export reports"
+        scan_regex: "Scan selection regex"
+        schedule: "Reports creation schedule"
+        notification_severity_threshold: "Notify when a new occurrence of the following severity and above arrive"
+      action:
+        name: *name
+        client: *client
+        project: *project
+        report: *report
+        aggregate: *aggregate
+        state: *state
+        meta_state: *status
+        staff: *staff
+        action: *action
+        action_import: *action_import
+        create: "Creation"
+        connection: "Connection"
+        update: *update
+        discard: "Discard"
+        destroy: "Permanent Delete"
+        undiscard: "Restoration"
+        comment: *comment
+        dependency: "Dependency"
+        contact: *contact
+        team: *team
+        role: "Role"
+        insightappsecconfig: *insight_app_sec_config
+        qualysconfig: *qualys_config
+        qualysvmclient: "Qualys VM Client"
+        qualyswaclient: "Qualys WA Client"
+        sellsyconfig: *sellsy_config
+        language: *langue
+        top: Top
+        reference: *reference
+        user: *user
+        account: *account
+        vulnerability: *vulnerability
+        statistic: *statistics
+        certificate: *certificate
+        exploit: Exploit
+        exploitsource: Exploit source
+        vmoccurrence: Vm occurrence
+        vmscan: Vm Scan
+        wascan: Wa Scan
+        vmtarget: Vm Target
+        waoccurrence: Wa occurrence
+        reportexport: Report export
+        idpconfig: *idp_config
+        import: *import
+        note: Note
+        pentestreport: Pentest report
+        reportimport: Report import
+        scanimport: Scan import
+        scanlaunch: Scan launch
+        scanreport: Scan report
+      labels:
+        encrypted_login: "Encrypted login"
+        encrypted_password: "Encrypted password"
+        title: *title
+        id: "Identifier"
+        description: *description
+        solution: *solution
+        status: *status
+        severity: *severity
+        report: *report
+        rank: "Level"
+        client: *client
+        name: *name
+        introduction: *introduction
+        org_introduction: *org_introduction
+        vm_introduction: *vm_introduction
+        wa_introduction: *wa_introduction
+        notes: *notes
+        project: *project
+        pmt_name: *pmt_name
+        pmt_reference: *pmt_reference
+        scoring_system: *scoring_system
+        scoring_applicative: *scoring_applicative
+        staff: *staff
+        aggregate: *aggregate
+        state: *state
+        meta_state: *status
+        contact: *contact
+        kind: "Kind"
+        action: *action
+        comment: *comment
+        author: *author
+        full_name: *name
+        email: "Email"
+        password_digest: *password
+        internal_id: "Internal ID"
+        score: "Score"
+        scope: *scope
+        language: *langue
+        sign_in_count: "Sign in count"
+        current_sign_in_ip: "Current IP"
+        last_sign_in_ip: "Previous IP"
+        provider: "Provider"
+        avatar_url: "Avatar URL"
+        uid: "Google ID"
+        visibility: "Visibility"
+        insight_app_sec_config: *insight_app_sec_config
+        qualys_config: *qualys_config
+        sellsy_config: *sellsy_config
+        login: "login"
+        password: *password
+        team: *team
+        internal_type: "Internal_type"
+        web_url: "web_url"
+        notification_email: *notifications_mail
+        ref_identifier: *ref_identifier
+        token: "token"
+        created_at: *created_at
+      contact:
+        public_key: "Public key"
+      scan_report:
+        contacts: *diffusion_list
+        language: *langue
+      pentest_report:
+        contacts: *diffusion_list
+        language: *langue
+        exec_cond: 'Conditions of execution'
+        purpose: 'Purpose of the document'
+        results: 'Results of the pentest'
+      action_plan_report:
+        contacts: *diffusion_list
+        language: *langue
+        exec_cond: 'Conditions of execution'
+        purpose: 'Purpose of the document'
+        results: 'Results of the pentest'
+        document: "Actions file to import"
+      asset:
+        name: *name
+        description: *description
+        category: *category
+        os: *os
+        confidentiality: *confidentiality
+        integrity: *integrity
+        availability: *availability
+        account: *account
+      target:
+        kind: *category
+  # Clipboard
+  clipboard:
+    copy: "Copy"
+    copied: "Copied"
+    error: "Error during copy"
+    copy_to_clipboard: "Copy to clipboard"
+  # Charts
+  charts:
+    time: "Time"
+    score: *scoring
+    no_data: "No data"
+    no_vulnerability: 'No vulnerability'
+  # Roles
+  role:
+    super_admin: "Super administrator"
+    cyber_admin: "Cyberanalysts administrator"
+    contact_admin: "User administrator"
+    cyber_analyst: "Cyber analyst"
+    support: "Support"
+    contact_manager: "User manager"
+    contact: *contact
+  # Pagination
+  pagination:
+    items_per_page: "Items per page"
+  # Scopes
+  scopes:
+    overview: Overview
+    all: All
+    details: Details
+    trashed: Trash
+  ticketing:
+    description: "To view the issue details, login to CSIS using the link below"
+    comment:
+      created: Issue created by CSIS
+      closed: Issue closed by CSIS
+    jira:
+      link_name: CSIS action
+    not_closable: can't be closed

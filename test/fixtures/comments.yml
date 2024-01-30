@@ -1,0 +1,11 @@
+one:
+  comment: 'Comment1'
+  action: action_one
+  author: staffuser
+two:
+  comment: "<div><img src='<script>alert(document.cookie);</script>'>HTML content</div>"
+  action: action_one
+  author: c_one
+three:
+  comment: 'Comment3'
+  action: action_one

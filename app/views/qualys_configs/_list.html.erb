@@ -1,0 +1,76 @@
+<%= pagination = paginate qualys_configs %>
+<div class="table-responsive">
+  <table class="table table-qualys_config table-hover">
+    <caption>Qualys configurations</caption>
+    <thead>
+      <tr>
+        <th id='qualys-configs-kind' class="th-qualys_config-kind">
+          <%= sort_link @q, :kind, t('activerecord.attributes.qualys_config.kind') %>
+        </th>
+        <th id='qualys-configs-name' class="th-qualys_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.qualys_config.name') %>
+        </th>
+        <th id='qualys-configs-url' class="th-qualys_config-url">
+          <%= sort_link @q, :url, t('activerecord.attributes.qualys_config.url') %>
+        </th>
+        <th id='qualys-configs-teams' class="th-qualys_config-teams">
+          <%= sort_link @q, :teams_name, t('activerecord.attributes.qualys_config.teams') %>
+        </th>
+        <th id='qualys-configs-vm_clients'>
+          <%= link_to t('models.qualys_vm_clients'), qualys_vm_clients_path %>
+          <span class='badge badge-primary'><em>consultants</em></span>
+        </th>
+        <th id='qualys-configs-wa_clients'>
+          <%= link_to t('models.qualys_wa_clients'), qualys_wa_clients_path %>
+          <span class='badge badge-primary'><em>consultants</em></span>
+        </th>
+        <th id='qualys-configs-btn'><%= render 'partials/c_btn', new_resource_path: new_qualys_config_path, policy: policy(QualysConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% qualys_configs.each do |qualys_config| %>
+        <tr>
+          <td headers='qualys-configs-kind'>
+            <span class='badge halo-<%= active_color(!qualys_config.discarded?) %>'><%= active_text(!qualys_config.discarded?) %></span><br>
+            <span class='badge halo-<%= account_kind_color(qualys_config.kind) %>'><em><%= qualys_config.kind %></em></span>
+          </td>
+          <td headers='qualys-configs-name'>
+            <%= link_to(qualys_config.name, qualys_config, class: 'link-block') %>
+          </td>
+          <td headers='qualys-configs-url'>
+            <code>https://</code><%= qualys_config.url %>
+          </td>
+          <td headers='qualys-configs-teams'>
+            <% qualys_config.teams.each do |team| %>
+              <%= link_to(team.name, team, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td id='qualys-configs-vm_clients' class="<%= qualys_config.ext.consultants_kind? ? '' : 'consultants_only' %>">
+            <div class='d-flex justify-content-center'>
+              <span class='consultants badge badge-primary'><em><%= t('labels.consultants_only') %></em></span>
+            </div>
+            <% qualys_config.qualys_vm_clients.each do |qualys_client| %>
+              <%= link_to(qualys_client.qualys_name, [qualys_client], class: 'link-block') %>
+            <% end %>
+            <%= render 'partials/c_btn', new_resource_path: new_qualys_config_qualys_vm_client_path(qualys_config), action: 'new_client', policy: policy(qualys_config), no_filter: true %>
+          </td>
+          <td id='qualys-configs-wa_clients' class="<%= qualys_config.ext.consultants_kind? ? '' : 'consultants_only' %>">
+            <div class='d-flex justify-content-center'>
+              <span class='consultants badge badge-primary'><em><%= t('labels.consultants_only') %></em></span>
+            </div>
+            <% qualys_config.qualys_wa_clients.each do |qualys_client| %>
+              <%= link_to(qualys_client.qualys_name, [qualys_client], class: 'link-block') %>
+            <% end %>
+            <%= render 'partials/c_btn', new_resource_path: new_qualys_config_qualys_wa_client_path(qualys_config), action: 'new_client', policy: policy(qualys_config), no_filter: true %>
+          </td>
+          <td headers='qualys-configs-btn'>
+            <ul class='d-flex justify-content-end float-end pasties w-100'>
+            <%= render 'partials/activable_quick_btns', policy: policy(qualys_config), resource: qualys_config, recoverable: false %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

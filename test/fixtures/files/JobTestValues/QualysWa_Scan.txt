@@ -1,0 +1,155 @@
+--- !ruby/object:QualysWa::ListResponse
+data:
+- !ruby/object:QualysWa::Scan
+  id: '7894531'
+  name: Web Application Discovery Scan - france.bzh - 2017-05-10
+  reference: was/1234567890.1234567
+  type: DISCOVERY
+  mode: ONDEMAND
+  multi: 'false'
+  progressive_scanning: 
+  web_apps:
+  - !ruby/object:QualysWa::WebApp
+    id: '123456'
+    name: test
+    url: test.com
+  scanner_appliance_type: EXTERNAL
+  scanner_appliance_friendly_name: 
+  proxy_id: 
+  proxy_name: 
+  proxy_url: 
+  auth_record_option: 
+  profile_option: 
+  scanner_option: 
+  cancel_option: SPECIFIC
+  profile_id: '123456'
+  profile_name: Initial WAS Options
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2017-05-10 13:40:54.000000000 Z
+    zone: &1 !ruby/object:ActiveSupport::TimeZone
+      name: Europe/Paris
+    time: 2017-05-10 15:40:54.000000000 Z
+  launched_by_id: '12354645'
+  launched_by_username: stere-pl
+  launched_by_firstname: A
+  launched_by_lastname: Boh
+  status: FINISHED
+  cancel_mode: 
+  canceled_by_id: 
+  canceled_by_username: 
+  canceled_by_firstname: 
+  canceled_by_lastname: 
+  scan_duration: 
+  crawl_duration: '1633'
+  test_duration: '9'
+  links_crawled: '300'
+  nb_requests: '1613'
+  results_status: SUCCESSFUL
+  auth_status: NONE
+  os: Ubuntu / Fedora
+  vulns: []
+  sensitive_contents: []
+  informations_gathered: []
+  send_mail: 
+- !ruby/object:QualysWa::Scan
+  id: '78945621'
+  name: Web Application Vulnerability Scan - 2017-06-05
+  reference: was/7894561230.7894561
+  type: VULNERABILITY
+  mode: ONDEMAND
+  multi: 'false'
+  progressive_scanning: 
+  web_apps:
+  - !ruby/object:QualysWa::WebApp
+    id: '456789'
+    name: two
+    url: two.fr
+  web_app_auth_record_id: 
+  web_app_auth_record_name: 
+  scanner_appliance_type: EXTERNAL
+  scanner_appliance_friendly_name: 
+  proxy_id: 
+  proxy_name: 
+  proxy_url: 
+  auth_record_option: 
+  profile_option: 
+  scanner_option: 
+  cancel_option: SPECIFIC
+  profile_id: '789456'
+  profile_name: Initial WAS Options
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2017-06-05 21:14:44.000000000 Z
+    zone: *1
+    time: 2017-06-05 23:14:44.000000000 Z
+  launched_by_id: '8852148'
+  launched_by_username: stere-pl
+  launched_by_firstname: Oui
+  launched_by_lastname: Oui
+  status: FINISHED
+  cancel_mode: 
+  canceled_by_id: 
+  canceled_by_username: 
+  canceled_by_firstname: 
+  canceled_by_lastname: 
+  scan_duration: 
+  crawl_duration: '496'
+  test_duration: '1515'
+  links_crawled: '73'
+  nb_requests: '21021'
+  results_status: SUCCESSFUL
+  auth_status: NONE
+  os: 
+  vulns: []
+  sensitive_contents: []
+  informations_gathered: []
+  send_mail: 
+- !ruby/object:QualysWa::Scan
+  id: '7891234'
+  name: Web Application Vulnerability Scan - 2017-06-05 - MonSite.Fr
+  reference: was/7894567891.7891234
+  type: VULNERABILITY
+  mode: ONDEMAND
+  multi: 'false'
+  progressive_scanning: 
+  web_apps:
+  - !ruby/object:QualysWa::WebApp
+    id: '789123'
+    name: three
+    url: three.com
+  scanner_appliance_type: EXTERNAL
+  scanner_appliance_friendly_name: 
+  proxy_id: 
+  proxy_name: 
+  proxy_url: 
+  auth_record_option: 
+  profile_option: 
+  scanner_option: 
+  cancel_option: SPECIFIC
+  profile_id: '789123'
+  profile_name: Initial WAS Options
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2017-07-14 16:22:31.000000000 Z
+    zone: *1
+    time: 2017-07-14 18:22:31.000000000 Z
+  launched_by_id: '78964512'
+  launched_by_username: stere-pl
+  launched_by_firstname: Non
+  launched_by_lastname: Non
+  status: FINISHED
+  cancel_mode: 
+  canceled_by_id: 
+  canceled_by_username: 
+  canceled_by_firstname: 
+  canceled_by_lastname: 
+  scan_duration: 
+  crawl_duration: '541'
+  test_duration: '985'
+  links_crawled: '90'
+  nb_requests: '17900'
+  results_status: SUCCESSFUL
+  auth_status: NONE
+  os: 
+  vulns: []
+  sensitive_contents: []
+  informations_gathered: []
+  send_mail: 

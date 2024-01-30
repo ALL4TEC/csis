@@ -1,0 +1,21 @@
+<%- opts ||= nil %>
+<%- op ||= 'in' %>
+<%- name ||= "q[#{target}_#{op}][]" %>
+<%- required ||= false %>
+<%- disabled ||= false %>
+<%- live_search ||= 'true' %>
+<%- actions_box ||= 'true' %>
+<%- one ||= false %>
+<input name="<%= name %>" type="hidden" value="" autocomplete="off">
+<select name="<%= name %>" class='form-control selectpicker show-tick' title="<%= title %>"
+data-live-search="<%= live_search %>" data-actions-box="<%= actions_box %>" <%= one ? '' : 'multiple' %> data-selected-text-format="count > 3" data-max-options="3" id='<%= id %>'
+<%= required ? 'required' : '' %> <%= disabled ? 'disabled' : '' %>>
+  <option value=''></option>
+  <% if opts.present? %>
+    <% opts.each do |opt| %>
+    <option value='<%= opt.id %>'><%= opt.to_s %></option>
+    <% end %>
+  <% else %>
+    <%= yield %>
+  <% end %>
+</select>

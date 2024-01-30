@@ -1,0 +1,68 @@
+<div class="card rounded-0 aggregate aggregate-bloc-<%= kind %>" draggable='true' id='<%= aggregate.id %>'>
+  <div class="card-header p-1 d-flex align-items-center">
+    <input type='checkbox' name='aggregate[aggregates][]' value='<%= aggregate.id %>' class='form-check-input me-1'>
+    <div class="btn-group" role="group" aria-label="UP/DOWN">
+      <button class="btn btn-<%= kind %> d-flex ps-1 pe-1 align-items-center justify-content-center aggregate-rank-btn" type="button" data-bs-toggle="collapse" data-bs-target="#aggregate<%= aggregate.kind %><%= aggregate.rank %>" aria-expanded="false" aria-controls="aggregate<%= aggregate.kind %><%= aggregate.rank %>">
+        <span class="button_unfold_more">
+          <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i>
+        </span>
+        <span class="button_unfold_less">
+          <i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i>
+        </span>
+        <span class='<%= kind %>-rank'><%= aggregate.rank %></span>/<%= aggregate_iteration.size %>
+      </button>
+      <div class='btn btn-sm btn-<%= kind %> ps-0 pe-0 d-flex flex-column justify-content-center handle-drag'>
+        <i aria-hidden='true' class='material-icons align-middle'>swap_vert</i>
+      </div>
+      <%= link_to up_aggregate_path(aggregate), method: :post, class: 'btn btn-secondary btn-sm d-flex align-items-center ps-0 pe-0' do %>
+        <i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' title='<%= t('aggregates.actions.move_up') %>'><%= Icons::MAT[:up] %></i>
+      <% end %>
+      <%= link_to down_aggregate_path(aggregate), method: :post, class: 'btn btn-secondary btn-sm d-flex align-items-center ps-0 pe-0' do %>
+        <i aria-hidden='true' class="material-icons align-middle" data-bs-toggle='tooltip' title='<%= t('aggregates.actions.move_down') %>'><%= Icons::MAT[:down] %></i>
+      <% end %>
+      <button class='btn btn-secondary btn-sm d-flex align-items-center merge-aggregates ps-0 pe-0' data-target='<%= aggregate.id %>'>
+        <i aria-hidden='true' class='material-icons align-middle' data-bs-toggle='tooltip' title='<%= t('aggregates.actions.merge') %>'>move_to_inbox</i>
+      </button>
+    </div>
+    <div class='ms-1 me-1 flex-fill mw-100 p-2 bg-<%= aggregate.severity %> auto-overflow-x'>
+      <h5 class="agg_title m-0" title='<%= Vulnerability.human_attribute_name("severity.#{aggregate.severity}") %>'
+          data-bs-toggle='tooltip'>
+        <%= aggregate.title %>
+      </h5>
+    </div>
+    <div class='ms-auto d-flex'>
+      <div class="btn-group" role="group" aria-label="aggregate_infos">
+        <div  class='btn status text-<%= kind_color(aggregate.status) %>'
+              title='<%= Aggregate.human_attribute_name("status.#{aggregate.status}") %>'
+              data-bs-toggle='tooltip'>
+          <i aria-hidden='true' class='material-icons align-middle'><%= kind_icon(aggregate.status) %></i>
+        </div>
+        <div  class="severity d-none btn btn-<%= aggregate.severity %>">
+          <span class='badge badge-<%= aggregate.severity %>'><%= aggregate.severity_before_type_cast %></span>
+        </div>
+        <% visibility_data = aggregate.visibility == 'shown' ? { color: 'success', action: 'hide', icon: :visibility } : { color: 'warning', action: 'show', icon: :visibility_off } %>
+        <%= link_to toggle_visibility_aggregate_path(aggregate), method: :post, class: "btn btn-#{visibility_data[:color]} visibility", title: t("aggregates.actions.#{visibility_data[:action]}"), 'data-bs-toggle': 'tooltip' do %>
+          <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[visibility_data[:icon]] %></i>
+        <% end %>
+      </div>
+      <div class="btn-group ms-1" role="group" aria-label="Actions">
+        <%= link_to(edit_aggregate_path(aggregate), class: 'btn btn-outline-dark',
+            title: t('aggregates.actions.edit'), 'data-bs-toggle': 'tooltip') do %>
+          <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:edit] %></i>
+        <% end %>
+        <%= link_to(aggregate_path(aggregate), method: :delete, data: { confirm: t('aggregates.actions.destroy_confirm', infos: aggregate) },
+            class: 'btn btn-outline-danger', title: t('aggregates.actions.destroy'), 'data-bs-toggle': 'tooltip' ) do %>
+          <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:delete] %></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body collapse p-1" id="aggregate<%= aggregate.kind %><%= aggregate.rank %>">
+    <%= render 'aggregates/aggregate_field', title: t('activerecord.attributes.aggregate.description'), clazz: 'd-flex flex-wrap', value: aggregate.description %>
+    <%= render 'aggregates/aggregate_field', title: t('activerecord.attributes.aggregate.solution'), clazz: 'd-flex flex-wrap', value: aggregate.solution %>
+    <%= render 'aggregates/aggregate_field', title: t('activerecord.attributes.aggregate.scope'), clazz: 'text-pre auto-overflow-x', value: aggregate.scope %>
+    <%= render 'aggregate_pentest_contents', aggregate: aggregate if aggregate.report.is_a?(PentestReport) && Rails.application.config.pentest_enabled %>
+    <%= render 'aggregate_actions', aggregate: aggregate %>
+    <%= render 'aggregate_occurrences', aggregate: aggregate if aggregate.vm_occurrences.count > 0 || aggregate.wa_occurrences.count > 0 %>
+  </div>
+</div>

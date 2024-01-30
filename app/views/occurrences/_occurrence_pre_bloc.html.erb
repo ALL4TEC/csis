@@ -1,0 +1,7 @@
+<%= render 'occurrences/occurrence_bloc', title: title do %>
+  <%- if content.to_s.empty? %>
+    N/A
+  <%- else %>
+    <pre><%= content.to_s %></pre>
+  <% end %>
+<% end %>

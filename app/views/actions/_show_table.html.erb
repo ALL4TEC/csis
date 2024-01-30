@@ -1,0 +1,39 @@
+<% content_for :header, flush: true do %>
+  <h5 class="card-title"><%= t('labels.informations') %></h5>
+<% end %>
+<% content_for :body, flush: true do %>
+  <div class="table-responsive mt-2">
+    <table class="table table-hover">
+      <caption>Show action</caption>
+      <thead>
+        <tr>
+          <th id='show-action-status'><%= t('labels.status') %></th>
+          <th id='show-action-client'><%= t('models.client') %></th>
+          <th id='show-action-project'><%= t('models.project') %></th>
+          <th id='show-action-report'><%= t('models.report') %></th>
+          <th id='show-action-receiver'><%= t('actions.labels.receiver') %></th>
+          <th id='show-action-author'><%= t('labels.author') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td headers='show-action-status'><%= Action.human_attribute_name("kind.#{@action.meta_state}") %></td>
+          <td headers='show-action-client'><%= link_to(@action.client.name, @action.client, class: 'link-block') %></td>
+          <td headers='show-action-project'><%= link_to(@action.project.name, @action.project, class: 'link-block') %></td>
+          <td headers='show-action-report'><%= link_to(@action.report.title, @action.report, class: 'link-block') %></td>
+          <td headers='show-action-receiver' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= @action.receiver.present? ? @action.receiver.email :  t('actions.labels.unknown') %>'>
+          <% if (receiver = @action.receiver).present? %>
+            <%= link_to(receiver.full_name, contact_path(receiver), class: 'link-block') %>
+          <% else %>
+            <%= t('actions.labels.unknown') %>
+          <% end %>
+          </td>
+          <td headers='show-action-author' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= User.staffs.find(@action.author_id).email %>'>
+            <%= User.staffs.find(@action.author_id).full_name %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<%= render partial: 'layouts/card_collapsible', locals: { id: 'infos', bg_color: 'secondary' } %>

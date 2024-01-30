@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col">
+    <%= render 'show_details' %>
+    <%= render 'show_issues' %>
+    <%= render 'show_vulnerability' %>
+    <%= render 'show_history' %>
+    <%= render 'show_comments' %>
+
+    <%= render 'show_table' if staff_signed_in? %>
+  </div>
+</div>

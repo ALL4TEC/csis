@@ -1,0 +1,10 @@
+<%- clazz = 'badge halo-primary rounded-pill d-inline-flex align-items-center' %>
+<% if link %>
+  <%= link_to(project, class: clazz) do %>
+    <span class='projectname'><%= project.name %></span>
+  <% end %>
+<% else %>
+  <div class="<%= clazz %>">
+    <span class='projectname'><%= project.name %></span>
+  </div>
+<% end %>

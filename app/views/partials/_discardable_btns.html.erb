@@ -1,0 +1,15 @@
+<%- headers ||= @headers %>
+<% %i[destroy restore].each do |action| %>
+  <% if policy.send("#{action}?") %>
+    <%- infos = headers.action(action, resource) %>
+    <%- color = action == :destroy ? 'danger' : 'success' %>
+    <li>
+    <%= link_to(infos[:href], method: infos[:method], class: "badge halo-#{color} rounded-pill p-1 d-flex align-items-center",
+        data: {turbo: false, confirm: infos[:data][:confirm]}) do %>
+      <span data-bs-toggle='tooltip' title='<%= infos[:label] %>'>
+        <i aria-hidden='true' class='material-icons align-middle'><%= infos[:icon] %></i>
+      </span>
+    <% end %>
+    </li>
+  <% end %>
+<% end %>

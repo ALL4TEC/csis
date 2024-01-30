@@ -1,0 +1,15 @@
+<%= t('mailer.content.hello') %> <%= @user.full_name %>,
+============================================================
+
+<%= t('mailer.content.notifications.comment_creation.new_comment_concerning_html', infos: @notif.data[:title]) %>
+
+<%= @notif.item.comment %>
+-- <%= @notif.item.author&.full_name %>
+
+<%= t('mailer.content.notifications.comment_creation.how_to_respond') %>
+
+<%= @url %>
+
+<%= t('mailer.content.polite') %>
+
+<%= I18n.t('mailer.content.do_not_answer') %>

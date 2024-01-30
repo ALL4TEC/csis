@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+jc_one:
+  name: First
+  id: d59389b0-f973-11ed-a9a5-24418c13e8f4 # needed so that the issue is correctly linked to the ticketable
+  url: 'https://first.example.com'
+  encrypted_login: "<%= @secret = JiraConfig.new(login: 'access_token_1'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = JiraConfig.new(password: 'refresh_token_1'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+  type: 'JiraConfig'
+
+jc_two:
+  name: Second
+  url: 'https://second.example.com'
+  encrypted_login: "<%= @secret = JiraConfig.new(login: 'access_token_2'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = JiraConfig.new(password: 'refresh_token_2'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+  type: 'JiraConfig'

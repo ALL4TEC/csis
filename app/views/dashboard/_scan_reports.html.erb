@@ -1,0 +1,5 @@
+<% if scan.reports.present? %>
+  <i aria-hidden='true' class="material-icons text-success" alt="used"><%= Icons::MAT[:on] %></i>
+<% else %>
+  <i aria-hidden='true' class="material-icons text-danger" alt="not used"><%= Icons::MAT[:off] %></i>
+<% end %>

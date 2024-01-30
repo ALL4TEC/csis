@@ -1,0 +1,18 @@
+<div class="btn-group m-0 pe-1" role="group" aria-label="Clients/Contacts">
+  <a href="<%= clients_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.clients_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:clients] %></i>&nbsp;<%= policy_scope(Client).count %>
+  </a>
+  <a href="<%= contacts_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.contacts_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:contacts] %></i>&nbsp;<%= policy_scope(:contact).count %>
+  </a>
+  <a href="<%= teams_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.teams_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:teams] %></i>&nbsp;<%= policy_scope(Team).count %>
+  </a>
+  <a href="<%= staffs_path %>" role="button" class="btn btn-dark d-inline-flex"
+    data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.staffs_count') %>">
+    <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:staffs] %></i>&nbsp;<%= policy_scope(:staff).count %>
+  </a>
+</div>

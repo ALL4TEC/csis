@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= t('app_name') %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='version' content='<%= CSIS::VERSION %>'>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_packs_with_chunks_tag  'unauthenticated', nonce: true, 'data-turbo-track': 'reload' %>
+    <%= stylesheet_pack_tag 'unauthenticated', media: 'all' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class='row container-narrow'>
+      <div class='col-8'>
+        <div class='ms-5 mt-5 d-flex align-items-center justify-content-center'>
+          <h1 class='display-1 ms-3 text-white'><%= t('app_description') %></h1>
+        </div>
+      </div>
+      <div class="col-4 bg-white h-100">
+        <div class='d-flex flex-column align-items-center h-100 justify-content-center'>
+          <% unless notice.nil? %>
+            <div class="alert alert-primary"><%= notice %></div>
+          <% end %>
+          <% unless alert.nil? %>
+            <div class="alert alert-danger"><%= alert %></div>
+          <% end %>
+          <div class='d-flex flex-column h-100'>
+            <div class="logos-container mt-5 mb-5">
+              <div class="logos d-flex align-items-center w-100 justify-content-center">
+                <div class="p-0 d-flex align-items-center justify-content-center"><%= image_tag('logos/CSIS_LOGO_FULL.png', height: '100px', alt: "") %></div>
+              </div>
+            </div>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Members of contact group
+c_one:
+  full_name: "DURANT Jean"
+  email: durant.jean@society1.com
+  notification_email: durant.jean@society1.fr
+  state: actif
+  # La longueur des mdp a été augmentée
+  encrypted_password: <%= BCrypt::Password.create('P@ssW0rdLongEnough') %>
+  language: fr
+  ref_identifier: SELLSY_1000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+c_two:
+  full_name: "BOUVET Léa"
+  email: lea.bouvet@society2.com
+  state: actif
+  language: fr
+  ref_identifier: SELLSY_2000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+c_three:
+  full_name: MATIN Martin
+  email: martin.matin@society3.com
+  state: actif
+  language: en
+  ref_identifier: SELLSY_3000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+c_four:
+  full_name: "PANTIN Rachel"
+  email: pantin.rachel@society4.com
+  state: inactif
+  language: en
+  ref_identifier: SELLSY_4000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+c_five:
+  full_name: "MORE One"
+  email: one.more@society.com
+  state: inactif
+  language: en
+  ref_identifier: SELLSY_5000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+another:
+  full_name: "ONE Another"
+  email: another.one@society.com
+  state: inactif
+  language: en
+  ref_identifier: SELLSY_6000
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+contactadmin:
+  full_name: "CONTACT Admin"
+  email: contact.admin@somedomain.eu
+  state: actif
+  encrypted_password: <%= BCrypt::Password.create('P@ssW0rdLongEnough') %>
+  language: fr
+  ref_identifier: SELLSY_1
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+contactmanager:
+  full_name: "CONTACT Manager"
+  email: contact.manager@somedomain.eu
+  state: actif
+  encrypted_password: <%= BCrypt::Password.create('P@ssW0rdLongEnough') %>
+  language: fr
+  ref_identifier: SELLSY_2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+basiccontact:
+  full_name: "BASIC Contact"
+  email: basic.contact@somedomain.eu
+  state: actif
+  encrypted_password: <%= BCrypt::Password.create('P@ssW0rdLongEnough') %>
+  language: fr
+  ref_identifier: SELLSY_2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+pele:
+  full_name: "Edson Arantes do Nascimiento"
+  email: pele@footchaball.br
+  state: inactif
+  ref_identifier: SELLSY_10
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+
+# members of Staff group
+staffuser:
+  email: "staff.user@somedomain.com"
+  full_name: "Staff User"
+  language: en
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+
+staffuser2:
+  email: "staff.user@somedomain.eu"
+  full_name: "Staff User 2"
+  language: fr
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+
+superadmin:
+  email: "coeursi@somedomain.eu"
+  full_name: "Super Admin"
+  language: fr
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+    # - two
+
+cyberadmin:
+  email: "cyberadmin@somedomain.eu"
+  full_name: "cyber admin"
+  language: fr
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+
+cyberanalyst:
+  email: "cyberanalyst@somedomain.eu"
+  full_name: "cyber analyst"
+  language: fr
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+
+inactif:
+  email: "inactif@somedomain.eu"
+  full_name: "inactif"
+  language: fr
+  state: 0
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  staff_teams:
+    - team_one
+
+unconfirmed:
+  email: 'unconfirmed@somedomain.eu'
+  full_name: 'unconfirmed'
+  language: fr
+  state: 2
+  staff_teams:
+    - team_one
+
+samuel:
+  email: 'sam.uel@somedomain.eu'
+  full_name: 'Sam Uel'
+  language: 'fr'
+  state: 2
+  confirmed_at: "2018-06-18T10:00:00.000Z"
+  provider: "First IDP"
+  staff_teams:
+    - team_one

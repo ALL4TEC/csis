@@ -1,0 +1,53 @@
+<%= render layout: 'dashboard/table_content', locals: {name: name} do %>
+  <caption>Vulnerabilities</caption>
+  <thead>
+    <tr>
+      <th id='vulnerabilities-title' class='col-6'><%= t('vulnerabilities.labels.title') %></th>
+      <th id='vulnerabilities-occurrences' class='col-5'><%= t('dashboard.labels.occurrences_count') %></th>
+      <th id='vulnerabilities-notexportable' notexportable class='col-1'>
+        <ul class="d-flex float-end pasties">
+          <li>
+            <a role='button' class="badge halo-primary rounded-pill p-1 d-flex align-items-center btn-export" data-name="<%= name %>-content"
+                title="<%= t('labels.export_data') %>" data-bs-toggle='tooltip'>
+              <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:export] %></i>
+            </a>
+          </li>
+          <li>
+            <a class="card-btns-chart badge halo-primary rounded-pill p-1 d-flex align-items-center" role="button" id="chart-vulnerabilities" href='/statistics?view=0'>
+              <i aria-hidden='true' class='material-icons align-middle' data-bs-toggle='tooltip' title="<%= t('labels.visualize_chart') %>"><%= Icons::MAT[:pie_chart] %></i>
+            </a>
+          </li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% vulnerabilities.reverse.each do |vuln| %>
+      <% vulnerability = Vulnerability.find_by(qid: vuln[2]) %>
+      <tr class='line-hover-<%= vulnerability.severity %>'>
+        <td headers='vulnerabilities-title'>
+          <div class="d-flex justify-content-start rounded-2 ps-1 bg-<%= vulnerability.severity %>" title='<%= Vulnerability.human_attribute_name("severity.#{vulnerability.severity}") %>' data-bs-toggle='tooltip'>
+          <%= link_to(vulnerability, vulnerability_path(vulnerability)) %>
+          </div>
+        </td>
+        <td headers='vulnerabilities-occurrences'>
+          <details class='ms-auto'>
+            <summary><span class='badge badge-primary'><%= vuln[0] %></span></summary>
+            <div class='d-flex flex-wrap ms-1'>
+            <%# WIP: Manque d'élégance / de perfs mais fait le taff
+                    Les trier du project le plus touché au projet les moins touché ?%>
+            <% @projects.each do |project| %>
+              <% next if project.report.blank? || (count = project.report.vulnerability_count(vulnerability)).zero? %>
+              <div class="d-flex align-items-center btn btn-sm btn-secondary">
+                <span class="badge badge-secondary"><%= count %></span>
+                <%= link_to(project.name, project, class: 'link-block no-deco ms-1') %>
+              </div>
+            <% end %>
+            </div>
+          </details>
+        </td>
+        <td headers='vulnerabilities-notexportable' notexportable></td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

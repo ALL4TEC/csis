@@ -1,0 +1,16 @@
+<% content_for :table do %>
+  <%= pagination = paginate @scan_launches %>
+
+  <% ScanConfiguration.scanners.keys.each do |scanner| %>
+    <%- scan_launches = @scan_launches.joins(:scan_configuration).where(:scan_configuration => { scanner: scanner }) %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: scanner, header: t("labels.#{scanner}"), count: scan_launches.count } do %>
+      <%= render 'report_scan_launches/list', scan_launches: scan_launches, scanner: scanner %>
+    <% end %>
+  <% end %>
+
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>
+
+
+

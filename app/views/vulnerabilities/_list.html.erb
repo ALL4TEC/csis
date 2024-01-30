@@ -1,0 +1,52 @@
+<%= pagination = paginate @vulnerabilities %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Vulnerabilities</caption>
+    <thead>
+      <tr>
+        <th id='vulnerabilities-kind'>
+          <%= sort_link @q, :kind, t('activerecord.attributes.vulnerability.kind') %>/<%= sort_link @q, :title, t('activerecord.attributes.vulnerability.title') %>
+        </th>
+        <th id="vulnerabilities-qid"><%= sort_link @q, :qid %></th>
+        <th id='vulnerabilities-severity'><%= sort_link @q, :severity %></th>
+        <th id='vulnerabilities-cvss'><%= sort_link @q, :cvss %>/<%= sort_link @q, :cvss_version %></th>
+        <th id='vulnerabilities-category'><%= sort_link @q, :category, t('activerecord.attributes.vulnerability.category') %></th>
+        <th id='vulnerabilities-infos'>Infos</th>
+        <th id='vulnerabilities-btn'><%= render 'partials/c_btn' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @vulnerabilities.each do |v| %>
+        <tr class='line-hover-<%= v.severity %>'>
+          <td headers='vulnerabilities-kind'>
+            <div class='d-flex'>
+              <i aria-hidden='true' class='text-<%= kind_color(v.kind) %> material-icons align-middle' title='<%= Vulnerability.human_attribute_name("kind.#{v.kind}") %>' data-bs-toggle='tooltip'><%= kind_icon(v.kind) %></i>
+              <%= link_to(v.title, v, class: 'ms-2 link-block') %>
+            </div>
+          </td>
+          <td headers='vulnerabilities-qid'><%= link_to(v.qid, v, class: 'link-block') %></td>
+          <td headers='vulnerabilities-severity'>
+            <div class="bg-<%= v.severity %> d-flex justify-content-center rounded-2">
+            <%= Vulnerability.human_attribute_name("severity.#{v.severity}") %>
+            </div>
+          </td>
+          <td headers='vulnerabilities-cvss' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= v.cvss_vector.presence %>'>
+          <%- if v.cvss.present? %>
+            <%= v.cvss %>
+            <span class='badge badge-secondary'>v<%= v.cvss_version %></span>
+          <% end %>
+          </td>
+          <td headers='vulnerabilities-category'><%= v.category %></td>
+          <td headers='vulnerabilities-infos'>
+            <%= render 'patchable' unless v.patchable.zero? %>
+            <%= render 'pci' unless v.pci_flag.zero? %>
+            <%= render 'remote' unless v.remote.zero? %>
+            <%= render 'exploitable' unless v.exploits.count.zero? %>
+          </td>
+          <td headers='vulnerabilities-btn'></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

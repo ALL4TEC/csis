@@ -1,0 +1,7 @@
+<% if @report.is_a?(ScanReport) %>
+  <%= render 'reports/scan_form', report: @report %>
+<% elsif Rails.application.config.pentest_enabled && @report.is_a?(PentestReport) %>
+  <%= render 'reports/pentest_form', report: @report %>
+<% elsif Rails.application.config.action_plan_enabled && @report.is_a?(ActionPlanReport) %>
+  <%= render 'reports/action_plan_form', report: @report %>
+<% end %>

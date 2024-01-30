@@ -1,0 +1,75 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <% opt = Action.meta_states_select %>
+    <%= render 'partials/multiple_select', target: 'meta_state', title: t('activerecord.attributes.action.meta_state'), id: "actions_filters_meta_states" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= Action.meta_states[key] %>' data-content="<span class='d-flex align-items-center text-<%= action_meta_state_color(key) %>'><i class='material-icons me-1'><%= action_meta_state_icon(key) %></i><%= label %></span>">
+        <%= label %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = policy(Action).permitted_states_select %>
+    <%= render 'partials/multiple_select', target: 'state', title: t('activerecord.attributes.action.state'), id: "actions_filters_states" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= Action.states[key] %>' data-content="<span class='d-flex align-items-center text-<%= action_state_color(key) %>'><i class='material-icons me-1'><%= action_state_icon(key) %></i><%= label %></span>">
+        <%= label %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Action.priorities_select %>
+    <%= render 'partials/multiple_select', target: 'priority', title: t('activerecord.attributes.action.priority'), id: "actions_filters_priorities" do %>
+      <% opt.each do |label, key| %>
+        <option value='<%= key %>' data-content="<span class='d-flex align-items-center text-<%= action_priority_color(key) %>'><i class='material-icons me-1'><%= action_priority_icon() %></i><%= label %></span>">
+          <%= label %>
+        </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Action.due_date_statuses_select %>
+    <%= render 'partials/multiple_select', target: 'due_date_status', title: t('activerecord.attributes.action.overdue_date'), id: "actions_filters_due_date_status" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' data-content="<span class='d-flex align-items-center text-<%= action_due_date_status_color(key) %>'><i class='material-icons me-1'><%= action_due_date_status_icon() %></i><%= label %></span>">
+        <%= label %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Aggregate.severities %>
+    <%= render 'partials/multiple_select', target: 'aggregates_severity', title: t('activerecord.attributes.aggregate.severity'), id: "actions_filters_severity" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' class='badge-<%= label %>'>
+        <%= translate_severity(label) %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.action.name'), data: { 'live-search': "true" } %>
+  </div>
+
+  <%-
+    [
+      [:aggregates_id_eq, :aggregate, :id, :title],
+      [:aggregates_report_project_client_id_eq, :client, :id, :name],
+      [:aggregates_report_project_id_eq, :project, :id, :name],
+      [:aggregates_report_id_eq, :report, :id, :title],
+      [:receiver_full_name_eq, :receiver, :id, :full_name]
+    ].each do |select_sym, name, key, value| %>
+    <div class="form-group">
+      <%= f.select select_sym,
+            options_from_collection_for_select(@q_base.filter_map(&name).uniq,
+              key, value, @q.send(select_sym)), { include_blank: true }, class: 'form-control selectpicker show-tick', title: t("activerecord.attributes.action.#{name}"), data: { 'live-search': "true" } %>
+    </div>
+  <% end %>
+<% end %>

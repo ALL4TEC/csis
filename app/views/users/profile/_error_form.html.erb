@@ -1,0 +1,27 @@
+<%- button_label ||= t('helpers.submit.user') %>
+<%= simple_form_for(@user, url: url, method: :put) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class='card rounded-0'>
+      <h4 class='card-header bg-secondary rounded-0'>
+        <i aria-hidden='true' class='material-icons'><%= Icons::MAT[:warning] %></i>
+        <%= I18n.t("errors.messages.not_saved",
+                  count: @user.errors.count,
+                  resource: @user.class.model_name.human.downcase)
+        %>
+      </h4>
+      <div class='card-body'>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <%= yield f %>
+  </div>
+  <%= ui_fixed_form_footer f do %>
+    <%= button_label %>
+  <% end %>
+<% end %>

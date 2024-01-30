@@ -1,0 +1,15 @@
+<%- clazz ||= 'mt-2 mb-2 fade-in-down' %>
+<%- card_clazz ||= 'w-100 p-2 d-flex flex-column rounded-0' %>
+<%- title ||= '' %>
+<div class="<%= clazz %>">
+  <div class='card <%= card_clazz %>'>
+    <%- if title.present? %>
+    <div class='d-inline-flex mb-2'>
+      <h5 class='text-grey-l ps-1 pe-1'><%= title %></h5>
+    </div>
+    <% end %>
+    <div class='w-100'>
+      <%= yield %>
+    </div>
+  </div>
+</div>

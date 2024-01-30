@@ -1,0 +1,16 @@
+<%- action = user.in_group?(group.name) ? 'remove_user?' : 'add_user?' %>
+<%- enabled = GroupPolicy.new(current_user, {group: group, user: user}).send(action) %>
+<%- data = user.in_group?(group.name) ? {icon: :check, color: 'success', method: :delete, action: {path: remove_user_from_group_path(group, user), icon: :remove}} : {icon: :close, color: 'danger', method: :post, action: {path: add_user_to_group_path(group, user), icon: :add}} %>
+<div class='d-flex justify-content-center align-items-center'>
+  <%= button_to(data[:action][:path], method: data[:method], class: 'd-flex align-items-center btn btn-sm btn-light p-1 rounded-circle', disabled: !enabled) do %>
+    <span class='group-btn <%= enabled ? 'group-btn-enabled' : '' %>'>
+      <i aria-hidden='true' class='material-icons align-middle text-<%= data[:color] %>'><%= Icons::MAT[data[:icon]] %></i>
+    </span>
+    <%- if enabled %>
+    <span class='i_quick_rotate' data-bs-toggle='tooltip' title='<%= t("groups.actions.#{data[:action][:icon]}_user") %>'>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[data[:action][:icon]] %></i>
+    </span>
+    <% end %>
+  <% end %>
+  <span class='badge badge-count ms-1' data-bs-toggle='tooltip' title="<%= t('groups.user.teams_count') %>"><%= user.group_teams(group.name).count %></span>
+</div>

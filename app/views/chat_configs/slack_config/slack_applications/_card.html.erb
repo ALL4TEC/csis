@@ -1,0 +1,13 @@
+<% content_for :header, flush: true do %>
+  <div class='d-flex align-items-center justify-content-between w-100'>
+    <h5 class="card-title font-weight-bold"><%= slack_application.name %></h5>
+    <div class='ms-auto pasties-parent'>
+      <%= render 'partials/actions_btns', policy: policy(slack_application), resource: slack_application,
+          discardable: true, klazz: 'slack_application', headers: @application_headers %>
+    </div>
+  </div>
+<% end %>
+<% content_for :body, flush: true do %>
+  <%= render 'chat_configs/slack_config/list', slack_application: slack_application %>
+<% end %>
+<%= render partial: 'layouts/card_collapsible', locals: { id: 'slack_configs', bg_color: 'secondary' } %>

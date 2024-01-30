@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'qualys_configs/list', qualys_configs: @qualys_configs %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

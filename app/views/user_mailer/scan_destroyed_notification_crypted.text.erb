@@ -1,0 +1,12 @@
+<%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,
+==========================================================
+
+<%= @notif.data[:title] %>:
+
+<%= @notif.data[:message] %>
+
+<%= @url %>
+
+<%= I18n.t('mailer.content.polite') %>
+
+<%= I18n.t('mailer.content.do_not_answer') %>

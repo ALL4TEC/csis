@@ -1,0 +1,60 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+cron_auto_project:
+  name: 'report_auto_generation_for_project_auto'
+  cronable: project_auto
+  cronable_type: 'Project'
+  value: '0 2 * * *'
+
+cron_vm_qc_one:
+  name: 'import_vm_scans_for_qualys_config_first'
+  cronable: qc_one
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_wa_qc_one:
+  name: 'import_wa_scans_for_qualys_config_first'
+  cronable: qc_one
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_vm_qc_two:
+  name: 'import_vm_scans_for_qualys_config_second'
+  cronable: qc_two
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_wa_qc_two:
+  name: 'import_wa_scans_for_qualys_config_second'
+  cronable: qc_two
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_vm_qc_express:
+  name: 'import_vm_scans_for_qualys_config_third'
+  cronable: qc_express
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_wa_qc_express:
+  name: 'import_wa_scans_for_qualys_config_third'
+  cronable: qc_express
+  cronable_type: 'Account'
+  value: '0 2 * * *'
+
+cron_scheduled_scan_one:
+  name: 'scheduled_scan_MaPUI_zaproxy_zap-full-scan_http://something'
+  cronable: scheduled_scan_one
+  cronable_type: 'ScheduledScan'
+  value: '0 2 * * *'
+
+cron_scheduled_scan_two:
+  name: 'scheduled_scan_MaPUI_zaproxy_zap-baseline-scan_http://something'
+  cronable: scheduled_scan_two
+  cronable_type: 'ScheduledScan'
+  value: '0 2 * * *'

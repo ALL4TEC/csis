@@ -1,0 +1,16 @@
+<div class="card ">
+  <div class="card-header bg-<%= defined?(color).nil? ? 'secondary' : color %> p-0">
+    <%- title = t("dashboard.labels.last_#{name.underscore.pluralize}") %>
+    <button class="btn text-<%= defined?(color).nil? ? 'white' : 'black' %> w-100" type="button" data-bs-toggle="modal" data-bs-target="#url-modal-<%= name %>" title="<%= title %>">
+      <span class="d-flex">
+        <span class="d-flex mx-auto">
+          <i aria-hidden='true' class="material-icons align-middle me-1"><%= Icons::MAT[icon] %></i> 5 <%= title %>
+        </span>
+        <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:zoom_in] %></i>
+        </span>
+    </button>
+  </div>
+  <div class="card-body">
+    <%= yield %>
+  </div>
+</div>

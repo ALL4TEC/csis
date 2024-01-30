@@ -1,0 +1,62 @@
+<% critical_count = 0
+   high_count = 0
+   medium_count = 0
+   low_count = 0
+   trivial_count = 0
+   falsepositive_count = 0 %>
+<% actions.each do |a| %>
+    <% a.severity.present? ? sev = a.severity : 'trivial'%>
+    <% critical_count += sev == 'critical' ? 1 : 0 %>
+    <% high_count += sev == 'high' ? 1 : 0 %>
+    <% medium_count += sev == 'medium' ? 1 : 0 %>
+    <% low_count += sev == 'low' ? 1 : 0 %>
+    <% trivial_count += sev == 'trivial' ? 1 : 0 %>
+    <% falsepositive_count += sev == 'falsepositive' ? 1 : 0 %>
+<% end %>
+
+<div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group me-2" role="group" aria-label="First group">
+        <a role="button" class="btn btn-sm btn-critical filter-actions" show-severities='5' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.critical') %>">
+            <span class="badge badge-critical">
+                <%= critical_count %>
+            </span>
+        </a>
+        <a role="button" class="btn btn-sm btn-high filter-actions" show-severities='4' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.high') %>">
+            <span class="badge badge-high">
+                <%= high_count %>
+            </span>
+        </a>
+        <a role="button" class="btn btn-sm btn-medium filter-actions" show-severities='3' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.medium') %>">
+            <span class="badge badge-medium">
+                <%= medium_count %>
+            </span>
+        </a>
+        <a role="button" class="btn btn-sm btn-low filter-actions" show-severities='2' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.low') %>">
+            <span class="badge badge-low">
+                <%= low_count %>
+            </span>
+        </a>
+        <a role="button" class="btn btn-sm btn-trivial filter-actions" show-severities='1' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.trivial') %>">
+            <span class="badge badge-trivial">
+                <%= trivial_count %>
+            </span>
+        </a>
+        <a role="button" class="btn btn-sm btn-light text-dark filter-actions" show-severities='0' parent="<%= parent %>"
+            data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= Vulnerability.human_attribute_name('severity.falsepositive') %>">
+            <span class="badge badge-light">
+                <%= falsepositive_count %>
+            </span>
+        </a>
+    </div>
+    <div class="btn-group" role="group" aria-label="Third group">
+        <a role="button" class="btn btn-sm btn-primary filter-actions" show-all='true' parent="<%= parent %>">
+            <i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:all] %></i>
+            <span class="badge badge-primary"><%= actions.count %></span>
+        </a>
+    </div>
+</div>

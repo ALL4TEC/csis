@@ -1,0 +1,80 @@
+<%= javascript_packs_with_chunks_tag  'public_key', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%- list = clients.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Clients list</caption>
+    <thead>
+      <tr>
+        <th id='clients-relation_type'><%= t('clients.labels.relation_type') %></th>
+        <% if list %>
+        <th id='clients-list-name'><%= sort_link @q, :name %></th>
+        <% end %>
+        <th id='clients-list-web_url'><%= t('activerecord.attributes.client.web_url') %></th>
+        <th id='clients-list-contacts'><%= t('activerecord.attributes.client.contacts') %></th>
+        <% if list %>
+        <th id='clients-list-projects'><%= t('activerecord.attributes.client.projects') %></th>
+        <th id='clients-list-supplied_projects'><%= t('activerecord.attributes.client.supplied_projects') %></th>
+        <th id='clients-list-btn'><%= render 'partials/c_btn', new_resource_path: new_client_path, policy: policy(Client) %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <%- scoped_contacts = policy_scope(:contact) %>
+    <%- scoped_projects = policy_scope(Project) %>
+    <% clients.each do |client| %>
+      <tr>
+        <td headers='clients-relation_type'>
+          <div data-bs-toggle='tooltip' title='<%= t("clients.labels.internal_type.#{client.internal_type}") %>'>
+            <i aria-hidden="true" class='material-icons align-middle text-<%= project_owner_color(client.internal_type) %>'><%= Icons::MAT[:dashboard] %></i>
+          </div>
+        </td>
+        <% if list %>
+        <td headers='clients-list-name'>
+          <%= render 'groups/group_badge', group: client, link: true %>
+        </td>
+        <% end %>
+        <td headers='clients-list-web_url'>
+          <%= link_to_unless(client.web_url.nil?, client.web_url, client.web_url, class: 'link-block', target: '_blank', rel: 'noopener noreferrer') %>
+        </td>
+        <td headers='clients-list-contacts'>
+          <%- unless client.contacts.nil? %>
+          <ul>
+            <% client.contacts.each do |contact| %>
+            <li><%= render partial: 'users/user_badge', locals: { user: contact, type: 'contact', indicators: false, gpg: false, link: contact.in?(scoped_contacts) } %></li>
+            <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <% if list %>
+        <td headers='clients-list-projects'>
+          <%- unless client.projects.nil? %>
+          <ul>
+          <%- client.projects.order('name ASC').each do |project| %>
+            <li>
+            <%= render partial: 'projects/project_badge', locals: { project: project, link: project.in?(scoped_projects) } %>
+            </li>
+          <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='clients-list-supplied_projects'>
+          <%- unless client.supplied_projects.nil? %>
+          <ul>
+          <%- client.supplied_projects.each do |project| %>
+            <li>
+            <%= render partial: 'projects/project_badge', locals: { project: project, link: project.in?(scoped_projects) } %>
+            </li>
+          <% end %>
+          </ul>
+          <% end %>
+        </td>
+        <td headers='clients-list-btn'>
+          <%= render 'partials/actions_btns', policy: policy(client), resource: client, discardable: true, klazz: 'client' %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

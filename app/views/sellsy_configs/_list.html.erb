@@ -1,0 +1,25 @@
+<%= pagination = paginate sellsy_configs %>
+<div class="table-responsive">
+  <table class="table table-sellsy_config table-hover">
+    <caption>Sellsy configurations</caption>
+    <thead>
+      <tr>
+        <th id='sellsy-configs-name' class="th-sellsy_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.sellsy_config.name') %>
+        </th>
+        <th id='sellsy-configs-btn'><%= render 'partials/c_btn' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sellsy_configs.each do |sellsy_config| %>
+        <tr>
+          <td headers='sellsy-configs-name'>
+            <%= link_to(sellsy_config.name, sellsy_config, class: 'link-block') %>
+          </td>
+          <td headers='sellsy-configs-btn'></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

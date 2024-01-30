@@ -1,0 +1,326 @@
+--- !ruby/object:Sellsy::ListResponse
+method: Supplier.getList
+per_page: 50
+page: 1
+total: 2
+data:
+- !ruby/object:Sellsy::Supplier
+  id: 88888888
+  third_id: 
+  owner_id: 88888
+  corporation_id: 88888
+  name: TEST AUDIT
+  full_name: TEST AUDIT
+  email: ''
+  csis:
+  - id: '107943393'
+    status: ok
+    code: csis
+    formatted_value: oui
+  website_url:
+  phone_fixed: !ruby/object:Phonelib::Phone
+    original: "+33888888888"
+    extension: ''
+    sanitized: '33888888888'
+    original_s: "+33888888888"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '888888888'
+        :format: &1
+          :pattern: "(\\d)(\\d{2})(\\d{2})(\\d{2})(\\d{2})"
+          :national_prefix_formatting_rule: "$NP$FG"
+          :leading_digits: "[1-79]"
+          :format: "$1 $2 $3 $4 $5"
+        :valid:
+        - :fixed_line
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '888888888'
+  fax: !ruby/object:Phonelib::Phone
+    original: ''
+    extension: ''
+    sanitized: ''
+    data: {}
+  phone_mobile: !ruby/object:Phonelib::Phone
+    original: ''
+    extension: ''
+    sanitized: ''
+    data: {}
+  apenaf: 78950Z
+  rcs: '888888888'
+  siret: '888888888888'
+  siren: '888888888'
+  vat_number: ''
+  address:
+    id: 77777777
+    name: Bureau
+    first_line: 20 RUE DU PORS
+    second_line: ''
+    third_line: 
+    fourth_line: 
+    zipcode: '56000'
+    city: VANNES
+    state: ''
+    latitude: 77.7777
+    longitude: -7.77777
+    country_code: FR
+  delivery_address:
+    id: 77777777
+    name: Bureau
+    first_line: 20 RUE DU PORS
+    second_line: ''
+    third_line: 
+    fourth_line:
+    zipcode: '56000'
+    city: VANNES
+    state: ''
+    latitude: 77.7777
+    longitude: -7.77777
+    country_code: FR
+  avatar_url: https://www.sisi.family/avatar.pnj
+  type: corporation
+  capital: '1.00'
+  joined_at: 2017-07-27 15:33:50.000000000 +02:00
+  aux_code: ''
+  accounting_code: ''
+  sticky_note: ''
+  ident: ''
+  rate_category: '0'
+  picture: https://www.sisi.family/avatar.pnj
+  corporation_type: Spas
+  contacts:
+  - &2 !ruby/object:Sellsy::Contact
+    last_name: Ken
+    first_name: Adou
+    phone_fixed: !ruby/object:Phonelib::Phone
+      original: "+33999999999"
+      extension: ''
+      sanitized: '33999999999'
+      original_s: "+33999999999"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '999999999'
+          :format: *1
+          :valid:
+          - :fixed_line
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '999999999'
+    phone_mobile:
+    email: rdoucet@qantalis.com
+    gender: man
+    role: Expert Comptable associé
+    birthdate: ''
+    third_id: 99999999
+    id: 9999999
+    people_id: 99999999
+    full_name: M Ronald DOUCET
+    corporation_id: '99999'
+    picture: ''
+  main_contact_id: 9999999
+  main_contact: *2
+  active: true
+  massmailing_unsubscribed: false
+  massmailing_unsubscribed_sms: false
+  phoning_unsubscribed: false
+  massmailing_unsubscribed_mail: false
+  massmailing_unsubscribed_custom: false
+- !ruby/object:Sellsy::Supplier
+  id: 11111111
+  third_id:
+  owner_id: 11111
+  corporation_id: 11111
+  name: VIP BZH
+  full_name: VIP BZH
+  email: bzh@vip.brz
+  csis:
+  - id: '107943393'
+    status: ok
+    code: csis
+    formatted_value: oui
+  website_url: 
+  phone_fixed: !ruby/object:Phonelib::Phone
+    original: "+33111111111"
+    extension: ''
+    sanitized: '33111111111'
+    original_s: "+33111111111"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '111111111'
+        :format: *1
+        :valid:
+        - :fixed_line
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '111111111'
+  fax: !ruby/object:Phonelib::Phone
+    original: "+33111111111"
+    extension: ''
+    sanitized: '33111111111'
+    original_s: "+33111111111"
+    data:
+      FR:
+        :id: FR
+        :country_code: '33'
+        :international_prefix: '00'
+        :national_prefix: '0'
+        :mobile_number_portable_region: 'true'
+        :national: '111111111'
+        :format: *1
+        :valid:
+        - :fixed_line
+        :possible:
+        - :premium_rate
+        - :toll_free
+        - :shared_cost
+        - :voip
+        - :uan
+        - :fixed_or_mobile
+    national_number: '111111111'
+  phone_mobile: !ruby/object:Phonelib::Phone
+    original: ''
+    extension: ''
+    sanitized: ''
+    data: {}
+  apenaf: ''
+  rcs: ''
+  siret: ''
+  siren: ''
+  vat_number: ''
+  address:
+    id: 22222222
+    name: Bureau
+    first_line: VIP
+    second_line: Coin VIP
+    third_line: 
+    fourth_line: 
+    zipcode: '22222'
+    city: Vannes
+    state: ''
+    latitude:
+    longitude:
+    country_code: FR
+  delivery_address:
+    id: 22222222
+    name: Bureau
+    first_line: VIP
+    second_line: Coin VIP
+    third_line: 
+    fourth_line: 
+    zipcode: '22222'
+    city: Vannes
+    state: ''
+    latitude: 
+    longitude: 
+    country_code: FR
+  avatar_url: https://vip.png
+  type: corporation
+  capital: 'paris?'
+  joined_at: 2017-07-27 16:13:58.000000000 +02:00
+  aux_code: ''
+  accounting_code: ''
+  sticky_note: ''
+  ident: ''
+  rate_category: '0'
+  picture: https://vip.png
+  corporation_type: ''
+  contacts:
+  - &3 !ruby/object:Sellsy::Contact
+    last_name: DANA
+    first_name: Banc
+    phone_fixed: !ruby/object:Phonelib::Phone
+      original: "+33555555555"
+      extension: ''
+      sanitized: '33555555555'
+      original_s: "+33555555555"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '555555555'
+          :format: *1
+          :valid:
+          - :fixed_line
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '555555555'
+    phone_mobile: !ruby/object:Phonelib::Phone
+      original: "+33555555555"
+      extension: ''
+      sanitized: '33555555555'
+      original_s: "+33555555555"
+      data:
+        FR:
+          :id: FR
+          :country_code: '33'
+          :international_prefix: '00'
+          :national_prefix: '0'
+          :mobile_number_portable_region: 'true'
+          :national: '555555555'
+          :format: *1
+          :valid:
+          - :mobile
+          :possible:
+          - :premium_rate
+          - :toll_free
+          - :shared_cost
+          - :voip
+          - :uan
+          - :fixed_or_mobile
+      national_number: '555555555'
+    email: dana@kil.com
+    gender: man
+    role: ''
+    birthdate: ''
+    third_id: 6666666
+    id: 6666666
+    people_id: 66666666
+    full_name: M Banc DANA
+    corporation_id: '66666'
+    picture: ''
+  main_contact_id: 6666666
+  main_contact: *3
+  active: true
+  massmailing_unsubscribed: false
+  massmailing_unsubscribed_sms: false
+  phoning_unsubscribed: false
+  massmailing_unsubscribed_mail: false
+  massmailing_unsubscribed_custom: false

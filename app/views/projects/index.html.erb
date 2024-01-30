@@ -1,0 +1,6 @@
+<% content_for :table do %>
+  <%= pagination = paginate @projects %>
+    <%= render 'projects/list', projects: @projects, trashed: false %>
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

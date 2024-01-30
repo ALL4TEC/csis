@@ -1,0 +1,51 @@
+--- !ruby/object:Qualys::ListResponse
+data:
+- !ruby/object:Qualys::Scan
+  client_id: 123456
+  reference: scan/123456789.45789
+  type: Scheduled
+  title: VM - Test - 8.8.8.8 - 2019-04-06
+  user_login: stere-sp
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2019-06-04 20:04:17.000000000 Z
+    zone: &1 !ruby/object:ActiveSupport::TimeZone
+      name: Europe/Paris
+    time: 2019-06-04 22:04:17.000000000 Z
+  duration: '00:09:42'
+  processed: '1'
+  state: Finished
+  target: 8.8.8.8
+  option_title: 
+  option_flag: 
+- !ruby/object:Qualys::Scan
+  client_id: 123456
+  reference: scan/123456789.12345
+  type: Scheduled
+  title: VM - Test2 - 9.9.9.9
+  user_login: stere-sp
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2019-05-26 20:04:23.000000000 Z
+    zone: *1
+    time: 2019-05-26 22:04:23.000000000 Z
+  duration: '00:44:23'
+  processed: '1'
+  state: Finished
+  target: 9.9.9.9
+  option_title:
+  option_flag:
+- !ruby/object:Qualys::Scan
+  client_id: 123456
+  reference: scan/123546789.32154
+  type: Scheduled
+  title: VM - Test - 1.1.1.1- check - 20192305
+  user_login: stere-sp
+  launched: !ruby/object:ActiveSupport::TimeWithZone
+    utc: 2019-05-23 20:05:17.000000000 Z
+    zone: *1
+    time: 2019-05-23 22:05:17.000000000 Z
+  duration: '00:09:16'
+  processed: '1'
+  state: Finished
+  target: 1.1.1.1
+  option_title:
+  option_flag:

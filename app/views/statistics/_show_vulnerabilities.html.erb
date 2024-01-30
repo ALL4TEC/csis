@@ -1,0 +1,78 @@
+<!-- VULNERABILITIES -->
+<div class='card p-2'>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'reports_options', header: t('statistics.labels.reports_options'), count: nil, card_title_clazz: "d-flex justify-content-start line-hover-primary border-0 text-dark align-items-center fw-bold fs-5" } do %>
+  <div class='d-flex p-2' data-controller="checker">
+    <div class='d-flex flex-column'>
+      <div class='d-flex align-items-center m-2'>
+        <span class='form-check'>
+          <input type="checkbox" data-action="checker#checkAll" data-source="check-all-last" id="check-all-last" class='form-check-input'>
+          <label for='check-all-last' data-bs-toggle='tooltip' title="<%= t('statistics.labels.check_all_projects_default_tooltip') %>"><%= t('statistics.labels.check_all_projects_default') %></label>
+        </span>
+      </div>
+      <div class='d-flex align-items-center m-2'>
+        <span class='form-check'>
+          <input type="checkbox" data-action="checker#checkAll" data-source="check-all" id="check-all" class='form-check-input'>
+          <label for='check-all' ><%= t('statistics.labels.check_all_available_reports') %></label>
+        </span>
+      </div>
+    <% @projects.each do |p| %>
+      <% if p.report.present? %>
+      <div class='d-flex align-items-center'>
+        <span class='badge halo-primary'>
+          <div class='form-check d-flex align-items-center'>
+            <%= check_box_tag('reports[]', p.report.id, params['reports']&.include?(p.report.id.to_s) || (params['reports'].blank? && true), class: "form-check-input me-1", id: "reports_#{p.report.id}", data: {source: "check-all-#{p.id} check-all-last", target: 'checker.checkbox'}) %>
+            <label for='reports_<%= p.report.id %>' ><%= "#{p.name} - #{p.report}" %></label>
+          </div>
+        </span>
+        <%- unless p.reports.order(created_at: :desc).drop(1).length.zero? %>
+          <details class='ms-2 d-flex flex-wrap'>
+          <summary>
+            <div class='form-check d-inline-flex align-items-center'>
+              <input type="checkbox" data-action="checker#checkAll" data-source="check-all-<%= p.id %>" id="check-all-<%= p.id %>" data-target="checker.checkbox" class='form-check-input me-2'>
+              <label for='check-all-<%= p.id %>' ><%= t('statistics.labels.check_all', project: p.name) %></label>
+            </div>
+          </summary>
+          <%- p.reports.order(created_at: :desc).drop(1).each do |r| %>
+            <span class='badge halo-secondary'>
+              <div class='form-check d-inline-flex align-items-center'>
+                <%= check_box_tag('reports[]', r.id, params['reports']&.include?(r.id.to_s) || (params['reports'].blank? && false), class: "form-check-input me-1", id: "reports_#{r.id}", data: {source: "check-all-#{p.id}", target: 'checker.checkbox'}) %>
+                <label for='reports_<%= r.id %>' ><%= r %></label>
+              </div>
+            </span>
+          <% end %>
+          </details>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+<% end %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'vulns_options', header: t('statistics.labels.vulns_options'), count: nil, card_title_clazz: "d-flex justify-content-start line-hover-primary border-0 text-dark align-items-center fw-bold fs-5" } do %>
+  <div class='d-flex flex-column p-2'>
+    <span class='p-1 form-group mt-3 d-inline-block w-100'>
+      <%= label_tag :limit, t('statistics.labels.limit'), class:'form-label m-0', data: {'bs-toggle': 'tooltip'}, title: t('statistics.labels.limit_tooltip') %>
+      <%= number_field_tag :limit, params[:limit] || StatisticsController::LIMIT, in: 0...26, class:'form-control' %>
+    </span>
+    <div class='d-flex flex-column justify-content-start align-items-start w-100'>
+      <span class='h6'><%= t('statistics.labels.vulnerabilities.inclusion') %></span>
+      <div class='ms-2 d-flex flex-column'>
+        <%- [[0, 'all', true], [1, 'confirmed', false], [2, 'potential', false], [3, 'sensible', false]].each_with_index do |ary, i| %>
+          <span class='form-check d-flex align-items-center'>
+            <%= check_box_tag('kinds[]', ary[0], params['kinds']&.include?(ary[0].to_s) || (params['kinds'].blank? && ary[2]), class: "form-check-input me-1", id: "kinds_#{ary[0]}") %>
+            <label for='kinds_<%= ary[0] %>' ><%= t("statistics.labels.vulnerabilities.#{ary[1]}") %></label>
+          </span>
+          <%- if i.zero? %>
+          <span class='d-flex w-100 justify-content-center'>-- <%= t('statistics.labels.or') %> --</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+<div class='m-2 d-flex flex-column'>
+  <%- [[0, 'last_most_present_vulnerabilities', false], [1, 'last_owasp_vulnerabilities', true], [2, 'last_most_critical_vulnerabilities', false]].each do |ary| %>
+    <%= render 'header_btn', ary: ary %>
+  <% end %>
+</div>

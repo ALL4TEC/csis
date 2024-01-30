@@ -1,0 +1,9 @@
+<% content_for :table do %>
+  <%= form_tag updates_actions_path, method: :post do %>
+    <%= render 'actions/list', actions: @actions %>
+    <div class="form-group flex-row justify-content-center align-items-center" role="group">
+      <%= render 'actions/actions_buttons' %>
+    </div>
+  <% end %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

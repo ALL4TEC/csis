@@ -1,0 +1,41 @@
+<% if policy(resource).force_update_email? %>
+  <div class="me-4">
+    <%= render 'partials/help_bloc', id: 'forceUpdateEmail', title: t('contacts.actions.change_email') do %>
+      <%= simple_form_for(@user, url: send("force_update_email_#{@model_u}_path"), method: :put) do |f| %>
+        <%= f.input_field :id, as: :hidden, input_html: { value: @user.id } %>
+        <%= f.input :email, label: t('contacts.form.new_email'), input_html: { name: 'user[email]' } %>
+        <div class="d-flex flex-row justify-content-center mt-3 mb-3">
+          <%= f.button :submit, class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if policy(resource).force_reset_password? %>
+  <div class="me-4">
+    <%= render 'partials/help_bloc', id: 'forceResetPassword', title: t('contacts.actions.change_password') do %>
+      <%= simple_form_for(@user, url: send("force_reset_password_#{@model_u}_path"), method: :put) do |f| %>
+        <%= f.input_field :id, as: :hidden, input_html: { value: @user.id } %>
+        <%= f.input :password, label: t('contacts.form.new_password'), input_html: { name: 'user[password]' } %>
+        <%= f.input :password, label: t('contacts.form.password_confirmation'), input_html: { name: 'user[password_confirmation]' } %>
+        <div class="d-flex flex-row justify-content-center mt-3 mb-3">
+          <%= f.button :submit, class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class='d-flex flex-column'>
+<% %i[send_unlock force_unlock send_reset_password resend_confirmation force_confirm force_direct_otp force_deactivate_otp force_unlock_otp activate deactivate].each do |action| %>
+  <% if policy(resource).send("#{action}?") %>
+    <%- infos = headers.action(action, resource) %>
+    <%- color = action.in?(%i[activate deactivate]) ? activable_color(action) : 'outline-primary' %>
+    <%= link_to(infos[:href], method: infos[:method], class: "me-1 btn btn-#{color} d-flex align-items-center") do %>
+      <i aria-hidden='true' class='material-icons align-middle me-1'><%= infos[:icon] %></i>
+      <%= infos[:label] %>
+    <% end %>
+  <% end %>
+<% end %>
+</div>

@@ -1,0 +1,38 @@
+--- !ruby/object:Qualys::ScanResult
+results:
+- !ruby/object:Qualys::ScanTest
+  ip: 8.8.8.8
+  dns: random.com
+  netbios: 
+  qid: 6
+  instance: 
+  result: "IP address\tHost name\n8.8.8.8\trandom.com"
+  protocol: ''
+  ssl: 'no'
+  fqdn: ''
+- !ruby/object:Qualys::ScanTest
+  ip: 9.9.9.9
+  dns: test.com
+  netbios: 
+  qid: 316208
+  instance: 
+  result: |-
+    Some of the ports filtered by the firewall are: 5, 6, 7.
+
+    Listed below are the ports filtered by the firewall.
+    No response has been received when any of these ports are probed.
+    1-2,65-1000,6789-65539
+  protocol: ''
+  ssl: 'no'
+  fqdn: ''
+- !ruby/object:Qualys::ScanTest
+  ip: 1.1.1.1
+  dns: azerty.com
+  netbios: 
+  qid: 316209
+  instance: 
+  result: "Hops\tIP\tRound Trip Time\tProbe\tPort\n1\t1.1.1.1\t0.52ms\tICMP\t
+    \n2\t3.3.3.3\t0.48ms\tICMP\t \n3\t2.2.2.2\t9.73ms\tICMP\t"
+  protocol: ''
+  ssl: 'no'
+  fqdn: ''

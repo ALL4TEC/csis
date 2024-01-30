@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+qc_one:
+  name: First
+  url: 'fegre'
+  # Not very clean but best solution found yet
+  encrypted_login: "<%= @secret = QualysConfig.new(login: 'first@fixt.ure'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = QualysConfig.new(password: 'firstpassword'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+
+qc_two:
+  name: Second
+  url: 'fegre'
+  encrypted_login: "<%= @secret = QualysConfig.new(login: 'second@fixt.ure'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = QualysConfig.new(password: 'secondpassword'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"
+
+qc_express:
+  name: Third
+  url: 'feozngfez'
+  encrypted_login: "<%= @secret = QualysConfig.new(login: 'third@fixt.ure'); @secret.encrypted_login %>"
+  encrypted_login_iv: "<%= @secret.encrypted_login_iv %>"
+  encrypted_password: "<%= @secret = QualysConfig.new(password: 'thirdpassword'); @secret.encrypted_password %>"
+  encrypted_password_iv: "<%= @secret.encrypted_password_iv %>"

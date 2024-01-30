@@ -1,0 +1,39 @@
+<% expanded ||= false %>
+<% bg_color ||= 'primary' %>
+<% text_color ||= 'dark' %>
+<% btn_color ||= 'transparent' %>
+<% icon ||= '' %>
+<% filter ||= false %>
+<%-%>
+<%- card_title_clazz ||= "d-flex justify-content-start line-hover-#{bg_color} border-0 text-#{text_color} align-items-center fw-bold fs-5" %>
+<div class='card rounded-0 mb-1'>
+  <div class='card-header p-0'>
+    <div class="card-title <%= card_title_clazz %>">
+      <div class="p-1 d-flex align-items-center">
+        <button class="btn btn-<%= btn_color %> btn-sm p-0" type="button" data-bs-toggle="collapse" data-bs-target="#<%= id %>" aria-expanded="<%= expanded.to_s %>" aria-controls="<%= id %>">
+          <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+          <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+        </button>
+        <span class='ms-1 me-1 mb-0'>
+          <%= header %>
+        <% if defined?(count) %>
+          <span class='badge badge-dark'><%= count %></span>
+        <% end %>
+        </span>
+      </div>
+      <% if icon.present? %>
+      <div class='ms-auto me-1'>
+        <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[icon] %></i>
+      </div>
+      <% end %>
+      <% if filter %>
+      <div class='ms-auto me-1'>
+        <%= render 'partials/filter_btn' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body collapse <%= expanded ? 'show' : '' %>" id="<%= id %>">
+    <%= yield %>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div id='csis-toasts'>
+  <% unless notice.nil? %>
+  <%= render 'partials/toast', toast_type: :info, content: notice %>
+  <% end %>
+  <% unless alert.nil? %>
+  <%= render 'partials/toast', toast_type: :alert, content: alert %>
+  <% end %>
+</div>

@@ -1,0 +1,36 @@
+<%= render 'error_form', url: edit_profile_notifications_path, button_label: t('helpers.submit.user_profile.update') do |f| %>
+  <%- channel_providers_accounts = current_user.accounts_users %>
+  <%- alerts_ary = %w[notify_on send_mail_on channel_providers] %>
+  <div class="ps-2 pe-2">
+    <div class='card rounded-0'>
+      <div class='card-header rounded-0 bg-secondary'>
+        <h5 class='card-title'><%= t('user_profile.notifications.choose_notification_channel') %></h5>
+      </div>
+      <div class='card-body p-2' data-controller="checker">
+        <div class='d-flex'>
+          <div class='flex-fill'></div>
+          <div class='d-flex me-auto'>
+            <%- alerts_ary.each do |alert_kind| %>
+              <%= render "users/profile/notifications/#{alert_kind}_header", channel_providers_accounts: channel_providers_accounts %>
+            <% end %>
+          </div>
+        </div>
+        <%- Notification.subjects.keys.each do |subject| %>
+          <div class='d-flex'>
+            <div class='flex-fill m-1 p-2 line-secondary line-hover-primary'>
+              <div class=''><%= t("user_profile.notifications.#{subject}") %></div>
+            </div>
+            <div class='d-flex me-auto'>
+              <%- alerts_ary.each do |alert_kind| %>
+                <%= render "users/profile/notifications/#{alert_kind}_body", channel_providers_accounts: channel_providers_accounts, subject: subject %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render 'users/profile/notifications/channels', channel_providers_accounts: channel_providers_accounts if channel_providers_accounts.present? %>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'check_all', nonce: true, 'data-turbo-track': 'reload' %>

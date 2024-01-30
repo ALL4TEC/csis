@@ -1,0 +1,11 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.team.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'staffs_id', title: t('activerecord.attributes.team.staffs'), id: "teams_filters_staffs", opts: @q_base.flat_map(&:staffs).uniq %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'projects_id', title: t('activerecord.attributes.team.projects'), id: "teams_filters_projects", opts: @q_base.flat_map(&:projects).uniq %>
+  </div>
+<% end %>

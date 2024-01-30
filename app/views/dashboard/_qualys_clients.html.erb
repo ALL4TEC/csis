@@ -1,0 +1,20 @@
+<% if Rails.application.config.qualys_enabled %>
+  <% qualys_vm_client_without_team_count = QualysVmClient.without_team.count %>
+  <% qualys_wa_client_without_team_count = QualysWaClient.without_team.count %>
+  <% if [qualys_vm_client_without_team_count, qualys_wa_client_without_team_count].any? { |count| count.positive? } %>
+  <div class="btn-group m-0 p-0" role="group" aria-label="Scans">
+    <span class="btn btn-warning d-inline-flex"
+        data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('qualys_clients.labels.qualys_config') %>">
+      <i aria-hidden='true' class="material-icons i_scale"><%= Icons::MAT[:cloud_off] %></i>
+    </span>
+    <a role="button" class="btn btn-system" href="<%= qualys_vm_clients_path %>"
+        data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.qualys_vm_client_without_team_count') %>">
+      <%= qualys_vm_client_without_team_count %>
+    </a>
+    <a role="button" class="btn btn-applicative" href="<%= qualys_wa_clients_path %>"
+        data-bs-toggle='tooltip' data-bs-placement='bottom' title="<%= t('dashboard.labels.qualys_wa_client_without_team_count') %>">
+      <%= qualys_wa_client_without_team_count %>
+    </a>
+  </div>
+  <% end %>
+<% end %>

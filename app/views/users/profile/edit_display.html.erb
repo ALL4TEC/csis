@@ -1,0 +1,51 @@
+<%= render 'error_form', url: edit_profile_display_path, button_label: t('helpers.submit.user_profile.update') do |f| %>
+  <div class="col">
+    <div class='row mt-3'>
+      <div class='col d-flex flex-column bg-light'>
+        <h4 class='w-100 d-flex justify-content-center'><%= t('user_profile.display.horizontal') %></h4>
+        <div class='bg-dark text-dark d-flex align-items-center justify-content-center'>
+          NAVIGATION
+        </div>
+        <div class='bg-primary text-primary d-flex flex-column align-items-start justify-content-center'>
+          <span class='d-flex align-items-center justify-content-center w-100'>
+            HEADER
+          </span>
+          <div class='rounded bg-logo_red_1 text-logo_red_1 m-1 w-25 d-flex align-items-center justify-content-center'>
+            SUBMENU
+          </div>
+        </div>
+        <div class='bg-light text-light m-1 w-100 d-flex justify-content-center align-items-center'>
+          CONTENT
+        </div>
+        <div class='bg-dark text-dark d-flex align-items-center justify-content-center'>
+          FOOTER
+        </div>
+      </div>
+      <div class='col d-flex flex-column bg-light'>
+        <h4 class='w-100 d-flex justify-content-center'><%= t('user_profile.display.vertical') %></h4>
+        <div class='bg-dark text-dark d-flex align-items-center justify-content-center'>
+          NAVIGATION
+        </div>
+        <div class='bg-primary text-primary d-flex flex-column align-items-center justify-content-center'>
+          HEADER
+        </div>
+        <div class='bg-light p-1 d-flex justify-content-center align-items-center'>
+          <div class='rounded bg-logo_red_1 text-logo_red_1 p-3 w-25 d-flex align-items-center justify-content-center'>
+            SUBMENU
+          </div>
+          <div class='text-light d-flex w-100 align-items-center justify-content-center'>
+            CONTENT
+          </div>
+        </div>
+        <div class='bg-dark text-dark d-flex align-items-center justify-content-center'>
+          FOOTER
+        </div>
+      </div>
+    </div>
+    <div class='d-flex justify-content-center'>
+      <div class="form-group">
+        <%= f.select :display_submenu_direction, User.display_submenu_directions_select, { include_blank: false }, class: 'form-control selectpicker', name: 'user[display_submenu_direction]' %>
+      </div>
+    </div>
+  </div>
+<% end %>

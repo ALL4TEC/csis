@@ -1,0 +1,29 @@
+<div class='row'>
+  <div class='col'>
+    <%= pagination = paginate @exports %>
+    <div class="table-responsive">
+      <table class="table table-exports table-hover">
+        <caption>Report Exports</caption>
+        <thead>
+          <tr>
+            <th id='exports-date' class="th-export-created-at">
+              <%= sort_link(@q, :created_at) %>
+            </th>
+            <th id='exports-exporter' class="th-export-exporter">
+              <%= sort_link(@q, :exporter, t('activerecord.attributes.report_export.exporter')) %>
+            </th>
+            <th id='exports-status' class="th-export-status">
+              <div class='d-flex justify-content-end m-1'>
+              <%= sort_link(@q, :status) %>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id='exports_list' data-controller="report-exports" data-report-id='<%= @report.id %>'>
+          <%= render 'report_exports/list', exports: @exports %>
+        </tbody>
+      </table>
+    </div>
+    <%= pagination %>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class='d-flex flex-row m-2'>
+    <table class="table table-jira_config_actions table-hover">
+      <caption>Linked actions</caption>
+      <thead>
+        <tr>
+          <th id='project-name' class="th-project-name">
+            <%= t('activerecord.attributes.jira_config.linked_action.project_name') %>
+          </th>
+          <th id='report-title' class="th-report-title">
+            <%= t('activerecord.attributes.jira_config.linked_action.report_title') %>
+          </th>
+          <th id='report-date' class="th-report-date">
+            <%= t('activerecord.attributes.jira_config.linked_action.report_date') %>
+          </th>
+          <th id='action-name' class="th-action-name">
+            <%= t('activerecord.attributes.action.name') %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- # TODO: faut scoper ça pour voir que les actions qu'on a la permission de voir -->
+        <% @jira_config.actions.each do |action| %>
+          <tr>
+            <td headers='project-name'>
+              <%= link_to(action.project.name, action.project, class: 'link-block') %>
+            </td>
+            <td headers='report-title'>
+              <%= link_to(action.report.title, action.report, class: 'link-block') %>
+            </td>
+            <td headers='report-date'>
+              <%= l action.report.created_at %>
+            </td>
+            <td headers='action-name'>
+              <%= link_to(action.name, action, class: 'link-block') %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

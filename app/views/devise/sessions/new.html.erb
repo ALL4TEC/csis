@@ -1,0 +1,33 @@
+<%= render "devise/shared/oauth" %>
+<hr>
+<div class="card-login mt-3">
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-inputs">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <div class="form-floating mb-3">
+        <%= f.email_field :email,
+                        required: false,
+                        autofocus: true,
+                        input_html: { autocomplete: 'email'},
+                        id: 'floatingInput',
+                        placeholder: 'name@example.com',
+                        class: 'form-control w-100 rounded' %>
+        <label for="floatingInput"><%= t('contacts.labels.email') %></label>
+      </div>
+      <div class="form-floating mb-3">
+        <%= f.password_field :password,
+                           required: false,
+                           input_html: { autocomplete: "current-password" },
+                           id: 'floatingPassword',
+                           placeholder: 'Password',
+                           class: 'form-control w-100 rounded' %>
+        <label for="floatingPassword"><%= t('contacts.labels.password') %></label>
+      </div>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </div>
+    <div class='form-actions mt-3'>
+      <%= f.submit t('sign_in'), class: 'btn btn-primary mt-2' %>
+    </div>
+  <% end %>
+</div>
+<%= render "devise/shared/links" %>

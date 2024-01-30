@@ -1,0 +1,73 @@
+<% content_for :header, flush: true do %>
+  <h5 class="card-title"><%= t('actions.actions.issues.title') %></h5>
+<% end %>
+<% content_for :body, flush: true do %>
+  <div id="action-issues" class="card-group p-2">
+    <!-- existing issues (sorted by pmt_ref then by status so that open issues appear first) -->
+    <% @action.sorted_opened_issues.each do |issue| %>
+      <div class="card p-2 m-2">
+        <div class="card-body">
+          <h5 class="card-title mb-1">
+            <a href="<%= "#{issue.ticketable.account_url_prefix}#{issue.ticketable.id}" %>"><%= issue.ticketable.name %></a>
+          </h5>
+          <h6 class="card-subtitle text-muted remote_issue_link">
+            <a href="<%= "#{issue.ticketable.remote_issue_url_prefix}#{issue.pmt_reference}" %>" class="card-link" target="_blank">
+              <%= issue.pmt_reference %>
+            </a>
+          </h6>
+
+          <div class="card-text mt-1 close-ticket">
+            <span ref="status"><%= I18n.t("actions.actions.issues.status.#{issue.status}") %></span>
+
+            <% if issue.status == "open" %>
+              <span> > </span>
+              <% if TicketingService.ticket_closable?(issue: issue) %>
+                <% if issue.ticketable.supports_resolution_code? %>
+                  <%- issue_url = "/actions/#{@action.id}/issues/#{issue.id}" %>
+                  <%= form_with url: issue_url, method: :delete, local: true do |f| %>
+                    <input name="resolved" type="hidden" value="true">
+                    <%= f.submit I18n.t('actions.actions.issues.fixed_vuln'), class: 'card-link link-success' %>
+                  <% end %>
+                  <span> </span>
+                  <%= form_with url: issue_url, method: :delete, local: true do |f| %>
+                    <input name="resolved" type="hidden" value="false">
+                    <%= f.submit I18n.t('actions.actions.issues.accepted_risk'), class: 'card-link link-danger' %>
+                  <% end %>
+                <% else %>
+                  <%= form_with url: issue_url, method: :delete, local: true do |f| %>
+                    <%= f.submit I18n.t('actions.actions.issues.close'), class: 'card-link link-primary' %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <span><%= t('ticketing.not_closable') %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- new issue -->
+    <% accounts = @action.receiver.nil? ? [] : @action.receiver.contact_clients.flat_map(&:accounts).uniq %>
+    <div class="card p-2 m-2 border-success">
+      <div class="card-body">
+        <div class="d-flex">
+          <h5 class="card-title"><%= I18n.t('actions.labels.issues.new_ticket') %></h5>
+        </div>
+        <%= form_with url: "/actions/#{@action.id}/issues", id: 'action-issues', local: true do |f| %>
+          <% choices = accounts.map { |a| [a.name, a.id] } %>
+          <% options = { prompt: "#{accounts.length} #{I18n.t('actions.labels.issues.available_configs')}" } %>
+          <% html_options = { class: 'form-select my-2' } %>
+          <%= f.select :ticketable_id, choices, options, html_options %>
+
+          <%- if accounts.present? %>
+          <div class="div-text-right">
+            <%= f.submit 'Créer' %>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= render partial: 'layouts/card_collapsible', locals: { id: 'issues', bg_color: 'secondary' } %>

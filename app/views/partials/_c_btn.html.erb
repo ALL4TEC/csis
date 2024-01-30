@@ -1,0 +1,17 @@
+<ul class='d-flex w-100 justify-content-end float-end pasties'>
+  <%- if defined?(new_resource_path) %>
+  <li>
+    <%- action ||= 'new' %>
+    <% if policy.send("#{action}?") %>
+      <%= link_to(new_resource_path, class:'badge halo-success rounded-pill p-1 d-flex align-items-center justify-content-center') do %>
+        <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:add] %></i>
+      <% end %>
+    <% end %>
+  </li>
+  <% end %>
+  <%- unless @q.blank? || defined?(no_filter) %>
+  <li>
+    <%= render 'partials/filter_btn' %>
+  </li>
+  <% end %>
+</ul>

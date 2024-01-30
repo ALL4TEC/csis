@@ -1,0 +1,115 @@
+@mixin badge-variant(
+  $background,
+  $color: color-contrast($background),
+  $hover-background: if($color == $color-contrast-light, shade-color($background, $btn-hover-bg-shade-amount), tint-color($background, $btn-hover-bg-tint-amount)),
+  $hover-color: color-contrast($hover-background)
+  ) {
+  background-color: $background;
+  color: $color;
+
+  &:hover {
+    color: $hover-color;
+    background-color: $hover-background!important;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .line-#{$color} {
+    border-left: 4px solid scale-color($value, $lightness: -40%);
+    background-color: rgba($value, 0.2) !important;
+    color: scale-color($value, $lightness: -40%)!important;
+    a.link-block {
+      color: inherit;
+      &:hover {
+        color: scale-color($value, $lightness: -60%)!important;
+        text-decoration: underline;
+      }
+    }
+  }
+  .badge-#{$color}, .bg-#{$color} {
+    @include badge-variant($value);
+  }
+  .line-hover-#{$color} {
+    border-left: 4px solid transparent;
+    &:hover {
+      @extend .line-#{$color};
+    }
+  }
+  .menu-line-hover-#{$color} {
+    border-left: 2px solid scale-color($value, $lightness: -40%);
+    background-color: rgba($value, 0.2) !important;
+    color: scale-color($value, $lightness: -40%)!important;
+  }
+  .card-header.bg-#{$color} {
+    // @extend .text-dark;
+    background-color: rgba($value, 0.2) !important;
+    color: scale-color($value, $lightness: -40%)!important;
+    border-bottom: 2px solid scale-color($value, $lightness: -40%);
+    &.border-top {
+      border-bottom: none;
+      border-top: 2px solid scale-color($value, $lightness: -40%)!important;
+    }
+  }
+  .card-title.bg-#{$color} {
+    background-color: rgba($value, 0.4) !important;
+    border-left: 2px solid $value;
+  }
+  .halo-#{$color} {
+    box-shadow: 0 0 0 0.1rem rgba($light, 0.5) !important;
+    background-color: rgba($value, 1);
+    color: white;
+    &:not([class*="text-"]):hover {
+      color: $value!important;
+    }
+    &:hover {
+      box-shadow: 0px 0px 15px 0.1rem rgba($value, 1) !important;
+      background-color: rgba(white, 1)!important;
+    }
+  }
+  .persistent-halo-#{$color} {
+    box-shadow: 0px 0px 15px 0.1rem rgba($value, 1) !important;
+    background-color: rgba($value, 0.5)!important;
+    color: white;
+  }
+  .btn-outline-#{$color} {
+    @extend .btn-outline-#{$color};
+    &:hover {
+      background-color: rgba($value, 0.3) !important;
+      color: scale-color($value, $lightness: -20%);
+      box-shadow: inset 0 0 0 2px $value, 0 2px 2px 0 rgba($value, 0.1)!important;
+    }
+  }
+  $sizes: 5px, 10px, 15px;
+  @each $size in $sizes {
+    .shadow-#{$color}-#{$size} {
+      box-shadow: 0 0 0 0.1rem rgba($light, 0.5) !important;
+      &:hover {
+        box-shadow: 0px 0px $size 0.1rem rgba($value, 1) !important;
+      }
+    }
+  }
+  .hov-#{$color} {
+    &:hover {
+      color: $value!important;
+    }
+  }
+  .text-#{$color}-no-imp {
+    color: $value;
+  }
+  @each $hov-color, $hov-value in $theme-colors {
+    .text-#{$color}-hov-#{$hov-color} {
+      @extend .text-#{$color};
+      &:hover {
+        color: $hov-value!important;
+      }
+    }
+  }
+
+  .pasties:hover {
+    li {
+      .halo-#{$color} {
+        box-shadow: 0 0 0 0.1rem rgba($light, 0.2);
+      }
+    }
+  }
+}

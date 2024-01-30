@@ -1,0 +1,10 @@
+one:
+  event: create
+  item: one
+  item_type: Comment
+
+two:
+  event: create
+  item: one
+  item_type: Comment
+

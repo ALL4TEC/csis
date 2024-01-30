@@ -1,0 +1,12 @@
+<%= t('devise.mailer.two_factor_authentication.greetings', recipient: User.find_by(email: @email).full_name) %>
+===============================================
+
+<%= t('devise.mailer.two_factor_authentication.code_sent') %>
+
+<%= @code %>
+
+<%= t('devise.mailer.reset_password_instructions.instruction_2') %>
+
+<%= I18n.t('mailer.content.polite') %>
+
+<%= I18n.t('mailer.content.do_not_answer') %>

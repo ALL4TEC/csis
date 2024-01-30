@@ -1,0 +1,87 @@
+<%= javascript_packs_with_chunks_tag  'aggregate_contents', nonce: true, 'data-turbo-track': 'reload' if @report.is_a?(PentestReport) %>
+<%# JS to filter/check boxes automatically %>
+<%= javascript_packs_with_chunks_tag  'aggregate_occurrences_filter', nonce: true, 'data-turbo-track': 'reload' %>
+<%= simple_form_for(aggregate, url: url, method: method, html: { multipart: true }) do |f| %>
+  <div class='d-flex w-100 flex-row align-items-center'>
+    <%= render 'partials/square_card_input_wrapper', clazz: 'w-25' do %>
+      <%= f.input :kind, collection: Aggregate.kinds.keys.values_at(*[4, 0, 1]), label_method: ->(status) { t("activerecord.attributes.aggregate/kind.#{status}") }, include_blank: false %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper', clazz: 'w-25' do %>
+      <%= f.input :status, collection: Vulnerability.kinds.keys.values_at(*[0, 3, 1, 2]), label_method: ->(status) { t("activerecord.attributes.vulnerability/kind.#{status}") }, include_blank: false %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper', clazz: 'w-25' do %>
+      <%= f.input :severity, collection: Aggregate.severities_select, include_blank: false %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper', clazz: 'w-25' do %>
+      <%= f.input :visibility, collection: Aggregate.visibilities_select, include_blank: false %>
+    <% end %>
+  </div>
+
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <%= f.input :title, as: :search %>
+  <% end %>
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <% if @report.is_a?(ScanReport) %>
+      <%= f.input :description %>
+    <% elsif @report.is_a?(PentestReport) && Rails.application.config.pentest_enabled %>
+      <%= render partial: 'aggregate_contents' %>
+    <% end %>
+  <% end %>
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <%= f.input :solution %>
+  <% end %>
+  <%= render 'partials/square_card_input_wrapper' do %>
+    <%= f.input :scope %>
+  <% end %>
+  <% if @report.is_a?(PentestReport) && Rails.application.config.pentest_enabled %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :impact %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :complexity %>
+    <% end %>
+    <% if @report.tops.present? %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+      <div class="row">
+        <% @report.tops.each do |top| %>
+          <div class="col">
+            <%= f.input :reference_ids, label: top.name, collection: top.references, input_html: { name: 'aggregate[reference_ids][]' } %>
+          </div>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= render 'partials/square_card_input_wrapper' do %>
+  <div class='row'>
+    <div class="col-6">
+      <div class='p-1 text-success shadow-colored-in'>
+        <h3 class='d-flex justify-content-center btn-success align-items-center'>
+          <i aria-hidden='true' class='material-icons align-middle'>check_box</i>
+          <%= t('aggregates.labels.selected_vulnerabilities') %>
+          <i aria-hidden='true' class='material-icons align-middle'>check_box</i>
+        </h3>
+        <%= render partial: 'vulnerabilities', locals: { f: f, id_prefix: 's_', wa_vulns: @wa_selected, vm_vulns: @vm_selected } %>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class='p-1 text-danger shadow-colored-out'>
+        <h3 class="d-flex justify-content-center btn-danger align-items-center">
+          <i aria-hidden='true' class='material-icons align-middle'>check_box_outline_blank</i>
+          <%= t('aggregates.labels.unselected_vulnerabilities') %>
+          <i aria-hidden='true' class='material-icons align-middle'>check_box_outline_blank</i>
+        </h3>
+        <%= render partial: 'vulnerabilities', locals: { f: f, id_prefix: 'o_', wa_vulns: @wa_occurrences, vm_vulns: @vm_occurrences } %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  
+  <div class='fixed-bottom d-flex justify-content-end'>
+    <%= f.button :submit, class: 'btn-primary drop-form-btn' %>
+  </div>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'aggregate_occurrences_drop', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'occurrence_modal', nonce: true, 'data-turbo-track': 'reload' %>

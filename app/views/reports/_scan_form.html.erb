@@ -1,0 +1,76 @@
+<%# JS for checking boxes automatically %>
+<%= javascript_packs_with_chunks_tag  'report_form', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%= simple_form_for(report) do |f| %>
+  <% report_instanciated = !report.is_a?(Array) && report.vuln? %>
+  <div class="row">
+    <div class="col">
+      <div class='d-flex'>
+      <%= render 'partials/square_card_input_wrapper', clazz: 'w-50' do %>
+        <div class='w-100 d-flex flex-column'>
+          <div class='form-group select optional'>
+            <label for='base_report_id' class='form-control-label select optional' data-bs-toggle='tooltip' title="<%= t('reports.labels.base_report_default') %>"><%= t('activerecord.attributes.report.base_report_id') %></label>
+            <% opts = policy_scope(Report).order(created_at: :desc) %>
+            <%= render 'partials/multiple_select', name: 'base_report_id', one: 'true', title: t('activerecord.attributes.report.base_report_id'), id: "report-base-report-id", disabled: "#{params[:action] != 'new'}" do %>
+              <% opts.each do |report_opt| %>
+              <option value='<%= report_opt.id %>' class="bg-<%= level_color(report_opt.level) %>" data-subtext="<%= report_opt.project %>" <%= report_opt.id == @report.base_report_id ? 'selected' : 'someone' %>>
+                <%= report_opt.title %>
+              </option>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper', clazz:'w-50' do %>
+        <%= f.association :language, as: :select, label_method: ->(lang) { t("languages.#{lang.iso}") }, include_blank: false %>
+      <% end %>
+      </div>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :title, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :subtitle, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper', id: 'report_form_edited_at' do %>
+        <%= f.input :edited_at, as: :string, input_html: { class: 'input-datepicker', 'data-container': '#report_form_edited_at' } %>
+      <% end %>
+      <%- if report_instanciated && report.client_logo.attached? %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= image_tag(report.client_logo.variant(:thumb))  %>
+      <% end %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :client_logo, as: :file, label: 'Logo' %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :introduction %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :org_introduction, as: :text, label: t('labels.org_introduction') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :vm_introduction, as: :text, label: t('labels.vm_introduction') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :wa_introduction, as: :text, label: t('labels.wa_introduction') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :addendum, label: t('labels.addendum') %>
+      <% end %>
+      <% project = report_instanciated ? report.project : @project %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :contacts, collection: project.client.contacts.decorate,
+            as: :check_boxes, label_method: :full_name_and_email, value_method: :id %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= render 'signatory_select', f: f %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'form_filters', report_instanciated: report_instanciated, report: report, f: f %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+
+<%= javascript_packs_with_chunks_tag  'date_picker', nonce: true, 'data-turbo-track': 'reload' %>

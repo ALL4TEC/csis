@@ -1,0 +1,9 @@
+<div>
+  <%= render 'staffs/list', staffs: [@user] %>
+
+  <div class='d-flex justify-content-end align-items-center w-100'>
+    <div class="form-group d-flex flex-row" role="group">
+      <%= render 'partials/activable_btns', resource: @user, headers: @headers %>
+    </div>
+  </div>
+</div>

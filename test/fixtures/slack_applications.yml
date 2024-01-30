@@ -1,0 +1,18 @@
+slack_application_one:
+  name: 'Slack app 1'
+  app_id: "A030H4H7M32"
+  encrypted_client_id: "<%= @client_id = SlackApplication.new(client_id: '2970709946996.3017153259104', client_secret: '800c505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @client_id.encrypted_client_id %>"
+  encrypted_client_id_iv: "<%= @client_id.encrypted_client_id_iv %>"
+  encrypted_client_secret: "<%= @client_secret = SlackApplication.new(client_id: '2970709946996.3017153259104', client_secret: '800c505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @client_secret.encrypted_client_secret %>"
+  encrypted_client_secret_iv: "<%= @client_secret.encrypted_client_secret_iv %>"
+  encrypted_signing_secret: "<%= @signing_secret = SlackApplication.new(client_id: '2970709946996.3017153259104', client_secret: '800c505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @signing_secret.encrypted_signing_secret %>"
+  encrypted_signing_secret_iv: "<%= @signing_secret.encrypted_signing_secret_iv %>"
+slack_application_two:
+  name: 'Slack app 2'
+  app_id: "A030AZH7M32"
+  encrypted_client_id: "<%= @client_id = SlackApplication.new(client_id: '29700ddd09946996.3017153259104', client_secret: '800cdd00505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @client_id.encrypted_client_id %>"
+  encrypted_client_id_iv: "<%= @client_id.encrypted_client_id_iv %>"
+  encrypted_client_secret: "<%= @client_secret = SlackApplication.new(client_id: '29700ddd09946996.3017153259104', client_secret: '800cdd00505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @client_secret.encrypted_client_secret %>"
+  encrypted_client_secret_iv: "<%= @client_secret.encrypted_client_secret_iv %>"
+  encrypted_signing_secret: "<%= @signing_secret = SlackApplication.new(client_id: '29700ddd09946996.3017153259104', client_secret: '800cdd00505a33ef84fe1f932ebf2cd963cb', signing_secret: '1d4be4172854743200df5b3e3030f262'); @signing_secret.encrypted_signing_secret %>"
+  encrypted_signing_secret_iv: "<%= @signing_secret.encrypted_signing_secret_iv %>"

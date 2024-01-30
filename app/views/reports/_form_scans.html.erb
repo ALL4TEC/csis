@@ -1,0 +1,8 @@
+<%# VM SCANS %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'report-vm-scans', header: t('reports.labels.vm_scans'), card_title_clazz: 'd-flex justify-content-start line-system border-0 align-items-center', btn_color: 'system', filter: true, expanded: true } do %>
+  <%= render 'reports/form_scan', kind: :vm, scans: @vm_scans, report_instanciated: report_instanciated, report: report, f: f %>
+<% end %>
+<%# WA SCANS %>
+<%= render layout: 'layouts/header_collapse', locals: { id: 'report-wa-scans', header: t('reports.labels.wa_scans'), card_title_clazz: 'd-flex justify-content-start line-applicative border-0 align-items-center', btn_color: 'applicative', filter: true, expanded: true } do %>
+  <%= render 'reports/form_scan', kind: :wa, scans: @wa_scans, report_instanciated: report_instanciated, report: report, f: f %>
+<% end %>

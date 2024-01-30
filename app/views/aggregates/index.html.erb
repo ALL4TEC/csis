@@ -1,0 +1,42 @@
+<%- save_aggregates_ranks_btn = params[:action] == 'index' ? { color: 'secondary', animation: ''} : {color: 'primary', animation: 'i_scale_infinite'} %>
+<% content_for :sidebar_content_collapsed do %>
+  <%- AggregatesHelper::AGGREGATE_ACTIONS.keys.each do |key| %>
+    <%= render 'aggregates/sidebar/aggregate_sidebar_collapsed', action: key %>
+  <% end %>
+<% end %>
+<% content_for :sidebar_content_opened do %>
+  <%- accordion_id = 'aggregateSidebarAccordion' %>
+  <%= render Accordion::Component.new(id: accordion_id) do |accordion| %>
+    <% AggregatesHelper::AGGREGATE_ACTIONS.keys.each do |action| %>
+      <%= accordion.accordion_item(parent: accordion_id) do |accordion_item| %>
+        <% accordion_item.accordion_body(id: "flush-collapse-#{action}") do %>
+          <%= render "aggregates/sidebar/accordion/#{action}", css_data: save_aggregates_ranks_btn %>
+        <% end %>
+        <% accordion_item.accordion_header(id: "flush-heading-#{action}") do %>
+          <%= render IconedLabel::Component.new(icon: { name: aggregate_action_icon(action) }, label: { value: t("aggregates.#{action}.header"), clazz: 'ms-1' }) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<% content_for :content do %>
+  <div class='d-flex flex-column ms-2 me-2 w-100' id="aggregates">
+    <% if Rails.application.config.pentest_enabled && @report.is_a?(PentestReport) %>
+      <%= render 'aggregates/aggregate_pentest_header', aggregates: @vulnerability_scan, kind: :vulnerability_scan, parent: 'aggregateVul', link: new_vulnerability_scan_pentest_report_path(@report) %>
+    <% end %>
+
+    <%= render 'aggregates/aggregate_header', css_data: save_aggregates_ranks_btn, aggregates: @org_aggregates, parent: 'aggregateOrg' if @org_aggregates.length.positive? %>
+    <%= render 'aggregates/aggregate_header', css_data: save_aggregates_ranks_btn, aggregates: @sys_aggregates, parent: 'aggregateSys' if @sys_aggregates.length.positive? %>
+    <%= render 'aggregates/aggregate_header', css_data: save_aggregates_ranks_btn, aggregates: @app_aggregates, parent: 'aggregateApp' if @app_aggregates.length.positive? %>
+
+    <% if Rails.application.config.pentest_enabled && @report.is_a?(PentestReport) %>
+      <%= render 'aggregates/aggregate_pentest_header', aggregates: @appendix, kind: :appendix, parent: 'aggregateAdx', link: new_appendix_pentest_report_path(@report) %>
+    <% end %>
+  </div>
+<% end %>
+<%= render template: 'layouts/_sidebar' %>
+
+<%= javascript_packs_with_chunks_tag  'aggregates_filters', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'aggregates_reorder', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'aggregates_bulk', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'occurrence_modal', nonce: true, 'data-turbo-track': 'reload' %>

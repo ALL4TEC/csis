@@ -1,0 +1,30 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+target_one:
+  name: vm1
+  ip: '8.8.8.8'
+
+target_two:
+  name: vm2
+  ip: '127.0.0.1'
+
+target_three:
+  name: vm3
+  ip: '8.8.8.8'
+
+target_auto:
+  name: '127.0.0.1'
+  ip: '127.0.0.1'
+
+target_wa_one:
+  name: wa1
+  url: 'www.google.com'
+
+target_wa_two:
+  name: wa2
+  url: 'www.example.com'

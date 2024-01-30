@@ -1,0 +1,50 @@
+<%= pagination = paginate servicenow_configs %>
+<div class="table-responsive">
+  <table class="table table-servicenow_config table-hover">
+    <caption>Jira configurations</caption>
+    <thead>
+      <tr>
+        <th id='servicenow-configs-name' class="th-servicenow_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.servicenow_config.name') %>
+        </th>
+        <th id='servicenow-configs-url' class="th-servicenow_config-url">
+          <%= sort_link @q, :url, t('activerecord.attributes.servicenow_config.url') %>
+        </th>
+        <th id='servicenow-configs-suppliers' class="th-servicenow_config-suppliers">
+          <%= t('activerecord.attributes.servicenow_config.suppliers') %>
+        </th>
+        <th id='servicenow-configs-status' class="th-servicenow_config-status">
+          <%= sort_link @q, :status, t('activerecord.attributes.servicenow_config.status') %>
+        </th>
+        <th id='servicenow-configs-btn'><%= render 'partials/c_btn', new_resource_path: new_servicenow_config_path, policy: policy(JiraConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% servicenow_configs.each do |servicenow_config| %>
+        <tr>
+          <td headers='servicenow-configs-name'>
+            <%= link_to(servicenow_config.name, servicenow_config, class: 'link-block') %>
+          </td>
+          <td headers='servicenow-configs-url'>
+            <%= servicenow_config.url %>
+          </td>
+          <td headers='servicenow-configs-suppliers'>
+            <% servicenow_config.suppliers.each do |supplier| %>
+              <%= link_to(supplier.name, supplier, class: 'link-block') %>
+            <% end %>
+          </td>
+          <td headers='servicenow-configs-status'>
+            <%= t("activerecord.attributes.servicenow_config_ext/status.#{servicenow_config.status}") %>
+          </td>
+          <td headers='servicenow-configs-btn'>
+            <ul class='d-flex justify-content-end float-end pasties w-100'>
+            <%= render 'partials/actions_btns', policy: policy(servicenow_config), resource: servicenow_config,
+              discardable: true, klazz: 'servicenow_config', headers: @headers %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

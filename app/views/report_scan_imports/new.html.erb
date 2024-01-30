@@ -1,0 +1,26 @@
+<%= javascript_packs_with_chunks_tag  'file_browser', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%= simple_form_for(@scan_import, method: :post, url: report_scan_imports_path) do |f| %>
+  <div class="d-flex flex-column">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :import_type, collection: ScanImport.import_type_without_accounts_select, label_method: ->(obj){ t("reports.imports.#{obj[1]}") }, include_blank: false %>
+    <% end %>
+    <%= f.simple_fields_for :report_scan_import do |ri| %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= ri.input :scan_name, placeholder: '<ImportType>: <Target>', input_html: { data: { 'bs-toggle': 'tooltip' }, title: t('activerecord.attributes.scan_launch.scan_name_help') } %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= ri.input :document, accept: 'application/xml,application/json', required: true, label: '', as: :file %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+      <div class='d-flex flex-column auto_switches me-2'>
+        <%= ri.input :auto_aggregate, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.report_scan_import.auto_aggregate'), wrapper_html: { data: { 'bs-toggle': 'collapse', 'bs-target': '#auto_aggregate_mixing' }, aria: { controls: '#auto_aggregate_mixing', expanded: true } } %>
+        <%= ri.input :auto_aggregate_mixing, wrapper: :custom_boolean_switch, label: t('activerecord.attributes.report_scan_import.auto_aggregate_mixing'), wrapper_html: { id: 'auto_aggregate_mixing', class: 'ms-1 collapse collapse_no_save show' } %>
+      </div>
+      <% end %>
+    <% end %>
+    <%= ui_fixed_form_footer f do %>
+      <%= t('activerecord.attributes.report_scan_import.create') %>
+    <% end %>
+  </div>
+<% end %>

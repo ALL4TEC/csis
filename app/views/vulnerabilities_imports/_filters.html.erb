@@ -1,0 +1,26 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class='form-group'>
+    <% opt = VulnerabilityImport.import_types_select %>
+    <%= render 'partials/multiple_select', target: 'import_type', title: t('activerecord.attributes.vulnerability_import.import_type'), id: "vulnerability_imports_filters_import_type" do %>
+      <% opt.each do |label, value| %>
+      <option value='<%= value %>'>
+        <%= label %>
+      </option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'importer_id', title: t('activerecord.attributes.vulnerability_import.importer'), id: "vulnerability_imports_filters_importer", opts: @q_base.filter_map(&:importer).uniq %>
+  </div>
+  <div class='form-group'>
+    <%= render 'partials/multiple_select', target: 'account_id', title: t('activerecord.attributes.vulnerability_import.account'), id: "vulnerability_imports_filters_account", opts: @q_base.filter_map(&:account).uniq %>
+  </div>
+  <div class="form-group">
+    <% opt = Import.statuses %>
+    <%= render 'partials/multiple_select', target: 'status', title: t('activerecord.attributes.vulnerability_import.status'), id: "vulnerability_imports_filters_status" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>'><%= ReportImport.human_attribute_name("status.#{label}") %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

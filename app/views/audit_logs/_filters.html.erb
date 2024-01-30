@@ -1,0 +1,31 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <div class="input-group input-daterange" data-container='#filter-body'>
+      <input type="text" class="form-control" name='q[start_range]' value='<%= params[:q][:start_range] %>'>
+      <div class="input-group-addon"> -> </div>
+      <input type="text" class="form-control" name='q[end_range]'  value='<%= params[:q][:end_range] %>'>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'whodunnit', title: t('audit_logs.labels.user'), id: 'audit_logs_filters_whodunnit' do %>
+      <% User.all.sort_by { |s| s[:full_name] }.each do |s| %>
+        <option value='<%= s.id %>' data-subtext='<%= s.email %>'><%= s.full_name %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'item_type', title: t('audit_logs.labels.model'), id: 'audit_logs_filters_item_type' do %>
+      <% AuditLogHelper::ITEM_TYPE_DATA.filter_map { |item| [t("simple_form.labels.action.#{item.downcase}"), item] }.sort!.each do |label, value| %>
+        <option value='<%= value %>'><%= label %></option>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'event', title: t('audit_logs.labels.action'), id: 'audit_logs_filters_event' do %>
+      <% AuditLogHelper::EVENTS_DATA.keys.filter_map { |item| [t("simple_form.labels.action.#{item.downcase}"), item] }.sort!.each do |label, value| %>
+        <option value='<%= value %>'><%= label %></option>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<%= javascript_packs_with_chunks_tag  'date_picker', nonce: true, 'data-turbo-track': 'reload' %>

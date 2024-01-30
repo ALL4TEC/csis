@@ -1,0 +1,47 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+
+<%= simple_form_for(qualys_config) do |f| %>
+  <div class="row">
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :name, as: :search %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :url, as: :search, placeholder: 'no protocol, ex: qualysapi.qualys.eu' %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :kind, collection: QualysConfigExt.kinds_select, include_blank: false %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :login, as: :search %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :password %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :vm_import_cron, placeholder: 'mm hh jj MMM JJJ' %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.input :wa_import_cron, placeholder: 'mm hh jj MMM JJJ' %>
+    <% end %>
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= render 'partials/help_bloc', id: 'helpSchedule', title: t('projects.labels.info_schedule') do %>
+        <%= t('projects.labels.how_to_schedule') %>
+        <div class="d-flex flex-column">
+          <a href='https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table' target='_blank' rel='noopener'><em>https://fr.wikipedia.org/wiki/Cron#Syntaxe_de_la_table</em></a>
+          <p><sub>Ex:</sub></p>
+          <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_month') %></p>
+          <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.twice_a_month') %></p>
+          <p class="m-1 d-flex justify-content-center"><%= t('projects.labels.once_a_week') %></p>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+    <div class="col">
+    <%= render 'partials/square_card_input_wrapper' do %>
+      <%= f.association :teams, collection: Team.all.order('name ASC'), as: :check_boxes %>
+    <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

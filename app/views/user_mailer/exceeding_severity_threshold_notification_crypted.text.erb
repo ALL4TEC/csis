@@ -1,0 +1,18 @@
+<%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,
+===============================================
+
+<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.new_vulnerabilities') %>
+
+
+<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.qid') %>		<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.severity') %>		<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.title') %>		<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.columns.target_uri') %>
+
+<% @occurrences.each do |occ| %>
+<% vuln = occ.vulnerability %>
+<%= vuln.qid %>		<%= AggregatesHelper.translate_severity(vuln.severity) %>		<%= vuln.title %>		<%= occ.real_target %>
+<% end %>
+
+<%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.report_link') %> <%= @url %>
+
+<%= I18n.t('mailer.content.polite') %>
+
+<%= I18n.t('mailer.content.do_not_answer') %>

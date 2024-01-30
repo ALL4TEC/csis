@@ -1,0 +1,6 @@
+<%= render 'layouts/bg_and_logo' do %>
+  <div class='d-flex flex-column align-items-center justify-content-center'>
+  <h3 class='text-grey-l'>Sorry, something unpredicted happened.</h3>
+  <br/>
+  <h4 class='text-grey-l'>Please <a href="<%= ENV.fetch('HELP_CENTER_URL', '') %>" target='_blank' rel='noopener'>Ask for help</a> or <a href="<%= root_path %>">Try to reconnect</a></h4>
+<% end %>

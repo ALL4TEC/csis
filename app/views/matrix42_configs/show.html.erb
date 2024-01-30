@@ -1,0 +1,44 @@
+<table class="table table-matrix42_config table-hover">
+  <caption>Matrix42 configuration</caption>
+  <thead>
+    <tr>
+      <th id='matrix42-configs-url' class="th-matrix42_config-url">
+        <%= t('activerecord.attributes.matrix42_config.url') %>
+      </th>
+      <th id='matrix42-configs-api-url' class="th-matrix42_config-api_url">
+        <%= t('activerecord.attributes.matrix42_config.api_url') %>
+      </th>
+      <th id='matrix42-configs-suppliers' class="th-matrix42_config-suppliers">
+        <%= t('activerecord.attributes.matrix42_config.suppliers') %>
+      </th>
+      <th id='matrix42-configs-status' class="th-matrix42_config-status">
+        <%= t('activerecord.attributes.matrix42_config.status') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td headers='matrix42-configs-url'>
+        <%= @matrix42_config.url %>
+      </td>
+      <td headers='matrix42-configs-api-url'>
+        <%= @matrix42_config.api_url %>
+      </td>
+      <td headers='matrix42-configs-suppliers'>
+        <% @matrix42_config.suppliers.each do |supplier| %>
+          <%= link_to(supplier.name, supplier, class: 'link-block') %>
+        <% end %>
+      </td>
+      <td headers='matrix42-configs-status'>
+        <%= t("activerecord.attributes.matrix42_config_ext/status.#{@matrix42_config.status}") %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<% unless @matrix42_config.status == 'ok' %>
+  <%= render layout: 'layouts/header_collapse', locals: { id: 'matrix42_config_status_info', header: t('matrix42_configs.labels.status_info'), expanded: true } do %>
+    <div class='d-flex flex-row m-2'>
+      <%= t("matrix42_configs.status_info.#{@matrix42_config.status}") %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,65 @@
+<%= ui_filters @q, url: url_for do |f| %>
+  <div class="form-group">
+    <%= f.select :name_eq, @q_base.filter_map(&:name).uniq, { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('activerecord.attributes.project.name'), data: { 'live-search': "true" } %>
+  </div>
+  <div class="form-group">
+    <% opt = Statistic.current_levels %>
+    <%= render 'partials/multiple_select', target: 'statistics_current_level', title: t('activerecord.attributes.project.current_level'), id: "projects_filters_current_level" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' class='bg-<%= level_color(label) %>'><%= Statistic.human_attribute_name("current_level.#{label}") %></option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Language.all %>
+    <%= render 'partials/multiple_select', target: 'language_id', title: t('labels.language'), id: "projects_filters_language" do %>
+      <% opt.each do |language| %>
+      <option value='<%= language.id %>' data-content='<%= image_tag("flags/4x3/#{language.iso}.svg", class: "flag") %>'></option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :auto_aggregate_eq, [[t('ok'), true], [t('ko'), false]], { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('simple_form.labels.project.auto_aggregate') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :auto_generate_eq, [[t('ok'), true], [t('ko'), false]], { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('simple_form.labels.project.auto_generate') %>
+  </div>
+
+  <div class="form-group">
+    <%= f.select :auto_export_eq, [[t('ok'), true], [t('ko'), false]], { include_blank: true }, class: 'form-control selectpicker show-tick', title: t('simple_form.labels.project.auto_export') %>
+  </div>
+
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'client_id', title: t('activerecord.attributes.project.client'), id: "projects_filters_client", opts: @q_base.filter_map(&:client).uniq %>
+  </div>
+
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'suppliers_id', title: t('activerecord.attributes.project.suppliers'), id: "projects_filters_suppliers", opts: @q_base.flat_map(&:suppliers).uniq %>
+  </div>
+
+  <div class="form-group">
+    <%= render 'partials/multiple_select', target: 'teams_id', title: t('models.teams'), id: "projects_filters_teams", opts: @q_base.flat_map(&:teams).uniq %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Certificate.transparency_levels %>
+    <%= render 'partials/multiple_select', target: 'certificate_transparency_level', title: t('certificate.labels.transparency'), id: "projects_filters_transparency" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' data-content='<i aria-hidden="true" class="material-icons md-36 align-middle text-primary me-1"><%= transparency_icon(label) %></i><%= label %></span>'></option>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <% opt = Statistic.blazons %>
+    <%= render 'partials/multiple_select', target: 'statistic_blazon', title: t('statistics.blazon.name'), id: "projects_filters_blazon" do %>
+      <% opt.each do |label, key| %>
+      <option value='<%= key %>' data-content='<%= image_tag(badge(label, :thumb), size: '36x36', class: 'me-1') %><%= label %>' ></option>
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>

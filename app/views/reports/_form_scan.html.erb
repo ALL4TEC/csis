@@ -1,0 +1,19 @@
+<%- scan_ids = "#{kind}_scan_ids".to_sym %>
+<%- parti = "#{kind}_scans_form" %>
+<div class='d-flex flex-column p-2'>
+  <%- collection1 = report_instanciated ? report.send("#{kind}_scans") : [] %>
+  <%- summary1 = t('reports.labels.actual') %>
+  <%- collection2 = scans.select { |scan| scan.reports.empty? } %>
+  <%- summary2 = t('reports.labels.not_used') %>
+  <%- collection3 = report_instanciated ? scans.select { |scan| scan.reports.present? && report.send("#{kind}_scans").where(id: scan.id).empty? } : scans.select { |scan| scan.reports.present? } %>
+  <%- summary3 = t('reports.labels.already_used') %>
+  <%- [[summary1, collection1], [summary2, collection2], [summary3, collection3]].each_with_index do |data, index| %>
+    <%- summary = data[0] %>
+    <%- collection = data[1] %>
+    <%= render 'reports/form_fieldset', summary: summary, count: collection.count, opened: index.zero? do %>
+      <%= f.collection_check_boxes(scan_ids, collection, :id, :to_s) do |b| %>
+        <%= render partial: parti, locals: { f: f, b: b, report: report } %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

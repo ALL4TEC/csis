@@ -1,0 +1,25 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%- zoho_cliq_config ||= ChatConfig.new(type: 'ZohoCliqConfig') %>
+<%- data = zoho_cliq_config.id.blank? ? { url: zoho_cliq_configs_path, method: :post } : { url: zoho_cliq_config_path(zoho_cliq_config), method: :put } %>
+<div id='zohoCliqConfigForm'>
+<%= simple_form_for(zoho_cliq_config, url: data[:url], method: data[:method], as: :zoho_cliq_config) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :bot_name, as: :search, label: t('activerecord.attributes.zoho_cliq_config.bot_name') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :webhook_domain, as: :search, label: t('activerecord.attributes.zoho_cliq_config.webhook_domain') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :api_key, as: :search, label: t('activerecord.attributes.zoho_cliq_config.zapikey') %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :users, collection:  policy_scope(User).decorate.map { |decorated_user| [decorated_user.object.id, decorated_user.full_name_and_email]},
+            input_html: { data: { 'live-search': "true", 'actions-box': 'true' } }, label_method: :second, value_method: :first, label: t('activerecord.attributes.zoho_cliq_config.accounts_users') %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+</div>

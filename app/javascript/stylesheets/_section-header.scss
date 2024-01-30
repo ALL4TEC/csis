@@ -1,0 +1,26 @@
+.section-header {
+  background-color: $csis_blue;
+  .container {
+    @extend .pe-2;
+    @extend .ps-2;
+  }
+}
+
+.section-header__hgroup {
+  @extend .mb-2;
+  @extend .mt-2;
+}
+
+.section-header__actions {
+  .btn-secondary:hover {
+    color: $csis_tab;
+  }
+}
+
+.section-header__scopes {
+  position: relative;
+  flex: 0 0 100%;
+  margin-bottom: 0;
+  max-width: 95%;
+  width: -webkit-fill-available;
+}

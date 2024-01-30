@@ -1,0 +1,52 @@
+<%= pagination = paginate google_chat_configs %>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>GoogleChatConfigs</caption>
+    <thead>
+      <th id='google-chat-space_name' class="th-google-chat-space_name">
+        <%= sort_link @q, :workspace_name, t('activerecord.attributes.google_chat_config.name') %>
+      </th>
+      <th id='google-chat-webhook_url' class="th-google-chat-webhook_url">
+        <%= t('activerecord.attributes.google_chat_config.webhook_url') %>
+      </th>
+      <th id='google-chat-users' class="th-slack_config-users">
+        <%= t('activerecord.attributes.google_chat_config.accounts_users') %>
+      </th>
+      <th id='google-chat-btn'>
+        <%= render 'partials/c_btn', new_resource_path: new_google_chat_config_path, policy: policy(GoogleChatConfig) %>
+      </th>
+    </thead>
+    <tbody>
+      <%- google_chat_configs.each do |google_chat_config| %>
+      <tr>
+        <td headers='google-chat-space_name'>
+          <%= google_chat_config.workspace_name %>
+        </td>
+        <td headers='google-chat-webhook_url'>
+          <%= google_chat_config.url %>
+        </td>
+        <td headers='google-chat-users'>
+          <%- users = google_chat_config.accounts_users.map(&:user) %>
+          <details>
+            <summary>
+              <div class='badge badge-primary'><%= users.count %></div>
+            </summary>
+            <div class='d-flex flex-wrap'>
+            <%- users.each do |user| %>
+              <span class='badge halo-success' data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= user.email %>'><%= user.full_name %></span>
+            <% end %>
+            </div>
+          </details>
+        </td>
+        <td headers='google-chat-btn'>
+          <%= render 'partials/actions_btns', policy: policy(google_chat_config), resource: google_chat_config,
+              discardable: true, klazz: 'google_chat_config', headers: @headers %>
+        </td>
+      </tr>
+      <%- end %>
+    </tbody>
+  </table>
+</div>
+
+<%= pagination %>

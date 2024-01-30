@@ -1,0 +1,27 @@
+<div class='table-responsive'>
+  <table class='table table-hover'>
+    <caption>Users</caption>
+    <thead>
+      <tr>
+        <th id='users-name'><%= t('labels.name') %></th>
+        <th id='users-group-contacts'><%= t('groups.contact') %></th>
+        <th id='users-group-staffs'><%= t('groups.staff') %></th>
+        <th id='users-mfa'>2FA</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%- User.all.order(full_name: :asc).each do |user| %>
+    <tr>
+      <td headers='users-name'><%= render partial: 'users/user_badge', locals: { user: user, indicators: false, gpg: false, link: true } %></td>
+      <td headers='users-group-contacts' class='group-btn-parent'>
+        <%= render 'groups/group_btn', group: Group.contact, user: user %>
+      </td>
+      <td headers='users-group-staffs' class='group-btn-parent'>
+        <%= render 'groups/group_btn', group: Group.staff, user: user %>
+      </td>
+      <td headers='users-mfa' class='mfa-btn-parent'><%= render 'groups/mfa_btn', target: user, no_count: true %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,6 @@
+<% content_for :table do %>
+  <%= pagination = paginate @assets %>
+    <%= render 'assets/list', assets: @assets, trashed: false %>
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

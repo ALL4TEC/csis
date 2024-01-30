@@ -1,0 +1,75 @@
+<header class="section-header">
+  <div class="container">
+    <div class="section-header__first-row d-flex align-items-center">
+      <div class="text-white section-header__hgroup d-flex align-items-center">
+        <% unless section_header.title.nil? %>
+          <h4 class="section-header__title mb-0" data-bs-toggle='tooltip' title='<%= section_header.subtitle %>'><%= section_header.title %></h4>
+        <% end %>
+        <% if section_header.help.present? %>
+        <a type='button' data-bs-toggle='collapse' data-bs-target='#sidebar' class="ms-1">
+          <i class='material-icons align-middle' aria-hidden='true'><%= Icons::MAT[:info] %></i>
+        </a>
+        <% end %>
+      </div>
+      <div class="section-header__actions ms-auto p-0 d-flex align-items-end">
+        <div class="btn-group" role="group">
+          <% section_header.actions.each do |action| %>
+            <%= link_to(action[:href], method: action[:method], data: action[:data], class: 'btn btn-secondary d-flex align-items-center') do %>
+              <%= render 'layouts/section-header_action', action: action %>
+            <% end %>
+          <% end %>
+          <% if section_header.other_actions.any? %>
+            <div class="btn-group" role="group">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="main-section-other-actions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= t('section_header.labels.other_actions') %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="main-section-other-actions">
+                <% section_header.other_actions.each do |action| %>
+                  <%= link_to(action[:href], method: action[:method], data: action[:data], class: 'bg-orange-l dropdown-item') do %>
+                    <%= render 'layouts/section-header_action', action: action %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%- if section_header.scopes.blank? && section_header.actions.present? && section_header.filter_btn %>
+            <%= render 'partials/filter_btn', kind: 'btn' %>
+          <% end %>
+        </div>
+        <%- if section_header.scopes.blank? && section_header.actions.blank? && section_header.filter_btn %>
+          <div class='ms-auto filter_btn_actions_wrapper'>
+            <div class='fixed-filter-btn'>
+              <div class='d-flex align-items-center justify-content-center'>
+                <%= render 'partials/filter_btn' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% if section_header.scopes.present? && current_user.display_submenu_direction_horizontal? %>
+    <div class="section-header__second-row d-flex align-items-end">
+      <nav class="section-header__scopes">
+        <ul class="nav nav-tabs">
+          <% section_header.scopes.each do |scope| %>
+            <li class="nav-item">
+              <% active_clazz = current_page?(scope[:href]) ? 'active' : '' %>
+              <% disabled_clazz = scope[:badge].present? && scope[:badge].zero? ? 'text-secondary' : '' %>
+              <%= render 'layouts/tab_item', active_clazz: active_clazz, disabled_clazz: disabled_clazz, scope: scope %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+      <%- if section_header.filter_btn %>
+      <div class='ms-auto'>
+        <div class='fixed-filter-btn'>
+          <div class='d-flex align-items-center justify-content-center'>
+            <%= render 'partials/filter_btn' %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</header>

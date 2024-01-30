@@ -1,0 +1,7 @@
+<%- attribute_text = @report.send(attribute) %>
+<%- translation_root ||= 'labels' %>
+<%- if attribute_text.present? %>
+  <%= render 'partials/card_bloc', title: t("#{translation_root}.#{attribute}") do %>
+    <%= attribute_text %>
+  <% end %>
+<% end %>

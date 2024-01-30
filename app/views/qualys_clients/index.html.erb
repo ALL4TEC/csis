@@ -1,0 +1,4 @@
+<% content_for :table do %>
+  <%= render 'qualys_clients/list', qualys_clients: @qualys_clients %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

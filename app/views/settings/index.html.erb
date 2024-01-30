@@ -1,0 +1,274 @@
+<div id='settings'>
+  <div class="d-flex justify-content-start">
+    <div class="p-2">
+      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#certificate" aria-expanded="false" aria-controls="certificate">
+        <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+        <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+      </button>
+    </div>
+    <div class="p-2">
+      <h4><%= t('settings.section_certificate') %></h4>
+    </div>
+  </div>
+  <div class="collapse" id="certificate">
+    <div class="d-flex flex-column ms-5 me-5">
+      <h6 class="mt-3"><%= t('settings.labels.bg_certificate') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start ms-5">
+          <%= image_tag(certificates_bg, size: Branding::SIZES[:certificate_bg], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:certificate_bg]}) %>
+          <div class="flex-row align-self-center ms-5">
+            <%= t('settings.labels.bg_certificate_mime') %>
+            <%= form_tag({ action: :upload_certificates_bg }, multipart: true) do %>
+              <div class="mt-5">
+                <%= file_field_tag 'background' %>
+              </div>
+              <div class="mt-5">
+                <%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %>
+              </div>
+            <% end %>
+            <% if Branding.singleton.certificate_bg.attached? %>
+            <div class="d-flex mt-3">
+              <%= render 'reset_form', field: 'background' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.wsc') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start align-items-center ms-5">
+          <% ['1x', '2x', 'full'].each do |field| %>
+            <div class="d-flex flex-column me-3">
+              <div class="d-flex justify-content-center"><%= field %></div>
+              <%= image_tag(wsc(field), size: Branding::SIZES[:wsc][field.to_sym][:displayed], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:wsc][field.to_sym][:expected]}) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-start ms-5 mt-3">
+          <%= form_tag({ action: :upload_wsc_thumbs }, multipart: true, class: 'd-flex justify-content-start align-items-center') do %>
+            <div class='me-3'><%= label :filename, :WSC %></div>
+            <div class='me-3'><%= select_tag :size, options_for_select(['1x', '2x', 'full']), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div class='me-3'><%= label :filename, :extension %></div>
+            <div><%= file_field_tag 'thumbnail' %></div>
+            <div class='me-5'><%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %></div>
+          <% end %>
+          <%= render 'reset_form', field: 'thumbnail' if Branding.singleton.any_uploaded_wsc? %>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.badges') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start align-items-center ms-5">
+          <% Statistic.blazons.each_key do |level| %>
+            <div class="d-flex flex-column me-3">
+              <div class="d-flex justify-content-center"><%= level %></div>
+              <%= image_tag(badge(level), size: Branding::SIZES[:badges], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:badges]}) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-start ms-5 mt-3">
+          <%= form_tag({ action: :upload_badges }, multipart: true, class: 'd-flex justify-content-start align-items-center') do %>
+            <div class='me-3'><%= label :filename, :badge %></div>
+            <div class='me-3'><%= select_tag :level, options_for_select(Statistic.blazons.keys), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div class='me-3'><%= label :filename, :extension %></div>
+            <div><%= file_field_tag 'badge' %></div>
+            <div class='me-5'><%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %></div>
+          <% end %>
+          <%= render 'reset_form', field: 'badge' if Branding.singleton.any_uploaded_badge? %>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.colors') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start align-items-center ms-5">
+          <% Certificate::CUSTOMIZABLE_FIELDS.each do |field| %>
+            <% if field.include? "text" %>
+              <div class="d-flex flex-column me-3">
+                <% color = Customization.get_value(field) || "Generators::CertificateGeneratorJob::#{field.upcase}".constantize %>
+                <%= color_field_tag :value, "##{color}", class: 'form-control btn-primary', disabled: true %>
+                <div class="d-flex justify-content-center mb-3"><%= field %></div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-start ms-5">
+          <%= form_tag({ action: :customize }, class: 'd-flex justify-content-start align-items-center') do %>
+            <%- @fields = Certificate::CUSTOMIZABLE_FIELDS.select{ |field| field.include? "text"} %>
+            <div class="me-3"><%= select_tag :key, options_for_select(@fields), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div class="me-3"><%= color_field_tag :value,"#000000", class: 'form-control btn-primary me-4' %></div>
+            <div class="me-5"><%= select_tag :do, options_for_select(%w[set reset]), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div><%= submit_tag(t('settings.buttons.color_update'), class: 'btn btn-outline-primary btn-block') %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.signatory') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start align-items-center ms-5">
+          <% Certificate::CUSTOMIZABLE_FIELDS.each do |field| %>
+            <% if field.include? "signatory" %>
+              <div class="d-flex flex-column me-3">
+                <% signatory = Customization.get_value(field) || I18n.t("certificate.pdf.#{field}") %>
+                <%= text_field_tag :value, "#{signatory}", class: 'form-control btn-primary', disabled: true %>
+                <div class="d-flex justify-content-center mb-3"><%= field %></div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-start ms-5">
+          <%= form_tag({ action: :customize }, class: 'd-flex justify-content-start align-items-center') do %>
+            <div class="me-3"><%= select_tag :key, options_for_select(Certificate::CUSTOMIZABLE_FIELDS.select{ |field| field.include? "signatory"}), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div class="me-3"><%= text_field_tag :value,"", class: 'form-control btn-primary me-4' %></div>
+            <div class="me-5"><%= select_tag :do, options_for_select(%w[set reset]), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div><%= submit_tag(t('settings.buttons.signatory_update'), class: 'btn btn-outline-primary btn-block') %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.update') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-center ms-5">
+          <%= link_to t('settings.buttons.update'), settings_stats_path, method: :put, class: 'btn btn-outline-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-start">
+    <div class="p-2">
+      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#reports" aria-expanded="false" aria-controls="reports">
+        <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+        <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+      </button>
+    </div>
+    <div class="p-2">
+      <h4><%= t('settings.section_reports') %></h4>
+    </div>
+  </div>
+  <div class="collapse" id="reports">
+    <div class="d-flex flex-column ms-5 me-5">
+      <h6 class="mt-3"><%= t('settings.labels.reports_logo') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start ms-5">
+          <%= image_tag(reports_logo, size: Branding::SIZES[:reports_logo], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:reports_logo]}) %>
+          <div class="flex-row align-self-center ms-5">
+            <%= t('settings.labels.reports_logo_mime') %>
+            <%= form_tag({ action: :upload_reports_logo }, multipart: true) do %>
+              <div class="mt-5">
+                <%= file_field_tag 'reports_logo' %>
+              </div>
+              <div class="mt-5">
+                <%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %>
+              </div>
+            <% end %>
+            <% if Branding.singleton.reports_logo.attached? %>
+            <div class="d-flex mt-3">
+              <%= render 'reset_form', field: 'reports_logo' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-start">
+    <div class="p-2">
+      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#mails" aria-expanded="false" aria-controls="mails">
+        <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+        <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+      </button>
+    </div>
+    <div class="p-2">
+      <h4><%= t('settings.section_mails') %></h4>
+    </div>
+  </div>
+  <div class="collapse" id="mails">
+    <div class="d-flex flex-column ms-5 me-5">
+      <h6 class="mt-3"><%= t('settings.labels.mails_logo') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start ms-5">
+          <%= image_tag(mails_logo, size: Branding::SIZES[:mails_logo], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:mails_logo]}) %>
+          <div class="flex-row align-self-center ms-5">
+            <%= t('settings.labels.mails_logo_mime') %>
+            <%= form_tag({ action: :upload_mails_logo }, multipart: true) do %>
+              <div class="mt-5">
+                <%= file_field_tag 'mails_logo' %>
+              </div>
+              <div class="mt-5">
+                <%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %>
+              </div>
+            <% end %>
+            <% if Branding.singleton.mails_logo %>
+            <div class="d-flex mt-3">
+              <%= render 'reset_form', field: 'logo' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="mt-3"><%= t('settings.labels.mails_webicons') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="d-flex justify-content-start align-items-center ms-5">
+          <% AssetsUtil::WEBICONS.keys.each do |social| %>
+            <div class="d-flex flex-column me-3">
+              <%- social_url = Branding.singleton.send("#{social}_url") %>
+              <%- social_url = social_url.blank? ? t('settings.social.no_url') : social_url %>
+              <div class="d-flex justify-content-center" data-bs-toggle='tooltip' data-bs-title='<%= social_url %>'><%= social %></div>
+              <%= image_tag(webicon(social), size: Branding::SIZES[:webicons], data: { 'bs-toggle': 'tooltip', 'bs-title': Branding::SIZES[:webicons]}) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-start ms-5 mt-3">
+          <%= form_tag({ action: :upload_mails_webicons }, multipart: true, class: 'd-flex justify-content-start align-items-center') do %>
+            <div class='me-3'><%= label :filename, :webicon %></div>
+            <div class='me-3'><%= select_tag :social, options_for_select(AssetsUtil::WEBICONS.keys), prompt: '?', class: 'form-control btn-primary' %></div>
+            <div class='me-3'><%= label :filename, :extension %></div>
+            <div><%= file_field_tag 'webicon' %></div>
+            <div class='me-3'><%= text_field_tag :social_url, "", class: 'form-control btn-primary me-4' %></div>
+            <div class='me-5'><%= submit_tag(t('settings.buttons.upload'), class: 'btn btn-outline-primary btn-block') %></div>
+          <% end %>
+          <%= render 'reset_form', field: 'webicon' if Branding.singleton.any_uploaded_webicon? %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-start">
+    <div class="p-2">
+      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#cyberwatch" aria-expanded="false" aria-controls="cyberwatch">
+        <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+        <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+      </button>
+    </div>
+    <div class="p-2">
+      <h4><%= t('settings.section_thresholds') %></h4>
+    </div>
+  </div>
+  <div class="collapse" id="thresholds">
+    <div class="d-flex flex-column ms-5 me-5">
+      <h6 class="mt-3"><%= t('settings.labels.severity') %></h6>
+      <div class="flex-column card rounded pt-5 pb-5">
+        <div class="justify-content-start ms-5">
+          <p><%= t("vulnerabilities.cvss_to_severity.description") %></p>
+        </div>
+        <div class="d-flex">
+          <%= form_tag({ action: :customize }, class: 'd-flex justify-content-start align-items-center me-2') do %>
+            <div class="d-flex justify-content-start ms-5">
+              <% ["low", "medium", "high", "critical"].each do |severity| %>
+                <div class="d-flex flex-column me-3">
+                  <%= text_field_tag "cvss_to_severity_#{severity}".to_sym, SeverityMapper.cvss_level(severity), class: 'form-control btn-primary' %>
+                  <div class="d-flex justify-content-center mb-3"><%= t("activerecord.attributes.aggregate/severity.#{severity}") %></div>
+                </div>
+              <% end %>
+              <div><%= submit_tag(t("settings.buttons.upload"), class: 'btn btn-outline-primary btn-block') %></div>
+            </div>
+          <% end %>
+          <%= render 'reset_form', field: 'cvss_to_severity' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

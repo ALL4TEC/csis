@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+account_team1:
+  account_id: <%= ActiveRecord::FixtureSet.identify(:qc_one, :uuid) %>
+  team_id: <%= ActiveRecord::FixtureSet.identify(:team_one, :uuid) %>
+
+account_teamone_cbw_one:
+  account_id: <%= ActiveRecord::FixtureSet.identify(:cbw_one, :uuid) %>
+  team_id: <%= ActiveRecord::FixtureSet.identify(:team_one, :uuid) %>
+
+account_teamone_cbw_two:
+  account_id: <%= ActiveRecord::FixtureSet.identify(:cbw_two, :uuid) %>
+  team_id: <%= ActiveRecord::FixtureSet.identify(:team_one, :uuid) %>

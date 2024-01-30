@@ -1,0 +1,48 @@
+<div id='<%= group_id %>-roles' class='m-2'>
+  <h5><span class='card-title bg-primary ps-2 pe-2 slider slide-in'><%= t('labels.roles') %></span></h5>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <caption>Group roles</caption>
+      <thead>
+        <tr>
+          <!-- <th>
+            <button class='btn btn-light btn-sm rounded-circle' data-bs-toggle="collapse" href="#<%= group_id%>-roles-details" role="button" aria-expanded="false" aria-controls="<%= group_id %>-roles-details">
+              <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+              <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+            </button>
+          </th> -->
+          <%- group.roles.order(priority: :desc).each do |role| %>
+          <th id='group-roles-<%= role.name %>' class='mfa-btn-parent'>
+            <div class='d-flex justify-content-between align-items-center align-content-stretch flex-wrap'>
+              <span><%= t("role.#{role.name}") %></span>
+              <%= render 'groups/mfa_btn', target: role %>
+            </div>
+          </th>
+          <% end %>
+        </tr>
+      </thead>
+      <!-- <tbody class='collapse' id='<%= group_id %>-roles-details'>
+        <%- [{name: 'Force_mfa', roles: [:super_admin]}, {name: 'unforce_mfa', roles: [:super_admin]}].each do |action| %>
+        <tr>
+          <td><%= action[:name] %></td>
+          <%- group.roles.order(priority: :desc).each do |role| %>
+            <%- if role.name.to_sym.in?(action[:roles]) %>
+            <td>
+              <div class='d-flex justify-content-end'>
+                <i aria-hidden='true' class='material-icons align-middle text-success'><%= Icons::MAT[:check] %></i>
+              </div>
+            </td>
+            <% else %>
+            <td>
+              <div class='d-flex justify-content-end'>
+                <i aria-hidden='true' class='material-icons align-middle text-danger'><%= Icons::MAT[:close] %></i>
+              </div>
+            </td>
+            <% end %>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody> -->
+    </table>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+client_one:
+  ref_identifier: SELLSY_0001
+  name: Client1
+  web_url: https://something.eu/
+  internal_type: client
+
+client_two:
+  ref_identifier: SELLSY_0002
+  name: MyCustomer
+  web_url: https://mycustomer.com
+  internal_type: client
+
+client_three:
+  ref_identifier: SELLSY_0003
+  name: MySupplier
+  web_url: https://mysupplier.com
+  internal_type: supplier
+
+client_four:
+  ref_identifier: SELLSY_0004
+  name: MySupplier2
+  internal_type: supplier
+
+client_five:
+  ref_identifier: SELLSY_0005
+  name: NO_WEB_URL
+  internal_type: client

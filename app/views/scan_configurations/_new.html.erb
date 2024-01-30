@@ -1,0 +1,11 @@
+<%- ScanConfiguration.scanners.select { |scanner| scanner.in?(Rails.application.config.scb_scanners) }.keys.each do |scanner| %>
+  <div class='card m-2'>
+    <div class='card-header bg-secondary d-flex align-items-center justify-content-start'>
+      <%= image_tag("logos/#{Icons::LOGOS[scanner.to_sym]}", class: "material-icons align-middle md-24 me-2", height: '24px') %>
+      <h5 class='m-0'><%= ScanConfiguration.human_attribute_name("scanner.#{scanner}") %></h5>
+    </div>
+    <div class='card-body'>
+      <%= render "#{scanner}" %>
+    </div>
+  </div>
+<% end %>

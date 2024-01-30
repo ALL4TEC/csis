@@ -1,0 +1,38 @@
+<% content_for :sidebar_content_opened do %>
+  <%= render 'partials/help_bloc', id: 'helpConfig', title: t('servicenow_configs.instance_config.title'), visibility: 'show' do %>
+    <%= render 'servicenow_configs/servicenow_instance_config' %>
+  <% end %>
+<% end %>
+<% content_for :content do %>
+  <%= simple_form_for(servicenow_config, html: { class: 'w-100' }) do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :name %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :url %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :api_key, as: :password, label: t('activerecord.attributes.servicenow_config.client_id') %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :secret_key, as: :password, label: t('activerecord.attributes.servicenow_config.client_secret') %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :fixed_vuln %>
+        <% end %>
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.input :accepted_risk %>
+        <% end %>
+      </div>
+      <div class="col">
+        <%= render 'partials/square_card_input_wrapper' do %>
+          <%= f.association :suppliers, collection: Client.all.order('name ASC'), as: :check_boxes %>
+        <% end %>
+      </div>
+    </div>
+    <%= ui_fixed_form_footer f %>
+  <% end %>
+<% end %>
+<%= render template: 'layouts/_sidebar', locals: { direction: :rtl, no_btn: true, hidden: true } %>

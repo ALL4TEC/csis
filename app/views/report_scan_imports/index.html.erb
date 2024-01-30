@@ -1,0 +1,16 @@
+<% content_for :table do %>
+  <%= pagination = paginate @scan_imports %>
+
+  <% ScanImport.import_type_without_accounts.keys.each do |import_type| %>
+    <%- imports = @scan_imports.send("#{import_type}_import_type") %>
+    <%= render layout: 'layouts/header_collapse', locals: { id: import_type, header: t("labels.#{import_type}"), count: imports.count } do %>
+      <%= render 'report_scan_imports/list', imports: imports, import_type: import_type %>
+    <% end %>
+  <% end %>
+
+  <%= pagination %>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>
+
+
+

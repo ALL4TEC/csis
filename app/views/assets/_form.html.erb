@@ -1,0 +1,27 @@
+<%= simple_form_for(asset) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+        <%= f.association :account, collection: policy_scope(CyberwatchConfig), as: :select, label: t('simple_form.labels.asset.account') %>
+        <%= f.input :category, collection: Asset.categories_select, as: :select, label: t('simple_form.labels.asset.category') %>
+        <%= f.input :description %>
+        <%= f.input :os %>
+      <% end %>
+    </div>
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :confidentiality, collection: Asset.confidentialities_select, as: :select, label: t('simple_form.labels.asset.confidentiality') %>
+        <%= f.input :integrity, collection: Asset.integrities_select, as: :select, label: t('simple_form.labels.asset.integrity') %>
+        <%= f.input :availability, collection: Asset.availabilities_select, as: :select, label: t('simple_form.labels.asset.availability') %>
+      <% end %>
+    </div>
+    <div class='col'>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.association :targets, as: :check_boxes, collection: policy_scope(Target), label: t('models.targets') %>
+        <%= f.association :projects, as: :check_boxes, collection: policy_scope(Project), label: t('models.projects') %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>

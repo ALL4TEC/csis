@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+action_plan_report_cats:
+  type: 'ActionPlanReport'         # A spécifier sinon prend la valeur par défaut
+  title: Action plan CATS
+  level: 3
+  scoring_vm: 20
+  scoring_wa: 145
+  edited_at: "2022-06-18T10:00:00.000Z"
+  staff: staffuser
+  project: project_two
+  language: en
+  purpose: 'testing'

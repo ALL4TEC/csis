@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13-alpine
+    container_name: db
+    environment:
+      - "POSTGRES_DB=csis_db_dev"
+      - "POSTGRES_PASSWORD=postgres"
+    # volumes:
+    #   - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  pgadmin:
+    container_name: pg_admin
+    image: dpage/pgadmin4:latest
+    ports:
+      - "8081:80"
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=something@somedomain.com"
+      - "PGADMIN_DEFAULT_PASSWORD=azerty123"

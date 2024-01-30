@@ -1,0 +1,9 @@
+<div class="btn-group dropup ms-1">
+  <button id='job_progress_btn' type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i aria-hidden='true' class='material-icons align-middle' title='<%= t('labels.jobs_in_progress') %>' data-bs-toggle='tooltip'><%= Icons::MAT[:subscriptions] %></i>
+    <span id="jobs_counter" class="d-none badge badge-primary badge-notify">1</span>
+  </button>
+  <div class="dropdown-menu bg-dark" id='running-jobs'>
+    <%= render 'jobs/light_list', jobs: current_user.subscribed_jobs.limit(5) %>
+  </div>
+</div>

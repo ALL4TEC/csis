@@ -1,0 +1,199 @@
+<%= javascript_packs_with_chunks_tag  'charts', nonce: true, 'data-turbo-track': 'reload' %>
+<%= javascript_packs_with_chunks_tag  'clip', nonce: true, 'data-turbo-track': 'reload' %>
+
+<div class="row">
+  <div class="col">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <caption>Statistics</caption>
+        <% if @projectstat != nil %>
+          <thead>
+            <tr>
+              <th id='statistics-score'><%= t('statistics.labels.score') %></th>
+              <th id='statistics-scans_reports_count'><%= t('statistics.labels.scan_reports_count') %></th>
+            <% if Rails.application.config.pentest_enabled %>
+              <th id='statistics-pentests_reports_count'><%= t('statistics.labels.pentest_reports_count') %></th>
+            <% end %>
+            <% if Rails.application.config.action_plan_enabled %>
+              <th id='statistics-action_plan_reports_count'><%= t('statistics.labels.action_plan_reports_count') %></th>
+            <% end %>
+              <th id='statistics-current_level'><%= t('labels.current_certification') %></th>
+              <th id='statistics-level_average'><%= t('statistics.labels.level_average') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='line-hover-<%= level_color(@projectstat.current_level) %>'>
+              <td headers='statistics-score'><%= @projectstat.score %></td>
+              <td headers='statistics-scan_reports_count'><%= @projectstat.scan_reports_count %></td>
+            <% if Rails.application.config.pentest_enabled %>
+              <td headers='statistics-pentest_reports_count'><%= @projectstat.pentest_reports_count %></td>
+            <% end %>
+            <% if Rails.application.config.action_plan_enabled %>
+              <td headers='statistics-action_plan_reports_count'><%= @projectstat.action_plan_reports_count %></td>
+            <% end %>
+              <td headers='statistics-current_level'>
+                <div class='bg-<%= level_color(@projectstat.current_level) %> d-flex justify-content-center rounded-2'>
+                <%= t("statistics.current_level.#{@projectstat.current_level}") %>
+                </div>
+              </td>
+              <% tmp = Statistic.current_levels.key(@projectstat.level_average) %>
+              <td headers='statistics-level_average'>
+                <div class='bg-<%= level_color(tmp) %> d-flex justify-content-center rounded-2'>
+                <%= t('statistics.current_level.' + tmp) %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        <% else %>
+          <%= t('statistics.sentences.no_stat') %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="row slider slide-in align-items-stretch">
+      <div class="col-4 ps-0 pe-0 mb-2">
+        <%= render 'card_bloc', bg_color: level_color(@projectstat.current_level), title: t('statistics.labels.scans_count') do %>
+          <%= pie_chart({
+                          t('statistics.labels.nof_excellent') => @projectstat.nof_excellent,
+                          t('statistics.labels.nof_very_good') => @projectstat.nof_very_good,
+                          t('statistics.labels.nof_good') => @projectstat.nof_good,
+                          t('statistics.labels.nof_satisfactory') => @projectstat.nof_satisfactory,
+                          t('statistics.labels.nof_in_progress') => @projectstat.nof_in_progress
+                        },
+                colors: severity_colors.reverse, download: true, donut: true) %>
+        <% end %>
+      </div>
+      <div class="col-4 pe-0 mb-2">
+        <%= render 'card_bloc', bg_color: level_color(@projectstat.current_level), title: t('statistics.labels.repartition_of_system_vulnerabilities') do %>
+          <% data = @repartition_of_system_vulnerabilities %>
+          <% colors = [] %>
+          <% data.each do |severity,_| %>
+            <% colors << severity_colors.reverse[Aggregate.severities[severity] - 1] %>
+          <% end %>
+          <%= pie_chart data.to_a.each { |e| e[0] = translate_severity(e[0]) },
+                download: true, messages: { empty: t('charts.no_data').to_s }, colors: colors, donut: true %>
+        <% end %>
+      </div>
+      <div class="col-4 pe-0 mb-1">
+        <%= render 'card_bloc', bg_color: level_color(@projectstat.current_level), title: t('statistics.labels.repartition_of_applicative_vulnerabilities') do %>
+          <% data = @repartition_of_applicative_vulnerabilities %>
+          <% colors = [] %>
+          <% data.each do |severity,_| %>
+            <% colors << severity_colors.reverse[Aggregate.severities[severity] - 1] %>
+          <% end %>
+          <%= pie_chart data.to_a.each { |e| e[0] = translate_severity(e[0]) },
+                download: true, messages: { empty: t('charts.no_data').to_s }, colors: colors, donut: true %>
+        <% end %>
+      </div>
+      <div class="col-6 ps-0 pe-0 mb-2">
+        <%= render 'card_bloc', bg_color: level_color(@projectstat.current_level), title: t('statistics.labels.scans_history') do %>
+          <div class='d-flex flex-column'>
+            <div class='d-flex justify-content-center'>
+            <% if !@project.vm_scans.empty? %>
+              <strong><%= t('statistics.sentences.last_scan_vm') %></strong>
+              <%= l(@project.vm_scans.first.launched_at, format: :full) %>
+            <% else %>
+              <strong><%= t('statistics.sentences.no_scan_vm') %></strong>
+            <% end %>
+              </div>
+              <div class='d-flex justify-content-center'>
+            <% if !@project.wa_scans.empty? %>
+              <strong><%= t('statistics.sentences.last_scan_wa') %></strong>
+              <%= l(@project.wa_scans.first.launched_at, format: :full) %>
+            <% else %>
+              <strong><%= t('statistics.sentences.no_scan_wa') %></strong>
+            <% end %>
+            </div>
+          </div>
+          <% chart_data = [{ name: t('reports.labels.vm_scans'), data: @project.reports.order(:edited_at).pluck(:edited_at, :scoring_vm) }, { name: t('reports.labels.wa_scans'), data: @project.reports.order(:edited_at).pluck(:edited_at, :scoring_wa) }] %>
+          <%= column_chart chart_data,
+                xtitle: t('charts.time').to_s, ytitle: t('charts.score').to_s, legend: 'bottom', tooltip: { valueSuffix: 'click(s)' }, download: true,
+                messages: { empty: t('charts.no_data').to_s }, colors: scan_type_colors %>
+        <% end %>
+      </div>
+      <div class="col pe-0 mb-2">
+        <%= render 'card_bloc', bg_color: level_color(@projectstat.current_level), title: t('models.certificate') do %>
+          <div class="d-flex flex-row">
+            <div class="d-flex flex-column w-100">
+              <div class="d-flex justify-content-center w-100">
+                <strong><%= t('statistics.blazon.yours') %></strong>
+              </div>
+              <div class="d-flex justify-content-center w-100" data-bs-toggle='tooltip' data-bs-placement='bottom' title='<%= t("labels.#{@projectstat.blazon}_badge") %>'>
+                <%= image_tag(badge(@projectstat.blazon, :stats), size: '100x100', class: 'scale-hover') %>
+              </div>
+            </div>
+          </div>
+          <%= simple_form_for(@certificate, url: update_certificate_project_statistics_path, method: :post) do |f| %>
+          <div class="d-flex flex-row justify-content-center w-100 mt-4">
+            <div class="d-flex flex-column w-100 align-items-center text-center">
+              <%= f.association(:languages, collection: Language.all, input_html: { class: 'd-flex justify-content-center' }, as: :check_boxes,
+                                            label: t('certificate.labels.language'), label_method: ->(lang) { t("languages.#{lang}") }) %>
+            </div>
+            <div class="d-flex flex-column w-100 align-items-center">
+              <h6 class="d-flex justify-content-center"><%= t('certificate.labels.current_transparency') %></h6>
+              <%= f.collection_radio_buttons(:transparency_level, Certificate.transparency_levels, :first, :first, input_html: { class: 'd-flex justify-content-center' }) do |b| %>
+                <%= b.radio_button %>
+                <i aria-hidden='true' class='material-icons md-24 i_rotate large left align-middle text-primary'><%= transparency_icon(b.value) %></i>
+                <%= b.label %>
+              <% end %>
+            </div>
+          </div>
+          <br>
+          <div class="d-flex flex-row justify-content-center w-100">
+            <button class="btn btn-outline-primary text-nowrap" type="submit"><%= t('certificate.labels.change_language') %></button>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if @certificate.certificates_languages.present? %>
+<div class="row slider slide-in">
+  <div class="form-group d-flex flex-column col">
+    <div class="d-flex flex-row justify-content-center">
+      <h4><%= t('certificate.labels.links') %></h4>
+      <a role="button" href="<%= BrandingsHelper::CERTIFICATES_LINK %>" class="btn btn-outline-primary ms-2" target="_blank" rel='noopener'>
+        <i aria-hidden='true' class="material-icons align-middle"><%= Icons::MAT[:help] %></i>
+        <%= t('certificate.sentences.help') %>
+      </a>
+    </div>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-hover" id='stats-certs-table'>
+        <caption>Certificates</caption>
+        <thead>
+          <tr>
+            <th id='certificates-language'><%= t('statistics.labels.language') %></th>
+            <th id='certificates-certificate'><%= t('models.certificate') %></th>
+            <th id='certificates-sync_link'><%= t('statistics.labels.sync_link') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @certificate.certificates_languages.each do |cl| %>
+            <tr>
+              <td headers='certificates-language'><%= t("languages.#{cl.language.iso}") %></td>
+              <td headers='certificates-certificate'>
+                <% if @certificate.path.present? %>
+                  <% url = File.join(ENV['ROOT_URL'], 'WSC', @certificate.project.fname('dir'), "#{@certificate.project.fname('file')}-#{cl.language.iso}.pdf") %>
+                  <%= link_to image_tag(wsc('1x', :stats), size: '100x50'), url, target: :_blank, rel: :noopener %>
+                <% else %>
+                  <%= t('statistics.labels.no_certificate') %>
+                <% end %>
+              </td>
+              <td headers='certificates-sync_link' class="d-flex">
+                <% id = "link-#{cl.language.iso}" %>
+                <%= text_area :content, :link, placeholder: t('certificate.labels.nolink'), value: cl.sync_link, class: 'form-control', id: id, readonly: true %>
+                <%= render partial: 'partials/clip', locals: {target_id: id} %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% end %>

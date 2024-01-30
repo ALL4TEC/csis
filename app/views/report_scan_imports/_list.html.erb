@@ -1,0 +1,78 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Report scan imports</caption>
+    <thead>
+      <tr>
+        <th id='report-imports-<%= import_type %>-created-at' class="th-import-created-at">
+          <%= sort_link(@q, :created_at, t('activerecord.attributes.report_scan_import.created_at')) %>
+        </th>
+        <th id='report-imports-<%= import_type %>-importer' class="th-import-importer">
+          <%= sort_link(@q, :importer, t('activerecord.attributes.report_scan_import.importer')) %>
+        </th>
+        <th id='report-imports-<%= import_type %>-scans'>Scans</th>
+        <th id='report-imports-<%= import_type %>-automation'><%= t('activerecord.attributes.report_scan_import.automation') %></th>
+        <th id='report-imports-<%= import_type %>-status' class="th-import-status">
+          <%= sort_link(@q, :status, t('activerecord.attributes.report_scan_import.status')) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% imports.each do |import| %>
+        <tr>
+          <td headers='report-imports-<%= import_type %>-created-at'><%= import.created_at.httpdate %></td>
+          <td headers='report-imports-<%= import_type %>-importer'><%= import.importer %></td>
+          <td headers='report-imports-<%= import_type %>-scans'>
+            <div class='d-flex flex-column w-100'>
+            <% import.vm_scans.each do |scan| %>
+              <%= render 'report_scan_imports/scan', scan: scan, kind: :system %>
+            <% end %>
+            <% import.wa_scans.each do |scan| %>
+              <%= render 'report_scan_imports/scan', scan: scan, kind: :applicative %>
+            <% end %>
+            </div>
+          </td>
+          <td headers='report-imports-<%= import_type %>-automation'>
+            <div class='d-flex flex-column'>
+              <span>
+                <%- data = bool_data(import.report_scan_import.auto_aggregate) %>
+                <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                <%= t('activerecord.attributes.report_scan_import.auto_aggregate') %>
+              </span>
+              <%- if import.report_scan_import.auto_aggregate? %>
+                <span>
+                  <%- data = bool_data(import.report_scan_import.auto_aggregate_mixing) %>
+                  <i class='material-icons align-middle text-<%= data[:color] %>' aria-hidden="true"><%= Icons::MAT[data[:icon]] %></i>
+                  <%= t('activerecord.attributes.report_scan_import.auto_aggregate_mixing') %>
+                </span>
+              <% end %>
+            </div>
+          </td>
+          <td headers='report-imports-<%= import_type %>-status'>
+            <div class='d-flex justify-content-between w-100'>
+            <%- if import.scheduled? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.report_scan_import/status.scheduled') %>
+              </button>
+            <%- elsif import.processing? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.report_scan_import/status.processing') %>
+              </button>
+            <%- elsif import.completed? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <i aria-hidden='true' class='material-icons align-middle'>check</i>
+              </button>
+            <%- elsif import.failed? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.report_scan_import/status.failed') %>
+              </button>
+            <% end %>
+            <%= link_to scan_import_path(import), method: :delete, data: { confirm: t('imports.actions.destroy_confirm', infos: l(import.created_at, format: :long)) }, class: 'btn btn-sm btn-outline-danger' do %>
+              <i aria-hidden='true' class='material-icons align-middle' title=<%= t('imports.actions.destroy') %> data-bs-toggle='tooltip'><%= Icons::MAT[:delete] %></i>
+            <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

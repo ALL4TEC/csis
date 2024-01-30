@@ -1,0 +1,72 @@
+<%- today = Time.zone.now %>
+<%- last_month = today.to_date << 1 %>
+<%- two_months_versions = PaperTrail::Version.partition_key_in(2.months.ago, today) %>
+<div class='d-flex align-items-start mt-2'>
+  <div class='w-25 d-flex m-1'>
+    <div class='card w-100'>
+      <div class='card-header bg-secondary text-white'>
+      <h4 class='m-0 card-title'><%= t('labels.groups') %></h4>
+      </div>
+      <div class='card-body'>
+        <%= render 'users/profile/groups', groups: @user.groups, label: 'my_groups', color: 'primary' %>
+        <%= render 'users/profile/groups', groups: Group.where.not(name: @user.groups.map(&:name)), label: 'other_groups', color: 'secondary' %>
+      </div>
+    </div>
+  </div>
+  <div class='w-25 d-flex flex-nowrap m-1'>
+    <div class='card w-100'>
+      <div class='card-header bg-secondary text-white'>
+        <h4 class='m-0 card-title'><%= t('labels.history') %></h4>
+      </div>
+      <div class='card-body'>
+        <div class='heatmap d-flex flex-column w-100 justify-content-between align-items-start flex-wrap p-2'>
+          <%- grouped_connections = two_months_versions.where(whodunnit: @user, event: 'connection').where(['created_at > ?', last_month]).order(created_at: :desc).to_a.group_by{ |trail| trail.created_at.to_date.day } %>
+          <%= render partial: 'heatmap_calendar', locals: { grouped_connections: grouped_connections, period: ((last_month + 1.day).day..last_month.end_of_month.day), title: l(last_month, format: '%Y/%m') } %>
+          <%= render partial: 'heatmap_calendar', locals: { grouped_connections: grouped_connections, period: ((last_month.end_of_month + 1.day).day..today.day), title: l(today, format: '%Y/%m') } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='w-50 d-flex flex-nowrap m-1'>
+    <div class='card w-100'>
+      <div class='card-header bg-secondary text-white'>
+        <h4 class='m-0 card-title'><%= t('labels.activity') %></h4>
+      </div>
+      <div class='card-body d-flex flex-column w-100 p-2'>
+        <div class='timeline'>
+        <% two_months_versions.where(whodunnit: @user).where(['created_at > ?', last_month]).where.not(event: 'connection').order(created_at: :desc).to_a.group_by{ |trail| trail.created_at.to_date }.each do |created_at, versions| %>
+          <%- id = "section-#{created_at}" %>
+          <div class='timeline-date d-flex align-items-center'>
+            <button class="btn btn-orange-l btn-sm p-0" type="button" data-bs-toggle="collapse" data-bs-target="#<%= id %>" aria-expanded="false" aria-controls="<%= id %>">
+              <span class="button_unfold_more"><i aria-hidden='true' class="material-icons align-middle fold"><%= Icons::MAT[:unfold] %></i></span>
+              <span class="button_unfold_less"><i aria-hidden='true' class="material-icons align-middle unfold"><%= Icons::MAT[:fold] %></i></span>
+            </button>
+            <span class='badge badge-grey-l rounded-pill text-orange-l ms-2'><%= l(created_at) %></span>
+          </div>
+          <div class='collapse' id='<%= id %>'>
+          <% versions.each do |version| %>
+            <%- previous_filtered_versions = [] %>
+            <%- data = filter_activity_version(version, previous_filtered_versions) %>
+            <%- if data.present? && data[:event].present? %>
+              <%- previous_filtered_versions << data %>
+              <div class='d-flex align-items-center w-100 timeline-section'>
+                <div class='badge badge-light rounded-pill timeline-badge'>
+                  <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[data[:icon]] %></i>
+                </div>
+                <div class='card ms-2 mt-1 p-2 w-100 timeline-entry'>
+                  <div class='d-flex'>
+                    <strong><%= @user.full_name %></strong>
+                    <span class='text-secondary ms-auto' data-bs-toggle='tooltip' title='<%= data[:date] %>'><%= t('ago', time: time_ago_in_words(data[:date])) %></span>
+                  </div>
+                  <span class='text-grey-l'><%= data[:event_s] %></span>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

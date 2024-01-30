@@ -1,0 +1,38 @@
+<%= pagination = paginate insight_app_sec_configs %>
+<div class="table-responsive">
+  <table class="table table-insight_app_sec_config table-hover">
+    <caption>InsightAppSec configurations</caption>
+    <thead>
+      <tr>
+        <th id='insight-app-sec_configs-name' class="th-insight_app_sec_config-name">
+          <%= sort_link @q, :name, t('activerecord.attributes.insight_app_sec_config.name') %>
+        </th>
+        <th id='insight-app-sec_configs-url' class="th-insight_app_sec_config-url">
+          <%= sort_link @q, :url, t('activerecord.attributes.insight_app_sec_config.url') %>
+        </th>
+        <th id='insight-app-sec_configs-teams' class="th-insight_app_sec_config-teams">
+          <%= sort_link @q, :teams_name, t('activerecord.attributes.insight_app_sec_config.teams') %>
+        </th>
+        <th id='insight-app-sec_configs-list-btn'><%= render 'partials/c_btn', new_resource_path: new_insight_app_sec_config_path, policy: policy(InsightAppSecConfig) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% insight_app_sec_configs.each do |insight_app_sec_config| %>
+        <tr>
+          <td headers='insight-app-sec_configs-name'>
+            <%= link_to(insight_app_sec_config.name, insight_app_sec_config, class: 'link-block') %>
+          </td>
+          <td headers='insight-app-sec_configs-url'>
+            <code>https://</code><%= insight_app_sec_config.url %>
+          </td>
+          <td headers='insight-app-sec_configs-teams'>
+            <% insight_app_sec_config.teams.each do |team| %>
+              <%= link_to(team.name, team, class: 'link-block') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= pagination %>

@@ -1,0 +1,62 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <caption>Vulnerabilities imports</caption>
+    <thead>
+      <tr>
+        <th id='vulnerabilities-imports-created-at'>
+          <%= sort_link(@q, :created_at, 'Creation') %>
+        </th>
+        <th id="vulnerabilities-imports-importer">
+          <%= sort_link(@q, :importer, t('activerecord.attributes.vulnerability_import.importer')) %>
+        </th>
+        <th id="vulnerabilities-imports-account">
+          <%= sort_link(@q, :account, t('activerecord.attributes.vulnerability_import.account')) %>
+        </th>
+        <th id="vulnerabilities-imports-status">
+          <%= sort_link(@q, :status) %>
+        </th>
+        <th id='vulnerabilities-imports-vulnerabilities'><%= t('models.vulnerabilities') %></th>
+        <th id='vulnerabilities-imports-btn'></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vulnerabilities_imports.each do |vulnerability_import| %>
+        <tr>
+          <td headers='vulnerabilities-imports-created-at'><%= vulnerability_import.created_at.httpdate %></td>
+          <td headers='vulnerabilities-imports-importer'><%= vulnerability_import.importer %></td>
+          <td headers='vulnerabilities-imports-account'>
+            <%- account = vulnerability_import.account %>
+            <%- if account.present? %>
+            <%= link_to account.to_s, send("#{account.type.underscore}_path", account) %>
+            <% end %>
+          </td>
+          <td headers='vulnerabilities-imports-status'>
+            <%- if vulnerability_import.scheduled? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.vulnerability_import/status.scheduled') %>
+              </button>
+            <%- elsif vulnerability_import.processing? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <%= t('activerecord.attributes.vulnerability_import/status.processing') %>
+              </button>
+            <%- elsif vulnerability_import.completed? %>
+              <button class="btn btn-sm btn-secondary" disabled>
+                <i aria-hidden='true' class='material-icons align-middle'>check</i>
+              </button>
+            <%- elsif vulnerability_import.failed? %>
+              <%= link_to t('activerecord.attributes.vulnerability_import/status.failed') %>
+            <% end %>
+          </td>
+          <td headers='vulnerabilities-imports-vulnerabilities'>
+            <% vulnerability_import.vulnerabilities.each do |vuln| %>
+              <%= vuln.title %>
+            <% end %>
+          </td>
+          <td headers='vulnerabilities-imports-btn'>
+            <%= link_to t('imports.actions.destroy'), "/imports/vulnerabilities/#{vulnerability_import.id}", method: :delete, data: { confirm: t('imports.actions.destroy_confirm', infos: l(vulnerability_import.created_at, format: :long)) }, class: 'btn btn-sm btn-outline-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

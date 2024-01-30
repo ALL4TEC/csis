@@ -1,0 +1,5 @@
+<% if @aggregate.kind.in? Aggregate.kinds.keys[2..3] %>
+  <%= render 'aggregates/form_pdf', aggregate: @aggregate, report: @aggregate.report, url: aggregate_path(@aggregate), method: :put %>
+<% else %>
+  <%= render 'aggregates/form', aggregate: @aggregate, report: @aggregate.report, url: aggregate_path(@aggregate), method: :put %>
+<% end %>

@@ -1,0 +1,20 @@
+<div class="btn-group bg-dark">
+  <% orange = request.env['PATH_INFO'].in?([settings_path, audit_logs_path]) ? 'text-primary' : '' %>
+  <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i aria-hidden='true' class="material-icons align-middle i_rotate <%= orange %>"><%= Icons::MAT[:settings] %></i>
+  </button>
+  <div class="dropdown-menu dropdown-menu-language m-0 p-0">
+    <%= link_to(settings_path, class: 'bg-dark dropdown-item') do %>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:custom] %></i>
+      <%= t('settings.section_title') %>
+    <% end %>
+    <%= link_to(audit_logs_path, class: 'bg-dark dropdown-item') do %>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:zoom_in] %></i>
+      <%= t('audit_logs.section_title') %>
+    <% end %>
+    <%= link_to(jobs_path, class: 'bg-dark dropdown-item') do %>
+      <i aria-hidden='true' class='material-icons align-middle'><%= Icons::MAT[:jobs] %></i>
+      <%= t('labels.jobs') %>
+    <% end %>
+  </div>
+</div>

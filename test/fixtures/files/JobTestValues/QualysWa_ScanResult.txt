@@ -1,0 +1,33 @@
+--- !ruby/object:QualysWa::ScanResult
+results:
+- !ruby/object:QualysWa::ScanTest
+  qid: '789135'
+  title: Protection against Clickjacking vulnerability
+  data: 'https://mysite.com/.'
+  param:
+  payload:
+  data:
+  uri:
+  content:
+- !ruby/object:QualysWa::ScanTest
+  qid: '316208'
+  title: Server Returned Unexpected Response Code
+  data: '204: https://yoursite.com/team'
+  payload:
+  data:
+  param:
+  uri:
+  content:
+- !ruby/object:QualysWa::ScanTest
+  qid: '6'
+  title: DNS Host Name
+  data: |
+    #table
+    IP_address Host_name
+
+    8.8.8.8 No_registered_hostname
+  param:
+  payload:
+  data:
+  uri:
+  content: 

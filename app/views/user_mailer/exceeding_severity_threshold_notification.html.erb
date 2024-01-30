@@ -1,0 +1,5 @@
+<p><%= I18n.t('mailer.content.hello') %> <%= @user.full_name %>,</p>
+<p><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.new_vulnerabilities') %></p>
+<p><%= I18n.t('mailer.content.notifications.exceeding_severity_threshold.report_link') %></p>
+<a style="color: #5E6B76;" href="<%= @url %>"><%= I18n.t('mailer.content.report') %></a><br>
+<p><%= I18n.t('mailer.content.polite') %></p>

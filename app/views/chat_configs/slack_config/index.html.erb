@@ -1,0 +1,8 @@
+<% content_for :table do %>
+  <div>
+  <%- @slack_applications.each do |slack_application| %>
+    <%= render 'chat_configs/slack_config/slack_applications/card', slack_application: slack_application %>
+  <% end %>
+  </div>
+<% end %>
+<%= render template: 'layouts/_table_with_filters' %>

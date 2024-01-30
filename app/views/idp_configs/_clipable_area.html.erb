@@ -1,0 +1,5 @@
+<div class='d-flex w-100 align-items-center form-group'>
+  <label class='form-label me-1' for='<%= id %>'><%= label %></label>
+  <textarea rows=1 id='<%= id %>' readonly='true' class='form-control w-100'><%= content %></textarea>
+  <span class='ms-auto'><%= render partial: 'partials/clip', locals: {target_id: id} %></span>
+</div>

@@ -1,0 +1,67 @@
+<%= javascript_packs_with_chunks_tag  'clip', nonce: true, 'data-turbo-track': 'reload' %>
+
+<%- list = idp_configs.is_a?(ActiveRecord::Relation) %>
+<div class="table-responsive">
+  <table class="table table-idp_config table-hover">
+    <caption>Idp configs</caption>
+    <thead>
+      <tr>
+        <th id='idp_configs-state'>
+          <%= t('activerecord.attributes.idp_config.state') %>
+        </th>
+        <th id='idp_configs-name' class="th-idp_config-name">
+          <%= sort_link_unless(@q.nil?, @q, :name) do %>
+            <%= t('activerecord.attributes.idp_config.name') %>
+          <% end %>
+        </th>
+        <th id='idp_configs-metadata' class="th-idp_config-idp_metadata">
+          <%= t('activerecord.attributes.idp_config.idp_metadata') %>
+        </th>
+        <th id='idp_configs-entity_id' class="th-idp_config-idp_entity_id">
+          <%= sort_link_unless(@q.nil?, @q, :idp_entity_id) do %>
+            <%= t('activerecord.attributes.idp_config.idp_entity_id') %>
+          <% end %>
+        </th>
+        <th id='idp_configs-sp_metadata' class="th-idp_config-sp_metadata">
+          <%= t('activerecord.attributes.idp_config.sp_data') %>
+        </th>
+        <% if list %>
+        <th id='idp_configs-btn'>
+          <%= render 'partials/c_btn', new_resource_path: new_idp_config_path, policy: policy(IdpConfig) %>
+        </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% idp_configs.each do |idp_config| %>
+        <tr>
+          <td headers='idp_configs-state'><%= render 'states', idp_config: idp_config, icon: Icons::MAT[:idp_configs] %></td>
+          <td headers='idp_configs-name'>
+            <%= link_to(idp_config.name, idp_config, class: 'link-block') %>
+          </td>
+          <td headers='idp_configs-metadata'>
+            <%= idp_config.idp_metadata_url %>
+            <%- if idp_config.idp_metadata_xml.attached? %>
+              <%= link_to(t('exports.actions.download'), rails_blob_path(idp_config.idp_metadata_xml), class: 'btn btn-sm btn-secondary', target: :_blank, rel: :noopener) %>
+            <% end %>
+          </td>
+          <td headers='idp_configs-entity_id'>
+            <%= idp_config.idp_entity_id %>
+          </td>
+          <td headers='idp_configs-sp_metadata'>
+            <div class='d-flex flex-column'>
+              <%= render 'idp_configs/clipable_area', id: "sp_metadata_#{idp_config.id}", label: 'Metadata Url', content: saml_metadata_url(idp_config.id) %>
+              <%= render 'idp_configs/clipable_area', id: "sp_acs_#{idp_config.id}", label: 'ACS Url', content: saml_consume_url(idp_config.id) %>
+              <%= render 'idp_configs/clipable_area', id: "sp_logout_#{idp_config.id}", label: 'Logout Url', content: saml_logout_url %>
+            </div>
+          </td>
+          <% if list %>
+            <td headers='idp_configs-btn'>
+              <%= render 'partials/actions_btns', policy: policy(idp_config), resource: idp_config, activable: true, recoverable: false, discardable: true, klazz: 'idp_config' %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

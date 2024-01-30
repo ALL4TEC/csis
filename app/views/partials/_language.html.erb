@@ -1,0 +1,5 @@
+<% if entity.language.present? %>
+  <%= image_tag("flags/4x3/#{entity.language.iso}.svg", class: 'flag') %>
+<% else %>
+  <%= entity.language %>
+<% end %>

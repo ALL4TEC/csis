@@ -1,0 +1,50 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%= simple_form_for(action) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, input_html: { name: 'act[name]' }, as: :search, wrapper_html: { class:'rounded-0 p-2 w-100' } %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <div class='d-flex align-items-center'>
+          <%= f.input :priority, collection: Action.priorities.keys, include_blank: false, input_html: { name: 'act[priority]' }, label_method: ->(priority) {t("activerecord.attributes.action/priority.#{priority}") }, wrapper_html: { class:' rounded-0 p-2 w-25' }%>
+          <%= f.input :due_date, as: :string, input_html: { name: 'act[due_date]', class: 'input-future_datepicker', 'data-container': '#actions_form_due_date',format: :long }, wrapper_html: { class:'rounded-0 p-2 w-25' } %>
+          <%= f.association :receiver, collection: @aggregate.potential_receivers, selected: action.receiver_id, input_html: { name: 'act[receiver_id]' }, wrapper_html: { class:'rounded-0 p-2 w-50' }, data: { reflex: "change->Action#change_receiver" } %>
+        </div>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper', clazz: 'w-100' do %>
+        <div class='d-flex align-items-center'>
+          <%= f.input :description, input_html: { name: 'act[description]' }, wrapper_html: { class:'rounded-0 p-2 w-75 h-50' } %>
+          <div class="w-25">
+            <div class="card">
+              <div class="card-header bg-secondary text-white p-0 rounded">
+                <a class="btn btn-secondary w-100" data-bs-toggle="collapse" href="#descriptionInfo" role="button" aria-expanded="false" aria-controls="descriptionInfo">
+                  <span class="card-title">
+                    <i aria-hidden='true' class="material-icons align-middle me-2"><%= Icons::MAT[:info] %></i><%= t('actions.labels.info') %>
+                  </span>
+                </a>
+              </div>
+              <div class="card-body collapse hide p-2" id="descriptionInfo">
+                <%= t('actions.labels.how_to') %>
+                <div class="d-flex flex-column">
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><strong>&lt;strong&gt;Important text&lt;/strong&gt;</strong></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><em>&lt;em&gt;Emphasized text&lt;/em&gt;</em></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><mark>&lt;mark&gt;Marked text&lt;/mark&gt;</mark></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><small>&lt;small&gt;Small text&lt;/small&gt;</small></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><del>&lt;del&gt;Deleted text&lt;/del&gt;</del></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><ins>&lt;ins&gt;Inserted text&lt;/ins&gt;</ins></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><sup>&lt;sup&gt;Superscript text&lt;/sup&gt;</sup></p>
+                  <p class="m-2 d-flex justify-content-center border bg-dark"><sub>&lt;sub&gt;Subscript text&lt;/sub&gt;</sub></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <!-- # TODO: ça serait bien de mettre ça en display: none, parce que actuellement ça prend 50px de hauteur et ça fait un gros trou moche -->
+      <%= f.input :aggregate, as: :hidden, input_html: { name: 'act[aggregate_ids][]', value: @aggregate.id } %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+<%= javascript_packs_with_chunks_tag  'date_picker', nonce: true, 'data-turbo-track': 'reload' %>

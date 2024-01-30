@@ -1,0 +1,10 @@
+
+  <% if @actions.count > 0 %>
+    <% content_for :filters do %>
+      <%= render 'actions/filters' %>
+    <% end %>
+    <%= render 'actions/list', actions: @actions, action_import: true  %>
+    <div class="form-group flex-row justify-content-center align-items-center" role="group">
+      <%= render 'actions/actions_buttons' %>
+    </div>
+  <% end %>

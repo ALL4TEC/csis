@@ -1,0 +1,8 @@
+<%- opened ||= false %>
+<fieldset class="form-group">
+  <legend class='d-none'><%= summary %><span class='badge badge-primary'><%= count %></span></legend>
+  <details <%= opened ? 'open' : '' %>>
+    <summary><%= summary %></summary>
+    <%= yield %>
+  </details>
+</fieldset>

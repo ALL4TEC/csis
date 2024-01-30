@@ -1,0 +1,27 @@
+<!-- Utilisation de l'option 'input_html' pour ne pas avoir de conflit avec params[:action] -->
+<%- slack_application ||= ChatApplication.new(type: 'SlackApplication') %>
+<%- data = slack_application.id.blank? ? { url: slack_applications_path, method: :post } : { url: slack_application_path(slack_application), method: :put } %>
+<div id='slackApplicationForm'>
+<%= simple_form_for(slack_application, url: data[:url], method: data[:method], as: :slack_application) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :name, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :app_id, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :client_id, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :client_secret, as: :search %>
+      <% end %>
+      <%= render 'partials/square_card_input_wrapper' do %>
+        <%= f.input :signing_secret, as: :search %>
+      <% end %>
+    </div>
+  </div>
+  <%= ui_fixed_form_footer f %>
+<% end %>
+

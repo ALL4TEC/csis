@@ -1,0 +1,7 @@
+<% if action[:icon] %>
+  <i aria-hidden='true' class="material-icons align-middle me-1"><%= action[:icon] %></i>
+<% elsif action[:logo].present? %>
+  <%= image_tag("logos/#{action[:logo]}", class: "material-icons align-middle md-24 me-1", height: '24px') %>
+<% end %>
+  
+<%= action[:label] %>
