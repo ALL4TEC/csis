@@ -258,12 +258,6 @@ Contrôles des accès en entrée et sortie des pods.
 
 > Whitelist IPs
 
-```html
-- N'autoriser que les IPs du bureau à accéder à kubelet, etc ...
-- Ajouter des groupes de sécu avec des règles de traffic.
-- Ajouter qqchose pour Lilian en télétravail ou Pierre en prez ?
-```
-
 ``` yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
